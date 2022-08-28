@@ -1,0 +1,22 @@
+.vi-scroll-bar {
+    background: #5e5e5e;
+    width: 0;
+    height: 40px;
+    position: absolute;
+    top: 4px;
+    right: 2px;
+    border-radius: 50px;
+    transition: opacity .3s,background .3s ,width .3s;
+    opacity: 0;
+    user-select: none;
+}
+
+.vi-scroll-bar:hover{
+    background: #0d93d6;
+}
+
+.vi-select-dropdown_wrapper:hover .vi-scroll-bar {
+    opacity: 1;
+    width: 6px;
+    cursor: pointer;
+}

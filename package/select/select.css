@@ -1,0 +1,146 @@
+:root {
+
+}
+
+body {
+    background: #a4a4a4;
+}
+
+.vi-select {
+    display: inline-block;
+    position: relative;
+    background: rgba(73, 73, 73, 100);
+    border-radius: 2px;
+    box-sizing: border-box;
+    transition: .2s;
+}
+
+.vi-select:hover {
+    /*background: rgba(120,120,120,100);*/
+    background: #507893;
+}
+
+.vi-select-active {
+    background: #49a3cb !important;
+}
+
+
+.vi-input {
+    /*background: #a13030;*/
+    line-height: 20px;
+    box-sizing: border-box;
+    /*width: 100%;*/
+    margin: 2px;
+    color: rgba(73, 73, 73, 100);
+}
+
+.vi-input_wrapper {
+    display: flex;
+    background: #a4a4a4;
+    padding: 0 8px;
+}
+
+.vi-input_inner input {
+    padding: 4px 0;
+    cursor: pointer;
+    border: none;
+    background: none;
+    outline: none;
+    width: initial;
+}
+
+
+.vi-input_prefix_inner {
+    height: 10px;
+    width: 10px;
+    transition: .3s;
+    margin-right: 4px;
+}
+
+.vi-input_suffix_inner {
+    height: 10px;
+    width: 10px;
+    transition: .3s;
+}
+
+.vi-input_suffix_inner_active {
+    transform: rotate(-180deg);
+}
+
+
+/**
+select-dropdown
+ */
+
+.vi-select-dropdown_wrapper {
+    --select-dropdown-bgcolor: #1d1e1f;
+    --select-dropdown-color: #c9cdd5;
+    --select-dropdown-item-hover-bgcolor: #262727;
+
+    position: relative;
+    margin-top: 10px;
+    transition: .05s cubic-bezier(0, 1.2, 1, .99);
+    width: 200px;
+}
+
+
+
+
+.vi-select-dropdown {
+    background-color: var(--select-dropdown-bgcolor);
+    color: var(--select-dropdown-color);
+    border-radius: 4px;
+    overflow: hidden;
+    height: 0px;
+}
+
+.vi-select-dropdown_active {
+    height: 150px;
+    transition: .2s cubic-bezier(.76, .32, 1, .99);
+}
+
+.vi-popper_arrow {
+    height: 0px;
+    width: 10px;
+    background-color: var(--select-dropdown-bgcolor);
+    transform: translate3d(-50%, 0, 0) rotate(45deg);
+    position: absolute;
+    left: 50%;
+    top: 0%;
+    margin-top: -5px;
+}
+
+.vi-popper_arrow_active {
+    height: 10px;
+}
+
+
+.vi-select-dropdown-ul_wrapper{
+    height: 136px;
+    overflow: scroll;
+    margin: 7px 0;
+}
+
+.vi-select-dropdown-ul_wrapper::-webkit-scrollbar {
+    display: none;
+}
+
+.vi-select-dropdown ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+
+
+.vi-select-dropdown-item {
+    padding: 0 20px;
+    height: 34px;
+    line-height: 34px;
+    transition: background-color .3s;
+}
+
+.vi-select-dropdown-item:hover {
+    background: var(--select-dropdown-item-hover-bgcolor);
+}
