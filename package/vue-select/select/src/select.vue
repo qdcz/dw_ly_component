@@ -1,54 +1,53 @@
 <template>
-    <div class="vi-select-wrapper" :data-id="data.uuid" style="mar: 20px;">
+    <div class="vi-select-wrapper" :data-id="data.uuid">
         <!--选择器-->
         <div class="vi-select" ref="vi_select" @click="onSelectClick">
-            <div class="vi-input" ref="vi_input">
-                <div class="vi-input_wrapper">
-                    <!-- <span class="vi-input_prefix">
-                        <img class="vi-input_prefix_inner"
-                            src="https://cdnforspeed.oss-cn-beijing.aliyuncs.com/Img/demo%20icon/search.png" />
-                    </span> -->
+            <div class="vi-input_wrapper" ref="vi_input">
+                <!-- 单选状态 -->
+                <template v-if="mode == 'single'">
+                    <input placeholder="请选择" class="vi-input" autocomplete="off" readonly v-model="curSelect.name"
+                        type="text">
+                    <span class="vi-input_suffix">
+                        <img class="vi-input_suffix_inner" ref="vi_arrowIcon" v-if="!curSelect"
+                            src="https://cdnforspeed.oss-cn-beijing.aliyuncs.com/Img/demo%20icon/arrow.png" />
+                        <svg class="vi-input_suffix_inner" ref="vi_arrowIcon" viewBox="0 0 1024 1024"
+                            xmlns="http://www.w3.org/2000/svg" @click.stop="onItemClose" v-else>
+                            <path fill="currentColor" d="M764.288 214.592 512 466.88 259.712 214.592a31.936 31.936 0 0 0-45.12 45.12L466.752 512 214.528 
+                                764.224a31.936 31.936 0 1 0 45.12 45.184L512 557.184l252.288 252.288a31.936 31.936 0 0 0 
+                                45.12-45.12L557.12 512.064l252.288-252.352a31.936 31.936 0 1 0-45.12-45.184z">
+                            </path>
+                        </svg>
+                        <!-- <img class="vi-input_suffix_inner" @click.stop="onItemClose" ref="vi_arrowIcon" v-else
+                            src="https://cdnforspeed.oss-cn-beijing.aliyuncs.com/Img/demo%20icon/close.png" /> -->
+                    </span>
+                </template>
 
-
-                    <!-- 单选状态 -->
-                    <template v-if="mode == 'single'">
-                        <input placeholder="请选择" class="vi-input" autocomplete="off" readonly v-model="curSelect.name"
-                            type="text">
-                        <!-- <input placeholder="请选择" class="input" autocomplete="off" readonly :value="curSelect.name" @input="$emit('input', $event.target.value)" type="text"> -->
-                        <span class="vi-input_suffix">
-                            <img class="vi-input_suffix_inner" ref="vi_arrowIcon" v-if="!curSelect"
-                                src="https://cdnforspeed.oss-cn-beijing.aliyuncs.com/Img/demo%20icon/arrow.png" />
-                            <img class="vi-input_suffix_inner" @click.stop="onItemClose" ref="vi_arrowIcon" v-else
-                                src="https://cdnforspeed.oss-cn-beijing.aliyuncs.com/Img/demo%20icon/close.png" />
-                        </span>
-                    </template>
-
-                    <!-- 多选状态 -->
-                    <template v-if="mode == 'mutilate'">
-                        <input v-if="curSelect && Array.isArray(curSelect) && curSelect.length <= 0" placeholder="请选择"
-                            class="vi-input" autocomplete="off" readonly type="text">
-                        <div class="vi-input-mutilate" v-else>
-                            <div class="vi-curSelected">
-                                <span>{{  curSelect[0].name  }}</span>
-                                <svg class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"
-                                    @click.stop="onItemClose">
-                                    <path fill="currentColor" d="M764.288 214.592 512 466.88 259.712 214.592a31.936 31.936 0 0 0-45.12 45.12L466.752 512 214.528 
+                <!-- 多选状态 -->
+                <template v-if="mode == 'mutilate'">
+                    <!-- <input v-if="curSelect && Array.isArray(curSelect) && curSelect.length <= 0" placeholder="请选择"
+                        class="vi-input" autocomplete="off" readonly type="text"> -->
+                    <input placeholder="请选择" class="vi-input" autocomplete="off" readonly type="text" />
+                    <div class="vi-input-mutilate" v-if="curSelect && Array.isArray(curSelect) && curSelect.length > 0">
+                        <div class="vi-curSelected">
+                            <div class="label">{{  curSelect[0].name  }}</div>
+                            <svg class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"
+                                @click.stop="onItemClose">
+                                <path fill="currentColor" d="M764.288 214.592 512 466.88 259.712 214.592a31.936 31.936 0 0 0-45.12 45.12L466.752 512 214.528 
                                         764.224a31.936 31.936 0 1 0 45.12 45.184L512 557.184l252.288 252.288a31.936 31.936 0 0 0 
                                         45.12-45.12L557.12 512.064l252.288-252.352a31.936 31.936 0 1 0-45.12-45.184z">
-                                    </path>
-                                </svg>
-                            </div>
-                            <div class="vi-curSelected number" v-if="curSelect.length > 1" @click.stop="onMutilateNumbe">
-                                <span>+{{  curSelect.length - 1  }}</span>
-                            </div>
+                                </path>
+                            </svg>
                         </div>
-                        <span class="vi-input_suffix">
-                            <img class="vi-input_suffix_inner" ref="vi_arrowIcon"
-                                src="https://cdnforspeed.oss-cn-beijing.aliyuncs.com/Img/demo%20icon/arrow.png" />
-                        </span>
-                    </template>
-
-                </div>
+                        <div class="vi-curSelected number" v-if="curSelect.length > 1"
+                            @mouseenter.stop="onMouseEnterMutilateNumbe" @mouseleave="onMouseLeaveMutilateNumbe">
+                            <span>+{{  curSelect.length - 1  }}</span>
+                        </div>
+                    </div>
+                    <span class="vi-input_suffix">
+                        <img class="vi-input_suffix_inner" ref="vi_arrowIcon"
+                            src="https://cdnforspeed.oss-cn-beijing.aliyuncs.com/Img/demo%20icon/arrow.png" />
+                    </span>
+                </template>
             </div>
         </div>
 
@@ -69,18 +68,24 @@
             <!--悬浮滚动条-->
             <scroll-bar ref="vi_scroll_bar"></scroll-bar>
         </div>
+
+        <popper v-if="mode == 'mutilate'" :show="data.mutilateNumberHover" :list="curSelect"
+            :pageX="data.mutilateNumberHoverX" :pageY="data.mutilateNumberHoverY" @deleteItem="onUpdatePopperDeleteTtem">
+            <div>666</div>
+        </popper>
     </div>
 </template>
 
 
 <script lang="ts">
 import { defineComponent, ref, reactive, nextTick, watch } from 'vue';
-import scrollBar from '../componet/scrollBar.jsx'
+import scrollBar from '../componet/scrollBar';
+import popper from '../componet/popper';
 
 export default defineComponent({
     name: 'VISelect',
     emits: ['click', 'update'],
-    components: { scrollBar },
+    components: { scrollBar, popper },
     props: {
         // 当前选中项目
         curSelect: {
@@ -97,6 +102,9 @@ export default defineComponent({
         const data = reactive({
             uuid: Math.random() * 100000000000000000,
             isShowDropDown: false,
+            mutilateNumberHover: false, // 多选模式下 +number 悬浮是否出现弹出层
+            mutilateNumberHoverX: 0, // 悬浮位置
+            mutilateNumberHoverY: 0, // 悬浮位置
             drowdownList: [
                 { name: "我是一个列表" + Math.random(), id: Math.random() },
                 { name: "我是一个列表" + Math.random(), id: Math.random() },
@@ -162,6 +170,8 @@ export default defineComponent({
         }
         document.addEventListener('click', documentClick);
 
+        document.addEventListener('mouseenter',(e)=>console.log(e))
+
         // 失去焦点
         const onBlur = () => {
             vi_select.value.classList.remove('vi-select-active');
@@ -178,7 +188,7 @@ export default defineComponent({
         }
 
         // 下拉列表单行点击事件
-        const onDrowDownItemClick = function (val: object) {
+        const onDrowDownItemClick = function (val: any) {
 
             if (props.mode == 'single') {
                 data.drowdownList.forEach(element => element['active'] = false);
@@ -222,9 +232,21 @@ export default defineComponent({
             }
         }
 
-        // 多选数字点击出现浮窗
-        const onMutilateNumbe = function(){
-            console.log("//TODO 出现popper")
+        // 多选模式下 数字按钮 鼠标悬浮出现弹出层
+        const onMouseEnterMutilateNumbe = function (e) {
+            console.log("//TODO 出现popper", e.clientX);
+            if (!data.isShowDropDown) {
+                data.mutilateNumberHover = true;
+                data.mutilateNumberHoverX = e.clientX;
+                data.mutilateNumberHoverY = e.clientY
+            }
+
+            // mutilateNumberHoverX
+        }
+
+        // 多选模式下 数字按钮 鼠标离开关闭弹出层
+        const onMouseLeaveMutilateNumbe = function () {
+            data.mutilateNumberHover = false
         }
 
         // 组件绑定v-model事件
@@ -234,6 +256,22 @@ export default defineComponent({
 
         const aaaaaaaa = function (e) {
 
+        }
+
+        const onUpdatePopperDeleteTtem = function (val) {
+            let { id } = val;
+            for (let i = 0; i < data.drowdownList.length; i++) {
+                let item = data.drowdownList[i];
+                if (item.id == id) {
+                    item['active'] = false
+                    break;
+                }
+            }
+            let sendData = data.drowdownList.filter(element => element['active'])
+            ctx.emit('update', sendData);
+            if (sendData.length <= 0) {
+                onBlur();
+            }
         }
 
 
@@ -273,8 +311,11 @@ export default defineComponent({
             onScroll_selectDropDownUl,
             onDrowDownItemClick,
             onItemClose,
-            onMutilateNumbe,
+            onMouseEnterMutilateNumbe,
+            onMouseLeaveMutilateNumbe,
             onInput,
+
+            onUpdatePopperDeleteTtem,
             aaaaaaaa,
         };
     },
