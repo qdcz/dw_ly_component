@@ -342,4 +342,15 @@
             }
         }
     }
+
+    .v-enter-active,
+    .v-leave-active {
+        transition: opacity .7s ;
+    }
+
+    .v-enter-from,
+    .v-leave-to {
+        transition: opacity .7s ;
+        opacity: 0;
+    }
 }
