@@ -1,0 +1,78 @@
+@use './common/config.scss' as *;
+
+.inline-flex-center {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.init-input {
+    outline: none;
+    border: none;
+    background-color: none;
+}
+
+
+.#{$namespace}-input {
+    @extend .inline-flex-center;
+    box-shadow: calc(var(--input-box-shadow-x)*1px) calc(var(--input-box-shadow-y)*1px) calc(var(--input-box-shadow-blur)*1px) calc(var(--input-box-shadow-spread)*1px) var(--input-box-shadow-color);
+    border-radius: calc(var(--input-border-radius) * 1px);
+    padding: calc(var(--input-line-padding-t)*1px) calc(var(--input-line-padding-r)*1px) calc(var(--input-line-padding-b)*1px) calc(var(--input-line-padding-l)*1px);
+    background-color: var(--input-bg-color);
+    transition: .5s;
+    cursor: pointer;
+    position: relative;
+
+    &:hover {
+        box-shadow: calc(var(--input-hover-box-shadow-x)*1px) calc(var(--input-hover-box-shadow-y)*1px) calc(var(--input-hover-box-shadow-blur)*1px) calc(var(--input-hover-box-shadow-spread)*1px) var(--input-hover-box-shadow-color);
+    }
+
+    &__inner {
+        @extend .init-input;
+        line-height: calc(var(--input-line-height) * 1px);
+        width: calc(var(--input-width) * 1px);
+        cursor: pointer;
+        color: var(--input-fo-color);
+        font-size: calc(var(--input-fo-size)*1px);
+        font-weight: var(--input-fo-weight);
+        background-color: initial;
+        text-align: var(--input-text-alight);
+
+        &::-webkit-input-placeholder {
+            color: var(--input-placeholder-fo-color);
+        }
+    }
+
+    // 激活状态
+    &.active {
+        box-shadow: calc(var(--input-active-box-shadow-x)*1px) calc(var(--input-active-box-shadow-y)*1px) calc(var(--input-active-box-shadow-blur)*1px) calc(var(--input-active-box-shadow-spread)*1px) var(--input-active-box-shadow-color);
+    }
+
+    // 禁用状态
+    &.disabled {
+        background-color: #f5f7fa;
+        cursor: no-drop;
+
+        .#{$namespace}-input__inner {
+            background-color: #f5f7fa;
+            cursor: no-drop;
+        }
+    }
+
+    & .icon {
+        position: absolute;
+        right: 10px;
+        transition: .3s;
+        color: var(--input-icon-color);
+
+        &:hover {
+            color: var(--input-icon-hover-color);
+        }
+    }
+}

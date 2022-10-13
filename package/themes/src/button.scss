@@ -1,0 +1,219 @@
+@use './common/config.scss' as *;
+@use './common/var.scss' as *;
+@use './common/common.scss' as *;
+@use './mixins/mixin.scss' as *;
+$button-default-color: var(--color-default);
+$button-primary-color: var(--color-primary);
+$button-danger-color: var(--color-danger);
+$button-success-color: var(--color-success);
+$button-warning-color: var(--color-warning);
+$button-info-color: var(--color-info);
+$button-disabled-color: var(--color-disabled);
+$button-disabled-text-color: var(--color-text-disabled);
+$button-border-radius: 8px;
+$button-mini-padding: 0 9px;
+$button-small-padding: 0 11px;
+$button-normal-padding: 0 15px;
+$button-large-padding: 0 22px;
+$button-round-padding: 6px;
+$button-mini-height: 20px;
+$button-small-height: 28px;
+$button-normal-height: 36px;
+$button-large-height: 44px;
+// 圆形
+$button-round-large: 60px;
+$button-round-normal: 50px;
+$button-round-small: 40px;
+$button-round-mini: 30px;
+$button-round-icon-precent: 0.6;
+// 圆形
+$button-triangle-large: 60px;
+$button-triangle-normal: 50px;
+$button-triangle-small: 40px;
+$button-triangle-mini: 30px;
+$button-triangle-icon-precent: 0.6;
+:root {
+	--button-default-color: #{$button-default-color};
+	--button-primary-color: #{$button-primary-color};
+	--button-danger-color: #{$button-danger-color};
+	--button-success-color: #{$button-success-color};
+	--button-warning-color: #{$button-warning-color};
+	--button-info-color: #{$button-info-color};
+	--button-disabled-color: #{$button-disabled-color};
+	--button-disabled-text-color: #{$button-disabled-text-color};
+	--button-border-radius: #{$button-border-radius};
+	--button-mini-padding: #{$button-mini-padding};
+	--button-small-padding: #{$button-small-padding};
+	--button-normal-padding: #{$button-normal-padding};
+	--button-large-padding: #{$button-large-padding};
+	--button-round-padding: #{$button-round-padding};
+	--button-mini-height: #{$button-mini-height};
+	--button-small-height: #{$button-small-height};
+	--button-normal-height: #{$button-normal-height};
+	--button-large-height: #{$button-large-height};
+}
+
+.#{$namespace}-button {
+	position: relative;
+	justify-content: center;
+	align-items: center;
+	outline: none;
+	border: none;
+	user-select: none;
+	padding: 3px 6px;
+	border-radius: var(--button-border-radius);
+	cursor: pointer;
+	font-family: inherit;
+	background: var(--system-theme-color);
+	white-space: nowrap;
+	line-height: 1;
+	overflow: hidden;
+	-webkit-user-select: none;
+	-moz-webkit-user-select: none;
+	-ms-user-select: none;
+	z-index: 0;
+	&-skin {
+		&-default {
+			color: var(--button-default-color);
+		}
+		&-primary {
+			color: var(--button-primary-color);
+		}
+		&-info {
+			color: var(--button-info-color);
+		}
+		&-success {
+			color: var(--button-success-color);
+		}
+		&-warning {
+			color: var(--button-warning-color);
+		}
+		&-danger {
+			color: var(--button-danger-color);
+		}
+		&-disabled {
+			background-color: var(--button-disabled-color);
+			color: var(--button-disabled-text-color);
+			cursor: not-allowed;
+			box-shadow: none !important;
+		}
+	}
+	&-block {
+		width: 100%;
+	}
+	&-text {
+		background-color: transparent;
+		box-shadow: none;
+		&:active {
+			box-shadow: none;
+		}
+		i {
+			margin-right: 3px;
+		}
+	}
+	&-text-default {
+		color: inherit;
+	}
+	&-text-primary {
+		color: var(--button-primary-color);
+	}
+	&-text-info {
+		color: var(--button-info-color);
+	}
+	&-text-success {
+		color: var(--button-success-color);
+	}
+	&-text-warning {
+		color: var(--button-warning-color);
+	}
+	&-text-danger {
+		color: var(--button-danger-color);
+	}
+	&-default {
+		i {
+			margin-right: 3px;
+		}
+		&-large {
+			height: var(--button-large-height);
+			padding: var(--button-large-padding);
+			font-size: var(--font-size-lg);
+			i {
+				font-size: var(--icon-size-lg);
+			}
+		}
+		&-normal {
+			height: var(--button-normal-height);
+			padding: var(--button-normal-padding);
+			font-size: var(--font-size-md);
+			border-radius: 7px;
+			i {
+				font-size: var(--font-size-md)-$icon-size-mins;
+			}
+		}
+		&-small {
+			height: var(--button-small-height);
+			padding: var(--button-small-padding);
+			font-size: var(--font-size-sm);
+			border-radius: 6px;
+			i {
+				font-size: var(--font-size-sm)-$icon-size-mins;
+			}
+		}
+		&-mini {
+			height: var(--button-mini-height);
+			padding: var(--button-mini-padding);
+			font-size: var(--font-size-xs);
+			border-radius: 5px;
+			i {
+				font-size: var(--font-size-xs)-$icon-size-mins;
+			}
+		}
+	}
+	&-round {
+		padding: var(--button-round-padding);
+		border-radius: 100%;
+		i {
+			margin-right: 0px !important;
+		}
+		&-large {
+			@include button-round-style($button-round-large, $button-round-icon-precent);
+		}
+		&-normal {
+			@include button-round-style($button-round-normal, $button-round-icon-precent);
+		}
+		&-small {
+			@include button-round-style($button-round-small, $button-round-icon-precent);
+		}
+		&-mini {
+			@include button-round-style($button-round-mini, $button-round-icon-precent);
+		}
+	}
+	&-triangle {
+		padding: var(--button-round-padding);
+		i {
+			margin-right: 0px !important;
+		}
+		&-large {
+			@include button-triangle-style($button-triangle-large, $button-triangle-icon-precent);
+		}
+		&-normal {
+			@include button-triangle-style($button-triangle-normal, $button-triangle-icon-precent);
+		}
+		&-small {
+			@include button-triangle-style($button-triangle-small, $button-triangle-icon-precent);
+		}
+		&-mini {
+			@include button-triangle-style($button-triangle-mini, $button-triangle-icon-precent);
+		}
+	}
+	&-outline {
+		border: thin solid currentColor;
+	}
+	&-hidden {
+		opacity: 0;
+	}
+	&-active {
+		border: 1px solid #ffd6c8;
+		box-shadow: -4px -4px 16px rgba(255, 255, 255, 0.25), 4px 4px 8px rgba(66, 83, 107, 0.09), inset 0px -4px 14px #ffffff, inset 0px 2px 6px rgba(66, 83, 107, 0.22);
+	}
+}

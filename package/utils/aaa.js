@@ -1,0 +1,1 @@
+export { isVNode } from 'vue';
