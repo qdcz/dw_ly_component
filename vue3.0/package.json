@@ -13,16 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@vitejs/plugin-vue": "^3.0.1",
-    "@vitejs/plugin-vue-jsx": "^2.0.0",
-    "any-touch": "^2.2.0",
-    "chalk": "^5.0.1",
-    "esbuild": "^0.14.50",
-    "node-sass": "^7.0.1",
-    "scss": "^0.2.4",
-    "vite": "^3.0.3",
-    "vite-plugin-dts": "^1.4.0",
-    "vue": "^3.2.37"
+    
   },
   "devDependencies": {
     "sass": "^1.54.8"
