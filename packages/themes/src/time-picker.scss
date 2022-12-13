@@ -1,0 +1,299 @@
+@use './common/config.scss' as *;
+
+// 引入外部组件的scss样式
+// @use './input.scss' as *;
+.inline-flex-center {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.init-input {
+    outline: none;
+    border: none;
+    background-color: none;
+}
+
+
+.#{$namespace}-timePickerInput {
+    @extend .inline-flex-center;
+    box-shadow: calc(var(--input-box-shadow-x)*1px) calc(var(--input-box-shadow-y)*1px) calc(var(--input-box-shadow-blur)*1px) calc(var(--input-box-shadow-spread)*1px) var(--input-box-shadow-color);
+    border-radius: calc(var(--input-border-radius) * 1px);
+    padding: calc(var(--input-line-padding-t)*1px) calc(var(--input-line-padding-r)*1px) calc(var(--input-line-padding-b)*1px) calc(var(--input-line-padding-l)*1px);
+    background-color: var(--input-bg-color);
+    transition: .5s;
+    cursor: pointer;
+    position: relative;
+
+    &:hover {
+        box-shadow: calc(var(--input-hover-box-shadow-x)*1px) calc(var(--input-hover-box-shadow-y)*1px) calc(var(--input-hover-box-shadow-blur)*1px) calc(var(--input-hover-box-shadow-spread)*1px) var(--input-hover-box-shadow-color);
+    }
+
+    &__inner {
+        @extend .init-input;
+        line-height: calc(var(--input-line-height) * 1px);
+        width: calc(var(--input-width) * 1px);
+        cursor: pointer;
+        color: var(--input-fo-color);
+        font-size: calc(var(--input-fo-size)*1px);
+        font-weight: var(--input-fo-weight);
+        background-color: initial;
+        text-align: var(--input-text-alight);
+
+        &::-webkit-input-placeholder {
+            color: var(--input-placeholder-fo-color);
+        }
+    }
+
+    // 激活状态
+    &.active {
+        box-shadow: calc(var(--input-active-box-shadow-x)*1px) calc(var(--input-active-box-shadow-y)*1px) calc(var(--input-active-box-shadow-blur)*1px) calc(var(--input-active-box-shadow-spread)*1px) var(--input-active-box-shadow-color);
+    }
+
+    // 禁用状态
+    &.disabled {
+        background-color: #f5f7fa;
+        cursor: no-drop;
+
+        .#{$namespace}-timePickerInput__inner {
+            background-color: #f5f7fa;
+            cursor: no-drop;
+        }
+    }
+
+    & .icon {
+        position: absolute;
+        right: 10px;
+        transition: .3s;
+        color: var(--input-icon-color);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+.#{$namespace}-time-picker {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+
+    & .time-panel {
+        display: flex;
+        flex-direction: column;
+        height: inherit;
+        box-sizing: border-box;
+        padding: calc(var(--popper-panel-padding-t)*1px) calc(var(--popper-panel-padding-r)*1px) calc(var(--popper-panel-padding-b)*1px) calc(var(--popper-panel-padding-l)*1px);
+
+
+        &__content {
+            height: calc(var(--popper-spinner-number-height)*6px);
+            display: flex;
+            position: relative;
+
+            &::before {
+                box-sizing: border-box;
+                content: "";
+                display: block;
+                position: absolute;
+                top: 50%;
+                left: 0;
+                right: 0;
+                height: calc(var(--popper-spinner-number-height) * 1px);
+                width: 100%;
+                margin-top: calc(var(--popper-spinner-number-height)/2 * -1px);
+                z-index: -1;
+                border-top: calc(var(--popper-spinner-pitch-box-border-top-width) * 1px) var(--popper-spinner-pitch-box-border-top-style) var(--popper-spinner-pitch-box-border-top-color);
+                border-bottom: calc(var(--popper-spinner-pitch-box-border-bottom-width) * 1px) var(--popper-spinner-pitch-box-border-bottom-style) var(--popper-spinner-pitch-box-border-bottom-color);
+            }
+
+            & .time-panel__spinner {
+                flex: 1;
+                overflow: hidden;
+                height: inherit;
+                user-select: none;
+
+                & ul {
+                    margin: 0;
+                    padding: 0;
+
+                    &::before {
+                        content: "";
+                        display: block;
+                        height: calc(var(--popper-spinner-number-height)*3px - var(--popper-spinner-number-height)/2 * 1px);
+                        width: 100%;
+                    }
+
+                    &::after {
+                        content: "";
+                        display: block;
+                        height: calc(var(--popper-spinner-number-height)*3px - var(--popper-spinner-number-height)/2 * 1px);
+                        width: 100%;
+                    }
+                }
+
+                & li {
+                    list-style-type: none;
+                    height: calc(var(--popper-spinner-number-height) * 1px);
+                    line-height: calc(var(--popper-spinner-number-height) * 1px);
+                    font-size: calc(var(--popper-spinner-number-fo-size) * 1px);
+                    color: var(--popper-spinner-number-fo-color);
+                    text-align: center;
+                    cursor: pointer;
+
+                    &:hover {
+                        background-color: var(--popper-spinner-number-hover-bg-color);
+                    }
+                }
+
+                & .active {
+                    font-weight: var(--popper-spinner-number-active-fo-weight);
+                    color: var(--popper-spinner-number-active-fo-color);
+                    cursor: auto;
+
+                    &:hover {
+                        background-color: var(--popper-spinner-number-active-hover-bg-color);
+                    }
+                }
+
+                & .disabled {
+                    color: var(--popper-spinner-number-disabled-fo-color);
+                    cursor: no-drop;
+
+                    &:hover {
+                        background-color: var(--popper-spinner-number-disabled-hover-bg-color);
+                    }
+                }
+            }
+
+        }
+
+        &__footer {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            font-size: calc(var(--popper-footer-fo-size) * 1px);
+            height: 100%;
+            cursor: pointer;
+            border-top: calc(var(--popper-footer-border-top-width)*1px) var(--popper-footer-border-top-style) var(--popper-footer-border-top-color);
+
+            &_cancel {
+                color: var(--popper-footer-cancel-fo-color);
+            }
+
+            &_ok {
+                padding: calc(var(--popper-footer-ok-padding-t)*1px) calc(var(--popper-footer-ok-padding-r)*1px) calc(var(--popper-footer-ok-padding-b)*1px) calc(var(--popper-footer-ok-padding-l)*1px);
+                margin: calc(var(--popper-footer-ok-margin-t)*1px) calc(var(--popper-footer-ok-margin-r)*1px) calc(var(--popper-footer-ok-margin-b)*1px) calc(var(--popper-footer-ok-margin-l)*1px);
+                font-weight: var(--popper-footer-ok-fo-weight);
+                color: var(--popper-footer-ok-fo-color);
+            }
+
+
+        }
+
+    }
+
+
+    // popper
+    .#{$namespace}-popper {
+        height: 0px;
+        width: 100%;
+        padding: 0;
+        transition: 0.2s cubic-bezier(0.76, 0.32, 1, 0.99);
+        z-index: var(--popper-z-index);
+        background-color: var(--popper-bg-color);
+        border-radius: calc(var(--popper-border-radius) * 1px);
+        position: absolute;
+
+
+
+        &__arrow {
+            height: 0px;
+            width: 0px;
+            transform: translate3d(-50%, 0, 0);
+            position: absolute;
+            left: 50%;
+            top: calc(var(--popper-arrow-height) * -2px);
+            border-bottom: calc(var(--popper-arrow-height) * 1px) solid transparent;
+
+        }
+
+        &__inner {
+            box-sizing: border-box;
+            overflow: hidden;
+            transition: height 0.2s cubic-bezier(0.76, 0.32, 1, 0.99);
+            height: 0px;
+        }
+
+
+        &.active {
+            height: calc(var(--popper-height)*1px);
+            box-shadow: calc(var(--popper-box-shadow-x)*1px) calc(var(--popper-box-shadow-y)*1px) calc(var(--popper-box-shadow-blur)*1px) calc(var(--popper-box-shadow-spread)*1px) var(--popper-box-shadow-color);
+            transition: 0.3s;
+
+            .#{$namespace}-popper__arrow {
+                transition: border-bottom .3s;
+                // height: calc(var(--popper-arrow-height) * 1px);
+                // width: calc(var(--popper-arrow-height) * 1px);
+                border-top: calc(var(--popper-arrow-height) * 1px) solid transparent;
+                border-left: calc(var(--popper-arrow-height) * 1px) solid transparent;
+                border-right: calc(var(--popper-arrow-height) * 1px) solid transparent;
+                border-bottom: calc(var(--popper-arrow-height) * 1px) solid var(--popper-bg-color);
+            }
+
+            .#{$namespace}-popper__inner {
+                height: calc(var(--popper-height)*1px);
+            }
+        }
+    }
+
+
+    // scroll-bar 
+    .#{$namespace}-scroll-bar {
+        position: relative;
+
+        &:hover {
+            .#{$namespace}-scroll-bar_right {
+                width: calc(var(--scroll-bar-thumb-width) * 1px);
+            }
+        }
+
+        &_left {
+            overflow: scroll;
+            height: inherit;
+
+            &::-webkit-scrollbar {
+                display: none;
+            }
+        }
+
+        &_right {
+            position: absolute;
+            right: 4px;
+            top: 0px;
+            width: 0px;
+            border-radius: 50px;
+            transition: background .5s, width .3s;
+            cursor: pointer;
+            background-color: var(--scrollBarBgColor);
+            height: calc(var(--scrollBarHeight) * 1px);
+
+            &:hover {
+                background-color: var(--scrollBarBgColorHover);
+            }
+        }
+    }
+}

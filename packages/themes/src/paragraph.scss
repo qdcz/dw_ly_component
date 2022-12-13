@@ -1,0 +1,190 @@
+@use './common/config.scss' as *;
+@use './common/common.scss' as *;
+
+.#{$namespace}-paragraph {
+	position: relative;
+	overflow: hidden;
+	transform: translateY(0);
+	color: var(--text-color);
+	font-size: calc(var(--text-size) * 1px);
+	font-family: var(--text-family);
+	font-weight: var(--text-weight);
+	text-indent: calc(var(--text-indent) * 1px);
+	letter-spacing: calc(var(--text-spacing) * 1px);
+	padding: calc(var(--padding-top) * 1px) calc(var(--padding-right) * 1px) calc(var(--padding-bottom) * 1px)
+		calc(var(--padding-left) * 1px);
+
+	&__wrapper {
+		width: 100%;
+		position: relative;
+	}
+
+	// 超出滚动
+	&--scroll {
+		overflow-x: hidden;
+		overflow-y: auto;
+		&::-webkit-scrollbar {
+			background: transparent !important;
+			width: calc(var(--overflow-scroll-size) * 1px);
+			&:horizontal {
+				height: calc(var(--overflow-scroll-size) * 1px);
+			}
+		}
+		&::-webkit-scrollbar-track,
+		&::-webkit-scrollbar-thumb {
+			border-radius: calc(var(--overflow-scroll-radius) * 1px);
+			border-color: transparent;
+			background: transparent;
+		}
+		&::-webkit-scrollbar-thumb {
+			transition: all 0.2s ease-in-out;
+			background: transparent;
+		}
+
+		&.is-hovering {
+			&::-webkit-scrollbar-thumb {
+				background: var(--overflow-scroll-bg);
+			}
+
+			&::-webkit-scrollbar-thumb:hover {
+				cursor: pointer;
+				background: var(--overflow-scroll-hover-bg);
+			}
+		}
+	}
+
+	// 背景
+	&--bg {
+		background-color: var(--bg-color);
+		border-radius: var(--bg-radius);
+	}
+	// 边框
+	&--border {
+		border-width: calc(var(--bg-border-t-size) * 1px) calc(var(--bg-border-r-size) * 1px)
+			calc(var(--bg-border-b-size) * 1px) calc(var(--bg-border-l-size) * 1px);
+		border-style: var(--bg-border-t-style) var(--bg-border-r-style) var(--bg-border-b-style) var(--bg-border-l-style);
+		border-color: var(--bg-border-t-color) var(--bg-border-r-color) var(--bg-border-b-color) var(--bg-border-l-color);
+	}
+	//渐变文本
+	&--gradient {
+		.#{$namespace}-paragraph__inner,
+		.#{$namespace}-paragraph__inner::after {
+			background-image: var(--text-gradient-color);
+			-webkit-text-fill-color: transparent;
+			-webkit-background-clip: text;
+			overflow: unset;
+			text-overflow: unset;
+			white-space: unset;
+			color: unset;
+		}
+	}
+
+	//文字阴影
+	&--shadow {
+		.#{$namespace}-paragraph__inner {
+			text-shadow: var(--text-shadow-value);
+		}
+	}
+
+	// 滚动
+	&--animation-marquee {
+		overflow: hidden;
+		.#{$namespace}-paragraph {
+			&__wrapper {
+				transform: translateY(0);
+				transition: transform 0s linear;
+			}
+			&__inner {
+				display: block;
+			}
+		}
+	}
+
+	// 切换动画
+	&--animation-switch {
+		.#{$namespace}-paragraph {
+			&__wrapper {
+				position: relative;
+			}
+			&__inner {
+				display: block;
+				&:nth-child(2) {
+					position: absolute;
+					left: 0;
+				}
+				&:nth-child(n) {
+					animation-duration: calc(var(--animation-switch-duration) * 1s);
+				}
+			}
+		}
+	}
+
+	//文本
+	&__inner {
+		line-height: calc(var(--text-lh) * 1px);
+		position: relative;
+		color: var(--text-color);
+		text-decoration: var(--text-decoration-line) var(--text-decoration-color) var(--text-decoration-style);
+		cursor: var(--cursor);
+		word-break: break-all;
+		// hover样式
+		&.is-show-hover {
+			&:hover,
+			&:hover::after {
+				color: var(--text-hover-color);
+				font-weight: var(--text-hover-weight);
+				text-decoration: var(--text-hover-decoration-line) var(--text-hover-decoration-color)
+					var(--text-hover-decoration-style);
+			}
+			&.gradient {
+				&:hover,
+				&:hover::after {
+					background-image: var(--text-hover-gradient-color);
+					-webkit-text-fill-color: transparent;
+					-webkit-background-clip: text;
+					overflow: unset;
+					text-overflow: unset;
+					white-space: unset;
+					color: unset;
+				}
+			}
+			&.shadow {
+				&:hover,
+				&:hover::after {
+					text-shadow: var(--text-hover-shadow-value);
+				}
+			}
+		}
+	}
+
+	// 文本切换中对应样式 FIXME: 当超出显示省略号时且文本在改变状态中 省略号会失效
+	&.is-changing {
+		.#{$namespace}-paragraph {
+			&__wrapper {
+				overflow: hidden;
+				height: 100%;
+			}
+			&__inner {
+				position: absolute;
+				left: 0;
+				width: 100%;
+			}
+		}
+	}
+
+	// 省略号
+	&--ellipsis {
+		.#{$namespace}-paragraph {
+			&__wrapper {
+				display: -webkit-box;
+				-webkit-box-orient: vertical;
+				-webkit-line-clamp: var(--overflow-ellipsis-column);
+				overflow: hidden;
+			}
+		}
+	}
+
+	a {
+		cursor: pointer;
+	}
+}

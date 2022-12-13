@@ -1,0 +1,89 @@
+@use './common/config.scss' as *;
+@use './common/var.scss' as *;
+@use './common/common.scss' as *;
+@use './mixins/mixin.scss' as *;
+$fontSizes: 10,
+12,
+14,
+16,
+18,
+20,
+22,
+24,
+26,
+28,
+30,
+32;
+.#{$namespace}-label {
+    position: relative;
+    user-select: none;
+    overflow: hidden;
+    -webkit-user-select: none;
+    -moz-webkit-user-select: none;
+    -ms-user-select: none;
+    z-index: 0;
+    min-height: 42px;
+    line-height: 1;
+    @each $fontSize in $fontSizes {
+        &-#{$fontSize} {
+            font-size: #{$fontSize + 'px'} !important;
+        }
+    }
+    &-text {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        line-height: 1;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        &.gradient {
+            background-image: linear-gradient(180deg, var(--color-default), var(--color-success));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+        }
+        &-left {
+            justify-content: flex-start;
+        }
+        &-center {
+            justify-content: center;
+        }
+        &-right {
+            justify-content: flex-end;
+        }
+    }
+    &-block {
+        div {
+            width: 100%;
+        }
+    }
+    &-bold {
+        font-weight: bold;
+    }
+    &.animiation {
+        .cur {
+            animation: go 1.2s 0s linear;
+            z-index: 9;
+        }
+    }
+    .new {
+        transform: translate(0px, 100%);
+        animation: run 1.2s 0s linear;
+        z-index: 9;
+    }
+}
+
+@keyframes run {
+    100% {
+        // opacity: 1;
+        transform: translate(0px, 0px);
+    }
+}
+
+@keyframes go {
+    100% {
+        opacity: 0;
+        transform: translate(0px, -100%);
+    }
+}

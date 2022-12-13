@@ -1,0 +1,88 @@
+@use './common/config.scss' as *;
+@use './common/var.scss' as *;
+@use './common/common.scss' as *;
+@use './mixins/mixin.scss' as *;
+
+$GapLineName: #{$namespace}-gap-line;
+
+.#{$GapLineName} {
+	width: 100%;
+	&__bars {
+		display: flex;
+		align-items: center;
+		width: 100%;
+		height: 100%;
+		margin-bottom: calc(var(--bars-space) * 1px);
+		&:last-child {
+			margin-bottom: 0px !important;
+		}
+		&_name {
+			width: calc(var(--text-width) * 1px);
+			// height: 20px;
+			margin-right: calc(var(--text-space) * 1px);
+			display: flex;
+			align-items: center;
+			white-space: nowrap;
+			justify-content: var(--text-align);
+			/* 让超出部分省略 */
+			overflow: hidden;
+			/* 超出部分使用省略号 */
+			text-overflow: ellipsis;
+			font-size: calc(var(--text-font-size) * 1px);
+			font-family: var(--text-font-family);
+			font-weight: var(--text-font-weight);
+			color: var(--text-font-color);
+		}
+		&_progress {
+			position: relative;
+			flex: 1;
+			height: calc(var(--bars-height) * 1px);
+			transform: skew(var(--skew));
+			border: solid calc(var(--bars-border-size) * 1px) var(--bars-border-color);
+			border-radius: calc(var(--bars-radius) * 1px);
+			box-sizing: content-box;
+			z-index: 0;
+			/* 进度层 */
+			.progress {
+				width: 0px;
+				height: 100%;
+				border-radius: calc(var(--bars-radius) * 1px);
+				background: linear-gradient(to right, var(--bars-color-from), var(--bars-color-to));
+				&.animation {
+					transition: width 0.5s linear;
+				}
+			}
+		}
+		&_progress::before,
+		&_progress::after {
+			content: '';
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			border-radius: calc(var(--bars-radius) * 1px);
+		}
+		/* 浅色背景层 */
+		&_progress::before {
+			z-index: -1;
+			background-color: var(--bars-bgColor);
+		}
+		/* 分割线层 */
+		&_progress::after {
+			z-index: 1;
+			background: linear-gradient(to right, transparent 80%, var(--bars-split-color) 80%) 0 0/5px 100% repeat-x;
+		}
+		&_num {
+			margin-left: calc(var(--num-space) * 1px);
+			display: flex;
+			align-items: center;
+			width: calc(var(--num-width) * 1px);
+			font-size: calc(var(--num-font-size) * 1px);
+			font-family: var(--num-font-family);
+			font-weight: var(--num-font-weight);
+			color: var(--num-font-color);
+			justify-content: var(--num-align);
+		}
+	}
+}

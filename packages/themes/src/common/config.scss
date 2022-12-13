@@ -1,0 +1,13 @@
+// 命名规范 BEM规范
+// BEM规范，即Block（块）Element（元素）Modifier（修饰器)，用来规范css命名
+
+/**
+
+命名约定模式如下：
+.block{}
+.block__element{}
+.block__element--modifier{}
+*/
+
+$namespace: 'vi'; // 修饰命名空间
+$modifier-separator: '-'; // 修饰类型的

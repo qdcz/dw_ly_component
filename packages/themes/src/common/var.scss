@@ -1,0 +1,68 @@
+@use 'sass:math';
+@use 'sass:map';
+@use './reset.scss' as *;
+@use './config.scss' as *;
+// 主题色
+$theme-color-default: #f1f5f9;
+// 文字
+$font-size-xs: 10px;
+$font-size-sm: 12px;
+$font-size-md: 14px;
+$font-size-lg: 16px;
+$font-size-10: 10px;
+$font-size-12: 12px;
+$font-size-13: 13px;
+$font-size-14: 14px;
+$font-size-16: 16px;
+$font-size-20: 20px;
+$font-size-24: 24px;
+$font-size-36: 36px;
+$font-size-48: 48px;
+$font-size-50: 50px;
+// 图标
+$icon-size-xs: 14px;
+$icon-size-sm: 18px;
+$icon-size-md: 20px;
+$icon-size-lg: 22px;
+$icon-size-mins: 1px;
+//颜色
+$color-white: #fff;
+$color-body: #fff;
+$color-text: #333;
+$color-default: #86909c;
+$color-primary: #3a7afe;
+$color-info: #00afef;
+$color-success: #00c48f;
+$color-warning: #ff9f00;
+$color-danger: #f44336;
+$color-disabled: #e0e0e0;
+$color-text-disabled: #aaa;
+// 阴影
+$shadow-color-default: #c9d9e8;
+$shadow-left-top-color: #c9d9e8;
+$shadow-right-bottom-color: #fff;
+:root {
+	--system-theme-color: #{$theme-color-default};
+	--shadow-color-default: #{$shadow-color-default};
+	--shadow-left-top-color: #{$shadow-left-top-color};
+	--shadow-right-bottom-color: #{$shadow-right-bottom-color};
+	--color-default: #{$color-default};
+	--color-white: #{$color-white};
+	--color-body: #{$color-body};
+	--color-text: #{$color-text};
+	--color-primary: #{$color-primary};
+	--color-info: #{$color-info};
+	--color-success: #{$color-success};
+	--color-warning: #{$color-warning};
+	--color-danger: #{$color-danger};
+	--color-disabled: #{$color-disabled};
+	--color-text-disabled: #{$color-text-disabled};
+	--font-size-xs: #{$font-size-xs};
+	--font-size-sm: #{$font-size-sm};
+	--font-size-md: #{$font-size-md};
+	--font-size-lg: #{$font-size-lg};
+	--icon-size-xs: #{$icon-size-xs};
+	--icon-size-sm: #{$icon-size-sm};
+	--icon-size-md: #{$icon-size-md};
+	--icon-size-lg: #{$icon-size-lg};
+}

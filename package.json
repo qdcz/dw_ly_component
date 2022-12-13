@@ -1,0 +1,51 @@
+{
+	"name": "dw-ui",
+	"version": "0.0.1",
+	"description": "dw前端组件库",
+	"type": "module",
+	"scripts": {
+		"dev": "pnpm -C example dev",
+		"build": "gulp -f build/gulpfile.ts",
+		"lint": "eslint . --ext .vue,.js,.ts,.jsx,.tsx --fix",
+		"commit": "git add . && git cz && git push",
+		"pack": "node ./pack.js component=time-picker packType=single",
+		"publish:lib": "npx gulp --require @esbuild-kit/cjs-loader -f ./build/gulpfile.ts publish --includes=vi-voice",
+		"publish:dataV": "npx gulp --require @esbuild-kit/cjs-loader -f ./build/gulpfile.ts publishDataV --includes=vi-voice"
+	},
+	"main": "dist/visix-ui/dist/index.full.min.mjs",
+	"files": [
+		"dist"
+	],
+	"keywords": [
+		"dw ui",
+		"dw frontend"
+	],
+	"author": "dw.ly",
+	"license": "ISC",
+	"devDependencies": {
+		"@dw/components": "workspace:^0.0.1",
+		"@dw/utils": "workspace:^0.0.1",
+		"@dw/directives": "workspace:^0.0.1",
+		"@dw/themes": "workspace:^0.0.1",
+		"@dw/tokens": "workspace:^0.0.1",
+		"vue": "^3.2.45"
+	},
+	"dependencies": {
+		"@types/jest": "^27.0.0",
+		"@types/lodash": "^4.14.184",
+		"@types/lodash-es": "^4.17.6",
+		"@types/node": "^18.11.9",
+		"@types/react": "^18.0.21",
+		"@vueuse/core": "^8.6.0"
+	},
+	"pnpm": {
+		"peerDependencyRules": {
+			"ignoreMissing": [
+				"vite",
+				"postcss",
+				"esbuild",
+				"@vue/compiler-sfc"
+			]
+		}
+	}
+}

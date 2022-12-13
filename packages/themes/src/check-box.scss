@@ -1,0 +1,111 @@
+@use './common/config.scss' as *;
+@use './common/var.scss' as *;
+@use './common/common.scss' as *;
+@use './mixins/mixin.scss' as *;
+
+$CheckBoxName: #{$namespace}-check-box;
+
+.#{$CheckBoxName} {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	cursor: pointer;
+	height: calc(var(--style-height) * 1px);
+	width: auto;
+	// 禁用
+	&-disabled {
+		cursor: not-allowed;
+		.#{$CheckBoxName}__input {
+			color: var(--text-font-color-disable) !important;
+			background-color: var(--checkbox-color-disable) !important;
+			border: var(--checkbox-border-disable) solid calc(var(--checkbox-border-size) * 1px) !important;
+			input {
+				cursor: not-allowed;
+			}
+		}
+		.#{$CheckBoxName}__label {
+			div.on,
+			div.no,
+			div.off,
+			&.active {
+				color: var(--text-font-color-disable) !important;
+			}
+		}
+	}
+	&__input {
+		width: calc(var(--checkbox-size) * 1px);
+		height: calc(var(--checkbox-size) * 1px);
+		border: var(--checkbox-border-color) solid calc(var(--checkbox-border-size) * 1px);
+		background-color: var(--checkbox-color-normal);
+		position: relative;
+
+		overflow: hidden;
+		transition: all 0.3s cubic-bezier(0.39, 0.575, 0.565, 1);
+		color: transparent;
+
+		input {
+			position: absolute;
+			opacity: 0;
+			width: 100%;
+			height: 100%;
+			cursor: pointer;
+			user-select: none;
+		}
+		&.radius {
+			border-radius: 100%;
+		}
+		&.active {
+			border: 1px solid var(--checkbox-color-active);
+			background-color: var(--checkbox-color-active);
+			transition: all 0.3s cubic-bezier(0.39, 0.575, 0.565, 1);
+			color: #fff;
+		}
+	}
+
+	&__label {
+		margin-left: calc(var(--style-space) * 1px);
+		height: 100%;
+		line-height: 100%;
+		overflow: hidden;
+		flex: 1;
+		font-size: calc(var(--text-font-size) * 1px);
+		font-family: var(--text-font-family);
+		font-weight: var(--text-font-weight);
+		color: var(--text-font-color-normal);
+		div {
+			height: 100%;
+			display: flex;
+			line-height: 100%;
+			align-items: center;
+			transition: transform 0.3s linear;
+			&.on {
+				color: var(--text-font-color-active);
+			}
+
+			white-space: var(--text-whiteSpace);
+		}
+		&.active {
+			div:not(.no) {
+				transform: translateY(-100%);
+			}
+			color: var(--text-font-color-active);
+		}
+		&.wrap {
+			div {
+				line-height: calc(var(--text-lineHeight) * 1px) !important;
+			}
+		}
+	}
+}
+.#{$CheckBoxName}-group {
+	.#{$CheckBoxName} {
+		margin: calc(var(--style-margin-t) * 1px) calc(var(--style-margin-r) * 1px) calc(var(--style-margin-b) * 1px)
+			calc(var(--style-margin-l) * 1px);
+	}
+	&.horizontal {
+		display: flex;
+		flex-wrap: wrap;
+	}
+	&.vertical {
+	}
+}

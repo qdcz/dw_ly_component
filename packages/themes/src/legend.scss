@@ -1,0 +1,241 @@
+@use './common/config.scss' as *;
+@use './common/var.scss' as *;
+@use './common/common.scss' as *;
+
+@mixin pinter {
+	cursor: pointer;
+}
+
+.#{$namespace}-legend {
+	position: relative;
+	font-family: var(--text-family);
+
+	&__wrapper {
+		overflow-x: var(--wrapper-overflow-x);
+		overflow-y: var(--wrapper-overflow-y);
+		// flex布局
+		&--flex {
+			display: flex;
+			flex-wrap: var(--layout-flex-flow);
+			justify-content: var(--layout-flex-justify);
+			flex-direction: var(--layout-flex-direction);
+
+			& li {
+				padding: calc(var(--layout-flex-grid-padding-top) * 1px) calc(var(--layout-flex-grid-padding-right) * 1px)
+					calc(var(--layout-flex-grid-padding-bottom) * 1px) calc(var(--layout-flex-grid-padding-left) * 1px);
+			}
+		}
+		// grid布局
+		&--grid {
+			display: grid;
+			grid-template-columns: var(--layout-grid-columns);
+			grid-template-rows: var(--layout-grid-rows);
+
+			& li {
+				padding: calc(var(--layout-grid-padding-top) * 1px) calc(var(--layout-grid-padding-right) * 1px)
+					calc(var(--layout-grid-padding-bottom) * 1px) calc(var(--layout-grid-padding-left) * 1px);
+			}
+		}
+
+		//block布局
+		&--block {
+			display: block;
+
+			& li {
+				display: var(--layout-block-display);
+				margin: calc(var(--layout-block-margin-top) * 1px) calc(var(--layout-block-margin-right) * 1px)
+					calc(var(--layout-block-margin-bottom) * 1px) calc(var(--layout-block-margin-left) * 1px);
+			}
+		}
+
+		//wrapper样式
+		&.is-show {
+			background-color: var(--wrapper-normal-bg);
+			border-radius: calc(var(--wrapper-normal-radius) * 1px);
+			border: calc(var(--wrapper-normal-border-size) * 1px) var(--wrapper-normal-border-style)
+				var(--wrapper-normal-border-color);
+
+			padding: calc(var(--wrapper-normal-padding-top) * 1px) calc(var(--wrapper-normal-padding-right) * 1px)
+				calc(var(--wrapper-normal-padding-bottom) * 1px) calc(var(--wrapper-normal-padding-left) * 1px);
+		}
+	}
+
+	&-item {
+		height: var(--item-height);
+		width: var(--item-width);
+
+		&.pointer {
+			@include pinter();
+		}
+
+		&__wrapper {
+			height: 100%;
+			position: relative;
+			flex-shrink: 0;
+			display: flex;
+			justify-content: flex-start;
+			align-items: center;
+
+			padding: calc(var(--item-padding-top) * 1px) calc(var(--item-padding-right) * 1px)
+				calc(var(--item-padding-bottom) * 1px) calc(var(--item-padding-left) * 1px);
+
+			border-radius: calc(var(--item-radius) * 1px);
+			border: calc(var(--item-border-size) * 1px) var(--item-border-style) var(--item-border-color);
+
+			transition: background 0.5s;
+
+			&.is-border {
+				border: calc(var(--item-border-size) * 1px) var(--item-border-style) var(--item-border-color);
+			}
+
+			// 背景为图片
+			&--image {
+				background: var(--item-bg-image) no-repeat center;
+				background-size: cover;
+				&.is-show-hover:hover {
+					background-image: var(--item-hover-bg-image);
+				}
+				&.is-active {
+					background-image: var(--item-active-bg-image);
+				}
+			}
+			// 背景为颜色
+			&--color {
+				background: var(--item-bg-color);
+				&.is-show-hover:hover {
+					background-color: var(--item-hover-bg-color);
+				}
+				&.is-active {
+					background-color: var(--item-active-bg-color);
+				}
+			}
+		}
+
+		&__content {
+			display: flex;
+			align-items: center;
+			overflow: hidden;
+			flex-direction: var(--item-content-direction);
+			margin: calc(var(--item-content-margin-top) * 1px) calc(var(--item-content-margin-right) * 1px)
+				calc(var(--item-content-margin-bottom) * 1px) calc(var(--item-content-margin-left) * 1px);
+
+			&.row {
+				.#{$namespace}-legend-item-icon {
+					width: calc(var(--icon-width) * 1px);
+				}
+			}
+			&.column {
+				flex-direction: column;
+				align-items: unset;
+				flex: 1;
+			}
+
+			&.pointer {
+				@include pinter();
+			}
+		}
+
+		&__text {
+			display: flex;
+			color: var(--text-color);
+			font-size: calc(var(--text-size) * 1px);
+			font-weight: var(--text-weight);
+			justify-content: var(--text-align-horizontal);
+			text-decoration: var(--text-decoration-line) var(--text-decoration-color) var(--text-decoration-style);
+			margin: calc(var(--text-margin-top) * 1px) calc(var(--text-margin-right) * 1px)
+				calc(var(--text-margin-bottom) * 1px) calc(var(--text-margin-left) * 1px);
+			transition: color 0.5s;
+		}
+
+		&:hover &__text.is-show-hover {
+			color: var(--text-hover-color);
+			font-weight: var(--text-hover-weight);
+			text-decoration: var(--text-hover-decoration-line) var(--text-hover-decoration-color);
+		}
+
+		&.active &__text {
+			color: var(--text-active-color);
+			font-weight: var(--text-active-weight);
+			text-decoration: var(--text-active-decoration-line) var(--text-active-decoration-color);
+		}
+
+		&__icon {
+			width: calc(var(--icon-width) * 1px);
+			height: calc(var(--icon-height) * 1px);
+			flex-shrink: 0;
+			display: flex;
+		}
+
+		&__img {
+			width: calc(var(--icon-width) * 1px);
+			height: 100%;
+			background-size: cover;
+			background-repeat: no-repeat;
+			transition: background-image 0.5s;
+		}
+
+		&__checkbox {
+			@include pinter();
+			align-items: center;
+			position: relative;
+			margin: calc(var(--checkbox-chk-margin-top) * 1px) calc(var(--checkbox-chk-margin-right) * 1px)
+				calc(var(--checkbox-chk-margin-bottom) * 1px) calc(var(--checkbox-chk-margin-left) * 1px);
+
+			&.is-checked > .#{$namespace}-legend-item__inner {
+				&:hover {
+					border-color: var(--checkbox-chk-active-border-color) !important;
+				}
+				border-color: var(--checkbox-chk-active-border-color) !important;
+				background-color: var(--checkbox-chk-active-bg) !important;
+
+				&::after {
+					transform: translate(-50%, -50%) rotate(calc(var(--checkbox-chk-inner-rotate) * 1deg)) scale(1);
+				}
+			}
+		}
+
+		&__inner,
+		&__input {
+			top: 0;
+			left: 0;
+		}
+
+		&__input {
+			position: absolute;
+			opacity: 0;
+			width: 100%;
+			height: 100%;
+			@include pinter();
+		}
+
+		&__inner {
+			position: relative;
+			overflow: hidden;
+			display: inline-block;
+			transition: border-color 0.2s ease-in-out, background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+
+			border: calc(var(--checkbox-chk-border-size) * 1px) solid var(--checkbox-chk-border-color);
+			width: calc(var(--checkbox-chk-width) * 1px);
+			height: calc(var(--checkbox-chk-height) * 1px);
+			background-color: var(--checkbox-chk-bg);
+
+			border-radius: calc(var(checkbox-chk-radius) * 1px);
+
+			&::after {
+				content: '';
+				width: var(--checkbox-chk-inner-width);
+				height: var(--checkbox-chk-inner-height);
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				border-radius: var(--checkbox-chk-inner-radius);
+				border: calc(var(--checkbox-chk-inner-border-size) * 1px) solid var(--checkbox-chk-inner-border-color);
+				border-top: 0;
+				border-left: 0;
+				transform: translate(-50%, -50%) rotate(calc(var(--checkbox-chk-inner-rotate) * 1deg)) scale(0);
+				transition: all 0.2s ease-in-out;
+				background-color: var(--checkbox-chk-inner-bg);
+			}
+		}
+	}
+}

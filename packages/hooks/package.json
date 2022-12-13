@@ -1,0 +1,12 @@
+{
+    "name": "@dw/hooks",
+    "version": "0.0.1",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "build": "gulp"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC"
+}

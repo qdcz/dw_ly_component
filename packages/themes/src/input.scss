@@ -1,0 +1,303 @@
+@use './common/config.scss' as *;
+@use './common/common.scss' as *;
+
+.#{$namespace} {
+	&-input,
+	&-textarea {
+		position: relative;
+		vertical-align: middle;
+
+		--transition-border: border-top 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
+			border-bottom 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), border-left 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
+			border-right 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+		--transition-duration: 0.3s;
+
+		color: var(--text-color);
+		font-size: calc(var(--text-size) * 1px);
+		font-family: var(--text-family);
+		font-weight: var(--text-weight);
+
+		&__inner {
+			width: 100%;
+			height: 100%;
+			box-sizing: border-box;
+			color: inherit;
+			font-size: inherit;
+			font-family: inherit;
+			font-weight: inherit;
+
+			text-indent: calc(var(--text-indent) * 1em);
+			text-align: var(--text-align);
+			line-height: calc(var(--text-height) * 1px);
+
+			&::placeholder {
+				color: var(--text-placeholder-color);
+			}
+		}
+
+		&.is-disabled {
+			* {
+				cursor: not-allowed;
+			}
+
+			.#{$namespace} {
+				&-input__wrapper,
+				&-textarea__inner {
+					background: var(--wrapper-disabled-bg);
+					color: var(--text-disabled-color);
+					box-shadow: 0 0 2px calc(var(--wrapper-border-size) * 1px) var(--wrapper-disabled-border-color) inset;
+					border-color: var(--wrapper-disabled-border-color);
+				}
+			}
+		}
+	}
+
+	&-input__wrapper,
+	&-textarea__inner {
+		height: 100%;
+		display: flex;
+		flex-grow: 1;
+		align-items: center;
+		justify-content: center;
+		background-image: none;
+		transition: var(--transition-border);
+		background-color: var(--wrapper-bg);
+		border-radius: calc(var(--wrapper-radius) * 1px);
+		padding-top: calc(var(--wrapper-padding-top) * 1px);
+		padding-right: calc(var(--wrapper-padding-right) * 1px);
+		padding-bottom: calc(var(--wrapper-padding-bottom) * 1px);
+		padding-left: calc(var(--wrapper-padding-left) * 1px);
+		&.is-border {
+			border-top: calc(var(--wrapper-border-top-size) * 1px) solid var(--wrapper-border-top-color);
+			border-bottom: calc(var(--wrapper-border-bottom-size) * 1px) solid var(--wrapper-border-bottom-color);
+			border-left: calc(var(--wrapper-border-left-size) * 1px) solid var(--wrapper-border-left-color);
+			border-right: calc(var(--wrapper-border-right-size) * 1px) solid var(--wrapper-border-right-color);
+		}
+
+		&.is-shadow {
+			box-shadow: 0 0 2px calc(var(--wrapper-shadow-size) * 1px) var(--wrapper-shadow-color);
+		}
+
+		&.is-hover-border {
+			&:hover {
+				border-top: calc(var(--wrapper-hover-border-top-size) * 1px) solid var(--wrapper-hover-border-top-color);
+				border-bottom: calc(var(--wrapper-hover-border-bottom-size) * 1px) solid
+					var(--wrapper-hover-border-bottom-color);
+				border-left: calc(var(--wrapper-hover-border-left-size) * 1px) solid var(--wrapper-hover-border-left-color);
+				border-right: calc(var(--wrapper-hover-border-right-size) * 1px) solid var(--wrapper-hover-border-right-color);
+			}
+		}
+		&.is-hover-shadow {
+			&:hover {
+				box-shadow: 0 0 2px calc(var(--wrapper-hover-shadow-size) * 1px) var(--wrapper-hover-shadow-color);
+			}
+		}
+
+		&.is-focus {
+			&.is-focus-border {
+				border-top: calc(var(--wrapper-focus-border-top-size) * 1px) solid var(--wrapper-focus-border-top-color);
+				border-bottom: calc(var(--wrapper-focus-border-bottom-size) * 1px) solid
+					var(--wrapper-focus-border-bottom-color);
+				border-left: calc(var(--wrapper-focus-border-left-size) * 1px) solid var(--wrapper-focus-border-left-color);
+				border-right: calc(var(--wrapper-focus-border-right-size) * 1px) solid var(--wrapper-focus-border-right-color);
+			}
+			&.is-focus-shadow {
+				box-shadow: 0 0 2px calc(var(--wrapper-focus-shadow-size) * 1px) var(--wrapper-hover-shadow-color);
+			}
+		}
+	}
+
+	// input
+	&-input {
+		&__inner {
+			flex-grow: 1;
+			padding: 0;
+			outline: none;
+			border: none;
+			background: none;
+		}
+		&__suffix,
+		&__prefix {
+			display: inline-flex;
+			white-space: nowrap;
+			flex-shrink: 0;
+			flex-wrap: nowrap;
+			height: 100%;
+			text-align: center;
+			transition: all var(--transition-duration);
+			pointer-events: none;
+			&-inner {
+				pointer-events: all;
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				.is-icon {
+					height: calc(100% - 2px);
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					transition: all var(--transition-duration);
+					margin-left: 8px;
+					span {
+						height: 100%;
+						vertical-align: middle;
+					}
+					svg {
+						vertical-align: middle;
+						height: 1em;
+						width: 1em;
+					}
+				}
+			}
+		}
+
+		&__prefix {
+			&-inner {
+				.is-icon {
+					margin-left: 0;
+					margin-right: 8px;
+				}
+			}
+		}
+
+		// append
+		&-group {
+			display: inline-flex;
+			width: 100%;
+			align-items: stretch;
+			&__append {
+				position: relative;
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				min-height: 100%;
+				white-space: nowrap;
+				padding: 0 calc(var(--append-padding) * 1px);
+				border-radius: calc(var(--wrapper-radius) * 1px);
+				border: calc(var(--wrapper-border-top-size) * 1px) solid var(--wrapper-border-top-color);
+				border-left: 0;
+				border-top-left-radius: 0;
+				border-bottom-left-radius: 0;
+				background: var(--append-bg);
+				cursor: pointer;
+				&:focus {
+					outline: none;
+				}
+
+				button {
+					position: relative;
+					display: inline-block;
+					margin: 0 -20px;
+					border-color: transparent;
+					background-color: transparent;
+					font-size: inherit;
+					font-family: inherit;
+					font-weight: inherit;
+					color: var(--append-text-color, inherit);
+					cursor: inherit;
+					line-height: 1;
+					text-align: center;
+					box-sizing: border-box;
+					outline: 0;
+					padding: 8px 15px;
+
+					&:hover {
+						border-color: transparent;
+						background-color: transparent;
+					}
+				}
+
+				// 点击效果
+				&::after {
+					content: '';
+					position: absolute;
+					inset: 0;
+					border-radius: inherit;
+					opacity: 0;
+					transition: all 0.4s;
+					box-shadow: 1px 1px 2px 1px var(--append-active-shadow-color) inset,
+						-1px -1px 2px 1px var(--append-active-shadow-color) inset;
+				}
+				transform: scale(1);
+
+				&.is-active {
+					transform: scale(var(--append-active-scale));
+					&::after {
+						opacity: 0.3;
+						transition: 0s;
+					}
+				}
+			}
+		}
+
+		&-group {
+			&--append {
+				.#{$namespace}-input__wrapper {
+					border-top-right-radius: 0;
+					border-bottom-right-radius: 0;
+				}
+			}
+		}
+
+		//clear password icon
+		&__clear,
+		&__password {
+			opacity: 0.7;
+			transition: opacity var(--transition-duration);
+
+			&:hover {
+				opacity: 1;
+				cursor: pointer;
+			}
+		}
+		&__icon {
+			height: 1em;
+			width: 1em;
+			line-height: 1em;
+			display: inline-flex;
+			justify-content: center;
+			align-items: center;
+			position: relative;
+			font-size: inherit;
+
+			span {
+				display: inline-block;
+				width: inherit;
+				height: inherit;
+				background-repeat: no-repeat;
+				background-repeat: no-repeat;
+				background-size: contain;
+				background-position: center;
+			}
+		}
+	}
+
+	// textarea
+	&-textarea {
+		&__inner {
+			&::-webkit-scrollbar {
+				background: transparent !important;
+				width: calc(var(--scrollbar-size) * 1px);
+				&:horizontal {
+					height: calc(var(--scrollbar-size) * 1px);
+				}
+			}
+			&::-webkit-scrollbar-track,
+			&::-webkit-scrollbar-thumb {
+				border-radius: calc(var(--scrollbar-radius) * 1px);
+				border-color: transparent;
+				background: transparent;
+			}
+			&::-webkit-scrollbar-thumb {
+				transition: all 0.2s ease-in-out;
+				background: var(--scrollbar-bg);
+			}
+			&:hover {
+				&::-webkit-scrollbar-thumb:hover {
+					cursor: pointer;
+					background: var(--scrollbar-hover-bg);
+				}
+			}
+		}
+	}
+}

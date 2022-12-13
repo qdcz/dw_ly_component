@@ -1,0 +1,13 @@
+@use './common/config.scss' as *;
+@use './common/var.scss' as *;
+@use './common/common.scss' as *;
+@use './mixins/mixin.scss' as *;
+
+.#{$namespace}-drag {
+	position: relative;
+	padding: 12px 0px;
+	overflow: hidden;
+	.toucher {
+		// min-width: 100%;
+	}
+}

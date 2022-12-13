@@ -1,0 +1,22 @@
+@use './common/config.scss' as *;
+
+.#{$namespace}-switch {
+	&-group {
+		overflow: hidden;
+		display: flex;
+		vertical-align: middle;
+		flex-flow: wrap;
+		padding: calc(var(--layout-padding-top) * 1px) calc(var(--layout-padding-right) * 1px)
+			calc(var(--layout-padding-bottom) * 1px) calc(var(--layout-padding-left) * 1px);
+		.#{$namespace}-switch:nth-child(n) {
+			margin: calc(var(--item-margin-top) * 1px) calc(var(--item-margin-right) * 1px)
+				calc(var(--item-margin-bottom) * 1px) calc(var(--item-margin-left) * 1px);
+		}
+		&--column {
+			flex-direction: column;
+		}
+		&--row {
+			flex-direction: row;
+		}
+	}
+}

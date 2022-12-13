@@ -1,0 +1,86 @@
+@use './common/config.scss' as *;
+@use './common/var.scss' as *;
+@use './common/common.scss' as *;
+@use './mixins/mixin.scss' as *;
+
+$TrendName: #{$namespace}-trend;
+
+.#{$TrendName} {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	overflow: hidden;
+
+	&__label {
+		margin-right: 5px;
+		display: flex;
+		align-items: center;
+		font-size: calc(var(--label-font-size) * 1px);
+		font-family: var(--label-font-family);
+		font-weight: var(--label-font-weight);
+		color: var(--label-font-color);
+	}
+	&__icon {
+		margin-right: calc(var(--icon-space) * 1px);
+		.arrow {
+			width: calc(var(--icon-size) * 1px);
+			height: calc(var(--icon-size) * 1px);
+		}
+		&.down {
+			color: var(--icon-level-down);
+			transform: rotate(180deg);
+			.arrow {
+				animation: #{$TrendName}_animation_down 1.2s infinite;
+			}
+		}
+		&.up {
+			color: var(--icon-level-up);
+			animation: #{$TrendName}_animation_up 1.2s infinite;
+		}
+		&.none {
+			color: var(--icon-level-none);
+			position: relative;
+			top: 2px;
+		}
+	}
+	&__num {
+		display: flex;
+		align-items: center;
+		font-size: 26px;
+		flex: 1;
+		// .num {
+		// 	font-family: 'DS-Digital';
+		// 	font-size: 32px;
+		// }
+	}
+}
+@keyframes #{$TrendName}_animation_up {
+	0% {
+		transform: translateY(5px);
+		opacity: 0;
+	}
+	50% {
+		transform: translateY(0px);
+		opacity: 1;
+	}
+
+	100% {
+		transform: translateY(-5px);
+		opacity: 0;
+	}
+}
+@keyframes #{$TrendName}_animation_down {
+	0% {
+		transform: translateY(5px);
+		opacity: 0;
+	}
+	50% {
+		transform: translateY(0px);
+		opacity: 1;
+	}
+
+	100% {
+		transform: translateY(-5px);
+		opacity: 0;
+	}
+}

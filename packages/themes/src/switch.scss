@@ -1,0 +1,178 @@
+@use './common/config.scss' as *;
+@use './common/common.scss' as *;
+
+.#{$namespace}-switch {
+	align-items: center;
+	position: relative;
+	vertical-align: middle;
+
+	// 默认宽高
+	line-height: 1;
+	height: 32px;
+	width: 40px;
+	--transition-duration: 0.5s;
+	--inner-width: calc(100% - var(--action-width) * 1px);
+	--offset: calc(var(--action-offset) * 1px);
+
+	// input, 隐藏
+	&__input {
+		cursor: pointer;
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		opacity: 0;
+		margin: 0;
+		padding: 0;
+		z-index: 1;
+	}
+
+	// 背景
+	&__core {
+		position: relative;
+		margin: 0;
+		width: 100%;
+		height: 100%;
+		outline: none;
+		border-radius: calc(var(--core-radius) * 1px);
+		cursor: pointer;
+		vertical-align: middle;
+		transition: border-color var(--transition-duration), background-color var(--transition-duration),
+			box-shadow background-color var(--transition-duration);
+		border: calc(var(--core-border-width) * 1px) solid var(--core-border-color);
+		background: var(--core-bg);
+
+		box-shadow: 0 0 0 0 rgb(61 138 195 / 0);
+	}
+
+	&__inner {
+		overflow: hidden;
+		position: absolute;
+		height: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		white-space: nowrap;
+		width: var(--inner-width);
+		margin-left: calc(var(--action-width) * 1px);
+		left: calc(50% * var(--inner-width));
+		transition: all var(--transition-duration);
+
+		text-align: var(--text-align);
+		font-weight: var(--text-weight);
+		font-family: var(--text-family);
+		font-size: calc(var(--text-size) * 1px);
+		.is-text {
+			user-select: none;
+			color: var(--text-color);
+		}
+	}
+
+	// 按钮部分
+	&__action {
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		left: var(--offset);
+		border-radius: calc(var(--action-radius) * 1px);
+		transition: all var(--transition-duration);
+		width: calc(var(--action-width) * 1px);
+		height: 90%;
+		background-color: var(--action-bg);
+		border: calc(var(--action-border-width) * 1px) solid rgba(0, 0, 0, 0.49);
+
+		.is-icon {
+			width: 90%;
+			height: 90%;
+			background-repeat: no-repeat;
+			background-position: center;
+			background-size: contain;
+			&.is-loading {
+				animation: rotating 2s linear infinite;
+				height: 1em;
+				width: 1em;
+				line-height: 1em;
+				display: inline-flex;
+				justify-content: center;
+				align-items: center;
+				position: relative;
+				fill: currentColor;
+				color: var(--core-active-bg);
+				font-size: inherit;
+				@keyframes rotating {
+					0% {
+						transform: rotate(0);
+					}
+
+					to {
+						transform: rotate(360deg);
+					}
+				}
+			}
+		}
+	}
+
+	&.is-focus {
+		.#{$namespace}-switch {
+			&__core {
+				box-shadow: 0 0 1px 1px var(--core-shadow-color);
+			}
+		}
+	}
+
+	// 激活
+	&.is-checked {
+		.#{$namespace}-switch {
+			&__core {
+				border-color: var(--core-active-border-color);
+				background-color: var(--core-active-bg);
+			}
+			&__inner {
+				margin-left: 0;
+				margin-right: calc(var(--action-width) * 1px + var(--offset));
+				.is-text {
+					color: var(--text-active-color);
+				}
+			}
+			&__action {
+				background-color: var(--action-active-bg);
+				left: calc(100% - calc(var(--action-width) * 1px) - var(--offset));
+				border-color: var(--action-active-border-color);
+			}
+		}
+	}
+
+	// 禁用
+	&.is-disabled {
+		.#{$namespace}-switch {
+			&__input {
+				cursor: not-allowed;
+				user-select: none;
+			}
+			&__core {
+				border-color: var(--core-disabled-border-color);
+				background-color: var(--core-disabled-bg);
+			}
+			&__inner {
+				.is-text {
+					color: var(--text-disabled-color);
+				}
+			}
+			&__action {
+				background-color: var(--action-disabled-bg);
+			}
+		}
+	}
+
+	&.is-outside {
+		overflow: initial;
+		.#{$namespace}-switch {
+			&__action {
+				height: calc(var(--action-width) * 1px);
+			}
+		}
+	}
+}

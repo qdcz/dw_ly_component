@@ -1,0 +1,195 @@
+@use './common/config.scss' as *;
+@use './common/common.scss' as *;
+
+.#{$namespace}-text {
+	position: relative;
+	overflow: hidden;
+	vertical-align: text-top;
+
+	color: var(--text-color);
+	font-size: calc(var(--text-size) * 1px);
+	font-family: var(--text-family);
+	font-weight: var(--text-weight);
+
+	display: inline-flex;
+
+	align-items: var(--text-align-vertical);
+	justify-content: var(--text-align-horizontal);
+
+	padding: calc(var(--padding-top) * 1px) calc(var(--padding-right) * 1px) calc(var(--padding-bottom) * 1px)
+		calc(var(--padding-left) * 1px);
+
+	&__wrapper {
+		white-space: nowrap;
+	}
+
+	&--ellipsis {
+		.#{$namespace}-text__wrapper {
+			overflow: hidden;
+			text-overflow: ellipsis;
+			color: currentColor;
+			color: var(--text-color);
+		}
+	}
+
+	// 背景
+	&--bg {
+		background-color: var(--bg-color);
+		border-radius: calc(var(--bg-radius) * 1px);
+	}
+	// 边框
+	&--border {
+		border-width: calc(var(--bg-border-t-size) * 1px) calc(var(--bg-border-r-size) * 1px)
+			calc(var(--bg-border-b-size) * 1px) calc(var(--bg-border-l-size) * 1px);
+		border-style: var(--bg-border-t-style) var(--bg-border-r-style) var(--bg-border-b-style) var(--bg-border-l-style);
+		border-color: var(--bg-border-t-color) var(--bg-border-r-color) var(--bg-border-b-color) var(--bg-border-l-color);
+	}
+	//渐变文本
+	&--gradient {
+		.#{$namespace}-text__inner,
+		.#{$namespace}-text__inner::after {
+			background-image: var(--text-gradient-color);
+			-webkit-text-fill-color: transparent;
+			-webkit-background-clip: text;
+			overflow: unset;
+			text-overflow: unset;
+			white-space: unset;
+			color: unset;
+		}
+	}
+
+	//文字阴影
+	&--shadow {
+		.#{$namespace}-text__inner {
+			text-shadow: var(--text-shadow-value);
+		}
+	}
+
+	// 跑马灯
+	&--marquee {
+		text-overflow: unset;
+		:first-child :first-child {
+			display: flex;
+			position: relative;
+			width: fit-content;
+
+			animation-duration: calc(var(--animation-marquee-duration) * 1s);
+			animation-timing-function: linear;
+			animation-iteration-count: infinite;
+
+			&::after {
+				content: attr(data-content);
+				position: absolute;
+			}
+
+			&:hover {
+				animation-play-state: paused;
+			}
+		}
+	}
+
+	//水平
+	&--horizontal {
+		&.#{$namespace}-text--marquee {
+			:first-child :first-child {
+				@keyframes move {
+					0% {
+						transform: translateX(0);
+					}
+					100% {
+						transform: translateX(calc(-100% - calc(var(--animation-marquee-offset) * 1px)));
+					}
+				}
+
+				animation-name: move;
+
+				&::after {
+					right: calc(-100% - calc(var(--animation-marquee-offset) * 1px));
+				}
+			}
+		}
+	}
+
+	// 垂直
+	&--vertical {
+		.#{$namespace}-text__inner {
+			writing-mode: vertical-lr;
+		}
+		&.#{$namespace}-text--marquee {
+			:first-child :first-child {
+				@keyframes move2 {
+					0% {
+						transform: translateY(0);
+					}
+					100% {
+						transform: translateY(calc(-100% - calc(var(--animation-marquee-offset) * 1px)));
+					}
+				}
+
+				animation-name: move2;
+
+				&::after {
+					bottom: calc(-100% - var(--animation-marquee-offset) * 1px);
+					right: unset;
+				}
+			}
+		}
+	}
+
+	//动画
+	&--animation {
+		:first-child :nth-child(n) {
+			animation-duration: calc(var(--animation-switch-duration) * 1s);
+		}
+	}
+
+	//文本
+	&__inner {
+		flex: 0 0 auto;
+
+		position: relative;
+		color: var(--text-color);
+		text-decoration: var(--text-decoration-line) var(--text-decoration-color) var(--text-decoration-style);
+
+		cursor: var(--cursor);
+
+		// hover样式
+		&.is-show-hover {
+			&:hover,
+			&:hover::after {
+				color: var(--text-hover-color);
+				font-size: calc(var(--text-hover-size) * 1px);
+				font-weight: var(--text-hover-weight);
+				text-decoration: var(--text-hover-decoration-line) var(--text-hover-decoration-color)
+					var(--text-hover-decoration-style);
+			}
+			&.gradient {
+				&:hover,
+				&:hover::after {
+					background-image: var(--text-hover-gradient-color);
+					-webkit-text-fill-color: transparent;
+					-webkit-background-clip: text;
+					overflow: unset;
+					text-overflow: unset;
+					white-space: unset;
+					color: unset;
+				}
+			}
+			&.shadow {
+				&:hover,
+				&:hover::after {
+					text-shadow: var(--text-hover-shadow-value);
+				}
+			}
+		}
+
+		&:nth-child(2) {
+			position: absolute;
+			right: -200%;
+		}
+	}
+
+	a {
+		cursor: pointer;
+	}
+}

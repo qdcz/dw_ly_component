@@ -1,0 +1,81 @@
+@use './common/config.scss' as *;
+@use './common/var.scss' as *;
+@use './common/common.scss' as *;
+@use './mixins/mixin.scss' as *;
+
+$ButtonName: #{$namespace}-button;
+
+.#{$ButtonName} {
+	position: relative;
+
+	padding: calc(var(--padding-t) * 1px) calc(var(--padding-r) * 1px) calc(var(--padding-b) * 1px)
+		calc(var(--padding-l) * 1px);
+	overflow: hidden;
+	font-size: calc(var(--font-normal-size) * 1px);
+	font-family: var(--font-normal-family);
+	font-weight: var(--font-normal-weight);
+	color: var(--font-normal-color);
+	cursor: pointer;
+	z-index: 0;
+	border: solid calc(var(--border-normal-size) * 1px) var(--border-normal-color);
+	border-radius: calc(var(--radius-tl) * 1px) calc(var(--radius-tr) * 1px) calc(var(--radius-br) * 1px)
+		calc(var(--radius-bl) * 1px);
+	background-color: var(--bg-normal-color);
+	background-image: var(--bg-normal-img);
+	background-size: 100% 100%;
+	text-shadow: calc(var(--font-normal-x) * 1px) calc(var(--font-normal-y) * 1px) calc(var(--font-normal-blur) * 1px)
+		var(--font-normal-shadowColor);
+	user-select: none;
+	transition: all 0.3s linear;
+	&-warper {
+		width: 100%;
+		height: 100%;
+		justify-content: flex-start;
+		align-items: center;
+		display: flex;
+	}
+	&-icon {
+		width: calc(var(--icon-w) * 1px);
+		height: calc(var(--icon-h) * 1px);
+		background-image: var(--icon-normal);
+		background-size: 100% 100%;
+		margin-right: calc(var(--icon-space) * 1px);
+	}
+	&.rivet {
+		width: calc(var(--size-w) * 1px);
+		height: calc(var(--size-h) * 1px);
+	}
+	&:hover {
+		border: solid calc(var(--border-hover-size) * 1px) var(--border-hover-color);
+		font-size: calc(var(--font-hover-size) * 1px);
+		font-family: var(--font-hover-family);
+		font-weight: var(--font-hover-weight);
+		color: var(--font-hover-color);
+		background-color: var(--bg-hover-color);
+		background-image: var(--bg-hover-img);
+		.#{$ButtonName}-icon {
+			background-image: var(--icon-hover);
+		}
+		text-shadow: calc(var(--font-hover-x) * 1px) calc(var(--font-hover-y) * 1px) calc(var(--font-hover-blur) * 1px)
+			var(--font-hover-shadowColor);
+	}
+	&-text {
+		flex: 1;
+		justify-content: var(--font-align);
+		display: flex;
+	}
+	&.active {
+		border: solid calc(var(--border-active-size) * 1px) var(--border-active-color);
+		font-size: calc(var(--font-active-size) * 1px);
+		font-family: var(--font-active-family);
+		font-weight: var(--font-active-weight);
+		color: var(--font-active-color);
+		background-color: var(--bg-active-color);
+		background-image: var(--bg-active-img);
+		.#{$ButtonName}-icon {
+			background-image: var(--icon-active);
+		}
+		text-shadow: calc(var(--font-active-x) * 1px) calc(var(--font-active-y) * 1px) calc(var(--font-active-blur) * 1px)
+			var(--font-active-shadowColor);
+	}
+}

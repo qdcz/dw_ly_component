@@ -1,0 +1,268 @@
+@use './common/config.scss' as *;
+@use './common/var.scss' as *;
+@use './common/common.scss' as *;
+@use './mixins/mixin.scss' as *;
+
+$TableName: #{$namespace}-table;
+// .vi-table__row.go {
+// 	animation: move 3.5s linear ;
+// 	background-color: #fc0000 !important;
+// }
+
+.#{$TableName} {
+	font-size: calc(var(--style-font-size) * 1px);
+	font-family: var(--style-font-family);
+	font-weight: var(--style-font-weight);
+	color: var(--style-font-color);
+	border: solid calc(var(--style-border-size) * 1px) var(--style-border-color);
+	width: calc(var(--style-container-w) * 1px);
+	height: calc(var(--style-container-h) * 1px);
+	overflow: hidden;
+	.cell {
+		padding: calc(var(--style-cell-padding-t) * 1px) calc(var(--style-cell-padding-r) * 1px)
+			calc(var(--style-cell-padding-b) * 1px) calc(var(--style-cell-padding-l) * 1px);
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		&:last-child {
+			flex: 1;
+			flex-grow: 1;
+			border-right: none !important;
+		}
+		&.center {
+			justify-content: center;
+		}
+		&.flex-start {
+			justify-content: flex-start;
+		}
+		&.flex-end {
+			justify-content: flex-end;
+		}
+	}
+	&.rowAnimation {
+		.#{$TableName}__row {
+			animation: rowAnimation 0.3s linear;
+		}
+	}
+	// 行设置
+	&__row {
+		display: flex;
+		width: 100%;
+		height: calc(var(--style-row-height) * 1px);
+		position: relative;
+		z-index: 0;
+
+		&::after {
+			content: '';
+			position: absolute;
+			top: 0px;
+			left: 0px;
+			width: 100%;
+			height: 0%;
+			opacity: 0;
+			background-color: var(--style-row-hover-bg);
+			z-index: -1;
+		}
+		&:not(.noHover):hover {
+			border-bottom: solid 1px var(--style-row-hover-bg) !important;
+			transition: all 0.5s 0.3s linear;
+			color: var(--style-row-hover-color);
+			._title {
+				color: var(--style-row-hover-color) !important;
+				transition: all 0.5s 0.3s linear;
+			}
+			&::after {
+				height: 100%;
+				opacity: 1;
+				transition: all 0.5s linear;
+			}
+		}
+	}
+	// 头部
+	&__header {
+		height: calc(var(--header-height) * 1px);
+		background-color: var(--header-bg-color);
+		border-bottom: solid calc(var(--header-row-border-size) * 1px) var(--header-row-border-color);
+		font-size: calc(var(--header-font-size) * 1px);
+		font-family: var(--header-font-family);
+		font-weight: var(--header-font-weight);
+		color: var(--header-font-color);
+		.cell {
+			border-right: solid calc(var(--header-cell-border-size) * 1px) var(--header-cell-border-color);
+		}
+		.#{$TableName}__row {
+			height: calc(var(--header-height) * 1px);
+		}
+	}
+	// 置顶行
+	&__lock {
+		font-size: calc(var(--lock-font-size) * 1px);
+		font-family: var(--lock-font-family);
+		font-weight: var(--lock-font-weight);
+		color: var(--lock-font-color);
+		background-color: var(--lock-bg-color);
+		.#{$TableName}__row {
+			border-bottom: solid calc(var(--lock-row-border-size) * 1px) var(--lock-row-border-color);
+
+			.cell {
+				border-right: solid calc(var(--lock-cell-border-size) * 1px) var(--lock-cell-border-color);
+			}
+		}
+	}
+
+	// 置顶行
+	&__body {
+		width: 100%;
+		height: 100%;
+		position: relative;
+		overflow: hidden;
+		z-index: 1;
+		/*偶数*/
+		.even {
+			background-color: var(--style-row-bg-even-color);
+			background-image: var(--style-row-bg-even-img);
+			background-size: 100% 100%;
+		}
+		.odd {
+			background-color: var(--style-row-bg-odd-color);
+			background-image: var(--style-row-bg-odd-img);
+			background-size: 100% 100%;
+		}
+		.#{$TableName}__row {
+			border-bottom: solid calc(var(--style-row-border-size) * 1px) var(--style-row-border-color);
+			.cell {
+				border-right: solid calc(var(--style-cell-border-size) * 1px) var(--style-cell-border-color);
+			}
+		}
+		/*  拖拽 */
+		&.drag {
+			width: 100%;
+			//height: 800px;
+			position: relative;
+			border: solid 1px #cdcdcd;
+			overflow: scroll !important;
+			overflow-x: hidden !important;
+			.progress {
+				transition: all 1.8s linear;
+			}
+			.list-phantom {
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				z-index: -1;
+				width: 100%;
+			}
+			&::-webkit-scrollbar {
+				display: block;
+				width: 4px;
+			}
+
+			&::-webkit-scrollbar {
+				width: 4px;
+				height: 4px;
+			}
+			&::-webkit-scrollbar-thumb {
+				/* background: #179e5a; */
+				/* border: 1px solid #434b55; */
+			}
+
+			&::-webkit-scrollbar-thumb {
+				background-color: #7fffd9;
+			}
+
+			&::-webkit-scrollbar-track {
+				background: #1c222b;
+			}
+		}
+	}
+	&__body .highlight,
+	&__lock .highlight {
+		background-color: var(--highlight-bg) !important;
+		color: var(--highlight-font-color) !important;
+		font-size: calc(var(--highlight-font-size) * 1px) !important;
+		font-family: var(--highlight-font-family) !important;
+		font-weight: var(--highlight-font-weight) !important;
+	}
+	.warning {
+		background: var(--warning-bg);
+		color: var(--warning-color);
+		.vi-text-inner,
+		._title {
+			color: var(--warning-color);
+			text-decoration: var(--warning-color);
+		}
+		border-bottom: solid calc(var(--warning-border-size) * 1px) var(--warning-border-color);
+		.cell {
+			border-right: solid calc(var(--warning-border-size) * 1px) var(--warning-border-color);
+		}
+	}
+
+	.#{$TableName}__list_area {
+		position: relative;
+		-webkit-font-smoothing: antialiased;
+		backface-visibility: hidden;
+		-webkit-backface-visibility: hidden;
+		z-index: 8;
+		&.go {
+			animation: transform 1.4s linear;
+		}
+	}
+	&:hover {
+		.#{$TableName}__list_area {
+			animation-play-state: paused;
+		}
+	}
+
+	@keyframes transform {
+		0% {
+			transform: translate(0px, 0px);
+		}
+		100% {
+			transform: translate(0px, calc(var(--style-row-height) * -1px));
+		}
+	}
+	/*多行文本*/
+	.multiRowText {
+		width: 100%;
+		height: 100%;
+		display: flex;
+		position: relative;
+		display: -webkit-box;
+		line-height: calc(var(--dynamic-multiRowText-lineHeight) * 1px);
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 2; /*这里设置几行*/
+		overflow: hidden;
+	}
+	/*图文*/
+	.imageText {
+		display: flex;
+		width: 100%;
+		align-items: center;
+		justify-content: flex-start;
+	}
+	.action {
+		display: flex;
+		width: 100%;
+		align-items: center;
+		justify-content: flex-start;
+		.vi-button {
+			margin-right: 5px;
+			&:last-child {
+				margin-right: 0px;
+			}
+		}
+	}
+	@keyframes rowAnimation {
+		from {
+			transform: translateX(10%);
+			opacity: 0;
+		}
+		to {
+			transform: translateX(0px);
+
+			opacity: 1;
+		}
+	}
+}

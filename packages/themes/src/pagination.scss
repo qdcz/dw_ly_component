@@ -1,0 +1,167 @@
+@use './common/config.scss' as *;
+
+// 引入外部组件的scss样式
+@use './select-v2.scss' as *;
+
+.#{$namespace}-pagination__btn {
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    min-width: calc(var(--btn-min-width)*1px);
+    height: calc(var(--btn-line-height)*1px);
+    justify-content: center;
+    background-color: inherit;
+    padding: calc(var(--btn-pad-t)*1px) calc(var(--btn-pad-r)*1px) calc(var(--btn-pad-b)*1px) calc(var(--btn-pad-l)*1px);
+    border-radius: calc(var(--btn-border-radius)*1px);
+    margin: calc(var(--btn-mar-t)*1px) calc(var(--btn-mar-r)*1px) calc(var(--btn-mar-b)*1px) calc(var(--btn-mar-l)*1px);
+    cursor: pointer;
+    transition: calc(var(--ani-transition)*1s);
+    color: var(--btn-fo-color);
+    font-weight: var(--btn-fo-weight);
+    font-size: calc(var(--btn-fo-size)*1px);
+}
+
+.#{$namespace}-pagination {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(var(--bs-fo-size)*1px);
+
+    & .quickPrev {
+        @extend .#{$namespace}-pagination__btn;
+
+        &:hover {
+            color: var(--btn-hover-fo-color);
+        }
+    }
+
+    & .quickNext {
+        @extend .quickPrev;
+    }
+
+    &-prev {
+        @extend .#{$namespace}-pagination__btn;
+
+        & .icon {
+            cursor: pointer;
+        }
+
+        &:hover {
+            color: var(--btn-hover-fo-color);
+        }
+
+        &.disabled {
+            cursor: no-drop;
+
+            .icon {
+                cursor: no-drop;
+            }
+        }
+    }
+
+    &-next {
+        @extend .#{$namespace}-pagination-prev;
+    }
+
+    &-pager {
+        display: inline-flex;
+        align-items: center;
+        user-select: none;
+        margin: 0;
+        padding: 0;
+
+        &__btn {
+            list-style-type: none;
+            list-style: none;
+            @extend .#{$namespace}-pagination__btn;
+
+            &:hover {
+                color: var(--btn-hover-fo-color);
+            }
+
+            &.active {
+                color: var(--btn-active-fo-color);
+            }
+        }
+
+
+    }
+
+    &-jump {
+        display: inline-flex;
+        align-items: center;
+        margin-left: calc(var(--jump-mar-l)*1px);
+
+        &__input {
+            margin-left: calc(var(--jump-input-mar-l)*1px);
+            outline: none;
+            border: 1px solid var(--jump-input-border-color);
+            border-radius: calc(var(--jump-input-border-radius)*1px);
+            width: calc(var(--jump-input-width)*1px);
+            max-width: calc(var(--jump-input-max-width)*1px);
+            padding: 0 4px;
+            text-align: center;
+            transition: calc(var(--ani-transition)*1s);
+            line-height: calc(var(--btn-line-height)*1px);
+
+            background-color: var(--jump-input-bg-color);
+            color: var(--jump-input-fo-color);
+
+            &::-webkit-inner-spin-button {
+                -webkit-appearance: none;
+            }
+
+            &:hover {
+                border: 1px solid var(--btn-hover-fo-color);
+            }
+        }
+    }
+
+    &-total {
+        color: var(--total-fo-color);
+
+        &__label {
+            margin-right: calc(var(--total-mar-r)*1px);
+        }
+
+        &__value {
+            margin-right: calc(var(--total-mar-r)*1px);
+        }
+    }
+
+    &-select {
+        margin-right: calc(var(--select-v2-mar-r)*1px);
+    }
+
+
+    // 是否配置background属性
+    &.bgbox {
+        .#{$namespace}-pagination-prev {
+            background-color: var(--btn-background-bg-color);
+            color: var(--btn-background-fo-color);
+        }
+
+        .#{$namespace}-pagination-next {
+            @extend .#{$namespace}-pagination-prev;
+        }
+
+        .#{$namespace}-pagination-pager__btn {
+            @extend .#{$namespace}-pagination-prev;
+        }
+
+        // 当前数字按钮选中项
+        .#{$namespace}-pagination-pager__btn.active {
+            color: var(--btn-background-active-fo-color);
+            background-color: var(--btn-background-active-bg-color);
+        }
+
+        .quickPrev {
+            @extend .#{$namespace}-pagination-prev;
+        }
+
+        .quickNext {
+            @extend .#{$namespace}-pagination-prev;
+        }
+    }
+
+}

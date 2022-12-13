@@ -1,0 +1,64 @@
+@use './common/config.scss' as *;
+@use './common/var.scss' as *;
+@use './common/common.scss' as *;
+@use './mixins/mixin.scss' as *;
+
+$ImageName: #{$namespace}-image;
+
+.#{$ImageName} {
+	position: relative;
+	width: calc(var(--size-w) * 1px);
+	height: calc(var(--size-h) * 1px);
+	cursor: var(--cursor);
+	overflow: hidden;
+	user-select: none;
+	.imgWarper {
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
+	.i1 {
+		transform: translateY(0%);
+		transition: all 0.5s cubic-bezier(0.39, 0.575, 0.565, 1);
+		opacity: 1;
+	}
+	.i2 {
+		transform: translateY(0%);
+		transition: all 0.5s cubic-bezier(0.39, 0.575, 0.565, 1);
+		opacity: 0;
+	}
+	&.active {
+		.i1 {
+			transform: translateY(-100%);
+			opacity: 0;
+		}
+		.i2 {
+			transform: translateY(-100%);
+			opacity: 1;
+		}
+	}
+	.auto {
+		img {
+			width: 100%;
+			height: 100%;
+		}
+	}
+	&.grayscale {
+		-webkit-filter: grayscale(100%);
+		-moz-filter: grayscale(100%);
+		-ms-filter: grayscale(100%);
+		-o-filter: grayscale(100%);
+		filter: grayscale(100%);
+		filter: gray;
+		filter: progid:DXImageTransform.Microsoft.BasicImage(grayscale=1);
+	}
+	&.disabled {
+		cursor: not-allowed;
+	}
+	&.penetrate {
+		pointer-events: none;
+		* {
+			pointer-events: none;
+		}
+	}
+}

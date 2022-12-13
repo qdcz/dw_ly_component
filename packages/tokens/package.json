@@ -1,0 +1,10 @@
+{
+    "name": "@dw/tokens",
+    "version": "0.0.1",
+    "description": "",
+    "main": "index.ts",
+    "scripts": {},
+    "keywords": [],
+    "author": "",
+    "license": "ISC"
+}

@@ -1,0 +1,141 @@
+@use './common/config.scss' as *;
+
+.#{$namespace}-background {
+	position: relative;
+
+	// 边框
+	&--border {
+		// 一般边框
+		&-normal {
+			:first-child {
+				border: calc(var(--border-normal-size) * 1px) var(--border-normal-style) var(--border-normal-color);
+			}
+		}
+
+		&-gradient,
+		&-image {
+			:first-child {
+				border-width: calc(var(--border-gradient-width) * 1px);
+			}
+		}
+
+		// 渐变边框
+		&-gradient {
+			background-image: var(--border-gradient-color);
+			padding: calc(var(--border-gradient-width) * 1px);
+			:first-child {
+				border: none;
+			}
+		}
+
+		// 图片边框
+		&-image {
+			:first-child {
+				border-style: solid;
+				// border-radius: 0 !important;
+				border-image: var(--border-image-source) var(--border-image-slice) / var(--border-image-size) /
+					var(--border-image-outset) var(--border-image-repeat);
+				//NOTE: 用margin抵消边框的外扩距离
+				padding: calc(var(--border-image-outset) * 1px);
+			}
+		}
+	}
+
+	// 圆角
+	&--radius,
+	&--radius :first-child {
+		border-top-left-radius: calc(var(--radius-tl) * 1px);
+		border-top-right-radius: calc(var(--radius-tr) * 1px);
+		border-bottom-right-radius: calc(var(--radius-br) * 1px);
+		border-bottom-left-radius: calc(var(--radius-bl) * 1px);
+	}
+
+	// 动画
+	&--animation {
+		// 闪烁动画
+		&-glow {
+			animation: glow calc(var(--animation-glow-duration) * 1s) ease-out infinite alternate;
+			@keyframes glow {
+				0% {
+					box-shadow: 0 0 calc(var(--animation-glow-size) * 1px) var(--animation-glow-color),
+						inset 0 0 calc(var(--animation-glow-size) * 1px) var(--animation-glow-color),
+						0 1px 0 var(--animation-glow-color);
+				}
+				100% {
+					box-shadow: 0 0 calc(var(--animation-glow-size) * 5px) var(--animation-glow-color),
+						inset 0 0 calc(var(--animation-glow-size) * 2px) var(--animation-glow-color),
+						0 1px 0 var(--animation-glow-color);
+				}
+			}
+		}
+		// 边框动画
+		&-clippath {
+			z-index: 0;
+			overflow: visible;
+
+			&::before,
+			&::after {
+				content: '';
+				position: absolute;
+				top: calc(var(--animation-clippath-outer) * 1px);
+				left: calc(var(--animation-clippath-outer) * 1px);
+				right: calc(var(--animation-clippath-outer) * 1px);
+				bottom: calc(var(--animation-clippath-outer) * 1px);
+				border: calc(var(--animation-clippath-size) * 1px) var(--animation-clippath-style)
+					var(--animation-clippath-color);
+				z-index: -1;
+				animation: var(--animation-clippath-name) calc(var(--animation-clippath-duration) * 1s) infinite linear;
+			}
+			&::after {
+				animation-delay: calc((-0.5 * var(--animation-clippath-duration)) * 1s);
+			}
+
+			@keyframes clippath {
+				0%,
+				100% {
+					clip-path: inset(0 0 98% 0);
+				}
+				25% {
+					clip-path: inset(0 98% 0 0);
+				}
+				50% {
+					clip-path: inset(98% 0 0 0);
+				}
+				75% {
+					clip-path: inset(0 0 0 98%);
+				}
+			}
+
+			@keyframes clippath2 {
+				0% {
+					transform: scale(1);
+					opacity: 0;
+				}
+				50% {
+					transform: scale(1.05);
+					opacity: 1;
+				}
+				100% {
+					transform: scale(1.1);
+					opacity: 0;
+				}
+			}
+		}
+	}
+
+	// 阴影
+	&--shadow {
+		.#{$namespace}-background {
+			&__inner {
+				box-shadow: var(--shadow-value);
+			}
+		}
+	}
+
+	&__inner {
+		position: relative;
+		background: var(--background);
+		width: 100%;
+		height: 100%;
+	}
+}

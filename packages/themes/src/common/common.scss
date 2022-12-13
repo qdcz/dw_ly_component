@@ -1,0 +1,116 @@
+@use './var.scss' as *;
+@use './config.scss' as *;
+
+// @import './config.scss';
+html {
+	color: #000;
+	font-size: 12px;
+	background-color: var(--system-theme-color);
+}
+
+@media screen and (max-width: 420px) {
+	.#{$namespace}-shadow {
+		// box-shadow: 2px 2px 4px var(--shadow-left-top-color), -2px -2px 4px var(--shadow-right-bottom-color);
+		box-shadow: 0px 0px 4px var(--shadow-color-default);
+	}
+}
+
+@media (min-width: 420px) and (max-width: 720px) {
+	.#{$namespace}-shadow {
+		// box-shadow: 4px 4px 8px var(--shadow-left-top-color), -4px -4px 8px var(--shadow-right-bottom-color);
+		box-shadow: 0px 0px 8px var(--shadow-color-default);
+	}
+}
+
+@media screen and (min-width: 720px) {
+	.#{$namespace}-shadow {
+		// box-shadow: 8px 8px 16px var(--shadow-left-top-color), -8px -8px 16px var(--shadow-right-bottom-color);
+		box-shadow: 0px 0px 16px var(--shadow-color-default);
+	}
+}
+
+.#{$namespace} {
+	&-box {
+		box-sizing: border-box;
+
+		* {
+			box-sizing: border-box;
+		}
+	}
+
+	&-relative {
+		position: relative;
+	}
+
+	&-absolute {
+		position: absolute;
+	}
+
+	&-hidden {
+		overflow: hidden;
+	}
+
+	&-lock {
+		overflow: hidden;
+	}
+
+	&-block {
+		display: block;
+	}
+
+	&-ellipsis {
+		overflow-x: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	&-inline-block {
+		display: inline-block;
+	}
+
+	&-flex {
+		display: flex;
+	}
+
+	&-inline-flex {
+		display: inline-flex;
+	}
+}
+
+.ripple {
+	display: block;
+	width: 100%;
+	height: 100%;
+	border-radius: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: -1;
+	background: rgba(255, 255, 255, 0.1);
+	transform: scale(0);
+	animation: ripple 0.6s 0s linear;
+}
+
+@keyframes ripple {
+	100% {
+		opacity: 0;
+		transform: scale(2.5);
+	}
+}
+
+
+.ellopsis-1 {
+	white-space: nowrap; 
+	overflow: hidden;
+	text-overflow: ellipsis; 
+	display: inherit
+}
+
+.ellopsis-2 {
+	overflow: hidden;
+	text-overflow: ellopsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	display: inherit
+}
