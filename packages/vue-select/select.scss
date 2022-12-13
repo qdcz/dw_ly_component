@@ -3,7 +3,6 @@
 @use './common/common.scss' as *;
 @use './mixins/mixin.scss' as *;
 
-
 .#{$namespace}-select-wrapper {
     box-sizing: border-box;
     width: inherit;
@@ -295,11 +294,12 @@
         flex-wrap: wrap;
         border-radius: 4px;
         padding: 4px 8px 8px 8px;
-        position: fixed;
+        // position: fixed;
+        position: absolute;
         z-index: 999;
         border: #00b3ff;
         box-sizing: border-box;
-        max-width: 50%;
+        // max-width: 50%;
 
         .#{$namespace}-popper-arrow {
             height: 10px;

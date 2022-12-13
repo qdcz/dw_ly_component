@@ -1,4 +1,3 @@
-import {ref} from 'vue';
 export default {
     name: 'VIPopper',
     props: ['list', 'show', 'pageX', 'pageY'],
@@ -14,7 +13,8 @@ export default {
                 'vi-popper',
                 this.show ? "vi-popper_active" :""
             ]}
-                style={{ left: this.pageX - this.offsetWidth + 'px', top: this.pageY + 20 + 'px' }}
+                // style={{ left: this.pageX - this.offsetWidth + 'px', top: this.pageY + 20 + 'px' }}
+                style={{ left: 0 + 'px', top: 0 + 'px' }}
                 onMouseenter={this.popperHoverEnt.bind(this)}
                 onMouseleave={this.popperHoverOut.bind(this)}
             >   
@@ -62,10 +62,10 @@ export default {
             })
         },
         popperHoverEnt() {
-            clearTimeout(this.$parent.$parent.data.tagToolipTimer)
+            // clearTimeout(this.$parent.$parent.data.tagToolipTimer)
         },
         popperHoverOut() {
-            this.$parent.$parent.data.tagToolipVisible = false;
+            // this.$parent.$parent.data.tagToolipVisible = false;
         }
     }
 };

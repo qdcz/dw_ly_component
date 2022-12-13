@@ -244,11 +244,10 @@ export default defineComponent({
 
         // 多选模式下 数字按钮 鼠标离开隐藏toolip
         const onMouseLeaveMutilateNumbe = function () {
-            data.tagToolipTimer = setTimeout(() => {
-                data.tagToolipVisible = false;
-                data.tagToolipTimer = null;
-            }, 500);
-
+            // data.tagToolipTimer = setTimeout(() => {
+            //     data.tagToolipVisible = false;
+            //     data.tagToolipTimer = null;
+            // }, 500);
         }
 
         // 删除tooltip的tag标签
