@@ -6,7 +6,7 @@ const ogTitle = 'Vite'
 const ogUrl = 'https://vitejs.dev'
 
 export default defineConfig({
-    title: '可视化开发技术文档库',
+    title: 'dw_组件库',
     description: '',
     lang: 'zh-CN',
     appearance: true, // 关闭主题切换
@@ -48,68 +48,13 @@ export default defineConfig({
 
         footer: {
             copyright:
-                'Copyright © 2022-厦门盛迅信息技术股份有限公司'
+                'Copyright © 2022-dw_ly'
         },
 
         nav: [
             {
                 text: '首页',
                 link: '/'
-            },
-            {
-                text: 'DataV组件库',
-                items: [
-                    {
-                        text: 'V1',
-                        activeMatch: '/docs/datav/v1/',
-                        link: '/docs/datav/v1/'
-                    },
-                    {
-                        text: 'V2',
-                        activeMatch: '/docs/datav/v2/',
-                        link: '/docs/datav/v2/vi-button'
-                    }
-                ]
-            },
-            {
-                text: '开发标准约定',
-                items: [
-                    {
-                        text: 'Hook开发结构',
-                        activeMatch: '/docs/visix/index',
-                        link: '/docs/visix/hook'
-                    },
-                    {
-                        text: '跨屏通信方案',
-                        activeMatch: '/docs/visix/socket',
-                        link: '/docs/visix/socket'
-                    },
-                ]
-            },
-            {
-                text: '团队协作',
-                items: [
-                    {
-                        text: '前端&&TA',
-                        activeMatch: '/docs/team/dev&ta',
-                        link: '/docs/team/dev&ta'
-                    }
-                ]
-            },
-            {
-                text: '技术文档',
-                items: [
-                    {
-                        text: '可视化数据标准文档',
-                        activeMatch: '/docs/doc/可视化数据标准',
-                        link: '/docs/doc/可视化数据标准'
-                    },
-                    {
-                        text: '可视化数据需求表',
-                        activeMatch: '/docs/datav/v1/',
-                        link: '/docs/datav/v1/'
-                    }
-                ]
             },
             {
                 text: '技术分享库',
@@ -140,114 +85,22 @@ export default defineConfig({
         ],
 
         sidebar: {
-            '/docs/visix/': [
+            '/': [
                 {
-                    text: '可视化前端',
+                    text: '个人组件库',
                     collapsible: true,
                     collapsed: true,
                     items: [
                         {
-                            text: 'Hook开发结构',
-                            link: '/docs/visix/hook'
+                            text: '下拉选择器',
+                            link: '/component/select/select-v2.md'
                         },
                         {
-                            text: '跨屏通信方案',
+                            text: '时间选择器',
                             link: '/docs/visix/socket'
                         }]
                 }
-            ],
-            '/docs/datav/v1/': [
-                {
-                    text: '基础组件',
-                    items: [
-                        {
-                            text: '项目开发助手',
-                            link: '/docs/datav/v1/项目开发助手'
-                        }
-                    ]
-                },
-                {
-                    text: '控制交互',
-                    items: []
-                },
-                {
-                    text: '三维展示',
-                    items: []
-                },
-                {
-                    text: '音频媒体',
-                    items: []
-                },
-                {
-                    text: '相关产业',
-                    items: []
-                }
-            ],
-            '/docs/datav/v2/': [
-                {
-                    text: '基础组件',
-                    items: [
-                        {
-                            text: '按钮组件',
-                            link: '/docs/datav/v2/vi-button'
-                        },
-                        {
-                            text: '复选框',
-                            link: '/docs/datav/v2/vi-checkbox'
-                        },
-                        {
-                            text: '复选框组',
-                            link: '/docs/datav/v2/vi-checkbox-group'
-                        },
-                        {
-                            text: '图片组件',
-                            link: '/docs/datav/v2/vi-image'
-                        },{
-                            text: '单选框',
-                            link: '/docs/datav/v2/vi-radio'
-                        },
-                    ]
-                },
-                {
-                    text: '交互控件',
-                    items: [
-                        {
-                            text: 'TAB选项卡',
-                            link: '/docs/datav/v2/vi-tab'
-                        },
-                    ]
-                },
-                {
-                    text: '复合控件',
-                    items: [{
-                        text: '数字翻牌器',
-                        link: '/docs/datav/v2/vi-count-to'
-                    }, {
-                        text: '数据趋势器',
-                        link: '/docs/datav/v2/vi-trend'
-                    }, {
-                        text: '复合表格',
-                        link: '/docs/datav/v2/vi-table'
-                    }, {
-                        text: '下拉选择器',
-                        link: '/docs/datav/v2/vi-select'
-                    }, {
-                        text: '分页器',
-                        link: '/docs/datav/v2/vi-pagination'
-                    }, {
-                        text: '时间选择器',
-                        link: '/docs/datav/v2/vi-time-picker'
-                    }]
-                },
-                {
-                    text: '多媒体组件',
-                    items: [{
-                        text: 'to do',
-                        link: '/docs/datav/v2/'
-                    },]
-                },
             ]
-
         }
     },
     markdown: {
