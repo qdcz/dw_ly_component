@@ -1,6 +1,6 @@
 import { defineComponent, computed, inject, reactive } from 'vue';
 import { createNamespace } from '@dw/utils/components';
-import VISvgIcon from './svg-icon.jsx';
+import VISvgIcon from './svg-icon';
 import { SELECTV2_INJECTION_KEY } from '../../../tokens/selectv2';
 const { n, classes } = createNamespace('select-v2-tag');
 

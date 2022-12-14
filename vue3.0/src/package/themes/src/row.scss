@@ -1,8 +1,0 @@
-@use './common/config.scss' as *;
-@use './common/var.scss' as *;
-@use './common/common.scss' as *;
-@use './mixins/mixin.scss' as *;
-.#{$namespace}-row {
-    display: flex;
-    flex-wrap: wrap;
-}

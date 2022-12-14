@@ -1,11 +1,11 @@
-import { defineComponent, computed, ref, reactive, provide, getCurrentInstance, onMounted, nextTick, watch } from 'vue';
+import { defineComponent, computed, ref, reactive, provide, getCurrentInstance, nextTick, watch } from 'vue';
 import { createNamespace } from '@dw/utils/components';
 
 import { SELECTV2_INJECTION_KEY } from '../../../tokens/selectv2';
 import css from '@dw/directives/css';
 
 const { n, classes } = createNamespace('select-v2');
-import { selectProps } from './select';
+import { selectProps } from './select_p';
 
 /**
  * component
@@ -14,8 +14,8 @@ import VISelectV2Input from './input';
 import VISelectV2DropDown from './drop-down';
 import VISelectV2Tag from './tag';
 import VIScrollBar from './scroll-bar';
-import VISelectV2SvgIcon from './svg-icon.tsx';
-import VISelectV2UnfoldDialog from './unfold-dialog.jsx';
+import VISelectV2SvgIcon from './svg-icon';
+// import VISelectV2UnfoldDialog from './unfold-dialog';
 import VISelectV2Option from './option-item';
 
 export default defineComponent({
@@ -29,7 +29,7 @@ export default defineComponent({
 		'vi-scroll-bar': VIScrollBar,
 		'vi-select-v2-tag': VISelectV2Tag,
 		'vi-select-v2-svg-icon': VISelectV2SvgIcon,
-		'vi-select-v2-unfold-dialog': VISelectV2UnfoldDialog,
+		// 'vi-select-v2-unfold-dialog': VISelectV2UnfoldDialog,
 		'vi-select-v2-option': VISelectV2Option,
 	},
 	setup(props, ctx) {
@@ -258,7 +258,7 @@ export default defineComponent({
 		/**
 		 * computed
 		 */
-		const currentSelectBridge = computed({
+		const currentSelectBridge:any = computed({
 			get() {
 				if (props.mode == 'multiple') {
 					(async () => {
@@ -419,42 +419,42 @@ export default defineComponent({
 		};
 
 		// dialog 展开项
-		const doms_selectV2UnFoldDialog = function () {
-			return (
-				<vi-select-v2-unfold-dialog active={data.dialogVisible} onHide={dialogHide}>
-					{/* single 模式 */}
-					{props.showMore && props.mode == 'single'
-						? Object.keys(cacheOptionListBridge.value).map((val) => {
-								return (
-									<span
-										class={[n('-tag'), currentSelectBridge.value == val ? 'active' : '']}
-										onClick={tagClick.bind(this, cacheOptionListBridge.value[val], val)}
-									>
-										{cacheOptionListBridge.value[val]}
-									</span>
-								);
-						  })
-						: ''}
+		// const doms_selectV2UnFoldDialog =  () => {
+		// 	return (
+		// 		<vi-select-v2-unfold-dialog active={data.dialogVisible} onHide={dialogHide}>
+		// 			{/* single 模式 */}
+		// 			{props.showMore && props.mode == 'single'
+		// 				? Object.keys(cacheOptionListBridge.value).map((val) => {
+		// 						return (
+		// 							<span
+		// 								class={[n('-tag'), currentSelectBridge.value == val ? 'active' : '']}
+		// 								onClick={tagClick.bind(this, cacheOptionListBridge.value[val], val)}
+		// 							>
+		// 								{cacheOptionListBridge.value[val]}
+		// 							</span>
+		// 						);
+		// 				  })
+		// 				: ''}
 
-					{/* multiple 模式 */}
-					{props.showMore && props.mode == 'multiple'
-						? Object.keys(cacheOptionListBridge.value).map((val) => {
-								return (
-									<span
-										class={[
-											n('-tag'),
-											currentSelectBridge.value.findIndex((i) => i.value == val) != -1 ? 'active' : '',
-										]}
-										onClick={tagClick.bind(this, cacheOptionListBridge.value[val], val)}
-									>
-										{cacheOptionListBridge.value[val]}
-									</span>
-								);
-						  })
-						: ''}
-				</vi-select-v2-unfold-dialog>
-			);
-		};
+		// 			{/* multiple 模式 */}
+		// 			{props.showMore && props.mode == 'multiple'
+		// 				? Object.keys(cacheOptionListBridge.value).map((val) => {
+		// 						return (
+		// 							<span
+		// 								class={[
+		// 									n('-tag'),
+		// 									currentSelectBridge.value.findIndex((i) => i.value == val) != -1 ? 'active' : '',
+		// 								]}
+		// 								onClick={tagClick.bind(this, cacheOptionListBridge.value[val], val)}
+		// 							>
+		// 								{cacheOptionListBridge.value[val]}
+		// 							</span>
+		// 						);
+		// 				  })
+		// 				: ''}
+		// 		</vi-select-v2-unfold-dialog>
+		// 	);
+		// };
 
 		// 下拉弹出层
 		const doms_selectV2DropDown = function () {
@@ -515,7 +515,7 @@ export default defineComponent({
 				{doms_selectV2DropDown()}
 
 				{/* 展开项 */}
-				{doms_selectV2UnFoldDialog()}
+				{/* {doms_selectV2UnFoldDialog()} */}
 			</div>
 		);
 	},

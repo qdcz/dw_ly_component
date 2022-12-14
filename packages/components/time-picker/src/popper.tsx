@@ -1,49 +1,51 @@
 import { defineComponent, inject, ref, nextTick, reactive, watchEffect, onMounted } from 'vue';
 import { createNamespace } from '@dw/utils/components';
-import VISvgIcon from './svg-icon';
-const { n, classes } = createNamespace('select-v2-dropdown');
-import { SELECTV2_INJECTION_KEY } from '../../../tokens/selectv2';
+const { n, classes } = createNamespace('popper');
+import { TIMEPICKER_INJECTION_KEY } from '../../../tokens/time-picker';
 // import { computePosition, arrow } from '@floating-ui/core';
 import { createPopper } from '@popperjs/core';
 
-
-declare namespace JSX {
-    interface IntrinsicElements {
-    	div: { class: any }
-    }
-}
 export default defineComponent({
-	name: 'VISelectV2DropDown',
+	name: 'VITimePickerPopper',
 	emits: ['focus', 'blur', 'click'],
 	props: ['active'],
-	components: {
-		'vi-svg-icon': VISvgIcon,
-	},
 	setup(props, ctx) {
-		let { selectRef, mode, currentSelect }: any = inject(SELECTV2_INJECTION_KEY);
+		let { timePickerRef }: any = inject(TIMEPICKER_INJECTION_KEY);
 
-		type dropDownData = {
+		type popperData = {
 			parentRect: any;
 			dropdownTop: string;
-			[propName: string]: any;
 		}
-		const data: dropDownData = reactive({
+		const data = reactive({
 			parentRect: {
 				x: 0,
 				y: 0,
+				height: 0,
+				width: 0,
 			},
 			dropdownTop: '0',
 		});
 
-		const arrowRef = ref<HTMLInputElement | any>();
-		const dropDownRef = ref<HTMLDivElement | any>();
+		const arrowRef = ref(null);
+		const contentRef = ref(null);
 
 		const reSetDropdownTop = () => {
 			nextTick(() => {
-				// getBoundingClientRect 获取的位置信息是不准确的
-				// data.parentRect = selectRef.value.getBoundingClientRect();
-				// data.dropdownTop = data.parentRect.height + 10 + 'px';
-				data.dropdownTop = selectRef.value.clientHeight + 10 + 'px';
+				// TODO 跟随视口方向 做不同的展示动画
+				// document.addEventListener('scroll', (e) => {
+				//     const rect = timePickerRef.value.getBoundingClientRect();
+				//     let flag = (
+				//         rect.top >= 0 &&
+				//         rect.left >= 0 &&
+				//         rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+				//         rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+				//     )
+				//     console.log(777, timePickerRef.value.getBoundingClientRect(), flag);
+				// })
+				data.parentRect = timePickerRef.value.getBoundingClientRect();
+				// console.log(777, data.parentRect)
+				data.dropdownTop = data.parentRect.height + 10 + 'px';
+				// data.dropdownTop = - data.parentRect.height - 10 + 'px';
 			});
 		};
 
@@ -79,20 +81,22 @@ export default defineComponent({
 		//     });
 		// })
 
-		watchEffect(() => {
-			let val = currentSelect.value;
-			if (mode.value == 'multiple' && val) {
-				// 等待input高度被撑开后 重新获取select组件的高度
-				setTimeout(() => {
-					reSetDropdownTop();
-				}, 200);
-			}
-		});
+		// watchEffect(() => {
+		//     let val = currentSelect.value;
+		//     if (mode.value == 'multiple' && val) {
+		//         // 等待input高度被撑开后 重新获取select组件的高度
+		//         setTimeout(() => {
+		//             reSetDropdownTop();
+		//         }, 10);
+		//     }
+		// });
 
 		return () => (
-			<div class={[n('-popper'), props.active ? 'active' : '']} style={{ top: data.dropdownTop }}>
-				<div ref={arrowRef} class={[n('-arrow'), props.active ? 'active' : '']}></div>
-				<div ref={dropDownRef} class={[classes(n(), props.active ? 'active' : '')]}>
+			<div class={[n(''), props.active ? 'active' : '']} style={{ top: data.dropdownTop }}>
+				<div ref={arrowRef} class={[n('_arrow')]}>
+					{props.active}
+				</div>
+				<div ref={contentRef} class={[classes(n('_content'))]}>
 					<div class={[classes(n('_inner'))]}>{ctx.slots['default']?.()}</div>
 				</div>
 			</div>

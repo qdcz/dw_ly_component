@@ -1,0 +1,43 @@
+{
+  "compilerOptions": {
+    // 输出目录的子目录
+    "outDir": "dist",
+    // 指定ECMAScript目标版本
+    "target": "es2018",
+    // 指定生成哪个模块系统代码： "None"， "CommonJS"， "AMD"， "System"， "UMD"， "ES6"或 "ES2015"。
+    // 只有 "AMD"和 "System"能和 --outFile一起使用。
+    // "ES6"和 "ES2015"可使用在目标输出为 "ES5"或更低的情况下。
+    "module": "esnext",
+    // 解析非相对模块名的基准目录
+    "baseUrl": ".",
+    // 生成相应的 .map文件。
+    "sourceMap": false,
+    // 决定如何处理模块。或者是"Node"对于Node.js/io.js，或者是"Classic"（默认）。
+    "moduleResolution": "node",
+    // 允许编译javascript文件。
+    "allowJs": false,
+    // 启用所有严格类型检查选项。
+    // 启用 --strict相当于启用 --noImplicitAny, --noImplicitThis, --alwaysStrict， --strictNullChecks和 --strictFunctionTypes和--strictPropertyInitialization。
+    "strict": true,
+    // 若有未使用的局部变量则抛错。
+    "noUnusedLocals": true,
+    // 解析JSON模块
+    "resolveJsonModule": true,
+    // 允许从没有设置默认导出的模块中默认导入。这并不影响代码的输出，仅为了类型检查。
+    "allowSyntheticDefaultImports": true,
+    // 支持es6，commonjs模块，通过为导入内容创建命名空间，实现CommonJS和ES模块之间的互操作性
+    "esModuleInterop": true,
+    // 删除所有注释，除了以 /!*开头的版权信息。
+    "removeComments": false,
+    // 仅用来控制输出的目录结构 --outDir。
+    "rootDir": ".",
+    // 要包含的类型声明文件名列表。查看 @types，--typeRoots和--types章节了解详细信息。
+    "types": [],
+    // 模块名到基于 baseUrl的路径映射的列表。查看 模块解析文档了解详情。
+    "paths": {
+      "@element-plus/*": [
+        "packages/*"
+      ]
+    }
+  }
+}

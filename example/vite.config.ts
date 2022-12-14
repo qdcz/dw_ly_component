@@ -19,7 +19,7 @@ export default defineConfig({
 	},
 	// 反向代理
 	server: {
-		port: 8080,
+		port: 3001,
 		host: '0.0.0.0',
 		// 是否自动在浏览器打开
 		open: true,

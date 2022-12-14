@@ -72,8 +72,8 @@ export default defineComponent({
 			<div
 				class={[classes(n(), props.active ? 'active' : '')]}
 				onClick={handleInputClick}
-				onmouseenter={handleMouseEn}
-				onmouseleave={handleMouseOu}
+				onMouseenter={handleMouseEn}
+				onMouseleave={handleMouseOu}
 			>
 				<input
 					class={[n('_inner')]}
