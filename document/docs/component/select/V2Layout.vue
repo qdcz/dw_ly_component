@@ -1,12 +1,16 @@
 <template>
   <div>
-    <p>多选模式下 当文字过长被超出隐藏的时候 可开启 tooltip 属性 即可达到悬浮展示全部文本(或者将 tag-max-width 调到很大比如1000px)</p>
+    <p>
+      选项布局排列显示。 目前只支持 最多七列展示 
+      <br/>
+      itemLayout属性：auto 为自适应,co1为一列展示,co7为两列展示
+      <br/>
+      dynamicCss属性：popper-option-fo-alight 为文字的对齐方式
+    </p>
     <vi-select-v2
       v-model="data.currentSelect"
       :list="data.dropDownList"
-      clearable
-      tooltip
-      mode="multiple"
+      :itemLayout="'co3'"
       :dynamicCss="data.dynamicCss"
       placeholder="选择您需要的市区"
       @handleSelected="handleSelected"
@@ -35,8 +39,10 @@ export default defineComponent({
   },
   setup() {
     const data = reactive({
-      currentSelect:[],
-      dynamicCss:{},
+      currentSelect: "",
+      dynamicCss:{
+        "popper-option-fo-alight":"center"
+      },
       dropDownList: [
         { value: "xiamen", label: "厦门" },
         { value: "fuzhou", label: "福州" },
@@ -47,7 +53,7 @@ export default defineComponent({
         { value: "quanzhou", label: "泉州" },
         { value: "nanping", label: "南平" },
         { value: "ningde", label: "宁德" },
-      ],
+      ]
     });
     const handleSelected = function (v) {
       console.log("handleSelected", v);

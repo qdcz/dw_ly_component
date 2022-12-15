@@ -36,7 +36,9 @@ export default defineComponent({
   setup() {
     const data = reactive({
       currentSelect:[],
-      dynamicCss:{},
+      dynamicCss:{
+        "input-width": "300",
+      },
       dropDownList: [
         { value: "xiamen", label: "厦门" },
         { value: "fuzhou", label: "福州" },
@@ -63,4 +65,8 @@ export default defineComponent({
   },
 });
 </script>
-<style lang="sass" scoped></style>
+<style  scoped>
+.vp-doc li+li {
+  margin: 0;
+}
+</style>

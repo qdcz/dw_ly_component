@@ -59,4 +59,8 @@ export default defineComponent({
   },
 });
 </script>
-<style lang="sass" scoped></style>
+<style  scoped>
+.vp-doc li+li {
+  margin: 0;
+}
+</style>

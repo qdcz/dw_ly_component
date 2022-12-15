@@ -1,14 +1,12 @@
-# dw_ui
+# xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
-<test></test>
-
-前端组件库
+前端组件库 主界面
 <dw-select-v2></dw-select-v2>
 <div class="myContainer">
-    <div class="effect">{{name}}</div>
+    <div class="effect">使用vue变量 99 +1 = {{count}}</div>
 </div>
 
 
 <script setup>
-    const name = 666
+    const count = 100
 </script>

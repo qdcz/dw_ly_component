@@ -1,23 +1,13 @@
 <template>
   <div>
-    <p>多选模式下 当文字过长被超出隐藏的时候 可开启 tooltip 属性 即可达到悬浮展示全部文本(或者将 tag-max-width 调到很大比如1000px)</p>
-    <vi-select-v2
-      v-model="data.currentSelect"
-      :list="data.dropDownList"
-      clearable
-      tooltip
-      mode="multiple"
-      :dynamicCss="data.dynamicCss"
-      placeholder="选择您需要的市区"
-      @handleSelected="handleSelected"
-      @handleClear="handleClear"
-    >
-      <vi-select-v2-option
-        v-for="i in data.dropDownList"
-        :key="i.value"
-        :label="i.label"
-        :value="i.value"
-      >
+    <p>
+      当选项过多时 可配置 search 属性 将在下拉框中出现搜索框
+      可对想要的结果进行搜索过滤
+    </p>
+    <p>searchImg 属性为输入框的左icon图标 不传默认使用内置的svg图片</p>
+    <vi-select-v2 v-model="data.currentSelect" :list="data.dropDownList" search clearable :dynamicCss="data.dynamicCss"
+      placeholder="选择您需要的市区" @handleSelected="handleSelected" @handleClear="handleClear">
+      <vi-select-v2-option v-for="i in data.dropDownList" :key="i.value" :label="i.label" :value="i.value">
       </vi-select-v2-option>
     </vi-select-v2>
   </div>
@@ -35,8 +25,11 @@ export default defineComponent({
   },
   setup() {
     const data = reactive({
-      currentSelect:[],
-      dynamicCss:{},
+      currentSelect: "",
+      dynamicCss: {
+        "popper-search-bg-color": "#fff",
+        "ani-transition": "1",
+      },
       dropDownList: [
         { value: "xiamen", label: "厦门" },
         { value: "fuzhou", label: "福州" },

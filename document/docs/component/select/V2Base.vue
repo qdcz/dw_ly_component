@@ -44,7 +44,7 @@ export default defineComponent({
         { value: "quanzhou", label: "泉州" },
         { value: "nanping", label: "南平" },
         { value: "ningde", label: "宁德" },
-      ],
+      ]
     });
     const handleSelected = function (v) {
       console.log("handleSelected", v);
@@ -60,4 +60,8 @@ export default defineComponent({
   },
 });
 </script>
-<style lang="sass" scoped></style>
+<style  scoped>
+.vp-doc li+li {
+  margin: 0;
+}
+</style>

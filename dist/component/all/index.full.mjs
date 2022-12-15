@@ -6371,6 +6371,7 @@ const selectProps = {
         "popper-search-padding-r": "10",
         "popper-search-padding-b": "4",
         "popper-search-padding-l": "30",
+        "popper-search-bg-color": "initial",
         "popper-search-inp-bg-color": "initial",
         "popper-search-icon-size": "14",
         "unfold-icon-height": "14",
