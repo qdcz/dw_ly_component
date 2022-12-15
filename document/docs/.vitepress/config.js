@@ -6,10 +6,10 @@ const ogTitle = "Vite";
 const ogUrl = "https://vitejs.dev";
 
 export default defineConfig({
-  title: "组件库",
-  description: "",
+  title: "DW组件库",
+  description: "这是一个组件库",
   lang: "zh-CN",
-  appearance: true, // 关闭主题切换
+  appearance: false, // 关闭主题切换
   head: [
     ["link", { rel: "icon", type: "image/svg+xml", href: "/logo.svg" }],
     ["meta", { property: "og:type", content: "website" }],
@@ -27,7 +27,7 @@ export default defineConfig({
   },
 
   themeConfig: {
-    logo: "/logo.png",
+    logo: "/logo.jpeg",
 
     algolia: {
       appId: "7H67QR5P0A",
@@ -53,39 +53,32 @@ export default defineConfig({
         link: "/",
       },
       {
-        text: "技术分享库",
-        items: [
-          {
-            text: "GIS之路",
-            activeMatch: "/docs/datav/v1/",
-            link: "/docs/datav/v1/",
-          },
-          {
-            text: "三维世界",
-            activeMatch: "/docs/datav/v1/",
-            link: "/docs/datav/v1/",
-          },
-          {
-            text: "NodeJS",
-            activeMatch: "/docs/datav/v1/",
-            link: "/docs/datav/v1/",
-          },
-          {
-            text: "展示效果库",
-            activeMatch: "/docs/datav/v1/",
-            link: "/docs/datav/v1/",
-          },
-        ],
+        text: "指南",
+        link: "/guide/index",
       },
+      {
+        text: "组件",
+        link: "/markdown/radio/radio",
+      }
     ],
 
     sidebar: {
-      "/": [
+      "/markdown": [
         {
-          text: "组件库",
+          text: "基础组件",
+          collapsible: true,
+          collapsed: true,
+          items: [],
+        },
+        {
+          text: "表单组件",
           collapsible: true,
           collapsed: true,
           items: [
+            {
+              text: "单选框",
+              link: "/markdown/radio/radio.md",
+            },
             {
               text: "下拉选择器",
               link: "/markdown/select/select-v2.md",
@@ -97,12 +90,20 @@ export default defineConfig({
             {
               text: "分页器",
               link: "/markdown/pagination/pagination.md",
-            },
-            {
-              text: "单选框",
-              link: "/markdown/radio/radio.md",
-            },
+            }
           ],
+        },
+        {
+          text: "图表组件",
+          collapsible: true,
+          collapsed: true,
+          items: [],
+        },
+        {
+          text: "其他组件",
+          collapsible: true,
+          collapsed: true,
+          items: [],
         },
       ],
     },
