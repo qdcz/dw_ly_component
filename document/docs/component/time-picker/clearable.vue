@@ -1,11 +1,10 @@
 <template>
   <div>
-    <p>可以选择任意时间</p>
     <p>
-      提供了两种交互方式：一种是通过鼠标滚轮进行选择，第二种是通过点击指定的数字进行选择。
+      配置 clearable 属性 可清除当前的选中的时间
     </p>
-    <p>点击取消可返回原来选择的值，失去焦点或者点击确定视为确定</p>
     <vi-time-picker
+      clearable
       v-model="data.currentSelect"
       :dynamicCss="data.dynamicCss"
       placeholder="Arbitrary time"

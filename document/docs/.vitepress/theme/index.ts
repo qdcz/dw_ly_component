@@ -7,6 +7,11 @@ import {
   v2_multiple_tooltip,
   v2_dropdownSelect,
   v2_layout,
+
+  timePicker_base,
+  timePicker_clearable,
+  timePicker_disabledTime,
+  timePicker_initSelectTime
 } from "../../component/index";
 export default {
   ...DefaultTheme,
@@ -17,5 +22,10 @@ export default {
     app.component("select-v2-multiple-tooltip", v2_multiple_tooltip.default);
     app.component("select-v2-dropdownSelect", v2_dropdownSelect.default);
     app.component("select-v2-layout", v2_layout.default);
+
+    app.component("time-picker-base", timePicker_base.default);
+    app.component("time-picker-clearable", timePicker_clearable.default);
+    app.component("time-picker-disabledTime", timePicker_disabledTime.default);
+    app.component("time-picker-initSelectTime", timePicker_initSelectTime.default);
   },
 };

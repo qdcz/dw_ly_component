@@ -1,14 +1,12 @@
 <template>
   <div>
-    <p>可以选择任意时间</p>
-    <p>
-      提供了两种交互方式：一种是通过鼠标滚轮进行选择，第二种是通过点击指定的数字进行选择。
-    </p>
-    <p>点击取消可返回原来选择的值，失去焦点或者点击确定视为确定</p>
+    <p>给 v-model 一个值即可设置默认显示时间，旋转器会自动定位到该时间的位置</p>
+    <p>注意：v-model 的值必须要符合时间格式（hh:mm:ss）,否则会被清空导致无效</p>
     <vi-time-picker
       v-model="data.currentSelect"
       :dynamicCss="data.dynamicCss"
       placeholder="Arbitrary time"
+      clearable 
     ></vi-time-picker>
   </div>
 </template>
@@ -21,7 +19,7 @@ export default defineComponent({
   },
   setup() {
     const data = reactive({
-      currentSelect: "",
+      currentSelect: "08:00:05",
       dynamicCss: {
         margin: "10px",
       },
