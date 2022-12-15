@@ -6,7 +6,7 @@ const ogTitle = 'Vite'
 const ogUrl = 'https://vitejs.dev'
 
 export default defineConfig({
-    title: 'dw_组件库',
+    title: '组件库',
     description: '',
     lang: 'zh-CN',
     appearance: true, // 关闭主题切换
@@ -87,13 +87,13 @@ export default defineConfig({
         sidebar: {
             '/': [
                 {
-                    text: '个人组件库',
+                    text: '组件库啊',
                     collapsible: true,
                     collapsed: true,
                     items: [
                         {
                             text: '下拉选择器',
-                            link: '/component/select/select-v2.md'
+                            link: '/markdown/select/select-v2.md'
                         },
                         {
                             text: '时间选择器',

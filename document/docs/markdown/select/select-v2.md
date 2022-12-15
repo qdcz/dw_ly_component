@@ -1,10 +1,27 @@
 # vi-select-v2 `V0.0.8`
 
-vi-select-v2是一个多功能的下拉选择器。
+当选项过多时，使用下拉菜单展示并选择内容。
 
-支持单选、多选模式，支持选中可清除、下拉搜索
+目前支持单选、多选模式，支持选中可清除、下拉搜索等功能
 
-<test></test>
+## 基础用法
+
+<select-v2-base></select-v2-base>
+
+## 单选可清除
+
+<select-v2-clearable></select-v2-clearable>
+
+## 多选模式
+
+<select-v2-multiple></select-v2-multiple>
+
+## 开启tooltip
+
+<select-v2-multiple-tooltip></select-v2-multiple-tooltip>
+
+配置 collapse-tags 属性 可将超出部分隐藏起来以+N的形式展现出来---(待升级) <br />
+配置 collapse-tags-tooltip 属性 鼠标悬浮+N部分 出现悬浮框展示出所有隐藏项---(待升级) <br />
 
 ## 配置
 
