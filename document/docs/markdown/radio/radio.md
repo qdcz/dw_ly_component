@@ -2,12 +2,6 @@
 
 vi-radio是一个单选
 
-<div>
-  <vi-radio></vi-radio>
-  
-</div>
-
-
 ## 配置
 
 ### 基础配置

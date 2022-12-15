@@ -11,7 +11,11 @@ import {
   timePicker_base,
   timePicker_clearable,
   timePicker_disabledTime,
-  timePicker_initSelectTime
+  timePicker_initSelectTime,
+
+  pagination_base,
+  pagination_background,
+  pagination_pagerCount
 } from "../../component/index";
 export default {
   ...DefaultTheme,
@@ -27,5 +31,9 @@ export default {
     app.component("time-picker-clearable", timePicker_clearable.default);
     app.component("time-picker-disabledTime", timePicker_disabledTime.default);
     app.component("time-picker-initSelectTime", timePicker_initSelectTime.default);
+
+    app.component("pagination-base", pagination_base.default);
+    app.component("pagination-background", pagination_background.default);
+    app.component("pagination-pagerCount", pagination_pagerCount.default);
   },
 };
