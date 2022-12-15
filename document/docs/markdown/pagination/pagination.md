@@ -2,8 +2,6 @@
 
 当数据量过多时,使用分页分解数据。
 
-支持总数、页码大小选择、页数按钮、上一页、下一页、快速跳转功能
-
 ## 基础用法
 
 <pagination-base></pagination-base>
@@ -16,29 +14,122 @@
 
 <pagination-background></pagination-background>
 
-## select属性
+## 自定义配置css属性
+
+支持以props的形式传入组件内，可覆盖组件内置的css变量
+
+具体的使用方式为：
+```vue
+<template>
+    <vi-pagination v-model="data.currentSelect" :dynamicCss="data.dynamicCss"  layout="prev, pager, next"></vi-pagination>
+</template>
+
+<script lang="ts" setup>
+const data = reactive({
+  currentSelect: "",
+  dynamicCss:{
+    "bs-fo-size": "14",
+  }
+});
+</script>
+```
+
+以下为全部的css变量值：
+
+```js
+{
+  /**
+   * base
+   */
+  "bs-fo-size": "14",
+
+
+  /**
+   * btn
+   */
+  "btn-line-height": "34",
+  "btn-min-width": "26",
+  "btn-pad-t": "0",
+  "btn-pad-r": "4",
+  "btn-pad-b": "0",
+  "btn-pad-l": "4",
+  "btn-mar-t": "0",
+  "btn-mar-r": "4",
+  "btn-mar-b": "0",
+  "btn-mar-l": "4",
+  "btn-fo-color": "#000",
+  "btn-fo-size":12,
+  "btn-fo-weight":600,
+  "btn-border-radius": "4",
+  "btn-hover-fo-color": "#0077ff",
+  "btn-active-fo-color": "#0077ff",
+  "btn-active-bg-color": "#0697ff",
+  /**
+   * bg 模式
+   */
+  "btn-background-bg-color": "#f0f2f5",
+  "btn-background-fo-color": "#000",
+  "btn-background-active-fo-color": "#fff",
+  "btn-background-active-bg-color": "#0697ff",
+
+
+  /**
+   * total
+   */
+  "total-fo-color": "#606266",
+  "total-mar-r": "8",
+
+
+  /**
+   * jump
+   */
+  "jump-mar-l": "8",
+  "jump-input-mar-l": "8",
+  "jump-input-border-radius": "4",
+  "jump-input-border-color": "#d6d6d6",
+  "jump-input-width": "30",
+  "jump-input-bg-color": "#fff",
+  "jump-input-fo-color": "#000",
+  "jump-input-max-width": "50",
+
+
+  /**
+   * animation
+   */
+  'ani-transition': '0.5',
+
+
+  /**
+   * select-v2组件
+   */
+  "select-v2-mar-r": "8",
+  "select-v2-input-text-alight": "center",
+  "select-v2-input-width": "80",
+  "select-v2-input-line-height": "30",
+  "select-v2-popper-option-height": "40"
+}
+```
+
+## 属性
 
 | **属性名**  | **说明**                                             | **类型**                | **可选值**                              | **默认值**                   |
 | :---------- | ---------------------------------------------------- | ----------------------- | --------------------------------------- | ---------------------------- |
 | modelValue  | 当前选中值                                           | [String, Number, Array] | —                                       | ""                           |
-| mode        | 多选/单选模式                                        | String                  | single、multiple                        | single                       |
-| list        | 选项列表                                             | Array                   | —                                       | []                           |
-| itemLayout  | 同时展示几列                                         | String                  | auto、co1、co2、co3、co4、co5、co6、co7 | co1                          |
-| clearable   | 是否可以清空选项                                     | Boolean                 | —                                       | false                        |
-| tooltip     | 当鼠标悬停于折叠标签的文本时，是否显示所有选中的标签 | Boolean                 |                                         | false                        |
-| search      | 是否使用搜索框                                       | Boolean                 | —                                       | false                        |
-| searchImg   | 搜索框的icon图片地址                                 | String                  | —                                       | ""                           |
-| placeholder | 占位文字 | String                  | —                                       | 请选择您需要的选项o(*￣▽￣*)ブ |
+| background | 多选/单选模式                                        | [String，Boolean] | —                       | false                  |
+| total   | 总条目数                                         | [String, Number]  | —                                       | 100                        |
+| totalLabel | 总条目数左侧文案                              | String                  | — | Total                     |
+| jumpLabel | 快速跳转左侧文案                         | String           | —                                       | Go to                   |
+| pageSize | 每页显示条目个数，支持 v-model 双向绑定 | [String, Number, Array], | — | ""                    |
+| pagerCount | 设置最大页码按钮数。 页码按钮的数量，当总页数超过该值时会折叠        | [String, Number] | (介于 5 和 29 之间的奇数)                   | 7                        |
+| layout | 组件布局，子组件名用逗号分隔                   | String                  | "total, prev, size, pager, next, jump" | ""                           |
 | dynamicCss  | 覆盖组件内置的css变量 | Object                  | —                                       | 见自定义配置属性             |
 
-## select事件
+## 事件
 
-| **事件名**     | **说明**          | **回调参数**                                      |
-| :------------- | ----------------- | ------------------------------------------------- |
-| handleSelected | 选中事件 单选     | (v:object={label:"",value:""})                    |
-| handleSelected | 选中事件 多选     | (v:object={currentSelected:{},currentSelects:[]}) |
-| handleClear    | 选中清除事件 单选 | null                                              |
-| handleClear    | 选中清除事件 多选 | (v:object={currentClose:{},currentSelects:[]})    |
+| **事件名**      | **说明**                  | **回调参数**                                                 |
+| :-------------- | ------------------------- | ------------------------------------------------------------ |
+| @size-change    | `page-size` 改变时触发    | (v:object={currentPage:"新当前页",pageSize:"当前选择的size数"}) |
+| @current-change | `current-page` 改变时触发 | 新当前页                                                     |
 
 ## datav组件用法 👇👇👇
 
@@ -74,9 +165,9 @@
 
 - 背景模式：开关区别图
 
-  ![1666058031782](../../../../../public/datav/pagination/1666058031782.png)
+  ![1666058031782](/datav/pagination/1666058031782.png)
 
-  ![1666058004085](../../../../../public/datav/pagination/1666058004085.png)
+  ![1666058004085](/datav/pagination/1666058004085.png)
 
   可调节字体颜色、背景颜色
 
@@ -86,13 +177,13 @@
 
 ### 总数
 
-![1666058788111](../../../../../public/datav/pagination/1666058788111.png)
+![1666058788111](/datav/pagination/1666058788111.png)
 
 - 文本内容：文本内容，默认Total。
 
 - 外右边距：如图所示的距离
 
-  ![1666058906799](../../../../../public/datav/pagination/1666058906799.png)
+  ![1666058906799](/datav/pagination/1666058906799.png)
 
 - 字体颜色
 
@@ -102,26 +193,26 @@
 
 - 外右边距：如图所示的距离
 
-  ![1666059180320](../../../../../public/datav/pagination/1666059180320.png)
+  ![1666059180320](/datav/pagination/1666059180320.png)
 
 - 输入框：具体见vi-select组件的配置文档。
 - 弹出层：具体见vi-select组件的配置文档。
 
 ### 跳转
 
-![1666059233238](../../../../../public/datav/pagination/1666059233238.png)
+![1666059233238](/datav/pagination/1666059233238.png)
 
 - 文本内容：显示的文本内容，默认Go to。
 
 - 外左边距：如图所示的距离
 
-  ![1666059277396](../../../../../public/datav/pagination/1666059277396.png)
+  ![1666059277396](/datav/pagination/1666059277396.png)
 
 - 输入框：输入框的一些属性配置
 
   - 外左边距：如图所示距离
 
-    ![1666059335291](../../../../../public/datav/pagination/1666059335291.png)
+    ![1666059335291](/datav/pagination/1666059335291.png)
 
 - 边框弧度：输入框的边框圆角。
 - 边框颜色：输入框的边框颜色。
@@ -166,7 +257,7 @@
 ]
 ```
 
-## 交互
+## 事件
 
 ### handleSizeChange
 
@@ -190,7 +281,7 @@ stage.get("xxxxxxxxxxx").on('handleSizeChange',(data)=>{console.log(data)})
 stage.get("xxxxxxxxxxx").on('handleCurrentChange',(data)=>{console.log(data)})
 ```
 
-## 蓝图交互
+## 方法
 
 ### getCurrentPage
 
@@ -206,4 +297,4 @@ stage.get("xxxxxxxxxxx").getCurrentPage()
 
 **蓝图用法**：
 
-![1666060453902](../../../../../public/datav/pagination/1666060453902.png)
+![1666060453902](/datav/pagination/1666060453902.png)

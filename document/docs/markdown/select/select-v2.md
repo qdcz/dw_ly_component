@@ -213,7 +213,7 @@ const data = reactive({
 }
 ```
 
-## select属性
+## 属性
 
 | **属性名**  | **说明**                                             | **类型**                | **可选值**                              | **默认值**                   |
 | :---------- | ---------------------------------------------------- | ----------------------- | --------------------------------------- | ---------------------------- |
@@ -228,7 +228,7 @@ const data = reactive({
 | placeholder | 占位文字 | String                  | —                                       | 请选择您需要的选项o(*￣▽￣*)ブ |
 | dynamicCss  | 覆盖组件内置的css变量 | Object                  | —                                       | 见自定义配置属性             |
 
-## select事件
+## 事件
 
 | **事件名**     | **说明**          | **回调参数**                                      |
 | :------------- | ----------------- | ------------------------------------------------- |
@@ -356,7 +356,7 @@ const data = reactive({
 ]
 ```
 
-## 交互
+## 事件
 
 ### handleSelected
 
@@ -405,7 +405,7 @@ stage.get("xxxxxxxxxxx").on('handleSelected',(obj)=>{console.log(obj.label,obj.v
 stage.get("xxxxxxxxxxx").on('handleClear',()=>{})
 ```
 
-## 蓝图交互
+## 方法
 
 ### getCurrentSelect 
 
@@ -422,7 +422,7 @@ stage.get("xxxxxxxxxxx").getCurrentSelect()
 **蓝图用法**：
 
 
-![1](../../../../../public/datav/selectv2/1665738464189.png)
+![1](/datav/selectv2/1665738464189.png)
 
 # 更新日志
 

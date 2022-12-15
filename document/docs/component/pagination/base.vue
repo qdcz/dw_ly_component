@@ -3,10 +3,15 @@
     <p>
       设置layout,表示需要显示的内容,用逗号分隔,布局元素会依次显示。
       <br />
-      prev表示上一页,next为下一页,pager表示页码列表,jumpe表示快速跳转,total表示总条目数,size表示设置每页显示的页码数量
+      <span class="label">prev表示上一页</span>
+      <span class="label">next为下一页</span>
+      <span class="label">pager表示页码列表</span>
+      <span class="label">jump表示快速跳转</span>
+      <span class="label">total表示总条目数</span>
+      <span class="label">size表示设置每页显示的页码数量</span>
     </p>
 
-    <p>只配置了 "prev, pager, next"</p>
+    <p>只配置了 <span class="label">prev、pager、next</span></p>
     <vi-pagination
       v-model="data.currentSelect"
       :dynamicCss="data.dynamicCss"
@@ -18,7 +23,7 @@
       layout="prev, pager, next"
     ></vi-pagination>
 
-    <p>配置了 "total, prev, pager, next, jump"</p>
+    <p>配置了 <span class="label">total, prev, pager, next, jump</span></p>
     <vi-pagination
       v-model="data.currentSelect"
       :dynamicCss="data.dynamicCss"
@@ -30,8 +35,13 @@
       layout="total,prev, pager, next,jump"
     ></vi-pagination>
 
-    <p>配置了全部 "total, prev, size, pager, next, jump"</p>
-    <p>注意：配置了size 之后 page-size 属性应该为数组 如：:page-size="[50, 100, 200, 500, 1000]"</p>
+    <p>
+      配置了全部 <span class="label">total, prev, size, pager, next, jump</span>
+    </p>
+    <p>
+      注意：配置了size 之后 page-size 属性应该为数组 如：:page-size="[50, 100,
+      200, 500, 1000]"
+    </p>
     <vi-pagination
       v-model="data.currentSelect1"
       :dynamicCss="data.dynamicCss"
@@ -46,7 +56,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, reactive } from "vue";
-import { VIpagination } from "../../../../dist/component/all/index.full.min.mjs";
+import { VIpagination } from "../../public/componentDist/all/index.full.min.mjs";
 export default defineComponent({
   components: {
     "vi-pagination": VIpagination,
@@ -74,3 +84,14 @@ export default defineComponent({
   },
 });
 </script>
+<style scoped>
+.label {
+  background-color: #f1f1f1;
+  margin: 0 4px 4px 0;
+  border-radius: 4px;
+  padding: 0 8px;
+  color: #476582;
+  display: inline-flex;
+  font-size: 12px;
+}
+</style>

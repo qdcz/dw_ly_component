@@ -2,17 +2,21 @@
 
 vi-radio是一个单选
 
+## 基础用法
+
+<radio-base></radio-base>
+
 ## 配置
 
 ### 基础配置
 
 - 外边距：如图所示：
 
-  ![1666064030609](../../../../../public/datav/radio/1666064030609.png)
+  ![1666064030609](/datav/radio/1666064030609.png)
 
 - 内边距：如图所示：
 
-  ![1666064073704](../../../../../public/datav/radio/1666064073704.png)
+  ![1666064073704](/datav/radio/1666064073704.png)
 
 - 背景颜色：背景颜色。
 - 禁用颜色：禁用状态下的字体颜色。
@@ -26,7 +30,7 @@ vi-radio是一个单选
 
 组件中的圆点
 
-![1666064417123](../../../../../public/datav/radio/1666064417123.png)
+![1666064417123](/datav/radio/1666064417123.png)
 
 - 圆圈大小：圆圈的整体大小。
 - 外圈：外圈部分的配置
@@ -60,7 +64,7 @@ vi-radio是一个单选
 
 开启后会切换成按钮模式
 
-![1666065146411](../../../../../public/datav/radio/1666065146411.png)
+![1666065146411](/datav/radio/1666065146411.png)
 
 - 内边距：每个按钮的内边距
 - 字体：可配置字体大小、字体颜色 和 激活状态下的字体颜色。
@@ -157,7 +161,7 @@ vi-radio是一个单选
 ]
 ```
 
-## 交互
+## 事件
 
 ### handleCurrentChange
 
@@ -169,7 +173,7 @@ vi-radio是一个单选
 stage.get("xxxxxxxxxxx").on('handleCurrentChange',(value)=>{console.log(value)})
 ```
 
-## 蓝图交互
+## 方法
 
 ### getCurrentSelect
 
@@ -185,4 +189,4 @@ stage.get("xxxxxxxxxxx").getCurrentSelect()
 
 **蓝图用法**：
 
-![1666065353618](../../../../../public/datav/radio/1666065353618.png)
+![1666065353618](/datav/radio/1666065353618.png)

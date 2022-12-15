@@ -13,7 +13,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, reactive } from "vue";
-import { VITimePicker } from "../../../../dist/component/all/index.full.min.mjs";
+import { VITimePicker } from "../../public/componentDist/all/index.full.min.mjs";
 export default defineComponent({
   components: {
     "vi-time-picker": VITimePicker,

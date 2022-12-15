@@ -1,5 +1,5 @@
 import DefaultTheme from "vitepress/theme";
-import "../../../../dist/component/all/index.css";
+import "../../public/componentDist/all/index.css";
 import {
   v2_base,
   v2_clearable,
@@ -15,7 +15,9 @@ import {
 
   pagination_base,
   pagination_background,
-  pagination_pagerCount
+  pagination_pagerCount,
+
+  radio_base
 } from "../../component/index";
 export default {
   ...DefaultTheme,
@@ -35,5 +37,8 @@ export default {
     app.component("pagination-base", pagination_base.default);
     app.component("pagination-background", pagination_background.default);
     app.component("pagination-pagerCount", pagination_pagerCount.default);
+
+    app.component("radio-base", radio_base.default);
+
   },
 };

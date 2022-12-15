@@ -14,7 +14,7 @@
 
 <time-picker-initSelectTime></time-picker-initSelectTime>
 
-## 配置禁用项
+## 旋转器禁用项
 
 <time-picker-disabledTime></time-picker-disabledTime>
 
@@ -144,7 +144,7 @@ const data = reactive({
 };
 ```
 
-## time-picker属性
+## 属性
 
 | **属性名**  | **说明**                                             | **类型**                | **可选值**                              | **默认值**                   |
 | :---------- | ---------------------------------------------------- | ----------------------- | --------------------------------------- | ---------------------------- |
@@ -156,7 +156,7 @@ const data = reactive({
 | placeholder | 占位文字 | String                  | —                                       | Arbitrary time |
 | dynamicCss  | 覆盖组件内置的css变量 | Object                  | —                                       | 见自定义配置属性             |
 
-## time-picker事件
+## 事件
 
 | **事件名**     | **说明**          | **回调参数**                                      |
 | :------------- | ----------------- | ------------------------------------------------- |
@@ -211,7 +211,7 @@ const data = reactive({
 
   - 高度：如图所示
 
-    ![1666061197973](../../../../../public/datav/timepicker/1666061197973.png)
+    ![1666061197973](/datav/timepicker/1666061197973.png)
 
   - 字体大小：字体大小。
 
@@ -219,7 +219,7 @@ const data = reactive({
 
   - 上边框：如图所示
 
-    ![1666061242870](../../../../../public/datav/timepicker/1666061242870.png)
+    ![1666061242870](/datav/timepicker/1666061242870.png)
 
   - 取消按钮：取消按钮。
 
@@ -230,13 +230,13 @@ const data = reactive({
     - 内边距：内边距。
     - 外边距：外边距。
 
-    ![1666061393853](../../../../../public/datav/timepicker/1666061393853.png)
+    ![1666061393853](/datav/timepicker/1666061393853.png)
 
 - 旋转器
 
   可上下滑动的组件如图所示：
 
-  ![1666061483002](../../../../../public/datav/timepicker/1666061483002.png)
+  ![1666061483002](/datav/timepicker/1666061483002.png)
 
 - 选中边框
 
@@ -249,11 +249,11 @@ const data = reactive({
     - 线条类型：
     - 颜色：
 
-  ![1666061599361](../../../../../public/datav/timepicker/1666061599361.png)
+  ![1666061599361](/datav/timepicker/1666061599361.png)
 
 - 数字项
 
-  ![1666061645648](../../../../../public/datav/timepicker/1666061645648.png)
+  ![1666061645648](/datav/timepicker/1666061645648.png)
 
   - 高度：数字项高度。
   - 字体：可调节字体大小、字体颜色。
@@ -298,7 +298,7 @@ const data = reactive({
 ]
 ```
 
-## 交互
+## 事件
 
 ### handleBoxClick
 
@@ -345,7 +345,7 @@ stage.get("xxxxxxxxxxx").on('handleCancelClick',()=>{})
 stage.get("xxxxxxxxxxx").on('handleOkClick',(data)=>{console.log(data)})
 ```
 
-## 蓝图交互
+## 方法
 
 ### getCurrentSelect
 
@@ -361,4 +361,4 @@ stage.get("xxxxxxxxxxx").getCurrentSelect()  // "00:00:59"
 
 **蓝图用法**：
 
-![1666062953167](../../../../../public/datav/timepicker/1666062953167.png)
+![1666062953167](/datav/timepicker/1666062953167.png)

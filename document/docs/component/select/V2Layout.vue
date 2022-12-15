@@ -31,7 +31,7 @@ import { defineComponent, reactive } from "vue";
 import {
   VISelectV2,
   VISelectV2Option,
-} from "../../../../dist/component/all/index.full.min.mjs";
+} from "../../public/componentDist/all/index.full.min.mjs";
 export default defineComponent({
   components: {
     "vi-select-v2": VISelectV2,

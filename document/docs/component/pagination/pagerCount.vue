@@ -6,7 +6,7 @@
     <vi-pagination
       v-model="data.currentSelect"
       :dynamicCss="data.dynamicCss"
-      :pager-count="29"
+      :pager-count="9"
       :total="1200"
       background
       @size-change="sizeChange"
@@ -18,7 +18,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, reactive } from "vue";
-import { VIpagination } from "../../../../dist/component/all/index.full.min.mjs";
+import { VIpagination } from "../../public/componentDist/all/index.full.min.mjs";
 export default defineComponent({
   components: {
     "vi-pagination": VIpagination,
