@@ -18,11 +18,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, reactive } from "vue";
-import { VIpagination } from "../../public/componentDist/all/index.full.min.mjs";
 export default defineComponent({
-  components: {
-    "vi-pagination": VIpagination,
-  },
   setup() {
     const data = reactive({
       currentSelect: "",

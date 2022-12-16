@@ -1,21 +1,16 @@
 <template>
   <div>
     <p>
-      单选框不应该有太多的可选项，
-      如果你有很多的可选项你应该使用选择框而不是单选框。
+      你可以让单选框看起来像一个按钮一样。
     </p>
     <p>
-      要使用 Radio 组件，只需要设置<span>v-model</span>绑定变量，
-      选中意味着变量的值为相应
-      <span>value</span>属性的值，
-      <span>value</span>可以是<span>String</span>、<span>Number</span> 或
-      <span>Boolean</span>，<span>label</span>对应的是显示的文案信息。
+      只需要把 <span>vi-radio</span> 元素换成 <span>vi-radio-button</span> 元素即可。
     </p>
     <vi-radio-group v-model="data.currentSelect" @change="change">
-      <vi-radio label="低预警" :value="1"></vi-radio>
-      <vi-radio label="中预警" :value="2"></vi-radio>
-      <vi-radio label="高预警" :value="3"></vi-radio>
-      <vi-radio label="正常" :value="4"></vi-radio>
+      <vi-radio-button label="低预警" :value="1"></vi-radio-button>
+      <vi-radio-button label="中预警" :value="2"></vi-radio-button>
+      <vi-radio-button label="高预警" :value="3"></vi-radio-button>
+      <vi-radio-button label="正常" :value="4"></vi-radio-button>
     </vi-radio-group>
   </div>
 </template>

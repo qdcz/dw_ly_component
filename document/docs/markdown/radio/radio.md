@@ -1,10 +1,138 @@
 # vi-radio
 
-vi-radio是一个单选
+在一组备选项中进行单选
 
 ## 基础用法
 
 <radio-base></radio-base>
+
+## 禁用状态
+
+<radio-disabled></radio-disabled>
+
+## 带有边框
+
+<radio-border></radio-border>
+
+## 按钮模式
+
+<radio-button></radio-button>
+
+## 自定义配置css属性
+
+支持以props的形式传入组件内，可覆盖组件内置的css变量
+
+具体的使用方式为：
+```vue
+<template>
+    <vi-radio-group v-model="radioData" :dynamicCss="dynamicCss" @change="onRadioDataChange">
+			<vi-radio label="预警-低" :value="1" disabled=""></vi-radio>
+			<vi-radio label="预警-中" :value="2" :disabled="0"></vi-radio>
+			<vi-radio label="预警-高" :value="3" :disabled="true"></vi-radio>
+			<vi-radio label="正常" :value="4" :disabled="false"></vi-radio>
+		</vi-radio-group>
+</template>
+<script lang="ts" setup>
+const data = reactive({
+  currentSelect: "",
+  dynamicCss:{
+    "bs-fo-size": "14",
+  }
+});
+</script>
+```
+
+以下为全部的css变量值：
+
+```js
+{
+    /**
+   * 基础
+   */
+  'bs-mar-t': 0,
+  'bs-mar-r': 10,
+  'bs-mar-b': 10,
+  'bs-mar-l': 0,
+  'bs-pad-t': 4,
+  'bs-pad-r': 8,
+  'bs-pad-b': 4,
+  'bs-pad-l': 8,
+  'bs-bg-color': '#fff',
+  'bs-disabled-color': 'gray',
+  'bs-border-radius': '4',
+  'bs-border-width': '1',
+  'bs-border-type': 'solid',
+  'bs-border-color': '#00b7ff',
+
+  /**
+   * circle
+   */
+  'circle-size': '12',
+  'circle-out-bg-color': '#989898', // 外圈颜色
+  'circle-out-hover-bg-color': '#00b7ff', // 外圈悬浮颜色
+  'circle-out-active-bg-color': '#01b3f9', // 外圈激活颜色
+  'circle-inner-bg-color': '#fff', // 内圈颜色
+  'circle-inner-size': '10', // 内圈size
+  'circle-inner-active-bg-color': '#fff', // 内圈激活颜色
+  'circle-inner-active-size': '4', // 内圈激活size
+
+  /**
+   * label
+   */
+  'txt-fo-size': '14',
+  'txt-fo-color': '#000',
+  'txt-fo-active-color': '#00b7ff',
+  'txt-fo-active-weight': '500',
+  'txt-pad-l': '8',
+
+  /**
+   * button mode
+   */
+  'btn-fo-size': '12',
+  'btn-fo-color': '#000',
+  'btn-fo-active-color': '#fff',
+  'btn-pad-t': '4',
+  'btn-pad-r': '12',
+  'btn-pad-b': '4',
+  'btn-pad-l': '12',
+  'btn-bg-color': '#fff',
+  'btn-bg-active-color': '#409eff',
+  'btn-border-width': '1',
+  'btn-border-type': 'solid',
+  'btn-border-color': '#dcdfe6',
+
+  /**
+   * animation
+   */
+  'ani-transition': '0.5'
+}
+```
+
+## radio、radio-button属性
+
+| **属性名** | **说明**              | **类型**                  | **可选值** | **默认值**          |
+| :--------- | --------------------- | ------------------------- | ---------- | ------------------- |
+| border     | 是否显示边框          | Boolean                   | —          | false               |
+| label      | 选项的显示文案        | [String, Number]          | —          | ""                  |
+| value      | 选项的值              | [String, Number]          | —          | ""                  |
+| disabled   | 选项是否禁用          | [String, Number, Boolean] | —          | false               |
+
+## radio-group属性
+
+| **属性名** | **说明**              | **类型**                  | **可选值** | **默认值**          |
+| :--------- | --------------------- | ------------------------- | ---------- | ------------------- |
+| modelValue | 当前选中值            | [String, Number, Array]   | —          | ""                  |
+| dynamicCss | 覆盖组件内置的css变量 | Object                    | —          | 见自定义配置css属性 |
+
+## radio-group事件
+
+| **事件名** | **说明**             | **回调参数**                                                 |
+| :--------- | -------------------- | ------------------------------------------------------------ |
+| @change    | `v-model` 改变时触发 | (v:object={currentPage:"新当前页",pageSize:"当前选择的size数"}) |
+
+## datav组件用法 👇👇👇
+
+以下为datav中使用的说明
 
 ## 配置
 
@@ -12,11 +140,11 @@ vi-radio是一个单选
 
 - 外边距：如图所示：
 
-  ![1666064030609](/datav/radio/1666064030609.png)
+  ![1666064030609](../../../../../public/datav/radio/1666064030609.png)
 
 - 内边距：如图所示：
 
-  ![1666064073704](/datav/radio/1666064073704.png)
+  ![1666064073704](../../../../../public/datav/radio/1666064073704.png)
 
 - 背景颜色：背景颜色。
 - 禁用颜色：禁用状态下的字体颜色。
@@ -30,7 +158,7 @@ vi-radio是一个单选
 
 组件中的圆点
 
-![1666064417123](/datav/radio/1666064417123.png)
+![1666064417123](../../../../../public/datav/radio/1666064417123.png)
 
 - 圆圈大小：圆圈的整体大小。
 - 外圈：外圈部分的配置
@@ -64,7 +192,7 @@ vi-radio是一个单选
 
 开启后会切换成按钮模式
 
-![1666065146411](/datav/radio/1666065146411.png)
+![1666065146411](../../../../../public/datav/radio/1666065146411.png)
 
 - 内边距：每个按钮的内边距
 - 字体：可配置字体大小、字体颜色 和 激活状态下的字体颜色。
@@ -82,82 +210,15 @@ vi-radio是一个单选
 
 ```json
 [
-  {
-    "value": "xiamen",
-    "label": "厦门",
-    "active": true
-  },
-  {
-    "value": "fuzhou",
-    "label": "福州",
-    "active": false
-  },
-  {
-    "value": "zhangzhou",
-    "label": "漳州",
-    "disabled": true,
-    "active": false
-  },
-  {
-    "value": "sanming",
-    "label": "三明",
-    "active": false
-  },
-  {
-    "value": "longyan",
-    "label": "龙岩",
-    "active": false
-  },
-  {
-    "value": "pinghe",
-    "label": "平和",
-    "active": false
-  },
-  {
-    "value": "changtai",
-    "label": "长泰",
-    "active": false
-  },
-  {
-    "value": "quanzhou",
-    "label": "泉州",
-    "active": false
-  },
-  {
-    "value": "jinjiang",
-    "label": "晋江",
-    "active": false
-  },
-  {
-    "value": "yongchun",
-    "label": "永春",
-    "active": false
-  },
-  {
-    "value": "jiaomei",
-    "label": "角美",
-    "active": false
-  },
-  {
-    "value": "zhaoan",
-    "label": "诏安",
-    "active": false
-  },
-  {
-    "value": "dongshan",
-    "label": "东山",
-    "active": false
-  },
-  {
-    "value": "longhai",
-    "label": "龙海",
-    "active": false
-  },
-  {
-    "value": "zini",
-    "label": "紫泥",
-    "active": false
-  }
+  { "value": "xiamen","label": "厦门阿斯顿撒旦","active": false },
+  { "value": "fuzhou","label": "福州","active": false },
+  { "value": "zhangzhou","label": "漳州","active": false },
+  { "value": "sanming","label": "三明","active": false },
+  { "value": "longyan","label": "龙岩","active": false },
+  { "value": "putian","label": "莆田","active": false },
+  { "value": "quanzhou","label": "泉州","active": false },
+  { "value": "nanping","label": "南平","active": false },
+  { "value": "ningde","label": "宁德","active": false }
 ]
 ```
 
@@ -189,4 +250,4 @@ stage.get("xxxxxxxxxxx").getCurrentSelect()
 
 **蓝图用法**：
 
-![1666065353618](/datav/radio/1666065353618.png)
+![1666065353618](../../../../../public/datav/radio/1666065353618.png)

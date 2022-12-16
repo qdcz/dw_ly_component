@@ -21,15 +21,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, reactive } from "vue";
-import {
-  VISelectV2,
-  VISelectV2Option,
-} from "../../public/componentDist/all/index.full.min.mjs";
 export default defineComponent({
-  components: {
-    "vi-select-v2": VISelectV2,
-    "vi-select-v2-option": VISelectV2Option,
-  },
   setup() {
     const data = reactive({
       currentSelect: "",
