@@ -1,10 +1,16 @@
 import DefaultTheme from "vitepress/theme";
 import "../../public/componentDist/all/index.css";
+
 import {
   VIRadio,
   VIRadioButton,
   VIRadioGroup,
+  VIpagination,
+  VISelectV2,
+  VISelectV2Option,
+  VITimePicker,
 } from "../dist/componentDist/all/index.full.min.mjs";
+
 import {
   v2_base,
   v2_clearable,
@@ -24,10 +30,19 @@ import {
   radio_border,
   radio_button,
 } from "../../component/index";
-import { VIpagination, VISelectV2, VISelectV2Option, VITimePicker } from "../../public/componentDist/all/index.full.min.mjs";
+
+import { h } from "vue";
 export default {
   ...DefaultTheme,
+  Layout() {
+    return h(DefaultTheme.Layout, null, {
+      // 'home-features-after': () => h(HomeSponsors),
+      // 'aside-ads-before': () => h(AsideSponsors)
+      // 'custom': () => h(custom)
+    });
+  },
   enhanceApp({ app }) {
+    // 全局注册-注册原组件
     app.use(VIRadio);
     app.use(VIRadioButton);
     app.use(VIRadioGroup);
@@ -36,8 +51,7 @@ export default {
     app.use(VISelectV2Option);
     app.use(VITimePicker);
 
-
-
+    // 全局注册-注册编写文档的组件
     app.component("radio-base", radio_base.default);
     app.component("radio-disabled", radio_disabled.default);
     app.component("radio-border", radio_border.default);
@@ -61,5 +75,9 @@ export default {
     app.component("pagination-base", pagination_base.default);
     app.component("pagination-background", pagination_background.default);
     app.component("pagination-pagerCount", pagination_pagerCount.default);
+  },
+  setup() {
+    // this function will be executed inside VitePressApp's
+    // setup hook. all composition APIs are available here.
   },
 };

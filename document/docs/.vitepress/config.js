@@ -1,5 +1,8 @@
 import { defineConfig } from "vitepress";
 
+import renderPermaLink from './render-perma-link'
+import MarkDownItCustomAnchor from './markdown-it-custom-anchor'
+
 const ogDescription = "Next Generation Frontend Tooling";
 const ogImage = "https://vitejs.dev/og-image.png";
 const ogTitle = "Vite";
@@ -27,26 +30,44 @@ export default defineConfig({
   },
 
   themeConfig: {
-    logo: "/logo.jpeg",
+    logo: "/logo2.png",
 
-    algolia: {
-      appId: "7H67QR5P0A",
-      apiKey: "deaab78bcdfe96b599497d25acc6460e",
-      indexName: "vitejs",
-      searchParameters: {
-        facetFilters: ["tags:cn"],
-      },
-    },
+    // algolia: {
+    //   appId: "7H67QR5P0A",
+    //   apiKey: "deaab78bcdfe96b599497d25acc6460e",
+    //   indexName: "vitejs",
+    //   searchParameters: {
+    //     facetFilters: ["tags:cn"],
+    //   },
+    // },
 
+    // 广告
     carbonAds: {
       code: "CEBIEK3N",
       placement: "vitejsdev",
     },
 
-    footer: {
-      copyright: "Copyright © 2022-dw_ly",
+    docFooter: {
+      prev: "Pagina prior",
+      next: "Proxima pagina",
     },
 
+    lastUpdatedText: "last update",
+
+    // 顶部栏-社交链接
+    socialLinks: [
+      { icon: "github", link: "https://github.com/qdcz/dw_ly_component-demo" },
+      // { icon: "twitter", link: "..." },
+      // { icon: "discord", link: "..." },
+      // { icon: "facebook", link: "..." },
+      // { icon: "instagram", link: "..." },
+      // { icon: "linkedin", link: "..." },
+      // { icon: "slack", link: "..." },
+      // { icon: "youtube", link: "..." },
+      // You can also add custom icons by passing SVG as string:
+    ],
+
+    // 导航链接
     nav: [
       {
         text: "首页",
@@ -59,6 +80,25 @@ export default defineConfig({
       {
         text: "组件",
         link: "/markdown/radio/radio",
+      },
+      {
+        text: "Dropdown Menu",
+        items: [
+          { text: "Item A", link: "/item-1" },
+          { text: "Item B", link: "/item-2" },
+          {
+            // Title for the section.
+            text: "Section A Title",
+            items: [
+              { text: "Section A Item A", link: "..." },
+              {
+                text: "Section B Item B",
+                link: "...",
+                activeMatch: "/config/",
+              },
+            ],
+          },
+        ],
       }
     ],
 
@@ -90,7 +130,7 @@ export default defineConfig({
             {
               text: "分页器",
               link: "/markdown/pagination/pagination.md",
-            }
+            },
           ],
         },
         {
@@ -107,9 +147,26 @@ export default defineConfig({
         },
       ],
     },
+
+    // 页脚
+    footer: {
+      message: "Released under the MIT License.",
+      copyright: "Copyright © 2022-dw_ly",
+    },
+
+    // 每个页面的左下角 放置一个超链接
+    // editLink: {
+    //   pattern: 'https://github.com/vuejs/vitepress/edit/main/docs/:path',
+    //   text: 'Edit this page on GitHub'
+    // }
   },
   markdown: {
     lineNumbers: true,
-    anchor: {},
+    anchor: {
+      // permalink: renderPermaLink,
+    },
+    config: (md) => {
+      md.use(MarkDownItCustomAnchor);
+    },
   },
 });
