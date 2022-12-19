@@ -6,6 +6,7 @@
 	"scripts": {
 		"dev": "pnpm -C example dev",
 		"build": "gulp -f build/gulpfile.ts",
+		"doc": "pnpm -C document dev",
 		"lint": "eslint . --ext .vue,.js,.ts,.jsx,.tsx --fix",
 		"commit": "git add . && git cz && git push",
 		"pack": "node ./pack.js component=time-picker packType=single",
@@ -23,21 +24,23 @@
 	"author": "dw.ly",
 	"license": "ISC",
 	"devDependencies": {
-		"@dw/components": "workspace:^0.0.1",
-		"@dw/utils": "workspace:^0.0.1",
-		"@dw/directives": "workspace:^0.0.1",
-		"@dw/themes": "workspace:^0.0.1",
-		"@dw/tokens": "workspace:^0.0.1",
-		"vue": "^3.2.45"
-	},
-	"dependencies": {
 		"@types/jest": "^27.0.0",
 		"@types/lodash": "^4.14.184",
 		"@types/lodash-es": "^4.17.6",
 		"@types/node": "^18.11.9",
 		"@types/react": "^18.0.21",
 		"@vueuse/core": "^8.6.0",
-		"typescript": "^4.9.4"
+		"gulp": "^4.0.2",
+		"typescript": "^4.9.4",
+		"vue": "^3.2.45"
+	},
+	"dependencies": {
+		"@dw/components": "workspace:^0.0.1",
+		"@dw/directives": "workspace:^0.0.1",
+		"@dw/themes": "workspace:^0.0.1",
+		"@dw/tokens": "workspace:^0.0.1",
+		"@dw/utils": "workspace:^0.0.1",
+		"ts-node": "^10.9.1"
 	},
 	"pnpm": {
 		"peerDependencyRules": {
