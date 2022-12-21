@@ -4,17 +4,14 @@
   "description": "组件打包库",
   "main": "index.js",
   "module": "",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "gulp --require @esbuild-kit/cjs-loader -f gulpfile.ts"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@vitejs/plugin-vue": "^4.0.0",
-    "@vitejs/plugin-vue-jsx": "^3.0.0",
-    "consola": "^2.15.3",
-    "gulp": "^4.0.2",
-    "vite": "^4.0.2",
-    "vue": "^3.2.45"
+    "@esbuild-kit/cjs-loader": "^2.4.1",
+    "consola": "^2.15.3"
   }
 }

@@ -5,7 +5,7 @@
 	"type": "module",
 	"scripts": {
 		"dev": "pnpm -C example dev",
-		"build": "gulp -f build/gulpfile.ts",
+		"build": "pnpm -C build build",
 		"doc": "pnpm -C document dev",
 		"lint": "eslint . --ext .vue,.js,.ts,.jsx,.tsx --fix",
 		"commit": "git add . && git cz && git push",
@@ -30,8 +30,10 @@
 		"@types/node": "^18.11.9",
 		"@types/react": "^18.0.21",
 		"@vueuse/core": "^8.6.0",
+		"@types/gulp": "^4.0.10",
 		"gulp": "^4.0.2",
 		"typescript": "^4.9.4",
+		"@vitejs/plugin-vue-jsx": "^3.0.0",
 		"vue": "^3.2.45"
 	},
 	"dependencies": {

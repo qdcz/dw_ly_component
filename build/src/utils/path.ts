@@ -1,6 +1,10 @@
 import { resolve } from 'path';
 
+
+// root path
 export const projRoot = resolve(__dirname, '..', '..', '..');
+
+// packages project path
 export const pkgRoot = resolve(projRoot, 'packages');
 export const compRoot = resolve(pkgRoot, 'components');
 export const themeRoot = resolve(pkgRoot, 'themes');
@@ -8,6 +12,9 @@ export const hookRoot = resolve(pkgRoot, 'hooks');
 export const localeRoot = resolve(pkgRoot, 'tokens');
 export const directiveRoot = resolve(pkgRoot, 'directives');
 export const utilRoot = resolve(pkgRoot, 'utils');
+
+// buid project path
+export const buildRoot = resolve(projRoot, 'internal', 'build')
 
 // Docs
 export const docsDirName = 'docs'

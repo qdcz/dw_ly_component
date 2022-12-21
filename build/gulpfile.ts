@@ -4,7 +4,7 @@ import {
 	run,
 } from './src';
 
-import {pkgRoot} from './src/utils/path';
+import {buildOutput} from './src/utils/path';
 
 // // `clean` 函数并未被导出（export），因此被认为是私有任务（private task）。
 // // 它仍然可以被用在 `series()` 组合中。
@@ -25,7 +25,8 @@ import {pkgRoot} from './src/utils/path';
 
 
 export default series(
-	withTaskName("clean dist folder", run('pnpm run clean'))
+	// withTaskName("clean dist folder", () => run('pnpm run clean')),
+	withTaskName("clean dist folder", () => run('rm -rf',buildOutput))
 );
 
 export * from './src';
