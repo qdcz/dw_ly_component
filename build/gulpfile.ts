@@ -1,32 +1,20 @@
-import { series } from 'gulp';
-import {
-	withTaskName,
-	run,
-} from './src';
-
-import {buildOutput} from './src/utils/path';
-
-// // `clean` 函数并未被导出（export），因此被认为是私有任务（private task）。
-// // 它仍然可以被用在 `series()` 组合中。
-// function clean(cb) {
-//   // body omitted
-//   cb();
-// }
-
-// // `build` 函数被导出（export）了，因此它是一个公开任务（public task），并且可以被 `gulp` 命令直接调用。
-// // 它也仍然可以被用在 `series()` 组合中。
-// function build(cb) {
-//   // body omitted
-//   cb();
-// }
-
-// exports.build = build;
-// exports.default = series(clean, build);
+import { parallel, series } from "gulp";
+import { withTaskName, deleteFolder, createFolder, fullBuild, buildFullBundle } from "./src";
+import { buildOutput } from "./src/utils/path";
 
 
 export default series(
-	// withTaskName("clean dist folder", () => run('pnpm run clean')),
-	withTaskName("clean dist folder", () => run('rm -rf',buildOutput))
+  // withTaskName("clean dist folder", () => run('pnpm run clean')),
+  // withTaskName("clean dist folder", () => run('rm -rf ./dist',buildOutput))
+  // 清除dist文件夹
+  withTaskName("clean dist folder", () => deleteFolder(buildOutput)),
+  // 创建dist文件夹
+  withTaskName("create dist folder", () => createFolder(buildOutput)),
+  // 全量打包
+  buildFullBundle
+//   runTask('buildModules'),
+  // 执行组件打包
+//   withTaskName("")
 );
 
-export * from './src';
+export * from "./src";

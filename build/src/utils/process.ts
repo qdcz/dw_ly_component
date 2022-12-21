@@ -1,7 +1,50 @@
 import { spawn } from "child_process";
 import chalk from "chalk";
 import consola from "consola";
-import { projRoot } from "./path";
+import { buildOutput, projRoot } from "./path";
+import fs from "fs";
+
+export const deleteFile = function (_dir: string, delRoot?: boolean): void {
+  if (fs.existsSync(_dir)) {
+    fs.readdirSync(_dir).forEach((i) => {
+      const delUrl = _dir + "/" + i;
+      const statSyncFlag = fs.statSync(delUrl);
+      if (statSyncFlag.isDirectory()) {
+        deleteFile(delUrl);
+        fs.rmdirSync(delUrl);
+      } else {
+        fs.unlinkSync(delUrl);
+      }
+      consola.info(`delete`, delUrl);
+    });
+    if (delRoot) {
+      fs.rmdirSync(_dir);
+    }
+  }
+};
+
+export const deleteFolder = async (cwd: string = projRoot) => {
+  return new Promise<void>((resolve) => {
+    consola.info(`start delete...`, cwd);
+    deleteFile(cwd, true);
+    resolve();
+  });
+};
+
+export const createFolder = async function (cwd: string = buildOutput) {
+  return new Promise<void>((resolve) => {
+    consola.info(`start create...`, cwd);
+    fs.stat(cwd, (err: Error, stats: object) => {
+      if (err) {
+		fs.mkdirSync(cwd);
+		resolve();
+        return;
+      }
+	  consola.warn(`${cwd} exists`);
+      resolve();
+    });
+  });
+};
 
 export const run = async (command: string, cwd: string = projRoot) =>
   new Promise<void>((resolve, reject) => {

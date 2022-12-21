@@ -24,16 +24,17 @@
 	"author": "dw.ly",
 	"license": "ISC",
 	"devDependencies": {
+		"@types/gulp": "^4.0.10",
 		"@types/jest": "^27.0.0",
 		"@types/lodash": "^4.14.184",
 		"@types/lodash-es": "^4.17.6",
 		"@types/node": "^18.11.9",
 		"@types/react": "^18.0.21",
+		"@vitejs/plugin-vue": "^4.0.0",
+		"@vitejs/plugin-vue-jsx": "^3.0.0",
 		"@vueuse/core": "^8.6.0",
-		"@types/gulp": "^4.0.10",
 		"gulp": "^4.0.2",
 		"typescript": "^4.9.4",
-		"@vitejs/plugin-vue-jsx": "^3.0.0",
 		"vue": "^3.2.45"
 	},
 	"dependencies": {
@@ -42,6 +43,9 @@
 		"@dw/themes": "workspace:^0.0.1",
 		"@dw/tokens": "workspace:^0.0.1",
 		"@dw/utils": "workspace:^0.0.1",
+		"@types/sass": "^1.43.1",
+		"esbuild": "^0.16.10",
+		"sass": "^1.57.1",
 		"ts-node": "^10.9.1"
 	},
 	"pnpm": {
