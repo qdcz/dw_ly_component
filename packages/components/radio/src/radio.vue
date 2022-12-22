@@ -1,8 +1,15 @@
 <template>
-	<div :class="[classes(n()), IsChecked ? n('active') : '',border ? n('border'):'']" @click="handleClick(value)">
+	<div :class="[classes(n()), IsChecked ? n('active') : '', border ? n('border') : '']" @click="handleClick(value)">
 		<div :class="[classes(n('_input__wrapper')), IsDisable ? 'is-disabled' : '']">
-			<input :class="[classes(n('_input'))]" type="radio" ref="radioRef" :value="value" :checked="IsChecked"
-				:disabled="IsDisable" v-model="modelValueBridge" />
+			<input
+				:class="[classes(n('_input'))]"
+				type="radio"
+				ref="radioRef"
+				:value="value"
+				:checked="IsChecked"
+				:disabled="IsDisable"
+				v-model="modelValueBridge"
+			/>
 			<div :class="[classes(n('_circle'))]"></div>
 		</div>
 		<label :class="classes(n('_label'), IsDisable ? 'is-disabled' : '')">{{ label }}</label>
@@ -25,35 +32,39 @@ export default defineComponent({
 		// radio点击事件
 		const handleClick = (e: number) => {
 			if (!IsDisable.value) {
-				injectData ? injectData.changeModelValue(e) : ctx.emit('update:modelValue', 'on')
+				injectData ? injectData.changeModelValue(e) : ctx.emit('update:modelValue', 'on');
 			}
-		}
+		};
 
 		// input框是否被选中
 		const IsChecked = computed({
 			get() {
-				return injectData ? props.value == injectData.currentSelect.value : props.modelValue
+				return injectData ? props.value == injectData.currentSelect.value : props.modelValue;
 			},
-			set() { },
-		})
+			set(): void {
+				return;
+			},
+		});
+		
 		// input框是否禁用
 		const IsDisable = computed({
 			get() {
-				return !!props.disabled
+				return !!props.disabled;
 			},
-			set() { },
-		})
-
+			set(): void {
+				return;
+			},
+		});
 
 		// 外部传入的v-model监听
 		const modelValueBridge = computed({
 			get() {
-				return injectData ? injectData.currentSelect.value : props.modelValue
+				return injectData ? injectData.currentSelect.value : props.modelValue;
 			},
 			set(val) {
-				ctx.emit && ctx.emit('update:modelValue', val)
+				ctx.emit && ctx.emit('update:modelValue', val);
 			},
-		})
+		});
 
 		return {
 			n,
@@ -63,8 +74,7 @@ export default defineComponent({
 			IsChecked,
 			IsDisable,
 
-
-			modelValueBridge
+			modelValueBridge,
 		};
 	},
 });

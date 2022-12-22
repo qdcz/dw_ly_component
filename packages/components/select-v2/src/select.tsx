@@ -1,4 +1,4 @@
-import { defineComponent, computed, ref, reactive, provide, getCurrentInstance, nextTick, watch } from 'vue';
+import { defineComponent, computed, ref, reactive, provide, getCurrentInstance, onMounted, nextTick, watch } from 'vue';
 import { createNamespace } from '@dw/utils/components';
 
 import { SELECTV2_INJECTION_KEY } from '../../../tokens/selectv2';
@@ -20,7 +20,7 @@ import VISelectV2Option from './option-item';
 
 export default defineComponent({
 	name: 'VISelectV2',
-	emits: ['focus', 'blur', 'update:modelValue', 'listChange', 'handleSelected', 'handleClear'],
+	emits: ['focus', 'blur', 'update:modelValue', 'handleSelected', 'handleClear', 'mouseenter', 'mouseleave'],
 	props: selectProps,
 	directives: { css },
 	components: {
@@ -104,9 +104,9 @@ export default defineComponent({
 		const mousedown = function (e) {
 			let softFocus = false;
 			for (let i = 0; i < e.path.length; i++) {
-				let item = e.path[i];
+				const item = e.path[i];
 				if (item.classList && item.classList.value) {
-					let _class = item.getAttribute('class');
+					const _class = item.getAttribute('class');
 					if (_class.includes('-select-v2') && item.dataset.id == data.uuid) {
 						softFocus = true;
 						break;
@@ -122,10 +122,7 @@ export default defineComponent({
 
 		const blur = function () {
 			data.dropDownVisible = false;
-		};
-
-		const focus = function () {
-			data.dropDownVisible = true;
+			ctx.emit && ctx.emit('blur');
 		};
 
 		const getDomInfo = function (ref) {
@@ -185,48 +182,55 @@ export default defineComponent({
 
 		const inputClick = function (e) {
 			data.dropDownVisible = !data.dropDownVisible;
+			ctx.emit && (data.dropDownVisible ? ctx.emit('focus') : ctx.emit('blur'));
 		};
 		const inputFocus = function (e) {};
 		const inputBlur = function (e) {};
-		const unfoldClick = function (e) {
-			data.dropDownVisible = false;
-			data.dialogVisible = true;
-		};
+		// const unfoldClick = function (e) {
+		// 	data.dropDownVisible = false;
+		// 	data.dialogVisible = true;
+		// };
 		const inputClear = function () {
 			ctx.emit && ctx.emit('handleClear');
 		};
-		const dialogHide = function (e) {
-			data.dialogVisible = false;
+		const inputMouseenter = function () {
+			ctx.emit && ctx.emit('mouseenter');
 		};
+		const inputMouseleave = function () {
+			ctx.emit && ctx.emit('mouseleave');
+		};
+		// const dialogHide = function (e) {
+		// 	data.dialogVisible = false;
+		// };
 
 		// 展开模式的tag
-		const tagClick = function (label, value) {
-			if (props.mode == 'single') {
-				currentSelectBridge.value = value;
-				currentSelectLabelBridge.value = label;
-				cacheOptionListBridge.value = { key: label, value: value };
-				// data.dialogVisible = false;
-			} else if (props.mode == 'multiple') {
-				let arr = JSON.parse(JSON.stringify(currentSelectBridge.value));
-				let flag = false;
-				try {
-					arr.forEach((element, index) => {
-						if (element.value == value) {
-							arr.splice(index, 1);
-							flag = true;
-							throw new Error();
-						}
-					});
-				} catch (e) {}
-				if (!flag) {
-					arr.push({
-						label: label,
-						value: value,
-					});
-				}
-				currentSelectBridge.value = arr;
-			}
-		};
+		// const tagClick = function (label, value) {
+		// 	if (props.mode == 'single') {
+		// 		currentSelectBridge.value = value;
+		// 		currentSelectLabelBridge.value = label;
+		// 		cacheOptionListBridge.value = { key: label, value: value };
+		// 		// data.dialogVisible = false;
+		// 	} else if (props.mode == 'multiple') {
+		// 		let arr = JSON.parse(JSON.stringify(currentSelectBridge.value));
+		// 		let flag = false;
+		// 		try {
+		// 			arr.forEach((element, index) => {
+		// 				if (element.value == value) {
+		// 					arr.splice(index, 1);
+		// 					flag = true;
+		// 					throw new Error();
+		// 				}
+		// 			});
+		// 		} catch (e) {}
+		// 		if (!flag) {
+		// 			arr.push({
+		// 				label: label,
+		// 				value: value,
+		// 			});
+		// 		}
+		// 		currentSelectBridge.value = arr;
+		// 	}
+		// };
 
 		// 输入框内的tag
 		const tagClose = function (data) {
@@ -258,7 +262,7 @@ export default defineComponent({
 		/**
 		 * computed
 		 */
-		const currentSelectBridge:any = computed({
+		const currentSelectBridge: any = computed({
 			get() {
 				if (props.mode == 'multiple') {
 					(async () => {
@@ -294,10 +298,12 @@ export default defineComponent({
 				if (len <= 5 && len > 0) {
 					if (!data.searchValue) {
 						if (props.search) len++; // 加上搜索栏
+						// eslint-disable-next-line vue/no-side-effects-in-computed-properties
 						dynamicCssBridge.value['popper-height'] =
 							dynamicCssBridge.value['popper-option-height'] * len + dynamicCssBridge.value['popper-padding'] * 2;
 					}
 				} else {
+					// eslint-disable-next-line vue/no-side-effects-in-computed-properties
 					dynamicCssBridge.value['popper-height'] = cache.popperHeight;
 				}
 				return data.OptionList;
@@ -379,21 +385,23 @@ export default defineComponent({
 					onFocus={inputFocus}
 					onBlur={inputBlur}
 					onClear={inputClear}
+					onMouseenter={inputMouseenter}
+					onMouseleave={inputMouseleave}
 				></vi-select-v2-input>
 			);
 		};
 
-		const dom_showMoreIcon = function () {
-			return (
-				<vi-select-v2-svg-icon
-					class={n('--showMore')}
-					path={unfoldPath}
-					height={dynamicCssBridge.value['unfold-icon-height']}
-					width={dynamicCssBridge.value['unfold-icon-width']}
-					onClick={unfoldClick}
-				></vi-select-v2-svg-icon>
-			);
-		};
+		// const dom_showMoreIcon = function () {
+		// 	return (
+		// 		<vi-select-v2-svg-icon
+		// 			class={n('--showMore')}
+		// 			path={unfoldPath}
+		// 			height={dynamicCssBridge.value['unfold-icon-height']}
+		// 			width={dynamicCssBridge.value['unfold-icon-width']}
+		// 			onClick={unfoldClick}
+		// 		></vi-select-v2-svg-icon>
+		// 	);
+		// };
 
 		/**
 		 * complex dom
@@ -419,7 +427,7 @@ export default defineComponent({
 		};
 
 		// dialog 展开项
-		// const doms_selectV2UnFoldDialog =  () => {
+		// const doms_selectV2UnFoldDialog = () => {
 		// 	return (
 		// 		<vi-select-v2-unfold-dialog active={data.dialogVisible} onHide={dialogHide}>
 		// 			{/* single 模式 */}
@@ -488,7 +496,7 @@ export default defineComponent({
 						</ul>
 
 						{/* 展开模式 */}
-						{props.showMore ? dom_showMoreIcon() : ''}
+						{/* {props.showMore ? dom_showMoreIcon() : ''} */}
 					</vi-scroll-bar>
 				</vi-select-v2-drop-down>
 			);
@@ -514,7 +522,7 @@ export default defineComponent({
 				{/* 下拉菜单 */}
 				{doms_selectV2DropDown()}
 
-				{/* 展开项 */}
+				{/* 展开项  废弃 */}
 				{/* {doms_selectV2UnFoldDialog()} */}
 			</div>
 		);

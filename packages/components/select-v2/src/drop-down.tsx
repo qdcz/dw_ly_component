@@ -6,12 +6,6 @@ import { SELECTV2_INJECTION_KEY } from '../../../tokens/selectv2';
 // import { computePosition, arrow } from '@floating-ui/core';
 import { createPopper } from '@popperjs/core';
 
-
-declare namespace JSX {
-    interface IntrinsicElements {
-    	div: { class: any }
-    }
-}
 export default defineComponent({
 	name: 'VISelectV2DropDown',
 	emits: ['focus', 'blur', 'click'],
@@ -20,7 +14,7 @@ export default defineComponent({
 		'vi-svg-icon': VISvgIcon,
 	},
 	setup(props, ctx) {
-		let { selectRef, mode, currentSelect }: any = inject(SELECTV2_INJECTION_KEY);
+		const { selectRef, mode, currentSelect }: any = inject(SELECTV2_INJECTION_KEY);
 
 		type dropDownData = {
 			parentRect: any;

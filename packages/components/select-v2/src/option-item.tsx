@@ -28,7 +28,7 @@ export default defineComponent({
 				currentSelectLabel.value = props.label;
 				dropDownVisible.value = false;
 			} else if (mode.value == 'multiple') {
-				let arr = JSON.parse(JSON.stringify(currentSelect.value));
+				const arr = JSON.parse(JSON.stringify(currentSelect.value));
 				let flag = false;
 				try {
 					arr.forEach((element, index) => {

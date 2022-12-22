@@ -146,6 +146,7 @@
                 }
 
                 & li {
+                    margin: 0;
                     list-style-type: none;
                     height: calc(var(--popper-spinner-number-height) * 1px);
                     line-height: calc(var(--popper-spinner-number-height) * 1px);

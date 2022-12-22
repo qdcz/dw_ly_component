@@ -46,7 +46,8 @@
 		"@types/sass": "^1.43.1",
 		"esbuild": "^0.16.10",
 		"sass": "^1.57.1",
-		"ts-node": "^10.9.1"
+		"ts-node": "^10.9.1",
+		"vite": "^4.0.3"
 	},
 	"pnpm": {
 		"peerDependencyRules": {

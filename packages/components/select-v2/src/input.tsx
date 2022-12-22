@@ -6,7 +6,7 @@ const { n, classes } = createNamespace('select-v2-input');
 
 export default defineComponent({
 	name: 'VISelectV2Input',
-	emits: ['focus', 'blur', 'click', 'clear'],
+	emits: ['focus', 'blur', 'click', 'clear','mouseenter','mouseleave'],
 	props: {
 		active: {
 			type: [Boolean, String],
@@ -60,10 +60,12 @@ export default defineComponent({
 
 		const handleMouseEn = function (e) {
 			data.isHover = true;
+			ctx.emit('mouseenter');
 		};
 
 		const handleMouseOu = function (e) {
 			data.isHover = false;
+			ctx.emit('mouseleave');
 		};
 
 		const inputLabel = computed(() => cacheOptionList.value[currentSelect.value]);

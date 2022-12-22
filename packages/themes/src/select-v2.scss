@@ -18,10 +18,10 @@
     background-color: none;
 }
 
-ul {
-    margin: 0;
-    padding: 0;
-}
+// ul {
+//     margin: 0;
+//     padding: 0;
+// }
 
 
 
@@ -38,7 +38,8 @@ ul {
         line-height: calc(var(--popper-option-height)*1px);
         padding: 0 calc(var(--popper-option-padding-lr)*1px);
         // background-color: var(--popper-bg-color);
-        background-color: initial;
+        // background-color: initial;
+        background-color: var(--popper-search-bg-color);
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -497,7 +498,6 @@ ul {
     }
 }
 
-
 // scroll-bar
 .#{$namespace}-scroll-bar {
     position: relative;
@@ -514,6 +514,11 @@ ul {
 
         &::-webkit-scrollbar {
             display: none;
+        }
+
+        & ul {
+            margin: 0 !important;
+            padding: 0 !important;
         }
     }
 

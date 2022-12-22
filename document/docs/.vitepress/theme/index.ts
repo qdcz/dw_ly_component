@@ -1,5 +1,6 @@
 import DefaultTheme from "vitepress/theme";
 import "../../public/componentDist/all/index.css";
+// import "../../public/componentDist/all/css/dw.ui.css"
 
 import {
   VIRadio,
@@ -10,6 +11,7 @@ import {
   VISelectV2Option,
   VITimePicker,
 } from "../dist/componentDist/all/index.full.min.mjs";
+// } from "../dist/componentDist/all/component/dw.ui.es";
 
 import {
   v2_base,

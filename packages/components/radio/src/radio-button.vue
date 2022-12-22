@@ -12,13 +12,13 @@ import { radioButtonProps } from './radio-button';
 import { RADIO_INJECTION_KEY } from '../../../tokens/radio';
 import { createNamespace } from '@dw/utils/components';
 const { n, classes } = createNamespace('radio-button');
-import ripple from '@dw/directives/ripple';
+// import ripple from '@dw/directives/ripple';
 
 export default defineComponent({
 	name: 'VIRadioButton',
 	props: radioButtonProps,
 	emits: ['click', 'update:modelValue', 'change'],
-	directives: { ripple },
+	// directives: { ripple },
 	setup(props, ctx) {
 		let injectData = inject(RADIO_INJECTION_KEY);
 		const refRadioButton = ref(null);

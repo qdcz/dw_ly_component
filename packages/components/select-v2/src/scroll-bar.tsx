@@ -11,7 +11,7 @@ export default defineComponent({
 	props: ['dynamicCss'],
 	directives: { css },
 	setup(props, ctx) {
-		let { cacheOptionList }: any = inject(SELECTV2_INJECTION_KEY);
+		const { cacheOptionList }: any = inject(SELECTV2_INJECTION_KEY);
 		const scrollBarRef = ref<HTMLDivElement | any>();
 		const thumbRef = ref<HTMLDivElement | any>();
 
@@ -63,7 +63,7 @@ export default defineComponent({
 
 		const init = function () {
 			nextTick(() => {
-				let info = (window as any).getComputedStyle(scrollBarRef.value.children[0]);
+				const info = (window as any).getComputedStyle(scrollBarRef.value.children[0]);
 				data.realPadding = props.dynamicCss['popper-padding'] * 2;
 				data.realHeight = info.height.replace('px', '') * 1;
 				data.viewHeight = props.dynamicCss['popper-height'] * 1 - data.realPadding;
@@ -93,7 +93,7 @@ export default defineComponent({
 		});
 
 		const onScroll = function (e) {
-			let scrollTop = e.target.scrollTop;
+			const scrollTop = e.target.scrollTop;
 			thumbPosition(scrollTop);
 		};
 

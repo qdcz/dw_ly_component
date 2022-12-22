@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "@esbuild-kit/cjs-loader": "^2.4.1",
-    "consola": "^2.15.3"
+    "consola": "^2.15.3",
+    "gulp-clean-css": "^4.3.0"
   }
 }

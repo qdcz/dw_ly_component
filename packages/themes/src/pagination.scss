@@ -13,12 +13,13 @@
     background-color: inherit;
     padding: calc(var(--btn-pad-t)*1px) calc(var(--btn-pad-r)*1px) calc(var(--btn-pad-b)*1px) calc(var(--btn-pad-l)*1px);
     border-radius: calc(var(--btn-border-radius)*1px);
-    margin: calc(var(--btn-mar-t)*1px) calc(var(--btn-mar-r)*1px) calc(var(--btn-mar-b)*1px) calc(var(--btn-mar-l)*1px);
+    margin: calc(var(--btn-mar-t)*1px) calc(var(--btn-mar-r)*1px) calc(var(--btn-mar-b)*1px) calc(var(--btn-mar-l)*1px) !important;
     cursor: pointer;
     transition: calc(var(--ani-transition)*1s);
     color: var(--btn-fo-color);
     font-weight: var(--btn-fo-weight);
     font-size: calc(var(--btn-fo-size)*1px);
+    box-sizing:content-box;
 }
 
 .#{$namespace}-pagination {
@@ -67,8 +68,8 @@
         display: inline-flex;
         align-items: center;
         user-select: none;
-        margin: 0;
-        padding: 0;
+        margin: 0 !important;
+        padding: 0 !important;
 
         &__btn {
             list-style-type: none;
@@ -83,8 +84,6 @@
                 color: var(--btn-active-fo-color);
             }
         }
-
-
     }
 
     &-jump {

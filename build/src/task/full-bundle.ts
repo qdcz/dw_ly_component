@@ -1,11 +1,11 @@
 import path from "path";
-import os from "os";
-import { parallel } from "gulp";
-import { build } from "vite";
+import cprocess from "child_process";
+
+import { parallel, src, dest, series } from "gulp";
+import cleanCss from "gulp-clean-css";
+import { build, splitVendorChunkPlugin } from "vite";
 import vue from "@vitejs/plugin-vue";
 import vueJsx from "@vitejs/plugin-vue-jsx";
-import cprocess from "child_process";
-import * as esb from "esbuild";
 
 import {
   buildFullRoot,
@@ -32,6 +32,7 @@ export const fullBuild =
         target: "modules",
         outDir: outDir,
         minify: minify,
+        cssCodeSplit: true,
         rollupOptions: {
           // 确保外部化处理那些你不想打包进库的依赖
           external: ["vue"],
@@ -54,7 +55,7 @@ export const fullBuild =
           },
         },
       },
-      plugins: [vue(), vueJsx()],
+      plugins: [vue(), vueJsx(), splitVendorChunkPlugin()],
     });
   };
 
@@ -62,6 +63,7 @@ export const fullBuildCss = () => async () => {
   let entryPath: string = `${path.join(themeRoot, "/src/index.scss")}`;
   let outPath: string = `${path.join(buildFullCssRoot, "/dw.ui.css")}`;
 
+  // sass 转 css
   await new Promise((resolve: Function) => {
     cprocess.exec(
       `sass "${entryPath}" "${outPath}"`,
@@ -72,26 +74,20 @@ export const fullBuildCss = () => async () => {
         if (error) {
           console.log("error:" + error);
           resolve();
-          return 
+          return;
         }
-        process.stdout.write(`sass file compiles success ${stdout}\n`);
-        esb.build({
-          entryPoints: [outPath],
-          bundle: true,
-          outfile: "./a.css",
-        });
+        process.stdout.write(`[Node]sass file compiles success ${stdout}\n`);
         resolve();
       }
     );
   });
-  // await esb.build({
-  //   entryPoints: [outPath],
-  //   bundle: true,
-  //   outfile: "./a.css",
-  // });
+
+  // 压缩css
+  await src(outPath).pipe(cleanCss()).pipe(dest(buildFullCssRoot));
 };
 
-export const buildFullBundle = parallel(
+
+export const buildFullBundle = series(
   withTaskName("buildFullMinified", fullBuild()),
   withTaskName("buildFullCss", fullBuildCss())
 );

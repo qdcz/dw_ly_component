@@ -25,6 +25,10 @@ export const buildOutput = resolve(projRoot, "dist");
 export const buildFullRoot = resolve(buildOutput, "buildFull");
 export const buildFullComponentRoot = resolve(buildFullRoot, "component");
 export const buildFullCssRoot = resolve(buildFullRoot, "css");
+export const buildModuleRoot = resolve(buildOutput, "buildModule");
+export const buildModuleComponentRoot = resolve(buildModuleRoot, "component");
+export const buildModuleCssRoot = resolve(buildModuleRoot, "css");
+
 
 /** `/dist/element-plus` */
 export const epOutput = resolve(buildOutput, "element-plus");

@@ -1,4 +1,4 @@
-import { defineComponent, computed, inject, reactive } from 'vue';
+import { defineComponent, inject } from 'vue';
 import { createNamespace } from '@dw/utils/components';
 import VISvgIcon from './svg-icon';
 import { SELECTV2_INJECTION_KEY } from '../../../tokens/selectv2';
@@ -38,7 +38,7 @@ export default defineComponent({
 		const closeSvgPath =
 			'M576 512l277.333333 277.333333-64 64-277.333333-277.333333L234.666667 853.333333 170.666667 789.333333l277.333333-277.333333L170.666667 234.666667 234.666667 170.666667l277.333333 277.333333L789.333333 170.666667 853.333333 234.666667 576 512z';
 		const handleCloseIconClick = function (e) {
-			let arr = JSON.parse(JSON.stringify(currentSelect.value));
+			const arr = JSON.parse(JSON.stringify(currentSelect.value));
 			try {
 				arr.forEach((element, index) => {
 					if (element.value == props.value) {
