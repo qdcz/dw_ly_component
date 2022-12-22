@@ -19,7 +19,7 @@
 import { defineComponent, computed, inject } from 'vue';
 import { radioProps } from './radio';
 import { RADIO_INJECTION_KEY } from '../../../tokens/radio';
-import { createNamespace } from '@dw/utils/components';
+import { createNamespace } from '@dw-ui/utils/components';
 const { n, classes } = createNamespace('radio');
 
 export default defineComponent({

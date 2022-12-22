@@ -9,14 +9,14 @@ import {
 	watchEffect,
 	nextTick,
 } from 'vue';
-import { createNamespace } from '@dw/utils/components';
+import { createNamespace } from '@dw-ui/utils/components';
 import { timePickerProps } from './time-picker_p';
 import { TIMEPICKER_INJECTION_KEY } from '../../../tokens/time-picker';
 const { n, classes } = createNamespace('time-picker');
 import VITimePickerInput from './input';
 import VITimePickerPopper from './popper';
 import VIScrollBar from './scroll-bar';
-import css from '@dw/directives/css';
+import css from '@dw-ui/directives/css';
 
 
 export default defineComponent({

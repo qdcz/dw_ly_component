@@ -1,5 +1,5 @@
 import { defineComponent, computed, inject, onMounted, onUnmounted, watchEffect } from 'vue';
-import { createNamespace } from '@dw/utils/components';
+import { createNamespace } from '@dw-ui/utils/components';
 import VISvgIcon from './svg-icon';
 const { n, classes } = createNamespace('select-v2-option');
 import { SELECTV2_INJECTION_KEY } from '../../../tokens/selectv2';

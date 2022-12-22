@@ -1,27 +1,26 @@
-import { parallel } from "gulp";
+import { dest, parallel, src } from "gulp";
 import { build, splitVendorChunkPlugin } from "vite";
 import { withTaskName } from "../utils/gulp";
-import { createFolder } from "../utils/process";
+import { createFolder, run } from "../utils/process";
 import vue from "@vitejs/plugin-vue";
 import vueJsx from "@vitejs/plugin-vue-jsx";
-import { buildModuleRoot, compRoot } from "../utils/path";
+import { buildModuleRoot, buildThemeRoot, compRoot, projRoot, themeRoot } from "../utils/path";
 import path from "path";
 import fs from "fs";
 
-export const readdir = () => async () => {
+export const moduleBuild = () => async () => {
   await createFolder(buildModuleRoot);
   const dirList = fs.readdirSync(compRoot);
 
-  dirList.forEach(async(name) => {
+  dirList.forEach(async (name) => {
     if (!path.extname(name)) {
       const entry = path.join(compRoot, path.basename(name), "index.ts");
-      console.log(entry);
-      await moduleBuild(entry,name)
+      await comBuild(entry, name)
     }
   });
 };
 
-const moduleBuild = async(entry,comName) => {
+const comBuild = async (entry, comName) => {
   await build({
     root: buildModuleRoot,
     build: {
@@ -55,12 +54,27 @@ const moduleBuild = async(entry,comName) => {
   });
 };
 
-// export const moduleBuildCss = () => async() => {
-//     await createFolder(buildFullCssRoot);
-// };
+
+export const moduleBuildCss = () => async () => {
+  // 执行 theme 包中的gulp任务
+  await run('pnpm run -C packages/themes build', projRoot);
+  // 从 theme 包中拷贝出dist文件夹到跟目录的dist文件夹下
+  await src(path.join(themeRoot, 'dist/**')).pipe(dest(buildThemeRoot));
+
+  // 拷贝压缩css文件到组件文件夹
+  setTimeout(() => {
+    process.nextTick(()=>{
+      fs.readdirSync(compRoot).forEach(async (name) => {
+        if (!path.extname(name)) {
+          await src(path.join(buildThemeRoot, `${name}.css`)).pipe(dest(path.join(buildModuleRoot, name)));
+        }
+      });
+    })
+  }, 2000);
+};
+
 
 export const buildModuleBundle = parallel(
-  withTaskName("aaa", readdir())
-  //   withTaskName("buildModuleMinified", moduleBuild()),
-  //   withTaskName("buildModuleCss", moduleBuildCss())
+  withTaskName("buildModuleMinified", moduleBuild()),
+  withTaskName("buildModuleCss", moduleBuildCss()),
 );

@@ -1,7 +1,7 @@
 import { defineComponent, computed, inject, reactive, ref, nextTick } from 'vue';
-import { createNamespace } from '@dw/utils/components';
+import { createNamespace } from '@dw-ui/utils/components';
 const { n, classes } = createNamespace('scroll-bar');
-import css from '@dw/directives/css';
+import css from '@dw-ui/directives/css';
 import { onMounted } from 'vue';
 
 export default defineComponent({

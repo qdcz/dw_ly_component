@@ -1,5 +1,5 @@
 import { defineComponent } from 'vue';
-import { createNamespace } from '@dw/utils/components';
+import { createNamespace } from '@dw-ui/utils/components';
 const { n, classes } = createNamespace('select-v2-svg-icon');
 
 export default defineComponent({

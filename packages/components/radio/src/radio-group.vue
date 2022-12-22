@@ -8,10 +8,10 @@ import { defineComponent, computed, nextTick, provide } from 'vue';
 import { radioProps } from './radio';
 import { RADIO_INJECTION_KEY } from '../../../tokens/radio';
 
-import { createNamespace } from '@dw/utils/components';
-// import ripple from '@dw/directives/ripple';
+import { createNamespace } from '@dw-ui/utils/components';
+// import ripple from '@dw-ui/directives/ripple';
 const { n, classes } = createNamespace('radio-group');
-import css from '@dw/directives/css';
+import css from '@dw-ui/directives/css';
 
 export default defineComponent({
 	name: 'VIRadioGroup',

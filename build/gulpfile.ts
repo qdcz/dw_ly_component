@@ -1,4 +1,4 @@
-import { series } from "gulp";
+import { parallel, series } from "gulp";
 import {
   withTaskName,
   deleteFolder,
@@ -15,11 +15,13 @@ export default series(
   withTaskName("clean dist folder", () => deleteFolder(buildOutput)),
   // 创建dist文件夹
   withTaskName("create dist folder", () => createFolder(buildOutput)),
-  // 全量打包
-  buildFullBundle,
-  // 按模块打包(单个组件使用)
-  buildModuleBundle
-  //   runTask('buildModules'),
+  parallel(
+    // 全量打包
+    buildFullBundle,
+    // 按模块打包(单个组件使用)
+    buildModuleBundle,
+    // ts语法类型检查 并产生TS的类型声明文件(.d.ts)
+  )
 );
 
 export * from "./src";

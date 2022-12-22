@@ -1,8 +1,8 @@
 import { defineComponent, computed, ref, reactive, provide, getCurrentInstance, onMounted, nextTick, watch } from 'vue';
-import { createNamespace } from '@dw/utils/components';
+import { createNamespace } from '@dw-ui/utils/components';
 
 import { SELECTV2_INJECTION_KEY } from '../../../tokens/selectv2';
-import css from '@dw/directives/css';
+import css from '@dw-ui/directives/css';
 
 const { n, classes } = createNamespace('select-v2');
 import { selectProps } from './select_p';

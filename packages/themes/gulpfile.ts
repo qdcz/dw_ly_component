@@ -28,8 +28,6 @@ const compile = function () {
 const copyfont = function () {
 	return src(path.resolve(__dirname, './src/fonts/**')).pipe(dest('./dist/fonts'));
 };
-const copyfullStyle = function () {
-	return src(path.resolve(__dirname, './dist/**')).pipe(dest(path.resolve(__dirname, '../../dist/themes')));
-};
-//, copyfont, copyfullStyle
-export default series(compile, copyfont, copyfullStyle);
+
+//, copyfont
+export default series(compile, copyfont);

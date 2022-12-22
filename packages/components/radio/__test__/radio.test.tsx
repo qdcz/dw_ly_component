@@ -6,7 +6,7 @@ import Radio from '../src/radio.vue';
 import RadioGroup from '../src/radio-group.vue';
 import RadioButton from '../src/radio-button.vue';
 
-import { createNamespace } from '@dw/utils/components';
+import { createNamespace } from '@dw-ui/utils/components';
 const ns1 = createNamespace('radio');
 const ns2 = createNamespace('radio-group');
 const ns3 = createNamespace('radio-button');

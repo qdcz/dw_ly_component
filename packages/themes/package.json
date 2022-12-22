@@ -1,5 +1,5 @@
 {
-    "name": "@dw/themes",
+    "name": "@dw-ui/themes",
     "version": "0.0.1",
     "description": "ui库主题配置库",
     "main": "index.css",
