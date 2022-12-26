@@ -1,4 +1,4 @@
-import { withInstall } from '@dw/utils/widthInstall'
+import { withInstall } from '@dw-ui/utils/widthInstall'
 import pagination from './src/pagination.jsx';
 
 const VIpagination = withInstall(pagination, 'pagination');

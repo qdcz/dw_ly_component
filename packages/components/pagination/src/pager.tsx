@@ -1,6 +1,6 @@
 
 import { defineComponent, computed, reactive, inject } from 'vue';
-import { createNamespace } from '@dw/utils/components';
+import { createNamespace } from '@dw-ui/utils/components';
 import { PAGINATION_INJECTION_KEY } from '../../../tokens/pagination';
 const { n } = createNamespace('pagination-pager');
 

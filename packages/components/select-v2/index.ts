@@ -1,4 +1,4 @@
-import { withInstall } from '@dw/utils/widthInstall'
+import { withInstall } from '@dw-ui/utils/widthInstall'
 import SelectV2 from './src/select.jsx';
 import selectOptipn from './src/option-item.jsx';
 

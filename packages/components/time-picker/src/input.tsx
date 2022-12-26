@@ -1,6 +1,6 @@
 import { defineComponent, computed, reactive } from 'vue';
-import { createNamespace } from '@dw/utils/components';
-import css from '@dw/directives/css';
+import { createNamespace } from '@dw-ui/utils/components';
+import css from '@dw-ui/directives/css';
 import VIInputSvgIcon from './svg-icon';
 // import { inputProps } from './input';
 const inputProps = {

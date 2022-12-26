@@ -1,5 +1,5 @@
 import { defineComponent, inject } from 'vue';
-import { createNamespace } from '@dw/utils/components';
+import { createNamespace } from '@dw-ui/utils/components';
 import VISvgIcon from './svg-icon';
 import { SELECTV2_INJECTION_KEY } from '../../../tokens/selectv2';
 const { n, classes } = createNamespace('select-v2-tag');

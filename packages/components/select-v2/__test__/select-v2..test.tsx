@@ -5,9 +5,9 @@ import { mount, shallowMount } from '@vue/test-utils';
 import VISelectV2 from '../src/select';
 import VISelectV2Option from '../src/option-item';
 
-import css from '@dw/directives/css';
+import css from '@dw-ui/directives/css';
 
-import { createNamespace } from '@dw/utils/components';
+import { createNamespace } from '@dw-ui/utils/components';
 const ns1 = createNamespace('select-v2');
 const ns2 = createNamespace('select-v2-option');
 const ns3 = createNamespace('select-v2-svg-icon');

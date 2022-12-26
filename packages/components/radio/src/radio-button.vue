@@ -10,9 +10,9 @@
 import { defineComponent, computed, inject, ref } from 'vue';
 import { radioButtonProps } from './radio-button';
 import { RADIO_INJECTION_KEY } from '../../../tokens/radio';
-import { createNamespace } from '@dw/utils/components';
+import { createNamespace } from '@dw-ui/utils/components';
 const { n, classes } = createNamespace('radio-button');
-// import ripple from '@dw/directives/ripple';
+// import ripple from '@dw-ui/directives/ripple';
 
 export default defineComponent({
 	name: 'VIRadioButton',

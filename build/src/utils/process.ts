@@ -34,19 +34,19 @@ export const deleteFolder = async (cwd: string = projRoot) => {
 export const createFolder = async function (cwd: string = buildOutput) {
   return new Promise<void>((resolve) => {
     consola.info(`start create...`, cwd);
-    fs.stat(cwd, (err: Error, stats: object) => {
+    fs.stat(cwd, (err: Error) => {
       if (err) {
-		fs.mkdirSync(cwd);
-		resolve();
+        fs.mkdirSync(cwd);
+        resolve();
         return;
       }
-	  consola.warn(`${cwd} exists`);
+      consola.warn(`${cwd} exists`);
       resolve();
     });
   });
 };
 
-export const run = async (command: string, cwd: string = projRoot) =>
+export const run = async (command: string, cwd: string = projRoot, cb?: Function | undefined) =>
   new Promise<void>((resolve, reject) => {
     const [cmd, ...args] = command.split(" ");
     consola.info(`run: ${chalk.green(`${cmd} ${args.join(" ")}`)}`);
@@ -59,6 +59,9 @@ export const run = async (command: string, cwd: string = projRoot) =>
     const onProcessExit = () => app.kill("SIGHUP");
 
     app.on("close", (code) => {
+      if (cb) {
+        cb();
+      }
       process.removeListener("exit", onProcessExit);
 
       if (code === 0) resolve();

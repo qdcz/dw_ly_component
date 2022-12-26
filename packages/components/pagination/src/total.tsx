@@ -1,6 +1,6 @@
 import { defineComponent, inject } from 'vue';
 import { PAGINATION_INJECTION_KEY } from '../../../tokens/pagination';
-import { createNamespace } from '@dw/utils/components';
+import { createNamespace } from '@dw-ui/utils/components';
 const { n, classes } = createNamespace('pagination-total');
 
 export default defineComponent({

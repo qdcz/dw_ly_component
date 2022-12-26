@@ -1,5 +1,5 @@
 import { defineComponent, inject, ref, nextTick, reactive, watchEffect, onMounted } from 'vue';
-import { createNamespace } from '@dw/utils/components';
+import { createNamespace } from '@dw-ui/utils/components';
 const { n, classes } = createNamespace('popper');
 import { TIMEPICKER_INJECTION_KEY } from '../../../tokens/time-picker';
 // import { computePosition, arrow } from '@floating-ui/core';

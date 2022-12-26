@@ -1,4 +1,4 @@
-import { withInstall } from '@dw/utils/widthInstall'
+import { withInstall } from '@dw-ui/utils/widthInstall'
 import Radio from './src/radio.vue';
 import RadioButton from './src/radio-button.vue';
 import RadioGroup from './src/radio-group.vue'

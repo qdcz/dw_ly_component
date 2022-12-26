@@ -27,11 +27,8 @@ export const buildFullComponentRoot = resolve(buildFullRoot, "component");
 export const buildFullCssRoot = resolve(buildFullRoot, "css");
 export const buildModuleRoot = resolve(buildOutput, "buildModule");
 export const buildModuleComponentRoot = resolve(buildModuleRoot, "component");
-export const buildModuleCssRoot = resolve(buildModuleRoot, "css");
+export const buildThemeRoot = resolve(buildOutput, "theme");
 
-
-/** `/dist/element-plus` */
-export const epOutput = resolve(buildOutput, "element-plus");
 
 export const projPackage = resolve(projRoot, "package.json");
 export const compPackage = resolve(compRoot, "package.json");

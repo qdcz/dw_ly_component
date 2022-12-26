@@ -1,6 +1,6 @@
 import { defineComponent, computed, provide, getCurrentInstance, reactive, onMounted } from 'vue';
 import { paginationProps } from './pagination_p';
-import { createNamespace } from '@dw/utils/components';
+import { createNamespace } from '@dw-ui/utils/components';
 import { PAGINATION_INJECTION_KEY } from '../../../tokens/pagination';
 
 import prev from './prev';
@@ -8,9 +8,9 @@ import next from './next';
 import pager from './pager';
 import jump from './jump';
 import total from './total';
-import { VISelectV2, VISelectV2Option } from '@dw/components/select-v2';
+import { VISelectV2, VISelectV2Option } from '@dw-ui/components/select-v2';
 
-import css from '@dw/directives/css';
+import css from '@dw-ui/directives/css';
 import { nextTick } from 'vue';
 import { watch } from 'vue';
 const { n, classes } = createNamespace('pagination');
