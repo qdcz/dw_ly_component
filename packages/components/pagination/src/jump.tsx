@@ -18,18 +18,16 @@ export default defineComponent({
 		const vi_jump_input = ref<HTMLInputElement | any>();
 
 		// 输入框值发生变化事件
-		const numChange = function (e) {
+		const numChange = function (e:any) {
 			const reset = () => (data.num = Math.random() * 1000000);
-			let val = Number(e.target.value);
+			reset();
+			const val = Number(e.target.value);
 			if (val <= 0) {
-				reset();
-				data.num = '';
+				data.num = 1;
 			} else if (val > provideData.pageCount.value) {
 				// 重复赋值一样的数值 就不生效了 可能是jsx的一个bug
-				reset();
 				data.num = provideData.pageCount.value;
 			} else {
-				reset();
 				data.num = val;
 			}
 		};

@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div>
+    <!-- <div>
       <dw-select-v2
         v-model="selectData_current"
         :dynamicCss="selectData_dynamicCss"
@@ -20,6 +20,15 @@
         >
         </dw-select-v2-option>
       </dw-select-v2>
+    </div> -->
+
+
+    <div>
+      <dw-scroll-bar height="100px">
+        <div v-for="i in 30">
+          {{ i }}
+        </div>        
+      </dw-scroll-bar>
     </div>
   </div>
 </template>
