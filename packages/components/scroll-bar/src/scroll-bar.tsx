@@ -2,21 +2,23 @@ import {
   defineComponent,
   computed,
   provide,
+  watch,
   ref,
   reactive,
   onMounted,
 } from "vue";
-import { createNamespace } from "@dw/utils/components";
+import {  useResizeObserver } from '@vueuse/core'
+import { createNamespace } from "@dw-ui/utils/components";
 import { scrollBarProps, data } from "./scroll-bar_p";
-import css from "@dw/directives/css";
-import { SCROLLBAR_INJECTION_KEY } from "@dw/tokens/scroll-bar";
+import css from "@dw-ui/directives/css";
+import { SCROLLBAR_INJECTION_KEY } from "@dw-ui/tokens/scroll-bar";
 const { n } = createNamespace("scroll-bar");
 
 import thumb from "./thumb";
 
 export default defineComponent({
   name: "ScrollBar",
-  emits: ["focus", "blur", "click", "update:modelValue", "close"],
+  emits: ["update:width"],
   directives: { css },
   props: scrollBarProps,
   components: {
@@ -33,7 +35,6 @@ export default defineComponent({
     /**
      * data
      */
-
     const data: data = reactive({
       wrapperInnerRealHeight: "",
       wrapperInnerMaxiMoveRangeY: 0,
@@ -49,9 +50,31 @@ export default defineComponent({
       thumbRatioYProportion: 0,
     });
 
+    let IsMouseIn = ref(false);
+
+
+    /**
+     * watch
+     * 
+     */
+    let a = useResizeObserver(scrollBarRealViewRef, ()=>{
+      console.log(77777);
+    })
+    watch(
+      () => props.tag,
+      (noresize) => {
+        //   stopResizeListener = useEventListener('resize', update)
+        // console.log(777,a);
+      },
+      { immediate: true }
+    )
+   
+
     /**
      * computed
      */
+    const dynamicCssBridge = computed(() => Object.assign(scrollBarProps.dynamicCss.default(), props.dynamicCss));
+
     const heightBridge = computed(() => props.height);
 
     const thumbHeightBridge = computed({
@@ -108,7 +131,7 @@ export default defineComponent({
       data.thumbHeight =
         String(
           data.thumbHeightProportion *
-            Number(heightBridge.value.replace("px", ""))
+          Number(heightBridge.value.replace("px", ""))
         ) + "px";
 
       data.thumbRatioYMaxRange =
@@ -126,19 +149,27 @@ export default defineComponent({
      * other fn
      */
     const thumbMove = (scrollTop: number): void => {
-      data.thumbRatioY = `translateY(${
-        String(data.thumbRatioYProportion * scrollTop) + "px"
-      })`;
+      data.thumbRatioY = `translateY(${String(data.thumbRatioYProportion * scrollTop) + "px"
+        })`;
       return;
     };
 
     /**
      * event
      */
-    const handleScroll = (e: any) => {
+    const handleScroll = (e: Event | any) => {
       const scrollTop = e.target.scrollTop;
       thumbMove(scrollTop);
     };
+
+    const mouseenter = (e: Event | any) => {
+      IsMouseIn.value = true
+    }
+
+    const mouseleave = (e: Event | any) => {
+      IsMouseIn.value = false
+
+    }
 
     /**
      * provide
@@ -151,16 +182,42 @@ export default defineComponent({
       scrollBarRef: scrollBarRef,
     });
 
+
+    /**
+     * doms
+     */
+
+    const scroll_bar_thumb = () => {
+      let real = Number(data.wrapperInnerRealHeight.replace("px", ""));
+      let view = Number(props.height.replace("px", ""));
+      if (view < real) {
+        return (<scroll-bar-thumb
+          ref={thumbRef}
+          type="vertical"
+          height={thumbHeightBridge.value}
+          width={props.width}
+          ratioX={thumbRatioXBridge.value}
+          ratioY={thumbRatioYBridge.value}
+          class={IsMouseIn.value ? "show" : "hide"}
+        ></scroll-bar-thumb>)
+      } else {
+        return ""
+      }
+
+    }
     /**
      * view
      */
     return () => (
-      <div class={n()}>
+      <div class={n()} v-css={dynamicCssBridge.value || {}} onMouseenter={mouseenter}
+        onMouseleave={mouseleave}>
         <div
           class={n("_wrapper")}
           ref={scrollBarRef}
           style={{ height: heightBridge.value }}
           onScroll={handleScroll}
+
+
         >
           <div class={n("_view")} ref={scrollBarRealViewRef}>
             {ctx.slots["default"]?.()}
@@ -173,13 +230,7 @@ export default defineComponent({
           ></scroll-bar-thumb>
         </div> */}
         <div class={[n("_bar"), "vertical"]}>
-          <scroll-bar-thumb
-            ref={thumbRef}
-            type="vertical"
-            height={thumbHeightBridge.value}
-            ratioX={thumbRatioXBridge.value}
-            ratioY={thumbRatioYBridge.value}
-          ></scroll-bar-thumb>
+          {scroll_bar_thumb()}
         </div>
       </div>
     );

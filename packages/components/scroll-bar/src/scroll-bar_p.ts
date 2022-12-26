@@ -11,14 +11,19 @@ export const scrollBarProps = {
     type: String,
     default: "300px",
   },
+  tag: {
+    type: String,
+    default: "div",
+  },
   dynamicCss: {
     type: Object,
     default: () => {
       return {
         /**
-         * input组件
+         * 
          */
-        "input-box-shadow-x": "0",
+        "thumb-width": "4",
+        "thumb-bg-color": "#94d7d7",
       };
     },
   },

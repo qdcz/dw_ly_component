@@ -1,33 +1,10 @@
 <template>
   <div class="container">
-    <!-- <div>
-      <dw-select-v2
-        v-model="selectData_current"
-        :dynamicCss="selectData_dynamicCss"
-        :list="selectData_dropDownList"
-        mode="single"
-        clearable
-        showMore
-        search
-        @handleSelected="handleSelected"
-        @handleClear="handleClear"
-      >
-        <dw-select-v2-option
-          v-for="i in selectData_dropDownList"
-          :key="i.value"
-          :label="i.label"
-          :value="i.value"
-        >
-        </dw-select-v2-option>
-      </dw-select-v2>
-    </div> -->
-
-
     <div>
-      <dw-scroll-bar height="100px">
-        <div v-for="i in 30">
+      <dw-scroll-bar height="100px" :dynamicCss="{}">
+        <div v-for="i in aaa">
           {{ i }}
-        </div>        
+        </div>
       </dw-scroll-bar>
     </div>
   </div>
@@ -50,12 +27,15 @@ export default {
         { value: "ningde", label: "宁德" },
       ],
       selectData_dynamicCss: {
-		
-	  },
+
+      },
+      aaa: 9
     };
   },
   mounted() {
-
+    setInterval(() => {
+      this.aaa = this.aaa + 10
+    }, 5000)
   },
   methods: {
     /**

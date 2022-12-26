@@ -24,12 +24,20 @@
 
     &__thumb {
         z-index: 1;
-        background-color: rgb(148, 215, 215);
+        background-color: var(--thumb-bg-color);
         border-radius: 50px;
         cursor: pointer;
-        transition: .7s background-color;
+        transition: .7s background-color, .5s opacity;
         user-select: none;
 
+        &.show {
+            opacity: 1;
+        }
+
+        &.hide {
+            opacity: 0;
+        }
+        
         &:hover {
             background-color: rgb(16, 125, 171);
         }

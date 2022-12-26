@@ -26,7 +26,7 @@ export const scrollBarThumbProps = {
   ratioY: {
     type: String,
     default: "0px",
-  },
+  }
 };
 
 export type data = {

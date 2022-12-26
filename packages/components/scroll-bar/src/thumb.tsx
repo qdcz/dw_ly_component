@@ -1,7 +1,7 @@
 import { defineComponent, computed, ref, reactive, inject } from "vue";
-import { createNamespace } from "@dw/utils/components";
+import { createNamespace } from "@dw-ui/utils/components";
 import { scrollBarThumbProps, data } from "./thumb_p";
-import { SCROLLBAR_INJECTION_KEY } from "@dw/tokens/scroll-bar";
+import { SCROLLBAR_INJECTION_KEY } from "@dw-ui/tokens/scroll-bar";
 const { n } = createNamespace("scroll-bar__thumb");
 
 export default defineComponent({
