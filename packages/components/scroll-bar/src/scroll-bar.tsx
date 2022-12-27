@@ -20,9 +20,10 @@ import thumb from "./thumb";
 
 export default defineComponent({
   name: "ScrollBar",
-  emits: ["update:width"],
+  emits: ["update:width", 'scroll'],
   directives: { css },
   props: scrollBarProps,
+  // expose:['setScrollTop','setScrollLeft','setScrollTop'],
   components: {
     "scroll-bar-thumb": thumb,
   },
@@ -40,7 +41,7 @@ export default defineComponent({
     /**
      * refs
      */
-    const scrollBarRef = ref<HTMLDivElement>();
+    const scrollBarRef: any = ref<HTMLDivElement>();
     const scrollBarRealViewRef = ref<HTMLDivElement>();
     const thumbRef = ref<HTMLDivElement>();
 
@@ -164,18 +165,27 @@ export default defineComponent({
      * other fn
      */
     const thumbMoveY = (scrollTop: number): void => {
-      data.thumbRatioY = `translateY(${
-        String(data.thumbRatioYProportion * scrollTop) + "px"
-      })`;
+      data.thumbRatioY = `translateY(${String(data.thumbRatioYProportion * scrollTop) + "px"
+        })`;
       return;
     };
 
     const thumbMoveX = (scrollLeft: number): void => {
-      data.thumbRatioX = `translateX(${
-        String(data.thumbRatioXProportion * scrollLeft) + "px"
-      })`;
+      data.thumbRatioX = `translateX(${String(data.thumbRatioXProportion * scrollLeft) + "px"
+        })`;
       return;
     };
+
+    const setScrollTop = (num: number): void => {
+      scrollBarRef.value.scrollTop = num
+    }
+    const setScrollLeft = (num: number): void => {
+      scrollBarRef.value.scrollLeft = num
+    }
+    const setScrollTo = (numL: number, numT: number): void => {
+      setScrollTop(numL);
+      setScrollLeft(numT);
+    }
 
     const containerInfoCompute = (newly?: NodeList) => {
       // const wrapperInnerInfo = (window as any).getComputedStyle(
@@ -209,12 +219,12 @@ export default defineComponent({
       data.thumbHeight =
         String(
           data.thumbHeightProportion *
-            Number(heightBridge.value.replace("px", ""))
+          Number(heightBridge.value.replace("px", ""))
         ) + "px";
       data.thumbWidth =
         String(
           data.thumbWidthProportion *
-            Number(widthBridge.value.replace("px", ""))
+          Number(widthBridge.value.replace("px", ""))
         ) + "px";
 
       data.thumbRatioYMaxRange =
@@ -252,6 +262,7 @@ export default defineComponent({
       const scrollLeft = e.target.scrollLeft;
       thumbMoveY(scrollTop);
       thumbMoveX(scrollLeft);
+      ctx.emit && ctx.emit("scroll", scrollLeft, scrollTop)
     };
 
     const mouseenter = (e: Event | any) => {
@@ -275,6 +286,12 @@ export default defineComponent({
       wrapperInnerMaxiMoveProportionX: wrapperInnerMaxiMoveProportionXBridge,
       scrollBarRef: scrollBarRef,
     });
+
+
+    /**
+     * public handle
+     */
+    ctx.expose({ setScrollTop, setScrollLeft, setScrollTo });
 
     /**
      * doms
@@ -335,6 +352,8 @@ export default defineComponent({
         }
       }
     };
+
+
     /**
      * view
      */

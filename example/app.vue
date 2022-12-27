@@ -7,7 +7,7 @@
         </div>
       </dw-scroll-bar>
       <p>---</p>
-      <dw-scroll-bar height="300px" width="auto" :dynamicCss="{}" :noResize="noResize">
+      <dw-scroll-bar height="300px" width="auto" :dynamicCss="{}" :noResize="noResize" @scroll="handleScroll" ref="refssss">
         <div :style="{ display: 'flex' }" v-for="i in 50">
           <div
             v-for="i in aaa"
@@ -21,6 +21,8 @@
   </div>
 </template>
 <script lang="ts">
+import { log } from 'console';
+import { nextTick } from 'process';
 export default {
   name: "demo",
   data() {
@@ -40,7 +42,8 @@ export default {
       selectData_dynamicCss: {},
       aaa: 100,
       noResize: false,
-      ssssssssss:"auto"
+      ssssssssss:"auto",
+      refs:""
     };
   },
   mounted() {
@@ -50,13 +53,20 @@ export default {
     // setTimeout(() => {
     //   this.noResize = !this.noResize
     // }, 5000)
+    // setTimeout(() => {
+      this.$nextTick(()=>{
+        this.$refs.refssss.setScrollLeft(2000)
+        this.$refs.refssss.setScrollTop(500)
+
+      })
+    // }, 5000);
   },
   methods: {
     /**
      * select
      */
-    handleSelected(v) {
-      console.log("handleSelected", v);
+     handleScroll(L,R) {
+      console.log("handleScroll", L,R);
     },
     handleClear() {
       console.log("handleClear");

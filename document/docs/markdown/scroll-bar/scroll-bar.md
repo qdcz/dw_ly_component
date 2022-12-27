@@ -1,5 +1,7 @@
 # dw-scroll-bar
 
+用于替换浏览器原生的高性能自定义滚动条
+
 ## 基础用法
 
 <scrollBar-base></scrollBar-base>
@@ -20,9 +22,9 @@
 
 | **属性名** | **说明**              | **类型**                  | **可选值** | **默认值**          |
 | :--------- | --------------------- | ------------------------- | ---------- | ------------------- |
-| height     | 容器高度          | [String, Boolean]                   | xxxpx、auto | 300px          |
-| width      | 容器宽度          | [String, Boolean]          | xxxpx、auto | auto              |
-| thumbWidth      | 选项的值              | String          | —          | 6px           |
+| height     | 容器高度          | [String, Boolean]                   | {n}px、auto | 300px          |
+| width      | 容器宽度          | [String, Boolean]          | {n}px、auto | auto              |
+| thumbWidth      | 滚动条的厚度              | String          | —          | 6px           |
 | noResize   | 容器尺寸变化是否动态计算改变，如果容器尺寸不会发生变化，最好设置它可以优化性能 | Boolean | —          | false               |
 | dynamicCss   | 覆盖组件内置的css变量          | Object | —          | 见自定义配置属性 |
 
@@ -30,13 +32,15 @@
 
 | **事件名** | **说明**             | **回调参数**                                                 |
 | :--------- | -------------------- | ------------------------------------------------------------ |
-| @scroll    | 滚动事件触发时，返回滚动的距离 |  |
+| @scroll    | 滚动事件触发时，返回滚动的距离 | (scrollLeft,scrollTop) |
 
 ## 方法
 
-| **方法名** | **说明**             | **回调参数**                                                 |
+| **方法名** | **说明**             | **入参**                                              |
 | :--------- | -------------------- | ------------------------------------------------------------ |
-| @    | x |  |
+| setScrollTop | 设置Y轴的滚动位置 | (scrollTop: number):void=>() |
+| setScrollLeft | 设置X轴的滚动位置 | (scrollLeft: number):void=>() |
+| scrollTo	 | 滚动到指定的X、Y位置 | (scrollTop: number，scrollLeft: number):void=>() |
 
 
 

@@ -1,5 +1,6 @@
 // 类型文件
 import type { ExtractPropTypes } from "vue";
+
 export enum directionType {
   HORIZONTAL = "horizontal",
   VERTICAL = "vertical",
@@ -19,10 +20,12 @@ export const scrollBarThumbProps = {
     type: String,
     default: "6px",
   },
+  // transform 偏移量
   ratioX: {
     type: String,
     default: "0px",
   },
+  // transform 偏移量
   ratioY: {
     type: String,
     default: "0px",

@@ -17,7 +17,7 @@ export const scrollBarProps = {
     type: String,
     default: "6px",
   },
-  noResize: Boolean, // 如果 container 尺寸不会发生变化，最好设置它可以优化性能
+  noResize: Boolean, // 如果 container 尺寸不会发生变化，最好设置它可以优化性能（针对高度，宽度默认就是开着）
   dynamicCss: {
     type: Object,
     default: () => {

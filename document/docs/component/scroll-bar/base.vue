@@ -1,6 +1,5 @@
 <template>
   <div>
-    <p>用于替换浏览器原生滚动条。</p>
     <p>
       设置
       <span>height="300px"</span>
