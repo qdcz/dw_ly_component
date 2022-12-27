@@ -9,7 +9,7 @@
 		"doc": "pnpm -C document dev",
 		"doc:build": "pnpm -C document build",
 		"lint": "eslint . --ext .vue,.js,.ts,.jsx,.tsx --fix",
-		"commit": "git add . && git cz",
+		"commit": "git add . && git cz && git push",
 		"pack": "node ./pack.js component=time-picker packType=single",
 		"publish:lib": "npx gulp --require @esbuild-kit/cjs-loader -f ./build/gulpfile.ts publish --includes=vi-voice",
 		"publish:dataV": "npx gulp --require @esbuild-kit/cjs-loader -f ./build/gulpfile.ts publishDataV --includes=vi-voice"
