@@ -1,9 +1,20 @@
 <template>
   <div class="container">
     <div>
-      <dw-scroll-bar height="100px" :dynamicCss="{}">
+      <dw-scroll-bar height="300px" :dynamicCss="{}" :noResize="noResize">
         <div v-for="i in aaa">
-          {{ i }}
+          <div>{{ i }}</div>
+        </div>
+      </dw-scroll-bar>
+      <p>---</p>
+      <dw-scroll-bar height="300px" width="auto" :dynamicCss="{}" :noResize="noResize">
+        <div :style="{ display: 'flex' }" v-for="i in 50">
+          <div
+            v-for="i in aaa"
+            :style="{ 'display': 'flex', 'padding':'20px', 'background': 'gray','marginRight':'10px' }"
+          >
+            <div>{{ i }}</div>
+          </div>
         </div>
       </dw-scroll-bar>
     </div>
@@ -26,16 +37,19 @@ export default {
         { value: "nanping", label: "南平" },
         { value: "ningde", label: "宁德" },
       ],
-      selectData_dynamicCss: {
-
-      },
-      aaa: 9
+      selectData_dynamicCss: {},
+      aaa: 100,
+      noResize: false,
+      ssssssssss:"auto"
     };
   },
   mounted() {
-    setInterval(() => {
-      this.aaa = this.aaa + 10
-    }, 5000)
+    // setInterval(() => {
+    //   this.aaa = this.aaa + 5
+    // }, 1000)
+    // setTimeout(() => {
+    //   this.noResize = !this.noResize
+    // }, 5000)
   },
   methods: {
     /**

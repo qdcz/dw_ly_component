@@ -1,7 +1,7 @@
 import { defineConfig } from "vitepress";
 
-import renderPermaLink from './render-perma-link'
-import MarkDownItCustomAnchor from './markdown-it-custom-anchor'
+import renderPermaLink from "./render-perma-link";
+import MarkDownItCustomAnchor from "./markdown-it-custom-anchor";
 
 const ogDescription = "Next Generation Frontend Tooling";
 const ogImage = "https://vitejs.dev/og-image.png";
@@ -79,7 +79,7 @@ export default defineConfig({
       },
       {
         text: "组件",
-        link: "/markdown/radio/radio",
+        link: "/markdown/scroll-bar/scroll-bar",
       },
       {
         text: "Dropdown Menu",
@@ -99,7 +99,7 @@ export default defineConfig({
             ],
           },
         ],
-      }
+      },
     ],
 
     sidebar: {
@@ -108,7 +108,12 @@ export default defineConfig({
           text: "基础组件",
           collapsible: true,
           collapsed: true,
-          items: [],
+          items: [
+            {
+              text: "滚动条",
+              link: "/markdown/scroll-bar/scroll-bar.md",
+            },
+          ],
         },
         {
           text: "表单组件",

@@ -1,4 +1,5 @@
 import DefaultTheme from "vitepress/theme";
+import "../../../../dist/buildFull/css/dw.ui.css";
 import "../../public/componentDist/all/index.css";
 // import "../../public/componentDist/all/css/dw.ui.css"
 
@@ -12,6 +13,8 @@ import {
   VITimePicker,
 } from "../dist/componentDist/all/index.full.min.mjs";
 // } from "../dist/componentDist/all/component/dw.ui.es";
+
+import { ScrollBar } from "../../../../dist/buildFull/component/dw.ui.es";
 
 import {
   v2_base,
@@ -31,6 +34,10 @@ import {
   radio_disabled,
   radio_border,
   radio_button,
+  scrollBar_base,
+  scrollBar_horizontal,
+  scrollBar_thumbHW,
+  scrollBar_setScrollTL
 } from "../../component/index";
 
 import { h } from "vue";
@@ -52,6 +59,7 @@ export default {
     app.use(VISelectV2);
     app.use(VISelectV2Option);
     app.use(VITimePicker);
+    app.use(ScrollBar);
 
     // 全局注册-注册编写文档的组件
     app.component("radio-base", radio_base.default);
@@ -77,6 +85,12 @@ export default {
     app.component("pagination-base", pagination_base.default);
     app.component("pagination-background", pagination_background.default);
     app.component("pagination-pagerCount", pagination_pagerCount.default);
+
+    app.component('scrollBar-base',scrollBar_base.default)
+    app.component('scrollBar-horizontal',scrollBar_horizontal.default)
+    app.component('scrollBar-thumbHW',scrollBar_thumbHW.default)
+    app.component('scrollBar-setScrollTL',scrollBar_setScrollTL.default)
+    
   },
   setup() {
     // this function will be executed inside VitePressApp's

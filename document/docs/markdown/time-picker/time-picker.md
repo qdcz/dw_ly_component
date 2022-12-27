@@ -1,4 +1,4 @@
-# vi-time-picker `0.0.1`
+# dw-time-picker `0.0.1`
 
 可用于选择时间
 

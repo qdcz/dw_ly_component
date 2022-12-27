@@ -91,8 +91,8 @@ function P(e) {
     n: (o) => o ? o.startsWith("-") ? `${l}${o}` : `${l}_${o}` : l,
     classes: (...o) => o.map((t) => {
       if (Ne(t)) {
-        const [p, h, r = null] = t;
-        return p ? h : r;
+        const [p, h, c = null] = t;
+        return p ? h : c;
       }
       return t;
     })
@@ -171,7 +171,7 @@ const A = Symbol("pagination"), {
       quickLeftArrow: "M62.56 511.904L485.952 88.256a48.64 48.64 0 0 1 68.736 68.736L199.616 512.064l356.8 356.8A48.64 48.64 0 0 1 487.68 937.6l-39.744-39.744 0.256-0.256L62.528 511.936z m388.8 0L874.752 88.256a48.64 48.64 0 0 1 68.736 68.736L588.416 512.064l356.8 356.8A48.64 48.64 0 0 1 876.48 937.6l-39.776-39.744 0.288-0.256-385.664-385.664z",
       quickRightArrow: 'M948.064 513.056L536.064 925.312a47.296 47.296 0 0 1-66.88-66.88l345.504-345.504L467.52 165.76a47.296 47.296 0 0 1 66.88-66.88l38.688 38.688-0.256 0.256 375.264 375.264m-378.336-0.032L157.76 925.312a47.296 47.296 0 0 1-66.88-66.88l345.472-345.504L89.184 165.76a47.296 47.296 0 0 1 66.88-66.88l38.688 38.688-0.256 0.256 375.264 375.264"',
       ellipsis: "M110.336 572.330667a85.333333 85.333333 0 1 0 120.661333-120.661334 85.333333 85.333333 0 0 0-120.661333 120.661334zM451.669333 572.330667a85.333333 85.333333 0 1 0 120.661334-120.661334 85.333333 85.333333 0 0 0-120.661334 120.661334zM793.002667 572.330667a85.333333 85.333333 0 1 0 120.661333-120.661334 85.333333 85.333333 0 0 0-120.661333 120.661334z"
-    }, h = d(() => Math.floor(s.value / i.value) * i.value), r = d(() => i.value < o.value ? i.value : o.value - 1), m = d(() => w.value && v.value ? s.value : !1), w = d(() => o.value <= i.value ? 0 : s.value >= i.value - 2), v = d(() => o.value <= i.value ? 0 : s.value < o.value - i.value + 4), y = d(() => o.value > 1), S = function(b) {
+    }, h = d(() => Math.floor(s.value / i.value) * i.value), c = d(() => i.value < o.value ? i.value : o.value - 1), m = d(() => w.value && v.value ? s.value : !1), w = d(() => o.value <= i.value ? 0 : s.value >= i.value - 2), v = d(() => o.value <= i.value ? 0 : s.value < o.value - i.value + 4), y = d(() => o.value > 1), S = function(b) {
       l.emit("click", b);
     }, u = (b) => t.quickPrevBtnIsHover = !0, k = (b) => t.quickPrevBtnIsHover = !1, f = (b) => t.quickNextBtnIsHover = !0, T = (b) => t.quickNextBtnIsHover = !1, J = (b) => s.value = s.value - i.value + 2, U = (b) => s.value = s.value + i.value - 2;
     return () => a("ul", {
@@ -195,7 +195,7 @@ const A = Symbol("pagination"), {
     }, [a("path", {
       fill: "currentColor",
       d: t.quickPrevBtnIsHover ? p.quickLeftArrow : p.ellipsis
-    }, null)])]) : a("div", null, null), new Array(r.value).fill(m.value ? m.value : 0).map((b, C) => {
+    }, null)])]) : a("div", null, null), new Array(c.value).fill(m.value ? m.value : 0).map((b, C) => {
       let V = s.value, D = Math.ceil((i.value - 2) / 2), R = C > 0 && C < i.value - 1, N = h.value;
       if (b > 0) {
         if (R)
@@ -243,9 +243,9 @@ const A = Symbol("pagination"), {
     const i = E({
       num: ""
     }), o = O(), t = function(h) {
-      const r = () => i.num = Math.random() * 1e6;
-      let m = Number(h.target.value);
-      m <= 0 ? (r(), i.num = "") : m > s.pageCount.value ? (r(), i.num = s.pageCount.value) : (r(), i.num = m);
+      (() => i.num = Math.random() * 1e6)();
+      const m = Number(h.target.value);
+      m <= 0 ? i.num = 1 : m > s.pageCount.value ? i.num = s.pageCount.value : i.num = m;
     }, p = function(h) {
       h.key == "Enter" && (o.value.blur(), $(() => l.emit("jump-page", i.num || 1)));
     };
@@ -521,7 +521,7 @@ const A = Symbol("pagination"), {
       clearable: i,
       cacheOptionList: o,
       mode: t
-    } = z(q), p = "m488.832 344.32-339.84 356.672a32 32 0 0 0 0 44.16l.384.384a29.44 29.44 0 0 0 42.688 0l320-335.872 319.872 335.872a29.44 29.44 0 0 0 42.688 0l.384-.384a32 32 0 0 0 0-44.16L535.168 344.32a32 32 0 0 0-46.336 0z", h = "M576 512l277.333333 277.333333-64 64-277.333333-277.333333L234.666667 853.333333 170.666667 789.333333l277.333333-277.333333L170.666667 234.666667 234.666667 170.666667l277.333333 277.333333L789.333333 170.666667 853.333333 234.666667 576 512z", r = E({
+    } = z(q), p = "m488.832 344.32-339.84 356.672a32 32 0 0 0 0 44.16l.384.384a29.44 29.44 0 0 0 42.688 0l320-335.872 319.872 335.872a29.44 29.44 0 0 0 42.688 0l.384-.384a32 32 0 0 0 0-44.16L535.168 344.32a32 32 0 0 0-46.336 0z", h = "M576 512l277.333333 277.333333-64 64-277.333333-277.333333L234.666667 853.333333 170.666667 789.333333l277.333333-277.333333L170.666667 234.666667 234.666667 170.666667l277.333333 277.333333L789.333333 170.666667 853.333333 234.666667 576 512z", c = E({
       isHover: !1
     }), m = function(f) {
       l.emit("click", f);
@@ -532,9 +532,9 @@ const A = Symbol("pagination"), {
     }, y = function(f) {
       l.emit("blur", f);
     }, S = function(f) {
-      r.isHover = !0, l.emit("mouseenter");
+      c.isHover = !0, l.emit("mouseenter");
     }, u = function(f) {
-      r.isHover = !1, l.emit("mouseleave");
+      c.isHover = !1, l.emit("mouseleave");
     }, k = d(() => o.value[s.value]);
     return () => a("div", {
       class: [Ye(he(), e.active ? "active" : "")],
@@ -548,7 +548,7 @@ const A = Symbol("pagination"), {
       onBlur: y,
       value: k.value,
       readonly: !0
-    }, null), r.isHover && s.value && i.value && t.value == "single" ? a(I("vi-select-v2-svg-icon"), {
+    }, null), c.isHover && s.value && i.value && t.value == "single" ? a(I("vi-select-v2-svg-icon"), {
       height: e.iconHeight,
       width: e.iconWidth,
       path: h,
@@ -581,15 +581,15 @@ const A = Symbol("pagination"), {
         y: 0
       },
       dropdownTop: "0"
-    }), p = O(), h = O(), r = () => {
+    }), p = O(), h = O(), c = () => {
       $(() => {
         t.dropdownTop = s.value.clientHeight + 10 + "px";
       });
     };
-    return G(() => r()), we(() => {
+    return G(() => c()), we(() => {
       let m = o.value;
       i.value == "multiple" && m && setTimeout(() => {
-        r();
+        c();
       }, 200);
     }), () => {
       var m, w;
@@ -646,9 +646,9 @@ const A = Symbol("pagination"), {
     } = z(q), i = "M576 512l277.333333 277.333333-64 64-277.333333-277.333333L234.666667 853.333333 170.666667 789.333333l277.333333-277.333333L170.666667 234.666667 234.666667 170.666667l277.333333 277.333333L789.333333 170.666667 853.333333 234.666667 576 512z", o = function(t) {
       const p = JSON.parse(JSON.stringify(s.value));
       try {
-        p.forEach((h, r) => {
+        p.forEach((h, c) => {
           if (h.value == e.value)
-            throw p.splice(r, 1), new Error();
+            throw p.splice(c, 1), new Error();
         });
       } catch {
       }
@@ -715,7 +715,7 @@ const A = Symbol("pagination"), {
       deep: !0,
       immediate: !1
     });
-    const h = d(() => t.scrollBarHeight < t.realHeight), r = function(u) {
+    const h = d(() => t.scrollBarHeight < t.realHeight), c = function(u) {
       const k = u.target.scrollTop;
       y(k);
     }, m = function(u) {
@@ -741,7 +741,7 @@ const A = Symbol("pagination"), {
       }, [a("div", {
         class: te("left"),
         ref: i,
-        onScroll: r
+        onScroll: c
       }, [(k = (u = l.slots).default) == null ? void 0 : k.call(u)]), h.value ? a("div", {
         ref: o,
         class: te("right"),
@@ -770,7 +770,7 @@ const A = Symbol("pagination"), {
       dropDownVisible: t,
       cacheOptionList: p,
       selectedFn: h,
-      deleteOptionItem: r
+      deleteOptionItem: c
     } = z(q), m = function() {
       if (o.value == "single")
         s.value = e.value, i.value = e.label, t.value = !1;
@@ -805,7 +805,7 @@ const A = Symbol("pagination"), {
         value: e.value
       };
     }), Ie(() => {
-      r(e.value);
+      c(e.value);
     });
     const w = d(() => {
       if (o.value == "single")
@@ -852,7 +852,7 @@ const A = Symbol("pagination"), {
     const i = "onUpdate:modelValue" in (((oe = Se()) == null ? void 0 : oe.vnode.props) || {}), o = () => "xxxxxxxx".replace(/[xy]/g, function(n) {
       var x = 0 | 16 * Math.random(), M = n == "x" ? x : 8 | 3 & x;
       return M.toString(16);
-    }), t = O(), p = O(), h = O(), r = E({
+    }), t = O(), p = O(), h = O(), c = E({
       uuid: o(),
       dropDownVisible: !1,
       dialogVisible: !1,
@@ -870,7 +870,7 @@ const A = Symbol("pagination"), {
       let x = !1;
       for (let M = 0; M < n.path.length; M++) {
         const _ = n.path[M];
-        if (_.classList && _.classList.value && _.getAttribute("class").includes("-select-v2") && _.dataset.id == r.uuid) {
+        if (_.classList && _.classList.value && _.getAttribute("class").includes("-select-v2") && _.dataset.id == c.uuid) {
           x = !0;
           break;
         }
@@ -879,7 +879,7 @@ const A = Symbol("pagination"), {
     };
     document.addEventListener("mousedown", v);
     const y = function() {
-      r.dropDownVisible = !1, l.emit && l.emit("blur");
+      c.dropDownVisible = !1, l.emit && l.emit("blur");
     }, S = function(n) {
       return new Promise((x, M) => {
         x($(() => window.getComputedStyle(n.value)));
@@ -892,14 +892,14 @@ const A = Symbol("pagination"), {
         });
       });
     }, k = function(n) {
-      delete r.OptionList[n];
+      delete c.OptionList[n];
     }, f = function(n) {
       if (n == "co1")
         return "";
       if (n == "auto" || n == "co2" || n == "co3" || n == "co4" || n == "co5" || n == "co6" || n == "co7")
         return "display:flex;flex-wrap: wrap;";
     }, T = function(n) {
-      r.dropDownVisible = !r.dropDownVisible, l.emit && (r.dropDownVisible ? l.emit("focus") : l.emit("blur"));
+      c.dropDownVisible = !c.dropDownVisible, l.emit && (c.dropDownVisible ? l.emit("focus") : l.emit("blur"));
     }, J = function(n) {
     }, U = function(n) {
     }, b = function() {
@@ -912,12 +912,12 @@ const A = Symbol("pagination"), {
       l.emit && l.emit("handleClear", n);
     }, R = function(n) {
       let x = n.target.value, M = {};
-      r.list.forEach((_) => _.label.includes(x) ? M[_.value] = _.label : ""), r.searchValue = M, r.searchLabel = x, $(() => {
+      c.list.forEach((_) => _.label.includes(x) ? M[_.value] = _.label : ""), c.searchValue = M, c.searchLabel = x, $(() => {
         F.value;
       });
     };
     le(() => e.list, () => {
-      r.list = JSON.parse(JSON.stringify(e.list));
+      c.list = JSON.parse(JSON.stringify(e.list));
     }, {
       deep: !0,
       immediate: !0
@@ -936,34 +936,34 @@ const A = Symbol("pagination"), {
       }
     }), X = d({
       get() {
-        return r.currentSelectLabel;
+        return c.currentSelectLabel;
       },
       set(n) {
-        r.currentSelectLabel = n;
+        c.currentSelectLabel = n;
       }
     }), F = d({
       get() {
-        let n = Object.keys(r.OptionList).length;
-        return n <= 5 && n > 0 ? r.searchValue || (e.search && n++, L.value["popper-height"] = L.value["popper-option-height"] * n + L.value["popper-padding"] * 2) : L.value["popper-height"] = w.popperHeight, r.OptionList;
+        let n = Object.keys(c.OptionList).length;
+        return n <= 5 && n > 0 ? c.searchValue || (e.search && n++, L.value["popper-height"] = L.value["popper-option-height"] * n + L.value["popper-padding"] * 2) : L.value["popper-height"] = w.popperHeight, c.OptionList;
       },
       set(n) {
-        r.OptionList[n.value] = n.key;
+        c.OptionList[n.value] = n.key;
       }
     }), K = d({
       get() {
-        return r.dropDownVisible;
+        return c.dropDownVisible;
       },
       set(n) {
-        r.dropDownVisible = n;
+        c.dropDownVisible = n;
       }
     }), Y = d({
       get() {
-        return r.__inputPlaceholder || e.placeholder;
+        return c.__inputPlaceholder || e.placeholder;
       },
       set(n) {
-        r.__inputPlaceholder = n;
+        c.__inputPlaceholder = n;
       }
-    }), c = d(() => e.clearable), g = d(() => e.mode), L = d(() => {
+    }), r = d(() => e.clearable), g = d(() => e.mode), L = d(() => {
       let n = Object.assign(ge.dynamicCss.default(), e.dynamicCss);
       return w.popperHeight = n["popper-height"], w.inputLineHeight = n["input-line-height"], n;
     }), Z = d(() => e.mode == "multiple"), Ve = d(() => !!e.searchImg);
@@ -976,7 +976,7 @@ const A = Symbol("pagination"), {
       dropDownVisible: K,
       placeholder: Y,
       cacheOptionList: F,
-      clearable: c,
+      clearable: r,
       selectedFn: u,
       deleteOptionItem: k
     });
@@ -994,7 +994,7 @@ const A = Symbol("pagination"), {
         iconHeight: L.value["input-icon-width"],
         iconWidth: L.value["input-icon-width"],
         ref: p,
-        active: r.dropDownVisible,
+        active: c.dropDownVisible,
         placeholder: Y.value,
         onClick: T,
         onFocus: J,
@@ -1013,27 +1013,27 @@ const A = Symbol("pagination"), {
         class: j("--search"),
         path: m
       }, null), a("input", {
-        value: r.searchLabel,
+        value: c.searchLabel,
         class: j("-search__input"),
         placeholder: "请输入您要搜索的内容",
         onInput: R
       }, null)]);
     }, Me = function() {
       return a(I("vi-select-v2-drop-down"), {
-        active: r.dropDownVisible
+        active: c.dropDownVisible
       }, {
         default: () => [a(I("vi-scroll-bar"), {
           dynamicCss: L.value
         }, {
           default: () => {
             var n, x;
-            return [a("ul", null, [e.search ? Pe() : "", r.searchValue ? a("div", {
+            return [a("ul", null, [e.search ? Pe() : "", c.searchValue ? a("div", {
               style: f(e.itemLayout),
               class: e.itemLayout
-            }, [Object.keys(r.searchValue).map((M, _) => a(I("vi-select-v2-option"), {
+            }, [Object.keys(c.searchValue).map((M, _) => a(I("vi-select-v2-option"), {
               key: M,
               value: M,
-              label: Object.values(r.searchValue)[_]
+              label: Object.values(c.searchValue)[_]
             }, null))]) : a("div", {
               style: f(e.itemLayout),
               class: e.itemLayout
@@ -1045,7 +1045,7 @@ const A = Symbol("pagination"), {
       });
     };
     return () => Ce(a("div", {
-      "data-id": r.uuid,
+      "data-id": c.uuid,
       class: [Ge(j())],
       ref: t
     }, [Z.value ? a("div", {
@@ -1079,32 +1079,32 @@ const {
   },
   setup(e, l) {
     var K, Y;
-    const s = (c) => typeof c != "number", i = (c) => c instanceof Array, o = ((Y = (K = Se()) == null ? void 0 : K.vnode) == null ? void 0 : Y.props) || {}, t = "onUpdate:sizeChange" in o || "onUpdate:size-change" in o || "onSizeChange" in o, p = "onUpdate:currentPage" in o || "onUpdate:current-page" in o || "onUpdate:modelValue" in o || "onCurrentChange" in o, h = "update:total" in o;
-    let r = 10, m = 1, w = 100;
+    const s = (r) => typeof r != "number", i = (r) => r instanceof Array, o = ((Y = (K = Se()) == null ? void 0 : K.vnode) == null ? void 0 : Y.props) || {}, t = "onUpdate:sizeChange" in o || "onUpdate:size-change" in o || "onSizeChange" in o, p = "onUpdate:currentPage" in o || "onUpdate:current-page" in o || "onUpdate:modelValue" in o || "onCurrentChange" in o, h = "update:total" in o;
+    let c = 10, m = 1, w = 100;
     const v = E({
       select_curSelect: "",
       select_list: [],
       select_dynamicCss: {}
     }), y = function() {
-      i(e.pageSize) && (v.select_list = e.pageSize.map((c) => ({
-        value: c,
-        label: c + "/page"
+      i(e.pageSize) && (v.select_list = e.pageSize.map((r) => ({
+        value: r,
+        label: r + "/page"
       })), v.select_curSelect = v.select_list[0].value);
     }, S = d(() => {
-      let c = 0;
-      return s(e.total) ? console.warn("total属性不合格") : c = Math.max(1, Math.ceil(e.total / k.value)), c;
+      let r = 0;
+      return s(e.total) ? console.warn("total属性不合格") : r = Math.max(1, Math.ceil(e.total / k.value)), r;
     }), u = d(() => {
-      let c = 0;
-      return s(e.total) || (s(e.pagerCount) || (c = S.value > 7 ? Math.max(7, e.pagerCount % 2 == 0 ? e.pagerCount - 1 : e.pagerCount) : S.value), c > 29 && (c = 29)), c;
+      let r = 0;
+      return s(e.total) || (s(e.pagerCount) || (r = S.value > 7 ? Math.max(7, e.pagerCount % 2 == 0 ? e.pagerCount - 1 : e.pagerCount) : S.value), r > 29 && (r = 29)), r;
     }), k = d({
       get() {
-        let c = s(e.pageSize) ? r : e.pageSize > 5 ? e.pageSize : 5;
-        return c = i(e.pageSize) ? v.select_curSelect : c, c;
+        let r = s(e.pageSize) ? c : e.pageSize > 5 ? e.pageSize : 5;
+        return r = i(e.pageSize) ? v.select_curSelect : r, r;
       },
-      set(c) {
-        s(e.pageSize) && (r = c), t && (e.modelValue > Math.ceil(e.total / c) && (f.value = Math.ceil(e.total / c)), $(() => {
+      set(r) {
+        s(e.pageSize) && (c = r), t && (e.modelValue > Math.ceil(e.total / r) && (f.value = Math.ceil(e.total / r)), $(() => {
           l.emit("size-change", {
-            pageSize: c,
+            pageSize: r,
             currentPage: e.modelValue
           });
         }));
@@ -1113,25 +1113,25 @@ const {
       get() {
         return s(e.modelValue) ? m : e.modelValue;
       },
-      set(c) {
-        let g = c;
-        c < 1 ? g = 1 : c > S.value && (g = S.value), p && (l.emit("update:modelValue", g), l.emit("current-change", g));
+      set(r) {
+        let g = r;
+        r < 1 ? g = 1 : r > S.value && (g = S.value), p && (l.emit("update:modelValue", g), l.emit("current-change", g));
       }
     }), T = d({
       get() {
         return s(e.total) ? w : e.total;
       },
-      set(c) {
-        let g = c;
-        c < 0 && (g = 0), w = g, h && l.emit("update:total", g);
+      set(r) {
+        let g = r;
+        r < 0 && (g = 0), w = g, h && l.emit("update:total", g);
       }
     }), J = d(() => e.totalLabel), U = d(() => e.jumpLabel), b = d(() => Object.assign(ie.dynamicCss.default(), e.dynamicCss)), C = d(() => {
-      let c = {};
+      let r = {};
       for (let g in b.value)
-        g.includes("select-v2-") && (c[g.replace("select-v2-", "")] = b.value[g]);
-      return c;
+        g.includes("select-v2-") && (r[g.replace("select-v2-", "")] = b.value[g]);
+      return r;
     }), V = d(() => {
-      let c = e.layout;
+      let r = e.layout;
       const g = {
         total: !1,
         size: !1,
@@ -1141,7 +1141,7 @@ const {
         jump: !1
       };
       for (let L in g)
-        g[L] = c.replace(/\s+/g, "").split(",").findIndex((Z) => Z == L) != -1;
+        g[L] = r.replace(/\s+/g, "").split(",").findIndex((Z) => Z == L) != -1;
       return g;
     });
     ye(A, {
@@ -1159,11 +1159,11 @@ const {
     }, {
       deep: !0
     });
-    const D = (c) => f.value = f.value - 1, R = (c) => f.value = f.value + 1, N = (c) => f.value = c, X = (c) => f.value = c, F = function(c) {
-      k.value = c.value;
+    const D = (r) => f.value = f.value - 1, R = (r) => f.value = f.value + 1, N = (r) => f.value = r, X = (r) => f.value = r, F = function(r) {
+      k.value = r.value;
     };
     return () => {
-      let c;
+      let r;
       return Ce(a("div", {
         class: [lt(be()), e.background ? "bgbox" : ""]
       }, [V.value.total ? a(pe, null, null) : "", V.value.size && i(e.pageSize) ? a(I("vi-select-v2"), {
@@ -1172,12 +1172,12 @@ const {
         dynamicCss: C.value,
         onHandleSelected: F,
         class: be("-select")
-      }, tt(c = v.select_list.map((g) => a(I("vi-select-v2-option"), {
+      }, tt(r = v.select_list.map((g) => a(I("vi-select-v2-option"), {
         key: g.value,
         label: g.label,
         value: g.value
-      }, null))) ? c : {
-        default: () => [c]
+      }, null))) ? r : {
+        default: () => [r]
       }) : "", V.value.prev ? a(se, {
         disabled: !1,
         onClick: D

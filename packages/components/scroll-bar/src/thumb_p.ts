@@ -1,6 +1,6 @@
 // 类型文件
 import type { ExtractPropTypes } from "vue";
-enum directionType {
+export enum directionType {
   HORIZONTAL = "horizontal",
   VERTICAL = "vertical",
 }

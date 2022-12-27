@@ -1,7 +1,6 @@
 @use './common/config.scss' as *;
 
 .#{$namespace}-scroll-bar {
-    background-color: rgb(227, 238, 238);
     position: relative;
 
     &__wrapper {
@@ -13,12 +12,17 @@
     }
 
     &__bar {
-        position: absolute;
-        right: 2px;
-        top: 0px;
 
-        & .vertical {
-            background-color: aqua;
+        &.vertical {
+            position: absolute;
+            right: 2px;
+            top: 0px;
+        }
+
+        &.horizontal {
+            position: absolute;
+            left: 0px;
+            bottom: 2px;
         }
     }
 
@@ -27,7 +31,7 @@
         background-color: var(--thumb-bg-color);
         border-radius: 50px;
         cursor: pointer;
-        transition: .7s background-color, .5s opacity;
+        transition: .7s background-color, .7s opacity;
         user-select: none;
 
         &.show {
@@ -37,7 +41,7 @@
         &.hide {
             opacity: 0;
         }
-        
+
         &:hover {
             background-color: rgb(16, 125, 171);
         }

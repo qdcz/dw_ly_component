@@ -7,6 +7,7 @@
 		"dev": "pnpm -C example dev",
 		"build": "pnpm -C build build",
 		"doc": "pnpm -C document dev",
+		"doc:build": "pnpm -C document build",
 		"lint": "eslint . --ext .vue,.js,.ts,.jsx,.tsx --fix",
 		"commit": "git add . && git cz && git push",
 		"pack": "node ./pack.js component=time-picker packType=single",

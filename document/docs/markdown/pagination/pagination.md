@@ -1,4 +1,4 @@
-# vi-pagination `0.0.3`
+# dw-pagination `0.0.3`
 
 当数据量过多时,使用分页分解数据。
 
