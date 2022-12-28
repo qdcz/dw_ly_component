@@ -8,8 +8,8 @@ export const deleteFile = function (_dir: string, delRoot?: boolean): void {
   if (fs.existsSync(_dir)) {
     fs.readdirSync(_dir).forEach((i) => {
       const delUrl = _dir + "/" + i;
-      const statSyncFlag = fs.statSync(delUrl);
-      if (statSyncFlag.isDirectory()) {
+      const fileInfo = fs.statSync(delUrl);
+      if (fileInfo.isDirectory()) {
         deleteFile(delUrl);
         fs.rmdirSync(delUrl);
       } else {
