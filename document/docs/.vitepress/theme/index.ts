@@ -10,11 +10,10 @@ import {
   VIpagination,
   VISelectV2,
   VISelectV2Option,
-  VITimePicker,
 } from "../dist/componentDist/all/index.full.min.mjs";
 // } from "../dist/componentDist/all/component/dw.ui.es";
 
-import { ScrollBar } from "../../../../dist/buildFull/component/dw.ui.es";
+import { TimePicker,ScrollBar } from "../../../../dist/buildFull/component/dw.ui.es";
 
 import {
   v2_base,
@@ -58,7 +57,7 @@ export default {
     app.use(VIpagination);
     app.use(VISelectV2);
     app.use(VISelectV2Option);
-    app.use(VITimePicker);
+    app.use(TimePicker);
     app.use(ScrollBar);
 
     // 全局注册-注册编写文档的组件

@@ -15,19 +15,19 @@ import { TIMEPICKER_INJECTION_KEY } from '../../../tokens/time-picker';
 const { n, classes } = createNamespace('time-picker');
 import VITimePickerInput from './input';
 import VITimePickerPopper from './popper';
-import VIScrollBar from './scroll-bar';
+import { ScrollBar } from "@dw-ui/components/scroll-bar";
 import css from '@dw-ui/directives/css';
 
 
 export default defineComponent({
 	name: 'VITimePicker',
-	emits: ['click', 'inputClick', 'closeClick', 'cancelClick', 'okClick', 'update:modelValue'],
+	emits: ['click', 'inputClick', 'closeClick', 'cancelClick', 'okClick', 'update:modelValue','focus','blur'],
 	directives: { css },
 	props: timePickerProps,
 	components: {
 		"vi-time-picker-input":VITimePickerInput,
 		"vi-time-picker-popper":VITimePickerPopper,
-		"vi-scroll-bar":VIScrollBar,
+		"vi-scroll-bar":ScrollBar,
 	},
 	setup(props, ctx) {
 		const moveTime: number | any[] = [null, null, null]; // 定时器
@@ -35,8 +35,8 @@ export default defineComponent({
 		/**
 		 * tool fn
 		 */
-		const returnString = (val) => (val < 10 ? '0' + val : val + '');
-		const modelValueCheck = (val) => {
+		const returnString = (val:any) => (val < 10 ? '0' + val : val + '');
+		const modelValueCheck = (val:string) => {
 			const flag = val.match(/^(\d{1,2}):(\d{1,2}):(\d{1,2})$/);
 			if (!flag) console.warn('初始化数据格式不符合规范,已被清空！');
 			return flag;
@@ -48,7 +48,6 @@ export default defineComponent({
 				return c.toString(16);
 			});
 		};
-		const isString = (val) => typeof val == 'string';
 
 		/**
 		 * dom refs
@@ -84,15 +83,6 @@ export default defineComponent({
 		});
 
 		/**
-		 * children component methods
-		 */
-
-		// scroll-bar
-		const getHourListRef = (e) => (hourListRef = e);
-		const getMinuteListRef = (e) => (minuteListRef = e);
-		const getSecondListRef = (e) => (secondListRef = e);
-
-		/**
 		 * other event
 		 */
 		const blur = function () {
@@ -118,12 +108,14 @@ export default defineComponent({
 		};
 		document.addEventListener('mousedown', mousedown);
 
-		const inputFocus = function (e) {
+		const inputFocus = function (e:Event | any) {
 			// console.log('handleInputFocus', e);
+			ctx.emit && ctx.emit("focus")
 		};
 
-		const inputBlur = function (e) {
+		const inputBlur = function (e:Event | any) {
 			// console.log('handleInputBlur', e);
+			ctx.emit && ctx.emit("blur")
 		};
 
 		const boxClick = function () {
@@ -131,7 +123,7 @@ export default defineComponent({
 		};
 
 		// 输入框点击函数
-		const inputClick = function (e) {
+		const inputClick = function (e:Event | any) {
 			data.popperVisible = !data.popperVisible;
 			data.isSubmit = false;
 			if (!props.modelValue) {
@@ -146,7 +138,7 @@ export default defineComponent({
 		};
 
 		// 底部按钮组点击函数
-		const footerBtnClick = function (e) {
+		const footerBtnClick = function (e:Event | any) {
 			const { type } = e.target.dataset;
 			data.popperVisible = false;
 
@@ -162,8 +154,8 @@ export default defineComponent({
 		};
 
 		// 旋转器 按钮点击函数
-		const spinnerNumClick = function (type, target) {
-			const fieldMap = {
+		const spinnerNumClick = function (type:string, target:Event | any) {
+			const fieldMap:any = {
 				index: {
 					hour: '0',
 					minute: '1',
@@ -184,22 +176,22 @@ export default defineComponent({
 				const scrollTop =
 					Number(data.currentSelect[fieldMap['index'][type]]) *
 					Number(dynamicCssBridge.value['popper-spinner-number-height']);
-				fieldMap['ref'][type].value.scrollTop = scrollTop;
+				fieldMap['ref'][type].value.setScrollTop(scrollTop);
 			}
 		};
-		const hourClick = function (e) {
+		const hourClick = function (e:Event | any) {
 			spinnerNumClick('hour', e.target);
 		};
-		const minuteClick = function (e) {
+		const minuteClick = function(e:Event | any) {
 			spinnerNumClick('minute', e.target);
 		};
-		const secondClick = function (e) {
+		const secondClick = function (e:Event | any) {
 			spinnerNumClick('second', e.target);
 		};
 
 		// 旋转器 滑动改变值
-		const scrollBoxMove = function (target, type) {
-			const fieldMap = {
+		const scrollBoxMove = function (T:number, type:string) {
+			const fieldMap:ansy = {
 				timers: {
 					hour: 0,
 					minute: 1,
@@ -211,10 +203,11 @@ export default defineComponent({
 					second: 'disabledSeconds',
 				},
 			};
-			let scrollTop = target.scrollTop;
+			// let scrollTop = target.scrollTop;
+			let scrollTop = T;
 			let num = Math.round(scrollTop / Number(dynamicCssBridge.value['popper-spinner-number-height']));
 			// 是否选中 禁用项
-			let hitDisable = props[fieldMap['ableRange'][type]].filter((i) => i == num);
+			let hitDisable = props[fieldMap['ableRange'][type]].filter((i:number) => i == num);
 			if (hitDisable.length > 0) return;
 			data.currentSelect[fieldMap['timers'][type]] = returnString(num);
 			let moveToScrollTop = num * Number(dynamicCssBridge.value['popper-spinner-number-height']);
@@ -223,17 +216,25 @@ export default defineComponent({
 				moveTime[fieldMap['timers'][type]] = null;
 			}
 			moveTime[fieldMap['timers'][type]] = setTimeout(() => {
-				target.scrollTop = moveToScrollTop;
+				if(type=='hour'){
+					hourListRef.value.setScrollTop(moveToScrollTop)
+				}
+				if(type=='minute'){
+					minuteListRef.value.setScrollTop(moveToScrollTop)
+				}
+				if(type=='second'){
+					secondListRef.value.setScrollTop(moveToScrollTop)
+				}
 			}, 200);
 		};
-		const hourScroll = function (e) {
-			scrollBoxMove(e.target, 'hour');
+		const hourScroll = function (l:number,t:number) {
+			scrollBoxMove(t, 'hour');
 		};
-		const minuteScroll = function (e) {
-			scrollBoxMove(e.target, 'minute');
+		const minuteScroll = function (l:number,t:number) {
+			scrollBoxMove(t, 'minute');
 		};
-		const secondScroll = function (e) {
-			scrollBoxMove(e.target, 'second');
+		const secondScroll = function (l:number,t:number) {
+			scrollBoxMove(t, 'second');
 		};
 
 		// 初始化 生成旋转器中的数字列表
@@ -246,12 +247,10 @@ export default defineComponent({
 		// 改变三个旋转器的位置
 		const changeSpinnerPosition = function () {
 			if (prevModelValue) {
-				hourListRef.value.scrollTop =
-					Number(prevModelValue.slice(0, 2)) * Number(dynamicCssBridge.value['popper-spinner-number-height']);
-				minuteListRef.value.scrollTop =
-					Number(prevModelValue.slice(3, 5)) * Number(dynamicCssBridge.value['popper-spinner-number-height']);
-				secondListRef.value.scrollTop =
-					Number(prevModelValue.slice(6, 8)) * Number(dynamicCssBridge.value['popper-spinner-number-height']);
+				hourListRef.value.setScrollTop(Number(prevModelValue.slice(0, 2)) * Number(dynamicCssBridge.value['popper-spinner-number-height']));
+				minuteListRef.value.setScrollTop(Number(prevModelValue.slice(3, 5)) * Number(dynamicCssBridge.value['popper-spinner-number-height']));
+				secondListRef.value.setScrollTop(Number(prevModelValue.slice(6, 8)) * Number(dynamicCssBridge.value['popper-spinner-number-height']));
+
 			}
 		};
 
@@ -265,12 +264,9 @@ export default defineComponent({
 			data.currentSelect[1] = returnString(m);
 			data.currentSelect[2] = returnString(s);
 
-			hourListRef.value.scrollTop =
-				Number(data.currentSelect[0]) * Number(dynamicCssBridge.value['popper-spinner-number-height']);
-			minuteListRef.value.scrollTop =
-				Number(data.currentSelect[1]) * Number(dynamicCssBridge.value['popper-spinner-number-height']);
-			secondListRef.value.scrollTop =
-				Number(data.currentSelect[2]) * Number(dynamicCssBridge.value['popper-spinner-number-height']);
+			hourListRef.value.setScrollTop(Number(data.currentSelect[0]) * Number(dynamicCssBridge.value['popper-spinner-number-height']));
+			minuteListRef.value.setScrollTop(Number(data.currentSelect[1]) * Number(dynamicCssBridge.value['popper-spinner-number-height']));
+			secondListRef.value.setScrollTop(Number(data.currentSelect[2]) * Number(dynamicCssBridge.value['popper-spinner-number-height']));
 
 			ctx.emit &&
 				ctx.emit(
@@ -282,7 +278,7 @@ export default defineComponent({
 		// 判断值是否在禁用项出现
 		const emptyOrNo = function () {
 			// 输出值限制 如果初始值存在且初始值包含禁用值的数字 则全部清空
-			if (props.modelValue && modelValueCheck(props.modelValue)) {
+			if (props.modelValue && modelValueCheck(props.modelValue as string)) {
 				const splitArr = (props.modelValue as string).split(':');
 				const h = props.disabledHours.findIndex((i) => i == splitArr[0]) != -1;
 				const m = props.disabledMinutes.findIndex((i) => i == splitArr[1]) != -1;
@@ -301,7 +297,7 @@ export default defineComponent({
 		 */
 		onBeforeMount(() => {
 			// init data render
-			if (props.modelValue && modelValueCheck(props.modelValue) && !emptyOrNo()) {
+			if (props.modelValue && modelValueCheck(props.modelValue as string) && !emptyOrNo()) {
 				const splitArr = (props.modelValue as string).split(':');
 				data.currentSelect[0] = splitArr[0];
 				data.currentSelect[1] = splitArr[1];
@@ -322,7 +318,7 @@ export default defineComponent({
 		 */
 		const dynamicCssBridge = computed(() => Object.assign(timePickerProps.dynamicCss.default(), props.dynamicCss));
 		const input_dynamicCssBridge = computed(() => {
-			const obj = {};
+			const obj:any = {};
 			for (const key in dynamicCssBridge.value) {
 				if (key.includes('input')) obj[key] = dynamicCssBridge.value[key];
 			}
@@ -338,28 +334,28 @@ export default defineComponent({
 			},
 		});
 		const clearableBridge = computed(() => props.clearable);
-		const isDisabledPublic = function (type, val) {
+		const isDisabledPublic = function (type:string, val:number) {
 			const disabledMap = {
 				hour: 'disabledHours',
 				minute: 'disabledMinutes',
 				second: 'disabledSeconds',
 			};
 			let flag = false;
-			props[disabledMap[type]].forEach((i) => (i == val ? (flag = true) : ''));
+			props[disabledMap[type]].forEach((i:number) => (i == val ? (flag = true) : ''));
 			return flag;
 		};
 		const isDisabledHour = computed(() => {
-			return function (val) {
+			return function (val:number) {
 				return isDisabledPublic('hour', val);
 			};
 		});
 		const isDisabledMinutes = computed(() => {
-			return function (val) {
+			return function (val:number) {
 				return isDisabledPublic('minute', val);
 			};
 		});
 		const isDisabledSecond = computed(() => {
-			return function (val) {
+			return function (val:number) {
 				return isDisabledPublic('second', val);
 			};
 		});
@@ -421,9 +417,10 @@ export default defineComponent({
 					<div class="time-panel">
 						<div class="time-panel__content">
 							<vi-scroll-bar
-								onGetRef={getHourListRef}
+								ref = {hourListRef}
 								class="time-panel__spinner time-panel__popper-spinner--hour"
 								onScroll={hourScroll}
+								height={Number(dynamicCssBridge.value['popper-spinner-number-height']) * 6 + "px"}
 							>
 								<ul onClick={hourClick}>
 									{data.hourList.map((i) => (
@@ -438,9 +435,10 @@ export default defineComponent({
 								</ul>
 							</vi-scroll-bar>
 							<vi-scroll-bar
-								onGetRef={getMinuteListRef}
+								ref = {minuteListRef}
 								class="time-panel__spinner time-panel__popper-spinner--minutes"
 								onScroll={minuteScroll}
+								height={Number(dynamicCssBridge.value['popper-spinner-number-height']) * 6 + "px"}
 							>
 								<ul onClick={minuteClick}>
 									{data.minuteList.map((i) => (
@@ -455,9 +453,10 @@ export default defineComponent({
 								</ul>
 							</vi-scroll-bar>
 							<vi-scroll-bar
-								onGetRef={getSecondListRef}
+								ref = {secondListRef}
 								class="time-panel__spinner time-panel__popper-spinner--second"
 								onScroll={secondScroll}
+								height={Number(dynamicCssBridge.value['popper-spinner-number-height']) * 6 + "px"}
 							>
 								<ul onClick={secondClick}>
 									{data.secondList.map((i) => (

@@ -13,7 +13,7 @@
       disabledSeconds 为禁用的秒数
       <span>:disabledSeconds="[10, 11, 15]"</span>
     </p>
-    <vi-time-picker
+    <dw-time-picker
       v-model="data.currentSelect"
       :dynamicCss="data.dynamicCss"
       placeholder="Arbitrary time"
@@ -21,16 +21,12 @@
       :disabledHours="[1, 2, 3, 4, 5, 6]"
       :disabledMinutes="[5, 12, 13, 18]"
       :disabledSeconds="[10, 11, 15]"
-    ></vi-time-picker>
+    ></dw-time-picker>
   </div>
 </template>
 <script lang="ts">
 import { defineComponent, reactive } from "vue";
-import { VITimePicker } from "../../public/componentDist/all/index.full.min.mjs";
 export default defineComponent({
-  components: {
-    "vi-time-picker": VITimePicker,
-  },
   setup() {
     const data = reactive({
       currentSelect: "",

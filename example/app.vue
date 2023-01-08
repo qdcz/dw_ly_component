@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <div>
+      <dw-time-picker v-model="currentSelect" :dynamicCss="dynamicCss"></dw-time-picker>
       <dw-scroll-bar height="300px" :dynamicCss="{}" :noResize="noResize">
         <div v-for="i in aaa">
           <div>{{ i }}</div>
@@ -27,7 +28,7 @@ export default {
   name: "demo",
   data() {
     return {
-      selectData_current: "zhangzhou",
+      currentSelect:"",
       selectData_dropDownList: [
         { value: "xiamen", label: "厦门阿斯顿撒旦" },
         { value: "fuzhou", label: "福州" },
@@ -39,10 +40,9 @@ export default {
         { value: "nanping", label: "南平" },
         { value: "ningde", label: "宁德" },
       ],
-      selectData_dynamicCss: {},
+      dynamicCss: {},
       aaa: 100,
       noResize: false,
-      ssssssssss:"auto",
       refs:""
     };
   },
@@ -65,8 +65,8 @@ export default {
     /**
      * select
      */
-     handleScroll(L,R) {
-      console.log("handleScroll", L,R);
+     handleScroll(L,T) {
+      console.log("handleScroll", L,T);
     },
     handleClear() {
       console.log("handleClear");

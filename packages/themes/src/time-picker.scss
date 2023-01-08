@@ -260,41 +260,4 @@
             }
         }
     }
-
-
-    // scroll-bar 
-    .#{$namespace}-scroll-bar {
-        position: relative;
-
-        &:hover {
-            .#{$namespace}-scroll-bar_right {
-                width: calc(var(--scroll-bar-thumb-width) * 1px);
-            }
-        }
-
-        &_left {
-            overflow: scroll;
-            height: inherit;
-
-            &::-webkit-scrollbar {
-                display: none;
-            }
-        }
-
-        &_right {
-            position: absolute;
-            right: 4px;
-            top: 0px;
-            width: 0px;
-            border-radius: 50px;
-            transition: background .5s, width .3s;
-            cursor: pointer;
-            background-color: var(--scrollBarBgColor);
-            height: calc(var(--scrollBarHeight) * 1px);
-
-            &:hover {
-                background-color: var(--scrollBarBgColorHover);
-            }
-        }
-    }
 }

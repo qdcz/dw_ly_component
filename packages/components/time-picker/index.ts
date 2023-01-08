@@ -1,5 +1,6 @@
-import { withInstall } from '@dw-ui/utils/widthInstall'
-import TimePicker from './src/time-picker';
-const VITimePicker = withInstall(TimePicker, 'time-picker');
-export { VITimePicker } // 支持按需导入
-export default VITimePicker
+import { withInstall } from "@dw-ui/utils/widthInstall";
+import timePicker from "./src/time-picker";
+
+const TimePicker:any = withInstall(timePicker, "time-picker");
+export { TimePicker }; 
+export default TimePicker;
