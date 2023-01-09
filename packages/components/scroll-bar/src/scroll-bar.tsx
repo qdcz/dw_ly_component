@@ -31,7 +31,7 @@ export default defineComponent({
     /**
      * const
      */
-    let stopResizeObserver: (() => void) | undefined = undefined;
+    const stopResizeObserver: (() => void) | undefined = undefined;
     let __observer: any = null;
     const watchFn = (AddNodeList: NodeList | any): void => {
       containerInfoCompute(AddNodeList);
@@ -265,11 +265,11 @@ export default defineComponent({
       ctx.emit && ctx.emit("scroll", scrollLeft, scrollTop)
     };
 
-    const mouseenter = (e: Event | any) => {
+    const mouseenter = () => {
       IsMouseIn.value = true;
     };
 
-    const mouseleave = (e: Event | any) => {
+    const mouseleave = () => {
       IsMouseIn.value = false;
     };
 

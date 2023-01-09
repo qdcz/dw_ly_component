@@ -191,7 +191,7 @@ export default defineComponent({
 
 		// 旋转器 滑动改变值
 		const scrollBoxMove = function (T:number, type:string) {
-			const fieldMap:ansy = {
+			const fieldMap:any = {
 				timers: {
 					hour: 0,
 					minute: 1,
@@ -426,8 +426,8 @@ export default defineComponent({
 									{data.hourList.map((i) => (
 										<li
 											data-num={i}
-											data-disabled={isDisabledHour.value(i)}
-											class={[data.currentSelect[0] == i ? 'active' : '', isDisabledHour.value(i) ? 'disabled' : '']}
+											data-disabled={isDisabledHour.value(Number(i))}
+											class={[data.currentSelect[0] == i ? 'active' : '', isDisabledHour.value(Number(i)) ? 'disabled' : '']}
 										>
 											{i}
 										</li>
@@ -444,8 +444,8 @@ export default defineComponent({
 									{data.minuteList.map((i) => (
 										<li
 											data-num={i}
-											data-disabled={isDisabledMinutes.value(i)}
-											class={[data.currentSelect[1] == i ? 'active' : '', isDisabledMinutes.value(i) ? 'disabled' : '']}
+											data-disabled={isDisabledMinutes.value(Number(i))}
+											class={[data.currentSelect[1] == i ? 'active' : '', isDisabledMinutes.value(Number(i)) ? 'disabled' : '']}
 										>
 											{i}
 										</li>
@@ -462,8 +462,8 @@ export default defineComponent({
 									{data.secondList.map((i) => (
 										<li
 											data-num={i}
-											data-disabled={isDisabledSecond.value(i)}
-											class={[data.currentSelect[2] == i ? 'active' : '', isDisabledSecond.value(i) ? 'disabled' : '']}
+											data-disabled={isDisabledSecond.value(Number(i))}
+											class={[data.currentSelect[2] == i ? 'active' : '', isDisabledSecond.value(Number(i)) ? 'disabled' : '']}
 										>
 											{i}
 										</li>
