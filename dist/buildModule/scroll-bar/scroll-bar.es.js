@@ -1,10 +1,10 @@
-import { defineComponent as j, inject as G, ref as X, reactive as D, computed as s, createVNode as b, watch as Q, nextTick as O, onMounted as U, provide as ee, withDirectives as te, resolveDirective as re, resolveComponent as $ } from "vue";
-const ae = (t, a) => (t.install = function(m) {
+import { defineComponent as j, inject as G, ref as X, reactive as D, computed as s, createVNode as d, watch as Q, nextTick as A, onMounted as U, provide as ee, withDirectives as te, resolveDirective as re, resolveComponent as z } from "vue";
+const ae = (t, a) => (t.install = function(b) {
   if (t) {
     const l = t.name || t.__name;
     if (l || a) {
       const u = a ? `dw-${a}` : "dw-" + l.replace(/dw/gi, "").toLowerCase();
-      m.component(u, t);
+      b.component(u, t);
     } else
       console.error(t, a, !a);
   }
@@ -15,14 +15,14 @@ function k(t) {
     n: (u) => u ? u.startsWith("-") ? `${a}${u}` : `${a}_${u}` : a,
     classes: (...u) => u.map((c) => {
       if (oe(c)) {
-        const [d, x, e = null] = c;
-        return d ? x : e;
+        const [p, x, e = null] = c;
+        return p ? x : e;
       }
       return c;
     })
   };
 }
-const z = {
+const $ = {
   height: {
     type: [String, Boolean],
     default: "300px"
@@ -66,8 +66,8 @@ const ne = {
     default: "0px"
   }
 }, V = function(t, a) {
-  for (let [m, l] of Object.entries(a.value))
-    t.style.setProperty("--" + m, l);
+  for (let [b, l] of Object.entries(a.value))
+    t.style.setProperty("--" + b, l);
 }, ie = {
   mounted(t, a) {
     V(t, a);
@@ -86,17 +86,17 @@ const ne = {
   props: ne,
   setup(t, a) {
     const {
-      thumbRatioY: m,
+      thumbRatioY: b,
       thumbRatioX: l,
       thumbRatioYMaxRange: u,
       thumbRatioXMaxRange: c,
-      wrapperInnerMaxiMoveProportionY: d,
+      wrapperInnerMaxiMoveProportionY: p,
       wrapperInnerMaxiMoveProportionX: x,
       scrollBarRef: e
     } = G(Z), I = X(), P = D({
       mouseMoving: !1
     });
-    let p = 0, i = 0, v = 0, g = 0, R = 0, M = 0;
+    let m = 0, i = 0, v = 0, g = 0, R = 0, M = 0;
     const N = s({
       get() {
         return t.height;
@@ -115,24 +115,24 @@ const ne = {
       if (o == "vertical") {
         let n = 0;
         const w = R;
-        n = v < 0 ? w + Math.abs(v) : w - Math.abs(v), n < 0 && (n = 0), n > u.value && (n = u.value), e.value.scrollTop = Math.abs(d.value * n);
+        n = v < 0 ? w + Math.abs(v) : w - Math.abs(v), n < 0 && (n = 0), n > u.value && (n = u.value), e.value.scrollTop = Math.abs(p.value * n);
       } else if (o == "horizontal") {
         let n = 0;
         const w = M;
         n = g < 0 ? w + Math.abs(g) : w - Math.abs(g), n < 0 && (n = 0), n > c.value && (n = c.value), e.value.scrollLeft = Math.abs(x.value * n);
       }
     }, y = function(o) {
-      P.mouseMoving = !0, R = Number(m.value.slice(11, -3)), M = Number(l.value.slice(11, -3)), p = Number(o.clientY), i = Number(o.clientX);
+      P.mouseMoving = !0, R = Number(b.value.slice(11, -3)), M = Number(l.value.slice(11, -3)), m = Number(o.clientY), i = Number(o.clientX);
     }, W = function(o) {
-      v = p - o.clientY, g = i - o.clientX, C(t.type);
+      v = m - o.clientY, g = i - o.clientX, C(t.type);
     };
     document.addEventListener("mouseup", () => {
-      document.removeEventListener("mousemove", W), document.removeEventListener("mousedown", y), p = 0, i = 0, v = 0, g = 0, R = 0, M = 0, P.mouseMoving = !1;
+      document.removeEventListener("mousemove", W), document.removeEventListener("mousedown", y), m = 0, i = 0, v = 0, g = 0, R = 0, M = 0, P.mouseMoving = !1;
     });
     const L = (o) => {
       document.addEventListener("mousedown", y), document.addEventListener("mousemove", W);
     };
-    return () => b("div", {
+    return () => d("div", {
       class: le(),
       ref: I,
       style: {
@@ -151,15 +151,15 @@ const ne = {
   directives: {
     css: ie
   },
-  props: z,
+  props: $,
   components: {
     "scroll-bar-thumb": ue
   },
   setup(t, a) {
-    let m, l = null;
+    let l = null;
     const u = (r) => {
       H();
-    }, c = X(), d = X(), x = X(), e = D({
+    }, c = X(), p = X(), x = X(), e = D({
       wrapperInnerRealHeight: 0,
       wrapperInnerRealWidth: 0,
       wrapperInnerMaxiMoveRangeY: 0,
@@ -180,8 +180,8 @@ const ne = {
     });
     let I = X(!1);
     Q(() => t.noResize, (r) => {
-      r ? (m == null || m(), l == null || l.disconnect()) : (l = new MutationObserver(u), O(() => {
-        l.observe(d.value, {
+      r ? l == null || l.disconnect() : (l = new MutationObserver(u), A(() => {
+        l.observe(p.value, {
           attributes: !0,
           childList: !0,
           subtree: !0
@@ -190,7 +190,7 @@ const ne = {
     }, {
       immediate: !0
     });
-    const P = s(() => Object.assign(z.dynamicCss.default(), t.dynamicCss)), p = s(() => t.height), i = s({
+    const P = s(() => Object.assign($.dynamicCss.default(), t.dynamicCss)), m = s(() => t.height), i = s({
       get() {
         return e.cacheContainerWidth;
       },
@@ -237,7 +237,7 @@ const ne = {
       o(r), n(h);
     }, H = (r) => {
       var h, f;
-      e.wrapperInnerRealHeight = Number((h = d.value) == null ? void 0 : h.scrollHeight), e.wrapperInnerRealWidth = Number((f = d.value) == null ? void 0 : f.scrollWidth), e.wrapperInnerMaxiMoveRangeY = e.wrapperInnerRealHeight - Number(p.value.replace("px", "")), e.wrapperInnerMaxiMoveRangeX = e.wrapperInnerRealWidth - Number(i.value.replace("px", "")), e.thumbHeightProportion = Number(p.value.replace("px", "")) / e.wrapperInnerRealHeight, e.thumbWidthProportion = Number(i.value.replace("px", "")) / e.wrapperInnerRealWidth, e.thumbHeight = String(e.thumbHeightProportion * Number(p.value.replace("px", ""))) + "px", e.thumbWidth = String(e.thumbWidthProportion * Number(i.value.replace("px", ""))) + "px", e.thumbRatioYMaxRange = Number(p.value.replace("px", "")) - Number(e.thumbHeight.replace("px", "")), e.thumbRatioXMaxRange = Number(i.value.replace("px", "")) - Number(e.thumbWidth.replace("px", "")), e.thumbRatioYProportion = e.thumbRatioYMaxRange / e.wrapperInnerMaxiMoveRangeY, e.thumbRatioXProportion = e.thumbRatioXMaxRange / e.wrapperInnerMaxiMoveRangeX, e.wrapperInnerMaxiMoveProportionY = e.wrapperInnerMaxiMoveRangeY / e.thumbRatioYMaxRange, e.wrapperInnerMaxiMoveProportionX = e.wrapperInnerMaxiMoveRangeX / e.thumbRatioXMaxRange;
+      e.wrapperInnerRealHeight = Number((h = p.value) == null ? void 0 : h.scrollHeight), e.wrapperInnerRealWidth = Number((f = p.value) == null ? void 0 : f.scrollWidth), e.wrapperInnerMaxiMoveRangeY = e.wrapperInnerRealHeight - Number(m.value.replace("px", "")), e.wrapperInnerMaxiMoveRangeX = e.wrapperInnerRealWidth - Number(i.value.replace("px", "")), e.thumbHeightProportion = Number(m.value.replace("px", "")) / e.wrapperInnerRealHeight, e.thumbWidthProportion = Number(i.value.replace("px", "")) / e.wrapperInnerRealWidth, e.thumbHeight = String(e.thumbHeightProportion * Number(m.value.replace("px", ""))) + "px", e.thumbWidth = String(e.thumbWidthProportion * Number(i.value.replace("px", ""))) + "px", e.thumbRatioYMaxRange = Number(m.value.replace("px", "")) - Number(e.thumbHeight.replace("px", "")), e.thumbRatioXMaxRange = Number(i.value.replace("px", "")) - Number(e.thumbWidth.replace("px", "")), e.thumbRatioYProportion = e.thumbRatioYMaxRange / e.wrapperInnerMaxiMoveRangeY, e.thumbRatioXProportion = e.thumbRatioXMaxRange / e.wrapperInnerMaxiMoveRangeX, e.wrapperInnerMaxiMoveProportionY = e.wrapperInnerMaxiMoveRangeY / e.thumbRatioYMaxRange, e.wrapperInnerMaxiMoveProportionX = e.wrapperInnerMaxiMoveRangeX / e.thumbRatioXMaxRange;
     };
     U(() => {
       e.cacheContainerWidth = t.width, H();
@@ -245,13 +245,13 @@ const ne = {
     const F = (r) => {
       const h = r.target.scrollTop, f = r.target.scrollLeft;
       W(h), L(f), a.emit && a.emit("scroll", f, h);
-    }, J = (r) => {
+    }, J = () => {
       I.value = !0;
-    }, K = (r) => {
+    }, K = () => {
       I.value = !1;
     };
     ee(Z, {
-      height: p,
+      height: m,
       thumbRatioY: M,
       thumbRatioX: R,
       thumbRatioYMaxRange: N,
@@ -269,7 +269,7 @@ const ne = {
         return "";
       const h = e.wrapperInnerRealHeight, f = Number(t.height.replace("px", "")), q = e.wrapperInnerRealWidth;
       if (r == "vertical")
-        return f < h ? b($("scroll-bar-thumb"), {
+        return f < h ? d(z("scroll-bar-thumb"), {
           ref: x,
           type: r,
           height: v.value,
@@ -282,14 +282,14 @@ const ne = {
         let _ = Number(i.value.replace("px", ""));
         if (i.value == "auto") {
           const E = () => {
-            i.value = "auto", O(() => {
-              var A;
-              _ = Number((A = d.value) == null ? void 0 : A.clientWidth), i.value = _ + "px", H();
+            i.value = "auto", A(() => {
+              var O;
+              _ = Number((O = p.value) == null ? void 0 : O.clientWidth), i.value = _ + "px", H();
             });
           };
           E(), window.onresize = () => E();
         } else if (i.value)
-          return _ < q ? b($("scroll-bar-thumb"), {
+          return _ < q ? d(z("scroll-bar-thumb"), {
             ref: x,
             type: r,
             height: t.thumbWidth,
@@ -302,27 +302,27 @@ const ne = {
     };
     return () => {
       var r, h;
-      return te(b("div", {
+      return te(d("div", {
         class: Y(),
         style: {
           width: i.value
         },
         onMouseenter: J,
         onMouseleave: K
-      }, [b("div", {
+      }, [d("div", {
         class: Y("_wrapper"),
         ref: c,
         style: {
-          height: p.value,
+          height: m.value,
           width: i.value
         },
         onScroll: F
-      }, [b("div", {
+      }, [d("div", {
         class: Y("_view"),
-        ref: d
-      }, [(h = (r = a.slots).default) == null ? void 0 : h.call(r)])]), b("div", {
+        ref: p
+      }, [(h = (r = a.slots).default) == null ? void 0 : h.call(r)])]), d("div", {
         class: [Y("_bar"), "horizontal"]
-      }, [T(B.HORIZONTAL)]), b("div", {
+      }, [T(B.HORIZONTAL)]), d("div", {
         class: [Y("_bar"), "vertical"]
       }, [T(B.VERTICAL)])]), [[re("css"), P.value || {}]]);
     };

@@ -89,10 +89,11 @@ export default defineComponent({
 			data.popperVisible = false;
 			data.softFocus = false;
 		};
-		const mousedown = function (e) {
+		const mousedown = function (e:any) {
 			let softFocus = false;
-			for (let i = 0; i < e.path.length; i++) {
-				const item = e.path[i];
+			const path = e.path || (e.composedPath && e.composedPath());
+			for (let i = 0; i < path.length; i++) {
+				const item = path[i];
 				if (item.classList && item.classList.value) {
 					let _class = item.getAttribute('class');
 					if (_class.includes('-time-picker') && item.dataset.id == data.uuid) {

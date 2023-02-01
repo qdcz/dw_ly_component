@@ -1,5 +1,5 @@
-import { defineComponent as M, createVNode as a, inject as D, reactive as N, computed as v, resolveComponent as V, ref as B, onMounted as R, watchEffect as W, nextTick as H, watch as K, onUnmounted as ve, getCurrentInstance as fe, provide as me, withDirectives as be, resolveDirective as we, createTextVNode as Se } from "vue";
-const Q = (e, l) => (e.install = function(s) {
+import { defineComponent as M, createVNode as a, inject as D, reactive as N, computed as v, resolveComponent as V, ref as B, onMounted as $, watchEffect as K, nextTick as H, watch as Q, onUnmounted as fe, getCurrentInstance as me, provide as be, withDirectives as we, resolveDirective as Se, createTextVNode as ye } from "vue";
+const q = (e, l) => (e.install = function(s) {
   if (e) {
     const c = e.name || e.__name;
     if (c || l) {
@@ -8,13 +8,13 @@ const Q = (e, l) => (e.install = function(s) {
     } else
       console.error(e, l, !l);
   }
-}, e), ye = (e) => Array.isArray(e);
+}, e), Ve = (e) => Array.isArray(e);
 function I(e) {
   const l = `vi-${e}`;
   return {
     n: (r) => r ? r.startsWith("-") ? `${l}${r}` : `${l}_${r}` : l,
     classes: (...r) => r.map((t) => {
-      if (ye(t)) {
+      if (Ve(t)) {
         const [u, d, n = null] = t;
         return u ? d : n;
       }
@@ -22,20 +22,20 @@ function I(e) {
     })
   };
 }
-const O = Symbol("select-v2"), J = function(e, l) {
+const O = Symbol("select-v2"), F = function(e, l) {
   for (let [s, c] of Object.entries(l.value))
     e.style.setProperty("--" + s, c);
-}, q = {
+}, G = {
   mounted(e, l) {
-    J(e, l);
+    F(e, l);
   },
   updated(e, l) {
-    J(e, l);
+    F(e, l);
   },
   install(e) {
     e.directive("Css", this);
   }
-}, F = {
+}, j = {
   modelValue: {
     type: [String, Number, Array],
     default: ""
@@ -185,8 +185,8 @@ const O = Symbol("select-v2"), J = function(e, l) {
     })
   }
 }, {
-  n: Ve,
-  classes: xe
+  n: xe,
+  classes: Le
 } = I("select-v2-svg-icon"), k = /* @__PURE__ */ M({
   name: "VISelectV2SvgIcon",
   emits: ["click"],
@@ -215,7 +215,7 @@ const O = Symbol("select-v2"), J = function(e, l) {
       l.emit("click", r);
     }, c = function() {
       return a("svg", {
-        class: [xe(Ve()), "icon"],
+        class: [Le(xe()), "icon"],
         height: e.height,
         width: e.width,
         viewBox: "0 0 1024 1024",
@@ -229,9 +229,9 @@ const O = Symbol("select-v2"), J = function(e, l) {
     return () => c();
   }
 }), {
-  n: j,
-  classes: Le
-} = I("select-v2-input"), Ce = /* @__PURE__ */ M({
+  n: A,
+  classes: Ce
+} = I("select-v2-input"), Be = /* @__PURE__ */ M({
   name: "VISelectV2Input",
   emits: ["focus", "blur", "click", "clear", "mouseenter", "mouseleave"],
   props: {
@@ -269,7 +269,7 @@ const O = Symbol("select-v2"), J = function(e, l) {
       s.value = "", l.emit("clear"), m.stopPropagation();
     }, h = function(m) {
       l.emit("focus", m);
-    }, w = function(m) {
+    }, b = function(m) {
       l.emit("blur", m);
     }, x = function(m) {
       n.isHover = !0, l.emit("mouseenter");
@@ -277,15 +277,15 @@ const O = Symbol("select-v2"), J = function(e, l) {
       n.isHover = !1, l.emit("mouseleave");
     }, L = v(() => r.value[s.value]);
     return () => a("div", {
-      class: [Le(j(), e.active ? "active" : "")],
+      class: [Ce(A(), e.active ? "active" : "")],
       onClick: f,
       onMouseenter: x,
       onMouseleave: i
     }, [a("input", {
-      class: [j("_inner")],
+      class: [A("_inner")],
       placeholder: e.placeholder,
       onFocus: h,
-      onBlur: w,
+      onBlur: b,
       value: L.value,
       readonly: !0
     }, null), n.isHover && s.value && c.value && t.value == "single" ? a(V("vi-select-v2-svg-icon"), {
@@ -302,8 +302,8 @@ const O = Symbol("select-v2"), J = function(e, l) {
   }
 }), {
   n: _,
-  classes: A
-} = I("select-v2-dropdown"), Be = /* @__PURE__ */ M({
+  classes: U
+} = I("select-v2-dropdown"), Me = /* @__PURE__ */ M({
   name: "VISelectV2DropDown",
   emits: ["focus", "blur", "click"],
   props: ["active"],
@@ -326,7 +326,7 @@ const O = Symbol("select-v2"), J = function(e, l) {
         t.dropdownTop = s.value.clientHeight + 10 + "px";
       });
     };
-    return R(() => n()), W(() => {
+    return $(() => n()), K(() => {
       let f = r.value;
       c.value == "multiple" && f && setTimeout(() => {
         n();
@@ -343,16 +343,16 @@ const O = Symbol("select-v2"), J = function(e, l) {
         class: [_("-arrow"), e.active ? "active" : ""]
       }, null), a("div", {
         ref: d,
-        class: [A(_(), e.active ? "active" : "")]
+        class: [U(_(), e.active ? "active" : "")]
       }, [a("div", {
-        class: [A(_("_inner"))]
+        class: [U(_("_inner"))]
       }, [(p = (f = l.slots).default) == null ? void 0 : p.call(f)])])]);
     };
   }
 }), {
-  n: U,
-  classes: Me
-} = I("select-v2-tag"), Ie = /* @__PURE__ */ M({
+  n: W,
+  classes: Ie
+} = I("select-v2-tag"), Oe = /* @__PURE__ */ M({
   name: "VISelectV2Tag",
   emits: ["click", "closeClick", "hover"],
   props: {
@@ -401,10 +401,10 @@ const O = Symbol("select-v2"), J = function(e, l) {
       }), t.stopPropagation();
     };
     return () => a("div", {
-      class: [Me(U()), e.tooltip ? "useToolTip" : ""],
+      class: [Ie(W()), e.tooltip ? "useToolTip" : ""],
       "data-txt": e.label
     }, [a("span", {
-      class: U("_span")
+      class: W("_span")
     }, [e.label]), a(V("vi-svg-icon"), {
       path: c,
       onClick: r,
@@ -413,14 +413,14 @@ const O = Symbol("select-v2"), J = function(e, l) {
     }, null)]);
   }
 }), {
-  n: Y,
-  classes: Oe
-} = I("scroll-bar"), He = /* @__PURE__ */ M({
+  n: R,
+  classes: He
+} = I("scroll-bar"), De = /* @__PURE__ */ M({
   name: "VIScrollBar",
   emits: ["focus", "blur", "click"],
   props: ["dynamicCss"],
   directives: {
-    css: q
+    css: G
   },
   setup(e, l) {
     const {
@@ -447,9 +447,9 @@ const O = Symbol("select-v2"), J = function(e, l) {
         t.realPadding = e.dynamicCss["popper-padding"] * 2, t.realHeight = i.height.replace("px", "") * 1, t.viewHeight = e.dynamicCss["popper-height"] * 1 - t.realPadding, t.maxScrollBoxRange = t.realHeight - t.viewHeight, t.proportion = Number((t.viewHeight / t.realHeight).toFixed(1)), t.scrollBarHeight = t.viewHeight * t.proportion, t.maxScrollBarRange = t.viewHeight - t.scrollBarHeight, t.scrollBarMovePropor = t.maxScrollBarRange / t.maxScrollBoxRange, t.scrollBoxMovePropor = t.maxScrollBoxRange / t.maxScrollBarRange;
       });
     };
-    R(() => {
+    $(() => {
       u();
-    }), K(() => s.value, () => {
+    }), Q(() => s.value, () => {
       u();
     }, {
       deep: !0,
@@ -457,7 +457,7 @@ const O = Symbol("select-v2"), J = function(e, l) {
     });
     const d = v(() => t.scrollBarHeight < t.realHeight), n = function(i) {
       const L = i.target.scrollTop;
-      w(L);
+      b(L);
     }, f = function(i) {
       document.addEventListener("mousedown", p), document.addEventListener("mousemove", h);
     }, p = function(i) {
@@ -468,7 +468,7 @@ const O = Symbol("select-v2"), J = function(e, l) {
     document.addEventListener("mouseup", () => {
       document.removeEventListener("mousemove", h), document.removeEventListener("mousedown", p), t.startY = 0, t.moveY = 0, t.mouseMoving && (t.translateY = t._move), t.mouseMoving = !1;
     });
-    const w = function(i) {
+    const b = function(i) {
       t.mouseMoving || (t.translateY = t.scrollBarMovePropor * i, r.value.style.transform = `translateY(${t.translateY}px)`);
     }, x = function() {
       let i = 0;
@@ -477,14 +477,14 @@ const O = Symbol("select-v2"), J = function(e, l) {
     return () => {
       var i, L;
       return a("div", {
-        class: [Oe(Y())]
+        class: [He(R())]
       }, [a("div", {
-        class: Y("left"),
+        class: R("left"),
         ref: c,
         onScroll: n
       }, [(L = (i = l.slots).default) == null ? void 0 : L.call(i)]), d.value ? a("div", {
         ref: r,
-        class: Y("right"),
+        class: R("right"),
         style: {
           height: t.scrollBarHeight + "px"
         },
@@ -493,9 +493,9 @@ const O = Symbol("select-v2"), J = function(e, l) {
     };
   }
 }), {
-  n: De,
-  classes: ke
-} = I("select-v2-option"), G = /* @__PURE__ */ M({
+  n: ke,
+  classes: Pe
+} = I("select-v2-option"), X = /* @__PURE__ */ M({
   name: "VISelectV2Option",
   emits: ["click"],
   props: ["label", "value"],
@@ -516,15 +516,15 @@ const O = Symbol("select-v2"), J = function(e, l) {
         s.value = e.value, c.value = e.label, t.value = !1;
       else if (r.value == "multiple") {
         const h = JSON.parse(JSON.stringify(s.value));
-        let w = !1;
+        let b = !1;
         try {
           h.forEach((x, i) => {
             if (x.value == e.value)
-              throw h.splice(i, 1), w = !0, new Error();
+              throw h.splice(i, 1), b = !0, new Error();
           });
         } catch {
         }
-        w || h.push({
+        b || h.push({
           label: e.label,
           value: e.value
         }), s.value = h;
@@ -534,17 +534,17 @@ const O = Symbol("select-v2"), J = function(e, l) {
         value: e.value
       });
     };
-    W(() => {
+    K(() => {
       u.value = {
         key: e.label,
         value: e.value
       };
-    }), R(() => {
+    }), $(() => {
       u.value = {
         key: e.label,
         value: e.value
       };
-    }), ve(() => {
+    }), fe(() => {
       n(e.value);
     });
     const p = v(() => {
@@ -553,8 +553,8 @@ const O = Symbol("select-v2"), J = function(e, l) {
       if (r.value == "multiple") {
         let h = !1;
         try {
-          s.value.forEach((w) => {
-            if (h = w.value == e.value)
+          s.value.forEach((b) => {
+            if (h = b.value == e.value)
               throw new Error();
           });
         } catch {
@@ -563,7 +563,7 @@ const O = Symbol("select-v2"), J = function(e, l) {
       }
     });
     return () => a("li", {
-      class: [ke(De()), p.value ? "active" : ""],
+      class: [Pe(ke()), p.value ? "active" : ""],
       onClick: f
     }, [a("div", {
       class: "txt"
@@ -575,23 +575,23 @@ const O = Symbol("select-v2"), J = function(e, l) {
 } = I("select-v2"), Ne = /* @__PURE__ */ M({
   name: "VISelectV2",
   emits: ["focus", "blur", "update:modelValue", "handleSelected", "handleClear", "mouseenter", "mouseleave"],
-  props: F,
+  props: j,
   directives: {
-    css: q
+    css: G
   },
   components: {
-    "vi-select-v2-input": Ce,
-    "vi-select-v2-drop-down": Be,
-    "vi-scroll-bar": He,
-    "vi-select-v2-tag": Ie,
+    "vi-select-v2-input": Be,
+    "vi-select-v2-drop-down": Me,
+    "vi-scroll-bar": De,
+    "vi-select-v2-tag": Oe,
     "vi-select-v2-svg-icon": k,
-    "vi-select-v2-option": G
+    "vi-select-v2-option": X
   },
   setup(e, l) {
-    var z;
-    const c = "onUpdate:modelValue" in (((z = fe()) == null ? void 0 : z.vnode.props) || {}), r = () => "xxxxxxxx".replace(/[xy]/g, function(o) {
-      var g = 0 | 16 * Math.random(), b = o == "x" ? g : 8 | 3 & g;
-      return b.toString(16);
+    var J;
+    const c = "onUpdate:modelValue" in (((J = me()) == null ? void 0 : J.vnode.props) || {}), r = () => "xxxxxxxx".replace(/[xy]/g, function(o) {
+      var g = 0 | 16 * Math.random(), S = o == "x" ? g : 8 | 3 & g;
+      return S.toString(16);
     }), t = B(), u = B(), d = B(), n = N({
       uuid: r(),
       dropDownVisible: !1,
@@ -608,20 +608,21 @@ const O = Symbol("select-v2"), J = function(e, l) {
       inputLineHeight: "0"
     }, h = function(o) {
       let g = !1;
-      for (let b = 0; b < o.path.length; b++) {
-        const y = o.path[b];
-        if (y.classList && y.classList.value && y.getAttribute("class").includes("-select-v2") && y.dataset.id == n.uuid) {
+      const S = o.path || o.composedPath && o.composedPath();
+      for (let y = 0; y < S.length; y++) {
+        const P = S[y];
+        if (P.classList && P.classList.value && P.getAttribute("class").includes("-select-v2") && P.dataset.id == n.uuid) {
           g = !0;
           break;
         }
       }
-      g || w();
+      g || b();
     };
     document.addEventListener("mousedown", h);
-    const w = function() {
+    const b = function() {
       n.dropDownVisible = !1, l.emit && l.emit("blur");
     }, x = function(o) {
-      return new Promise((g, b) => {
+      return new Promise((g, S) => {
         g(H(() => window.getComputedStyle(o.value)));
       });
     }, i = function(o) {
@@ -638,115 +639,115 @@ const O = Symbol("select-v2"), J = function(e, l) {
         return "";
       if (o == "auto" || o == "co2" || o == "co3" || o == "co4" || o == "co5" || o == "co6" || o == "co7")
         return "display:flex;flex-wrap: wrap;";
-    }, $ = function(o) {
+    }, T = function(o) {
       n.dropDownVisible = !n.dropDownVisible, l.emit && (n.dropDownVisible ? l.emit("focus") : l.emit("blur"));
-    }, X = function(o) {
     }, Z = function(o) {
-    }, ee = function() {
-      l.emit && l.emit("handleClear");
+    }, ee = function(o) {
     }, te = function() {
-      l.emit && l.emit("mouseenter");
+      l.emit && l.emit("handleClear");
     }, oe = function() {
+      l.emit && l.emit("mouseenter");
+    }, le = function() {
       l.emit && l.emit("mouseleave");
-    }, le = function(o) {
-      l.emit && l.emit("handleClear", o);
     }, ne = function(o) {
-      let g = o.target.value, b = {};
-      n.list.forEach((y) => y.label.includes(g) ? b[y.value] = y.label : ""), n.searchValue = b, n.searchLabel = g, H(() => {
-        P.value;
+      l.emit && l.emit("handleClear", o);
+    }, ae = function(o) {
+      let g = o.target.value, S = {};
+      n.list.forEach((y) => y.label.includes(g) ? S[y.value] = y.label : ""), n.searchValue = S, n.searchLabel = g, H(() => {
+        E.value;
       });
     };
-    K(() => e.list, () => {
+    Q(() => e.list, () => {
       n.list = JSON.parse(JSON.stringify(e.list));
     }, {
       deep: !0,
       immediate: !0
     });
-    const T = v({
+    const z = v({
       get() {
         return e.mode == "multiple" && (async () => {
           const {
             height: o
           } = await x(d);
-          e.dynamicCss["input-line-height"] = o.replace("px", "") * 1, E.value = e.modelValue.length > 0 ? " " : e.placeholder, e.modelValue.length <= 1 && (e.dynamicCss["input-line-height"] = p.inputLineHeight);
+          e.dynamicCss["input-line-height"] = o.replace("px", "") * 1, Y.value = e.modelValue.length > 0 ? " " : e.placeholder, e.modelValue.length <= 1 && (e.dynamicCss["input-line-height"] = p.inputLineHeight);
         })(), e.modelValue;
       },
       set(o) {
         c && l.emit("update:modelValue", o);
       }
-    }), ae = v({
+    }), ie = v({
       get() {
         return n.currentSelectLabel;
       },
       set(o) {
         n.currentSelectLabel = o;
       }
-    }), P = v({
+    }), E = v({
       get() {
         let o = Object.keys(n.OptionList).length;
-        return o <= 5 && o > 0 ? n.searchValue || (e.search && o++, S.value["popper-height"] = S.value["popper-option-height"] * o + S.value["popper-padding"] * 2) : S.value["popper-height"] = p.popperHeight, n.OptionList;
+        return o <= 5 && o > 0 ? n.searchValue || (e.search && o++, w.value["popper-height"] = w.value["popper-option-height"] * o + w.value["popper-padding"] * 2) : w.value["popper-height"] = p.popperHeight, n.OptionList;
       },
       set(o) {
         n.OptionList[o.value] = o.key;
       }
-    }), ie = v({
+    }), re = v({
       get() {
         return n.dropDownVisible;
       },
       set(o) {
         n.dropDownVisible = o;
       }
-    }), E = v({
+    }), Y = v({
       get() {
         return n.__inputPlaceholder || e.placeholder;
       },
       set(o) {
         n.__inputPlaceholder = o;
       }
-    }), re = v(() => e.clearable), se = v(() => e.mode), S = v(() => {
-      let o = Object.assign(F.dynamicCss.default(), e.dynamicCss);
+    }), se = v(() => e.clearable), ce = v(() => e.mode), w = v(() => {
+      let o = Object.assign(j.dynamicCss.default(), e.dynamicCss);
       return p.popperHeight = o["popper-height"], p.inputLineHeight = o["input-line-height"], o;
-    }), ce = v(() => e.mode == "multiple"), ue = v(() => !!e.searchImg);
-    me(O, {
+    }), ue = v(() => e.mode == "multiple"), de = v(() => !!e.searchImg);
+    be(O, {
       selectRef: t,
-      currentSelect: T,
-      currentSelectLabel: ae,
-      mode: se,
-      dynamicCss: S,
-      dropDownVisible: ie,
-      placeholder: E,
-      cacheOptionList: P,
-      clearable: re,
+      currentSelect: z,
+      currentSelectLabel: ie,
+      mode: ce,
+      dynamicCss: w,
+      dropDownVisible: re,
+      placeholder: Y,
+      cacheOptionList: E,
+      clearable: se,
       selectedFn: i,
       deleteOptionItem: L
     });
-    const de = function(o) {
+    const pe = function(o) {
       return a(V("vi-select-v2-tag"), {
         tooltip: e.tooltip,
         label: o.label,
         value: o.value,
-        height: S.value["tag-close-size"],
-        width: S.value["tag-close-size"],
-        onCloseClick: le
-      }, null);
-    }, pe = function() {
-      return a(V("vi-select-v2-input"), {
-        iconHeight: S.value["input-icon-width"],
-        iconWidth: S.value["input-icon-width"],
-        ref: u,
-        active: n.dropDownVisible,
-        placeholder: E.value,
-        onClick: $,
-        onFocus: X,
-        onBlur: Z,
-        onClear: ee,
-        onMouseenter: te,
-        onMouseleave: oe
+        height: w.value["tag-close-size"],
+        width: w.value["tag-close-size"],
+        onCloseClick: ne
       }, null);
     }, he = function() {
+      return a(V("vi-select-v2-input"), {
+        iconHeight: w.value["input-icon-width"],
+        iconWidth: w.value["input-icon-width"],
+        ref: u,
+        active: n.dropDownVisible,
+        placeholder: Y.value,
+        onClick: T,
+        onFocus: Z,
+        onBlur: ee,
+        onClear: te,
+        onMouseenter: oe,
+        onMouseleave: le
+      }, null);
+    }, ge = function() {
       return a("li", {
         class: C("-search")
-      }, [ue.value ? a("img", {
+      }, [de.value ? a("img", {
         class: C("--search"),
         src: e.searchImg
       }, null) : a(V("vi-select-v2-svg-icon"), {
@@ -756,47 +757,47 @@ const O = Symbol("select-v2"), J = function(e, l) {
         value: n.searchLabel,
         class: C("-search__input"),
         placeholder: "请输入您要搜索的内容",
-        onInput: ne
+        onInput: ae
       }, null)]);
-    }, ge = function() {
+    }, ve = function() {
       return a(V("vi-select-v2-drop-down"), {
         active: n.dropDownVisible
       }, {
         default: () => [a(V("vi-scroll-bar"), {
-          dynamicCss: S.value
+          dynamicCss: w.value
         }, {
           default: () => {
             var o, g;
-            return [a("ul", null, [e.search ? he() : "", n.searchValue ? a("div", {
+            return [a("ul", null, [e.search ? ge() : "", n.searchValue ? a("div", {
               style: m(e.itemLayout),
               class: e.itemLayout
-            }, [Object.keys(n.searchValue).map((b, y) => a(V("vi-select-v2-option"), {
-              key: b,
-              value: b,
+            }, [Object.keys(n.searchValue).map((S, y) => a(V("vi-select-v2-option"), {
+              key: S,
+              value: S,
               label: Object.values(n.searchValue)[y]
             }, null))]) : a("div", {
               style: m(e.itemLayout),
               class: e.itemLayout
-            }, [(g = (o = l.slots).default) == null ? void 0 : g.call(o)]), Object.keys(P.value).length <= 0 ? a("li", {
+            }, [(g = (o = l.slots).default) == null ? void 0 : g.call(o)]), Object.keys(E.value).length <= 0 ? a("li", {
               class: C("-notData")
-            }, [Se("暂无数据")]) : ""])];
+            }, [ye("暂无数据")]) : ""])];
           }
         })]
       });
     };
-    return () => be(a("div", {
+    return () => we(a("div", {
       "data-id": n.uuid,
       class: [_e(C())],
       ref: t
-    }, [ce.value ? a("div", {
+    }, [ue.value ? a("div", {
       ref: d,
       class: C("-taglist"),
-      onClick: $
-    }, [T.value.map((o) => de(o))]) : "", pe(), ge()]), [[we("css"), S.value || {}]]);
+      onClick: T
+    }, [z.value.map((o) => pe(o))]) : "", he(), ve()]), [[Se("css"), w.value || {}]]);
   }
-}), Ye = Q(Ne, "select-v2"), Re = Q(G, "select-v2-option");
+}), Re = q(Ne, "select-v2"), $e = q(X, "select-v2-option");
 export {
-  Ye as VISelectV2,
-  Re as VISelectV2Option,
-  Ye as default
+  Re as VISelectV2,
+  $e as VISelectV2Option,
+  Re as default
 };
