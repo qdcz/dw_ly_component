@@ -39,7 +39,7 @@ export default defineComponent({
             uuid: createUUID(n("-")),
             realListCount: 0,
             takeFlag: false,
-            rotationTime: 1000 * 3,
+            // rotationTime: 1000 * 3,
             rotationTimer: null,
             getInventedListDataBridgeInit: false,
         });
@@ -55,6 +55,10 @@ export default defineComponent({
 
         const EmbeddedComTypeMappingClass: any = {
             longText: "longText",
+        };
+
+        const handleWheel = (event: WheelEvent) => {
+            event.preventDefault();
         };
 
         /**
@@ -112,14 +116,14 @@ export default defineComponent({
                 // item.style.transform = `scale(${scale})`;
 
                 if (props.attractShowCount.includes(i)) {
-                    item.style.background = "#184677";
+                    item.style.background = dynamicCssBridge.value["attract-bg-color"];
                     Array.from(item.children).forEach(
                         (ele_li: HTMLLIElement | any) => {
                             ele_li.style.transform = `scale(${1.3})`;
                         }
                     );
                 } else {
-                    item.style.background = "none";
+                    item.style.background = dynamicCssBridge.value["un-attract-bg-color"];
                     Array.from(item.children).forEach(
                         (ele_li: HTMLLIElement | any) => {
                             ele_li.style.transform = `scale(${1})`;
@@ -167,28 +171,27 @@ export default defineComponent({
                 // 遍历 ---- 指定位置颜色变化策略
                 for (let i = 0; i < wrapperRef.value?.children.length; i++) {
                     const item = wrapperRef.value.children[i];
-                    const { rollCount, attractShowCount } = props;
+                    const { rollCount, attractShowCount,scrollTransition } = props;
 
-                    item.style.transition = `3s`;
-                    Math.abs(attractShowCount.length - rollCount);
+                    item.style.transition = `${scrollTransition / 1000}s`;
                     // 给指定的位置亮起来
                     if (
-                        props.attractShowCount
+                        attractShowCount
                             .map((i: any) => i + rollCount)
                             .includes(i)
                     ) {
-                        item.style.background = "#184677";
+                        item.style.background = dynamicCssBridge.value["attract-bg-color"];
                         Array.from(item.children).forEach(
                             (ele_li: HTMLLIElement | any) => {
-                                ele_li.style.transition = `3s`;
+                                ele_li.style.transition = `${scrollTransition / 1000}s`;
                                 ele_li.style.transform = `scale(${1.3})`;
                             }
                         );
                     } else {
-                        item.style.background = "#17467800";
+                        item.style.background = dynamicCssBridge.value["un-attract-bg-color"];
                         Array.from(item.children).forEach(
                             (ele_li: HTMLLIElement | any) => {
-                                ele_li.style.transition = `3s`;
+                                ele_li.style.transition = `${scrollTransition / 1000}s`;
                                 ele_li.style.transform = `scale(${1})`;
                             }
                         );
@@ -197,7 +200,7 @@ export default defineComponent({
                 }
 
                 // 滚动动画框架
-                scrollTo(scrollWrapper, cacheScrollTop, 2000, () => {
+                scrollTo(scrollWrapper, cacheScrollTop, props.scrollTransition, () => {
                     for (
                         let i = 0;
                         i < wrapperRef.value?.children.length;
@@ -217,7 +220,7 @@ export default defineComponent({
                     cacheScrollTop = 0; // 清空缓存
                     initializationStyle(); // 恢复初始状态
                 });
-            }, data.rotationTime);
+            }, props.loopTime);
 
         /**
          * view
@@ -226,7 +229,6 @@ export default defineComponent({
             <div
                 class={n()}
                 v-css={dynamicCssBridge.value || {}}
-                // style={{ width: widthBridge.value }}
             >
                 <div class={n("_th")}>
                     {Object.keys(getInventedListDataBridge.value[0])
@@ -238,6 +240,7 @@ export default defineComponent({
                 {/* 滚动容器 */}
                 <div
                     ref={scrollRef}
+                    onWheel={handleWheel}
                     class={n("_scroll")}
                     style={{
                         height: wrapperHeight.value,
@@ -262,7 +265,7 @@ export default defineComponent({
                                                     <div
                                                         class={[
                                                             EmbeddedComTypeMappingClass[
-                                                                listItem[i].type
+                                                            listItem[i].type
                                                             ],
                                                         ]}
                                                     >

@@ -20,9 +20,18 @@ export const rollListProps = {
     },
     // 特殊显示的位置
     attractShowCount: {
-        type: Array, // 内部会错判断，如果数组内的值超过展示的条数，则清空为[]
-        // default: true,
-        default: [2,3],
+        type: Array, // 内部会错判断，如果数组内的值超过展示的条数，则清空为[]   // TODO 未做
+        default: [2, 3],
+    },
+    // 自动滚动时长间隔 ( 不能小于或等于 scrollTransition )
+    loopTime: {
+        type: Number,
+        default: 1000 * 3,
+    },
+    // 滚动过渡时长
+    scrollTransition:{
+        type: Number,
+        default: 1000 * 2,
     },
     // 缩放规则  ----- 支持对每一列进行配置缩放规则
     scaleRule: {
@@ -41,7 +50,7 @@ export const rollListProps = {
             return new Array(100).fill(0).map((i, index) => {
                 return {
                     ____id: createUUID(),
-                    field1: {
+                    这是一个哼唱的标题: {
                         type: EmbeddedComType.TEXT,
                         content: "DP000037",
                     },
@@ -75,6 +84,25 @@ export const rollListProps = {
             return {
                 // 容器宽度
                 "box-width": "800", // 或者auto
+                // 左右内边距
+                "box-pad-lr": "10",
+
+                /**
+                 * 表头相关
+                 */
+                "th-pad-tb": "10", // 表头的 上下内边距
+                "th-bg-color": "#0f2851",
+                "th-fo-color": "#df9418",
+                "th-fo-size": "16",
+                "th-fo-weight": "900",
+
+                /**
+                 * 表体相关
+                 */
+                // 激活的背景颜色
+                "attract-bg-color": "#184677",
+                // 其余未激活的背景颜色
+                "un-attract-bg-color": "#17467800"
             };
         },
     },
@@ -109,7 +137,7 @@ export type ComData = {
     // 触发消费开关
     takeFlag: Boolean;
     // 定时器实例--自动轮播时长
-    rotationTime: number;
+    // rotationTime: number;
     // 自动轮播时长
     rotationTimer: number | boolean | null;
     // 第一次调用问题
