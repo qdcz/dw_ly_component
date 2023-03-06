@@ -48,7 +48,8 @@
 		"@dw-ui/directives": "workspace:^0.0.1",
 		"@dw-ui/themes": "workspace:^0.0.1",
 		"@dw-ui/tokens": "workspace:^0.0.1",
-		"@dw-ui/utils": "workspace:^0.0.1"
+		"@dw-ui/utils": "workspace:^0.0.1",
+		"loadsh": "0.0.4"
 	},
 	"pnpm": {
 		"peerDependencyRules": {
@@ -62,7 +63,7 @@
 	},
 	"config": {
 		"commitizen": {
-		  "path": "./node_modules/git-cz"
+			"path": "./node_modules/git-cz"
 		}
-	  }
+	}
 }

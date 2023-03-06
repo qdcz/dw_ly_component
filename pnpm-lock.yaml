@@ -21,6 +21,7 @@ importers:
       '@vueuse/core': ^8.6.0
       git-cz: ^4.9.0
       gulp: ^4.0.2
+      loadsh: 0.0.4
       sass: ^1.57.1
       ts-node: ^10.9.1
       typescript: ^4.9.4
@@ -32,6 +33,7 @@ importers:
       '@dw-ui/themes': link:packages/themes
       '@dw-ui/tokens': link:packages/tokens
       '@dw-ui/utils': link:packages/utils
+      loadsh: 0.0.4
     devDependencies:
       '@types/gulp': 4.0.10
       '@types/jest': 27.5.2
@@ -2824,6 +2826,11 @@ packages:
       pinkie-promise: 2.0.1
       strip-bom: 2.0.0
     dev: true
+
+  /loadsh/0.0.4:
+    resolution: {integrity: sha512-U+wLL8InpfRalWrr+0SuhWgGt10M4OyAk6G8xCYo2rwpiHtxZkWiFpjei0vO463ghW8LPCdhqQxXlMy2qicAEw==}
+    deprecated: This is a typosquat on the popular Lodash package. This is not maintained nor is the original Lodash package.
+    dev: false
 
   /lodash.clonedeep/4.5.0:
     resolution: {integrity: sha512-H5ZhCF25riFd9uB5UCkVKo61m3S/xZk1x4wA6yp/L3RFP6Z/eHH1ymQcGLo7J3GMPfm0V/7m1tryHuGVxpqEBQ==}
