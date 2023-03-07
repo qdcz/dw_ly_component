@@ -6,8 +6,8 @@
                 :dynamicCss="dynamicCss"
             ></dw-time-picker> -->
 
-            <div style="margin-top: 10px;"></div>
-            <dw-roll-list></dw-roll-list>
+            <div style="margin-top: 10px"></div>
+            <dw-roll-list :header="header" v-model="list"> </dw-roll-list>
         </div>
     </div>
 </template>
@@ -18,26 +18,252 @@ export default {
     name: "demo",
     data() {
         return {
-            currentSelect: "",
-            selectData_dropDownList: [
-                { value: "xiamen", label: "厦门阿斯顿撒旦" },
-                { value: "fuzhou", label: "福州" },
-                { value: "zhangzhou", label: "漳州" },
-                { value: "sanming", label: "三明" },
-                { value: "longyan", label: "龙岩" },
-                { value: "putian", label: "莆田" },
-                { value: "quanzhou", label: "泉州" },
-                { value: "nanping", label: "南平" },
-                { value: "ningde", label: "宁德" },
+            header: [
+                {
+                    label: "字段1",
+                    prop: "field1",
+                    basis: "16.6",  // 只支持百分比
+                    type: "text",
+                },
+                {
+                    label: "字段2",
+                    prop: "field2",
+                    basis: "16.6",
+                    type: "longText",
+                },
+                {
+                    label: "字段3",
+                    prop: "field3",
+                    basis: "16.6",
+                    type: "text",
+                },
+                {
+                    label: "字段4",
+                    prop: "field4",
+                    basis: "16.6",
+                    type: "text",
+                },
+                {
+                    label: "字段5",
+                    prop: "field5",
+                    basis: "16.6",
+                    type: "text",
+                },
+                {
+                    label: "字段6",
+                    prop: "field6",
+                    basis: "16.6",
+                    type: "number",
+                    fo: {
+                        color: "green",
+                        size: "20",
+                        weight: "100",
+                    },
+                },
             ],
-            dynamicCss: {},
-            aaa: 100,
-            noResize: false,
-            refs: "",
+            list: [
+                {
+                    field1: "DP000037",
+                    field2: "工商信息数据服务",
+                    field3: "深圳市互联网...",
+                    field4: "河南九天遥感科技",
+                    field5: "安全预警",
+                    field6: "157.76",
+                },
+                {
+                    field1: "DP000037",
+                    field2: "工商信息数据服务",
+                    field3: "深圳市互联网...",
+                    field4: "河南九天遥感科技",
+                    field5: "安全预警",
+                    field6: "157.76",
+                },
+                {
+                    field1: "DP000037",
+                    field2: "工商信息数据服务",
+                    field3: "深圳市互联网...",
+                    field4: "河南九天遥感科技",
+                    field5: "安全预警",
+                    field6: "157.76",
+                },
+                {
+                    field1: "DP000037",
+                    field2: "工商信息数据服务",
+                    field3: "深圳市互联网...",
+                    field4: "河南九天遥感科技",
+                    field5: "安全预警",
+                    field6: "157.76",
+                },
+                {
+                    field1: "DP000037",
+                    field2: "工商信息数据服务",
+                    field3: "深圳市互联网...",
+                    field4: "河南九天遥感科技",
+                    field5: "安全预警",
+                    field6: "157.76",
+                },
+                {
+                    field1: "DP000037",
+                    field2: "工商信息数据服务",
+                    field3: "深圳市互联网...",
+                    field4: "河南九天遥感科技",
+                    field5: "安全预警",
+                    field6: "157.76",
+                },
+                {
+                    field1: "DP000037",
+                    field2: "工商信息数据服务",
+                    field3: "深圳市互联网...",
+                    field4: "河南九天遥感科技",
+                    field5: "安全预警",
+                    field6: "157.76",
+                },
+                {
+                    field1: "DP000037",
+                    field2: "工商信息数据服务",
+                    field3: "深圳市互联网...",
+                    field4: "河南九天遥感科技",
+                    field5: "安全预警",
+                    field6: "157.76",
+                },
+                {
+                    field1: "DP000037",
+                    field2: "工商信息数据服务",
+                    field3: "深圳市互联网...",
+                    field4: "河南九天遥感科技",
+                    field5: "安全预警",
+                    field6: "157.76",
+                },
+                {
+                    field1: "DP000037",
+                    field2: "工商信息数据服务",
+                    field3: "深圳市互联网...",
+                    field4: "河南九天遥感科技",
+                    field5: "安全预警",
+                    field6: "157.76",
+                },
+                {
+                    field1: "DP000037",
+                    field2: "工商信息数据服务",
+                    field3: "深圳市互联网...",
+                    field4: "河南九天遥感科技",
+                    field5: "安全预警",
+                    field6: "157.76",
+                },
+                {
+                    field1: "DP000037",
+                    field2: "工商信息数据服务",
+                    field3: "深圳市互联网...",
+                    field4: "河南九天遥感科技",
+                    field5: "安全预警",
+                    field6: "157.76",
+                },
+            ],
         };
     },
     mounted() {
         this.$nextTick(() => {});
+
+        setTimeout(() => {
+            this.list = [
+                {
+                    field1: "DP000037",
+                    field2: "工商信息数据服务",
+                    field3: "深圳市互联网...",
+                    field4: "河南九天遥感科技",
+                    field5: "安全预警",
+                    field6: "157.76",
+                },
+                {
+                    field1: "DP000037",
+                    field2: "工商信息数据服务",
+                    field3: "深圳市互联网...",
+                    field4: "河南九天遥感科技",
+                    field5: "安全预警",
+                    field6: "157.76",
+                },
+                {
+                    field1: "DP000037",
+                    field2: "工商信息数据服务",
+                    field3: "深圳市互联网...",
+                    field4: "河南九天遥感科技",
+                    field5: "安全预警",
+                    field6: "157.76",
+                },
+                {
+                    field1: "DP000037",
+                    field2: "工商信息数据服务",
+                    field3: "深圳市互联网...",
+                    field4: "河南九天遥感科技",
+                    field5: "安全预警",
+                    field6: "157.76",
+                },
+                {
+                    field1: "DP000037",
+                    field2: "工商信息数据服务",
+                    field3: "深圳市互联网...",
+                    field4: "河南九天遥感科技",
+                    field5: "安全预警",
+                    field6: "157.76",
+                },
+                {
+                    field1: "DP000037",
+                    field2: "工商信息数据服务",
+                    field3: "深圳市互联网...",
+                    field4: "河南九天遥感科技",
+                    field5: "安全预警",
+                    field6: "157.76",
+                },
+                {
+                    field1: "DP000037",
+                    field2: "工商信息数据服务",
+                    field3: "深圳市互联网...",
+                    field4: "河南九天遥感科技",
+                    field5: "安全预警",
+                    field6: "157.76",
+                },
+                {
+                    field1: "DP000037",
+                    field2: "工商信息数据服务",
+                    field3: "深圳市互联网...",
+                    field4: "河南九天遥感科技",
+                    field5: "安全预警",
+                    field6: "157.76",
+                },
+                {
+                    field1: "DP000037",
+                    field2: "工商信息数据服务",
+                    field3: "深圳市互联网...",
+                    field4: "河南九天遥感科技",
+                    field5: "安全预警",
+                    field6: "157.76",
+                },
+                {
+                    field1: "DP000037",
+                    field2: "工商信息数据服务",
+                    field3: "深圳市互联网...",
+                    field4: "河南九天遥感科技",
+                    field5: "安全预警",
+                    field6: "157.76",
+                },
+                {
+                    field1: "DP000037",
+                    field2: "工商信息数据服务",
+                    field3: "深圳市互联网...",
+                    field4: "河南九天遥感科技",
+                    field5: "安全预警",
+                    field6: "157.76",
+                },
+                {
+                    field1: "DP000037",
+                    field2: "工商信息数据服务",
+                    field3: "深圳市互联网...",
+                    field4: "河南九天遥感科技",
+                    field5: "安全预警",
+                    field6: "157.76",
+                },
+            ];
+        }, 2000);
     },
     methods: {},
 };
