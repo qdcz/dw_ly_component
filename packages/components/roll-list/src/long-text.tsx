@@ -1,84 +1,53 @@
-import { defineComponent, ref, onMounted, onUnmounted } from 'vue';
-
+import { defineComponent, onMounted, ref, SetupContext } from 'vue';
+import { rollListProps } from './roll-list_p';
+import { createNamespace } from "@dw-ui/utils/components";
+const { n } = createNamespace("scroll-text");
 export default defineComponent({
   name: 'ScrollText',
-
-  props: {
-    text: {
-      type: String,
-      required: true,
-    },
-    speed: {
-      type: Number,
-      default: 50,
-    },
-  },
-
-  setup(props) {
-    const container = ref<HTMLDivElement | null>(null);
-    const content = ref<HTMLDivElement | null>(null);
-    const text = ref<HTMLDivElement | null>(null);
-    let requestId: number | null = null;
-    let isStop = false;
-
-    // 滚动文本
-    const scrollText = () => {
-      const left = content.value!.scrollLeft;
-      if (isStop || left + container.value!.clientWidth >= content.value!.scrollWidth) {
-        return;
-      }
-
-      content.value!.scrollLeft += 1;
-      requestId = requestAnimationFrame(scrollText);
-    };
-
-    // 开始滚动
-    const startScroll = () => {
-      if (content.value!.scrollWidth <= container.value!.clientWidth) {
-        return;
-      }
-
-      requestId = requestAnimationFrame(scrollText);
-    };
-
-    // 停止滚动
-    const stopScroll = () => {
-      isStop = true;
-      if (requestId !== null) {
-        cancelAnimationFrame(requestId);
-        requestId = null;
-      }
-    };
-
-    // 监听组件挂载和销毁事件
+  setup(props: rollListProps, ctx: SetupContext<[]>) {
+    const containerRef = ref<HTMLDivElement | null | any>(null);
+    const contentRef = ref<HTMLDivElement | null | any>(null);
+    const marqueerRef = ref<HTMLDivElement | null | any>(null);
+    
     onMounted(() => {
-      startScroll();
-      container.value!.addEventListener('mouseenter', stopScroll);
-      container.value!.addEventListener('mouseleave', startScroll);
-    });
+      // const SPEED = 50; // 滚动速度，每秒50像素
+      // const animate = function () {
+      //   const duration = (contentRef.value.offsetWidth + contentRef.value.offsetWidth) / SPEED * 1000; // 滚动时长
+      //   contentRef.value.style.animation = `scroll ${duration}ms linear infinite`; // 设置滚动动画
+      // }
+      // animate();
 
-    onUnmounted(() => {
-      stopScroll();
-      container.value!.removeEventListener('mouseenter', stopScroll);
-      container.value!.removeEventListener('mouseleave', startScroll);
-    });
 
-    return {
-      container,
-      content,
-      text,
-    };
-  },
+      //底下的走马灯
+       const move = function() {
+        let wrapper = containerRef.value;
+        let wrapperWidth = wrapper.getBoundingClientRect().width;
+        let marquee = contentRef.value;
+        marquee.style.transform = 'translateX(' + wrapperWidth + 'px)';
+        let contentWidth = marqueerRef.value.getBoundingClientRect().width;
+        let distance = wrapperWidth;
+        setInterval(() => {
+          //当文字移动超出wrapper的左侧时 则归位
+          if (marquee.getBoundingClientRect().x + contentWidth < wrapper.getBoundingClientRect().x) {
+            distance = wrapperWidth;
+          }
+          distance--;
+          console.log(666)
+          marquee.style.transform = 'translateX(' + distance + 'px)';
+        }, 20);
+      }
+      move()
+    })
 
-  render() {
-    return (
-      <div class="scroll-text-container" ref="container">
-        <div class="scroll-text-content" ref="content">
-          <div class="scroll-text" ref="text" style={ { whiteSpace: 'nowrap' } }>
-           464654
-          </div>
+
+    return () =>
+    (
+      <div class={n("")} ref={containerRef}>
+        <div class={n("_scroll")} ref={contentRef}>
+          <span ref={marqueerRef}>{ctx.slots['default']?.()}</span>
         </div>
       </div>
-    );
-  },
+    )
+
+  }
 });

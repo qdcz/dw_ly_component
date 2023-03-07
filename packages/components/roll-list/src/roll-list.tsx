@@ -144,7 +144,6 @@ export default defineComponent({
                         (ele_li: HTMLLIElement | any, index: number) => {
                             ele_li.style.transform = `scale(${tmp_scaleRule[0]})`;
                             ele_li.style.flexBasis = header[index].basis + "%";
-                            console.log(66666666,ele_li.style.flexBasis);
                         }
                     );
                 } else {
@@ -154,7 +153,6 @@ export default defineComponent({
                         (ele_li: HTMLLIElement | any, index: number) => {
                             ele_li.style.transform = `scale(${tmp_scaleRule[1]})`;
                             ele_li.style.flexBasis = header[index].basis + "%";
-                            console.log(66666666,ele_li.style.flexBasis);
                         }
                     );
                 }
@@ -210,9 +208,8 @@ export default defineComponent({
                         dynamicCssBridge.value["tr-attract-bg-color"];
                     Array.from(item.children).forEach(
                         (ele_li: HTMLLIElement | any, index: number) => {
-                            ele_li.style.transition = `${
-                                scrollTransition / 1000
-                            }s`;
+                            ele_li.style.transition = `${scrollTransition / 1000
+                                }s`;
                             ele_li.style.flexBasis = header[index].basis + "%";
                             ele_li.style.transform = `scale(${props.tmp_scaleRule[0]})`;
                         }
@@ -222,9 +219,8 @@ export default defineComponent({
                         dynamicCssBridge.value["tr-un-attract-bg-color"];
                     Array.from(item.children).forEach(
                         (ele_li: HTMLLIElement | any, index: number) => {
-                            ele_li.style.transition = `${
-                                scrollTransition / 1000
-                            }s`;
+                            ele_li.style.transition = `${scrollTransition / 1000
+                                }s`;
                             ele_li.style.flexBasis = header[index].basis + "%";
                             ele_li.style.transform = `scale(${props.tmp_scaleRule[1]})`;
                         }
@@ -271,11 +267,16 @@ export default defineComponent({
         //         loopFn();
         //     }, props.loopTime);
 
+        // const __map = {
+        //     "text":listItem[i.prop] || "undefined",
+        // };
+
         /**
          * view
          */
         return () => (
             <div class={n()} v-css={dynamicCssBridge.value || {}}>
+
                 {/* 表头 */}
                 <div class={n("_th")}>
                     {getHeaderBridge.value.map((i: any) => {
@@ -315,10 +316,10 @@ export default defineComponent({
                                                     <div
                                                         class={[
                                                             EmbeddedComTypeMappingClass[
-                                                                getHeaderBridge
-                                                                    .value[
-                                                                    index
-                                                                ]?.type
+                                                            getHeaderBridge
+                                                                .value[
+                                                                index
+                                                            ]?.type
                                                             ],
                                                         ]}
                                                         style={{
@@ -331,17 +332,26 @@ export default defineComponent({
                                                                 i.prop
                                                             ]
                                                                 ? i.fo?.size +
-                                                                  "px"
+                                                                "px"
                                                                 : "auto",
                                                             fontWeight:
                                                                 listItem[i.prop]
                                                                     ? i.fo
-                                                                          ?.weight
+                                                                        ?.weight
                                                                     : "0",
                                                         }}
                                                     >
-                                                        {listItem[i.prop] ||
-                                                            "undefined"}
+                                                        {/* {listItem[i.prop] ||
+                                                            "undefined"} */}
+                                                        {
+                                                            getHeaderBridge
+                                                                .value[
+                                                                index
+                                                            ]?.type && getHeaderBridge
+                                                                .value[
+                                                                index
+                                                            ]?.type == "longText" ? <scrollText>{listItem[i.prop] || "undefined"}</scrollText> : listItem[i.prop] || "undefined"
+                                                        }
                                                     </div>
                                                 </div>
                                             );

@@ -71,8 +71,6 @@ export const rollListProps = {
             return {
                 // 容器宽度
                 "box-width": "800", // 或者auto
-                // 左右内边距
-                "box-pad-lr": "10",
 
                 /**
                  * 表头相关
@@ -82,6 +80,11 @@ export const rollListProps = {
                 "th-fo-color": "#df9418",
                 "th-fo-size": "16",
                 "th-fo-weight": "900",
+                "th-radius-lt":"2",
+                "th-radius-rt":"2",
+                "th-radius-lb":"2",
+                "th-radius-rb":"2",
+
 
                 /**
                  * 表体相关
