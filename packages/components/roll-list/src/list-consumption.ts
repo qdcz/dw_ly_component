@@ -43,11 +43,17 @@ export const deepClone = function <T>(obj: T): T {
 
 export function scrollTo(
     element: HTMLElement,
+    type: string = "top",
     to: number,
     duration: number,
     callback?: () => void
 ): void {
-    const start = element.scrollTop;
+    const start =
+        type == "top"
+            ? element.scrollTop
+            : type == "left"
+            ? element.scrollLeft
+            : 0;
     const change = to - start;
     const startTime = performance.now();
 
@@ -60,7 +66,11 @@ export function scrollTo(
             change,
             duration
         );
-        element.scrollTop = scrollPosition;
+        if (type == "top") {
+            element.scrollTop = scrollPosition;
+        } else if (type == "left") {
+            element.scrollLeft = scrollPosition;
+        }
 
         if (timeElapsed < duration) {
             requestAnimationFrame(animateScroll);

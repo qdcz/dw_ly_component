@@ -39,7 +39,6 @@ export default defineComponent({
         const data: ComData = reactive({
             uuid: createUUID(n("-")),
             takeFlag: false,
-            // rotationTime: 1000 * 3,
             rotationTimer: null,
             getInventedListDataBridgeInit: false,
         });
@@ -54,6 +53,7 @@ export default defineComponent({
             longText: "longText",
         };
 
+        // 禁止鼠标滚动事件
         const handleWheel = (event: WheelEvent) => {
             event.preventDefault();
         };
@@ -65,12 +65,52 @@ export default defineComponent({
             Object.assign(rollListProps.dynamicCss.default(), props.dynamicCss)
         );
 
-        // 表头字段
+        // 控制表头字段显隐
         const getHeaderBridge: any = computed(() => {
             return props.header;
         });
 
-        // list数据 --- // TODO 换成虚拟列表
+        // 初始化样式 显示
+        const initializationStyle = () => {
+            for (let i = 0; i < wrapperRef.value?.children.length; i++) {
+                const item = wrapperRef.value.children[i];
+                const { attractShowCount, header, tmp_scaleRule } = props;
+                // const half = Math.floor(props.showCount / 2);
+                // const scale = half == i ? 1 : (4 - Math.abs(i - half)) / 4;
+                // item.style.transform = `scale(${scale})`;
+
+                // 指定位置 方法、高亮
+                if (attractShowCount.includes(i)) {
+                    if (
+                        dynamicCssBridge.value["tr-attract-bg-color-style"] ==
+                        "double"
+                    ) {
+                        item.style.background = `linear-gradient(${dynamicCssBridge.value["tr-attract-bg-color-angle"]}deg,${dynamicCssBridge.value["tr-attract-bg-color-from"]},${dynamicCssBridge.value["tr-attract-bg-color-to"]})`;
+                    } else {
+                        item.style.background =
+                            dynamicCssBridge.value["tr-attract-bg-color-value"];
+                    }
+                    // item.style.border = "solid 4px red";
+                    Array.from(item.children).forEach(
+                        (ele_li: HTMLLIElement | any, index: number) => {
+                            ele_li.style.transform = `scale(${tmp_scaleRule[0]})`;
+                            ele_li.style.flexBasis = header[index].basis + "%";
+                        }
+                    );
+                } else {
+                    item.style.background =
+                        dynamicCssBridge.value["tr-un-attract-bg-color"];
+                    Array.from(item.children).forEach(
+                        (ele_li: HTMLLIElement | any, index: number) => {
+                            ele_li.style.transform = `scale(${tmp_scaleRule[1]})`;
+                            ele_li.style.flexBasis = header[index].basis + "%";
+                        }
+                    );
+                }
+            }
+        };
+
+        // list数据 
         const getListDataBridge = computed({
             get() {
                 // 数据消费
@@ -78,6 +118,11 @@ export default defineComponent({
                     deepClone(props.modelValue),
                     props.showCount * 2
                 );
+
+                // 每个数据列表更新的时候重置调用下初始状态
+                nextTick(() => {
+                    initializationStyle();
+                });
                 return props.modelValue;
             },
             set(val) {
@@ -87,7 +132,7 @@ export default defineComponent({
             },
         });
 
-        // 虚拟列表
+        // 虚拟列表 （list数据转化为虚拟列表）
         const getInventedListDataBridge = computed(() => {
             data.takeFlag = !data.takeFlag;
             // 使用虚拟列表生效条件？
@@ -107,8 +152,19 @@ export default defineComponent({
             }
         });
 
-        // 计时器
+        // wrapper的容器的动态高度
+        const wrapperHeightBridge = computed(() => {
+            let len = getListDataBridge.value.length;
+            const itemHeight = Number(props.itemHeight.replace("px", ""));
+            const count = len <= props.showCount ? len : props.showCount;
+            return itemHeight * count + "px";
+        });
+
+        /**
+         * watch
+         */
         watchEffect(() => {
+             // 计时器
             if (data.rotationTimer) {
                 clearInterval(data.rotationTimer as number);
                 data.rotationTimer = null;
@@ -119,45 +175,6 @@ export default defineComponent({
                     loopFn();
                 }, props.loopTime);
         });
-
-        // wrapper的容器的动态高度
-        const wrapperHeightBridge = computed(() => {
-            let len = getListDataBridge.value.length;
-            const itemHeight = Number(props.itemHeight.replace("px", ""));
-            const count = len <= props.showCount ? len : props.showCount;
-            return itemHeight * count + "px";
-        });
-
-        // 初始化样式 显示
-        const initializationStyle = () => {
-            for (let i = 0; i < wrapperRef.value?.children.length; i++) {
-                const item = wrapperRef.value.children[i];
-                const { attractShowCount, header, tmp_scaleRule } = props;
-                // const half = Math.floor(props.showCount / 2);
-                // const scale = half == i ? 1 : (4 - Math.abs(i - half)) / 4;
-                // item.style.transform = `scale(${scale})`;
-
-                if (attractShowCount.includes(i)) {
-                    item.style.background =
-                        dynamicCssBridge.value["tr-attract-bg-color"];
-                    Array.from(item.children).forEach(
-                        (ele_li: HTMLLIElement | any, index: number) => {
-                            ele_li.style.transform = `scale(${tmp_scaleRule[0]})`;
-                            ele_li.style.flexBasis = header[index].basis + "%";
-                        }
-                    );
-                } else {
-                    item.style.background =
-                        dynamicCssBridge.value["tr-un-attract-bg-color"];
-                    Array.from(item.children).forEach(
-                        (ele_li: HTMLLIElement | any, index: number) => {
-                            ele_li.style.transform = `scale(${tmp_scaleRule[1]})`;
-                            ele_li.style.flexBasis = header[index].basis + "%";
-                        }
-                    );
-                }
-            }
-        };
 
         // 轮播函数
         const loopFn = () => {
@@ -204,12 +221,21 @@ export default defineComponent({
                 if (
                     attractShowCount.map((i: any) => i + rollCount).includes(i)
                 ) {
-                    item.style.background =
-                        dynamicCssBridge.value["tr-attract-bg-color"];
+                    if (
+                        dynamicCssBridge.value["tr-attract-bg-color-style"] ==
+                        "double"
+                    ) {
+                        item.style.background = `linear-gradient(${dynamicCssBridge.value["tr-attract-bg-color-angle"]}deg,${dynamicCssBridge.value["tr-attract-bg-color-from"]},${dynamicCssBridge.value["tr-attract-bg-color-to"]})`;
+                    } else {
+                        item.style.background =
+                            dynamicCssBridge.value["tr-attract-bg-color-value"];
+                    }
+
                     Array.from(item.children).forEach(
                         (ele_li: HTMLLIElement | any, index: number) => {
-                            ele_li.style.transition = `${scrollTransition / 1000
-                                }s`;
+                            ele_li.style.transition = `${
+                                scrollTransition / 1000
+                            }s`;
                             ele_li.style.flexBasis = header[index].basis + "%";
                             ele_li.style.transform = `scale(${props.tmp_scaleRule[0]})`;
                         }
@@ -219,8 +245,9 @@ export default defineComponent({
                         dynamicCssBridge.value["tr-un-attract-bg-color"];
                     Array.from(item.children).forEach(
                         (ele_li: HTMLLIElement | any, index: number) => {
-                            ele_li.style.transition = `${scrollTransition / 1000
-                                }s`;
+                            ele_li.style.transition = `${
+                                scrollTransition / 1000
+                            }s`;
                             ele_li.style.flexBasis = header[index].basis + "%";
                             ele_li.style.transform = `scale(${props.tmp_scaleRule[1]})`;
                         }
@@ -232,6 +259,7 @@ export default defineComponent({
             // 滚动运动框架
             scrollTo(
                 scrollWrapper,
+                "top",
                 cacheScrollTop,
                 props.scrollTransition,
                 () => {
@@ -258,7 +286,7 @@ export default defineComponent({
         };
         nextTick(() => {
             // 初始化缩放配置
-            initializationStyle();
+            // initializationStyle();
         });
 
         // data.rotationTimer =
@@ -271,13 +299,9 @@ export default defineComponent({
         //     "text":listItem[i.prop] || "undefined",
         // };
 
-        /**
-         * view
-         */
-        return () => (
-            <div class={n()} v-css={dynamicCssBridge.value || {}}>
-
-                {/* 表头 */}
+        // 表头组件
+        const view_th = () => {
+            return props.showHeader ? (
                 <div class={n("_th")}>
                     {getHeaderBridge.value.map((i: any) => {
                         return (
@@ -290,6 +314,18 @@ export default defineComponent({
                         );
                     })}
                 </div>
+            ) : (
+                ""
+            );
+        };
+
+        /**
+         * view
+         */
+        return () => (
+            <div class={n()} v-css={dynamicCssBridge.value || {}}>
+                {/* 表头 */}
+                {view_th()}
                 {/* 滚动容器 */}
                 <div
                     ref={scrollRef}
@@ -316,10 +352,10 @@ export default defineComponent({
                                                     <div
                                                         class={[
                                                             EmbeddedComTypeMappingClass[
-                                                            getHeaderBridge
-                                                                .value[
-                                                                index
-                                                            ]?.type
+                                                                getHeaderBridge
+                                                                    .value[
+                                                                    index
+                                                                ]?.type
                                                             ],
                                                         ]}
                                                         style={{
@@ -332,26 +368,47 @@ export default defineComponent({
                                                                 i.prop
                                                             ]
                                                                 ? i.fo?.size +
-                                                                "px"
+                                                                  "px"
                                                                 : "auto",
                                                             fontWeight:
                                                                 listItem[i.prop]
                                                                     ? i.fo
-                                                                        ?.weight
+                                                                          ?.weight
                                                                     : "0",
+                                                            fontFamily:
+                                                                listItem[i.prop]
+                                                                    ? i.fo
+                                                                          ?.style
+                                                                    : "none",
                                                         }}
                                                     >
                                                         {/* {listItem[i.prop] ||
                                                             "undefined"} */}
-                                                        {
-                                                            getHeaderBridge
-                                                                .value[
-                                                                index
-                                                            ]?.type && getHeaderBridge
-                                                                .value[
-                                                                index
-                                                            ]?.type == "longText" ? <scrollText>{listItem[i.prop] || "undefined"}</scrollText> : listItem[i.prop] || "undefined"
-                                                        }
+                                                        {getHeaderBridge.value[
+                                                            index
+                                                        ]?.type &&
+                                                        getHeaderBridge.value[
+                                                            index
+                                                        ]?.type ==
+                                                            "longText" ? (
+                                                            <scrollText
+                                                                text={
+                                                                    listItem[
+                                                                        i.prop
+                                                                    ] ||
+                                                                    "undefined"
+                                                                }
+                                                                speed={
+                                                                    listItem[i.prop]
+                                                                    ? i.longText
+                                                                          ?.speed
+                                                                    : false
+                                                                }
+                                                            ></scrollText>
+                                                        ) : (
+                                                            listItem[i.prop] ||
+                                                            "undefined"
+                                                        )}
                                                     </div>
                                                 </div>
                                             );

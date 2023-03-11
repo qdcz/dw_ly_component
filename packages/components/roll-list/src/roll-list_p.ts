@@ -7,6 +7,11 @@ export const rollListProps = {
         type: Array<any>,
         default: [],
     },
+    // 是否显示表头
+    showHeader: {
+        type: Boolean,
+        default: true,
+    },
     // 每项的固定高度
     itemHeight: {
         type: [String],
@@ -26,11 +31,12 @@ export const rollListProps = {
     attractShowCount: {
         type: Array, // 内部会错判断，如果数组内的值超过展示的条数，则清空为[]   // TODO 未做
         default: [1, 3, 4],
+        // default:[]
     },
     // 自动滚动时长间隔 ( 不能小于或等于 scrollTransition )
     loopTime: {
         type: Number,
-        default: 1000 * 300,
+        default: 1000 * 3,
     },
     // 滚动过渡时长
     scrollTransition: {
@@ -40,7 +46,7 @@ export const rollListProps = {
     // (临时)固定层级缩放
     tmp_scaleRule: {
         type: Array,
-        default: [1.3, 0.8],
+        default: [1.3, 1],
     },
     // 缩放规则  ----- 支持对每一列进行配置缩放规则
     scaleRule: {
@@ -65,6 +71,12 @@ export const rollListProps = {
         //     });
         // },
     },
+
+    // 滚动长文本---滚动速度
+    longTextSpeed: {
+        type: Number,
+        default: 1000/60,
+    },
     dynamicCss: {
         type: Object,
         default: () => {
@@ -80,16 +92,20 @@ export const rollListProps = {
                 "th-fo-color": "#df9418",
                 "th-fo-size": "16",
                 "th-fo-weight": "900",
-                "th-radius-lt":"2",
-                "th-radius-rt":"2",
-                "th-radius-lb":"2",
-                "th-radius-rb":"2",
-
+                "th-radius-lt": "8",
+                "th-radius-rt": "8",
+                "th-radius-lb": "0",
+                "th-radius-rb": "0",
 
                 /**
                  * 表体相关
                  */
                 // 激活的背景颜色
+                "tr-attract-bg-color-style": "single", // single 是使用单色 double是使用渐变色
+                "tr-attract-bg-color-to": "#00DEFF",
+                "tr-attract-bg-color-from": "#FFFFFF",
+                "tr-attract-bg-color-angle": "135",
+                "tr-attract-bg-color-value": "#184677",
                 "tr-attract-bg-color": "#184677",
                 // 其余未激活的背景颜色
                 "tr-un-attract-bg-color": "#04172c",
@@ -97,9 +113,8 @@ export const rollListProps = {
                 /**
                  * 表列相关
                  */
-                "td-pad-lr": "0",
+                "td-pad-lr": "20",
                 "td-pad-tb": "0",
-
             };
         },
     },

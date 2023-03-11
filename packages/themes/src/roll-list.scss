@@ -10,13 +10,78 @@
     }
 }
 
+// .#{$namespace}-tool-tip {
+//     position: absolute;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     padding: 5px;
+//     border-radius: 5px;
+//     background-color: #333;
+//     color: #fff;
+//     font-size: 14px;
+//     white-space: nowrap;
+//     z-index: 1000;
+// }
+
 .#{$namespace}-scroll-text {
-    // width: 40%;
+    // width: initial;
+    width: 100%;
     overflow: hidden;
     white-space: nowrap;
     // background-color: aquamarine;
-    &__scroll{
+    display: flex;
 
+    // &.tooltip {
+    //     position: relative;
+    //     &::before {
+    //         display: block;
+    //         content: "asdasd";
+    //         // display: none;
+    //         position: absolute;
+    //         top: 0%;
+    //         left: 50%;
+    //         transform: translateX(-50%);
+    //         padding: 0 4px;
+    //         border-radius: 2px;
+    //         background-color: #333;
+    //         color: #fff;
+    //         font-weight: 100;
+    //     }
+
+    //     &::after {
+    //         content: "";
+    //         display: block;
+    //         position: absolute;
+    //         top: 100%;
+    //         left: 50%;
+    //         transform: translateX(-50%);
+    //         border-width: 6px;
+    //         border-style: solid;
+    //         border-color: transparent transparent #333 transparent;
+    //     }
+
+    //     // &:hover::before,
+    //     // &:focus::before {
+    //     //     background-color: #333;
+    //     //     display: block;
+    //     // }
+    // }
+
+    &__scroll {
+        overflow: auto;
+        text-align: center;
+        width: 100%;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+
+        & .seizeASeat {
+            display: inline-block;
+            width: calc(var(--txt-gap)*1px);
+            height: 10px;
+        }
     }
 }
 

@@ -1,31 +1,35 @@
-import { defineComponent as D, ref as S, onMounted as M, onUnmounted as _, createVNode as m, createTextVNode as P, getCurrentInstance as z, reactive as O, computed as T, watchEffect as U, nextTick as G, withDirectives as Q, resolveDirective as j } from "vue";
-const J = (t, e) => (t.install = function(r) {
+import { defineComponent as I, getCurrentInstance as N, ref as B, reactive as _, computed as A, nextTick as V, createVNode as d, watchEffect as U, withDirectives as G, resolveComponent as Q, resolveDirective as j } from "vue";
+const J = (t, e) => (t.install = function(n) {
   if (t) {
-    const o = t.name || t.__name;
-    if (o || e) {
-      const n = e ? `dw-${e}` : "dw-" + o.replace(/dw/gi, "").toLowerCase();
-      r.component(n, t);
+    const s = t.name || t.__name;
+    if (s || e) {
+      const l = e ? `dw-${e}` : "dw-" + s.replace(/dw/gi, "").toLowerCase();
+      n.component(l, t);
     } else
       console.error(t, e, !e);
   }
 }, t), K = (t) => Array.isArray(t);
-function H(t) {
+function D(t) {
   const e = `vi-${t}`;
   return {
-    n: (n) => n ? n.startsWith("-") ? `${e}${n}` : `${e}_${n}` : e,
-    classes: (...n) => n.map((c) => {
+    n: (l) => l ? l.startsWith("-") ? `${e}${l}` : `${e}_${l}` : e,
+    classes: (...l) => l.map((c) => {
       if (K(c)) {
-        const [i, u, g = null] = c;
-        return i ? u : g;
+        const [i, b, y = null] = c;
+        return i ? b : y;
       }
       return c;
     })
   };
 }
-const I = {
+const H = {
   header: {
     type: Array,
     default: []
+  },
+  showHeader: {
+    type: Boolean,
+    default: !0
   },
   itemHeight: {
     type: [String],
@@ -45,7 +49,7 @@ const I = {
   },
   loopTime: {
     type: Number,
-    default: 1e3 * 300
+    default: 1e3 * 5e3
   },
   scrollTransition: {
     type: Number,
@@ -53,7 +57,7 @@ const I = {
   },
   tmp_scaleRule: {
     type: Array,
-    default: [1.3, 0.8]
+    default: [1.3, 1]
   },
   scaleRule: {
     type: [Number, Array],
@@ -62,6 +66,10 @@ const I = {
   modelValue: {
     type: Array,
     default: []
+  },
+  longTextSpeed: {
+    type: Number,
+    default: 1e3 / 60
   },
   dynamicCss: {
     type: Object,
@@ -72,36 +80,41 @@ const I = {
       "th-fo-color": "#df9418",
       "th-fo-size": "16",
       "th-fo-weight": "900",
-      "th-radius-lt": "2",
-      "th-radius-rt": "2",
-      "th-radius-lb": "2",
-      "th-radius-rb": "2",
+      "th-radius-lt": "8",
+      "th-radius-rt": "8",
+      "th-radius-lb": "0",
+      "th-radius-rb": "0",
+      "tr-attract-bg-color-style": "single",
+      "tr-attract-bg-color-to": "#00DEFF",
+      "tr-attract-bg-color-from": "#FFFFFF",
+      "tr-attract-bg-color-angle": "135",
+      "tr-attract-bg-color-value": "#184677",
       "tr-attract-bg-color": "#184677",
       "tr-un-attract-bg-color": "#04172c",
-      "td-pad-lr": "0",
+      "td-pad-lr": "20",
       "td-pad-tb": "0"
     })
   }
-}, V = function(t, e) {
-  for (let [r, o] of Object.entries(e.value))
-    t.style.setProperty("--" + r, o);
+}, R = function(t, e) {
+  for (let [n, s] of Object.entries(e.value))
+    t.style.setProperty("--" + n, s);
 }, X = {
   mounted(t, e) {
-    V(t, e);
+    R(t, e);
   },
   updated(t, e) {
-    V(t, e);
+    R(t, e);
   },
   install(t) {
     t.directive("Css", this);
   }
-}, { n: Y } = H(""), Z = (t = Y()) => t + "xxxxxxxx".replace(/[xy]/g, function(e) {
-  var r = 0 | 16 * Math.random(), o = e == "x" ? r : 8 | 3 & r;
-  return o.toString(16);
+}, { n: Y } = D(""), Z = (t = Y()) => t + "xxxxxxxx".replace(/[xy]/g, function(e) {
+  var n = 0 | 16 * Math.random(), s = e == "x" ? n : 8 | 3 & n;
+  return s.toString(16);
 });
 class tt {
-  constructor(e = [], r = 7) {
-    this.list = e, this.severalGroups = r, this.windowSliding = new Array(this.severalGroups).fill(0).map((o, n) => n);
+  constructor(e = [], n = 7) {
+    this.list = e, this.severalGroups = n, this.windowSliding = new Array(this.severalGroups).fill(0).map((s, l) => l);
   }
   take(e) {
     return this.Sliding(e), this.show();
@@ -110,213 +123,224 @@ class tt {
     return this.windowSliding.map((e) => this.list[e]);
   }
   Sliding(e) {
-    this.windowSliding = this.windowSliding.map((r) => {
-      const o = this.list.length, n = r + e;
-      return n <= o - 1 ? n : n - o;
+    this.windowSliding = this.windowSliding.map((n) => {
+      const s = this.list.length, l = n + e;
+      return l <= s - 1 ? l : l - s;
     });
   }
 }
-const N = function(t) {
+const P = function(t) {
   const e = t instanceof Array ? [] : {};
-  for (let r in t)
-    e[r] = typeof t[r] == "object" ? N(t[r]) : t[r];
+  for (let n in t)
+    e[n] = typeof t[n] == "object" ? P(t[n]) : t[n];
   return e;
 };
-function et(t, e, r, o) {
-  const n = t.scrollTop, c = e - n, i = performance.now();
-  function u() {
-    const w = performance.now() - i, v = g(
-      w,
-      n,
+function et(t, e = "top", n, s, l) {
+  const c = e == "top" ? t.scrollTop : e == "left" ? t.scrollLeft : 0, i = n - c, b = performance.now();
+  function y() {
+    const a = performance.now() - b, h = C(
+      a,
       c,
-      r
+      i,
+      s
     );
-    t.scrollTop = v, w < r ? requestAnimationFrame(u) : o && o();
+    e == "top" ? t.scrollTop = h : e == "left" && (t.scrollLeft = h), a < s ? requestAnimationFrame(y) : l && l();
   }
-  function g(f, w, v, A) {
-    return f /= A / 2, f < 1 ? v / 2 * f * f + w : (f--, -v / 2 * (f * (f - 2) - 1) + w);
+  function C(f, a, h, x) {
+    return f /= x / 2, f < 1 ? h / 2 * f * f + a : (f--, -h / 2 * (f * (f - 2) - 1) + a);
   }
-  requestAnimationFrame(u);
+  requestAnimationFrame(y);
 }
-const nt = /* @__PURE__ */ D({
+const {
+  n: W
+} = D("scroll-text"), lt = /* @__PURE__ */ I({
   name: "ScrollText",
+  emits: ["update:text"],
   props: {
     text: {
       type: String,
-      required: !0
+      default: "这是一个默认文本"
     },
     speed: {
       type: Number,
-      default: 50
+      default: 1e3 / 60
     }
   },
-  setup(t) {
-    const e = S(null), r = S(null), o = S(null);
-    let n = null, c = !1;
-    const i = () => {
-      const f = r.value.scrollLeft;
-      c || f + e.value.clientWidth >= r.value.scrollWidth || (r.value.scrollLeft += 1, n = requestAnimationFrame(i));
-    }, u = () => {
-      r.value.scrollWidth <= e.value.clientWidth || (n = requestAnimationFrame(i));
-    }, g = () => {
-      c = !0, n !== null && (cancelAnimationFrame(n), n = null);
-    };
-    return M(() => {
-      u(), e.value.addEventListener("mouseenter", g), e.value.addEventListener("mouseleave", u);
-    }), _(() => {
-      g(), e.value.removeEventListener("mouseenter", g), e.value.removeEventListener("mouseleave", u);
-    }), {
-      container: e,
-      content: r,
-      text: o
-    };
-  },
-  render() {
-    return m("div", {
-      class: "scroll-text-container",
-      ref: "container"
-    }, [m("div", {
-      class: "scroll-text-content",
-      ref: "content"
-    }, [m("div", {
-      class: "scroll-text",
-      ref: "text",
-      style: {
-        whiteSpace: "nowrap"
+  setup(t, e) {
+    var h;
+    const s = "onUpdate:modelValue" in (((h = N()) == null ? void 0 : h.vnode.props) || {}), l = B(null), c = B(null), i = B(null), b = B(null);
+    let y = null;
+    const C = _({
+      isScroll: !0
+    }), f = A({
+      get() {
+        return C.isScroll = !0, V(() => {
+          if (l.value && i.value) {
+            const x = l.value.clientWidth, F = i.value.offsetWidth - 20;
+            x < F ? (y && (clearInterval(y), y = null), y = setInterval(a, t.speed)) : C.isScroll = !1;
+          }
+        }), t.text + "";
+      },
+      set(x) {
+        s && e.emit("update:text", x);
       }
-    }, [P("464654")])])]);
+    }), a = () => {
+      b.value.offsetWidth - c.value.scrollLeft <= 0 ? c.value.scrollLeft -= i.value.offsetWidth : c.value.scrollLeft++;
+    };
+    return () => d("div", {
+      class: W(""),
+      ref: l
+    }, [d("div", {
+      class: W("_scroll"),
+      ref: c
+    }, [d("span", {
+      ref: i
+    }, [f.value, C.isScroll ? d("span", {
+      class: "seizeASeat"
+    }, null) : ""]), d("span", {
+      ref: b
+    }, [C.isScroll ? f.value : "", C.isScroll ? d("span", {
+      class: "seizeASeat"
+    }, null) : ""])])]);
   }
 }), {
-  n: x
-} = H("roll-list"), rt = /* @__PURE__ */ D({
+  n: T
+} = D("roll-list"), rt = /* @__PURE__ */ I({
   name: "RollList",
   emits: ["update:modelValue"],
   directives: {
     css: X
   },
-  props: I,
+  props: H,
   components: {
-    scrollText: nt
+    scrollText: lt
   },
   setup(t, e) {
-    var k;
-    const o = "onUpdate:modelValue" in (((k = z()) == null ? void 0 : k.vnode.props) || {}), n = O({
-      uuid: Z(x("-")),
+    var E;
+    const s = "onUpdate:modelValue" in (((E = N()) == null ? void 0 : E.vnode.props) || {}), l = _({
+      uuid: Z(T("-")),
       takeFlag: !1,
       rotationTimer: null,
       getInventedListDataBridgeInit: !1
-    }), c = S(null), i = S();
-    let u = 0, g = null;
-    const f = {
+    }), c = B(null), i = B();
+    let b = 0, y = null;
+    const C = {
       longText: "longText"
-    }, w = (l) => {
-      l.preventDefault();
-    }, v = T(() => Object.assign(I.dynamicCss.default(), t.dynamicCss)), A = T(() => t.header), L = T({
-      get() {
-        return g = new tt(N(t.modelValue), t.showCount * 2), t.modelValue;
-      },
-      set(l) {
-        o && e.emit("update:modelValue", l);
+    }, f = (r) => {
+      r.preventDefault();
+    }, a = A(() => Object.assign(H.dynamicCss.default(), t.dynamicCss)), h = A(() => t.header), x = () => {
+      var r;
+      for (let o = 0; o < ((r = i.value) == null ? void 0 : r.children.length); o++) {
+        const g = i.value.children[o], {
+          attractShowCount: S,
+          header: m,
+          tmp_scaleRule: u
+        } = t;
+        S.includes(o) ? (a.value["tr-attract-bg-color-style"] == "double" ? g.style.background = `linear-gradient(${a.value["tr-attract-bg-color-angle"]}deg,${a.value["tr-attract-bg-color-from"]},${a.value["tr-attract-bg-color-to"]})` : g.style.background = a.value["tr-attract-bg-color-value"], Array.from(g.children).forEach((v, w) => {
+          v.style.transform = `scale(${u[0]})`, v.style.flexBasis = m[w].basis + "%";
+        })) : (g.style.background = a.value["tr-un-attract-bg-color"], Array.from(g.children).forEach((v, w) => {
+          v.style.transform = `scale(${u[1]})`, v.style.flexBasis = m[w].basis + "%";
+        }));
       }
-    }), W = T(() => {
-      if (n.takeFlag = !n.takeFlag, t.modelValue.length > t.showCount) {
-        const l = n.getInventedListDataBridgeInit ? t.rollCount : (n.getInventedListDataBridgeInit = !0) && 0;
-        return g.take(l);
+    }, F = A({
+      get() {
+        return y = new tt(P(t.modelValue), t.showCount * 2), V(() => {
+          x();
+        }), t.modelValue;
+      },
+      set(r) {
+        s && e.emit("update:modelValue", r);
+      }
+    }), z = A(() => {
+      if (l.takeFlag = !l.takeFlag, t.modelValue.length > t.showCount) {
+        const r = l.getInventedListDataBridgeInit ? t.rollCount : (l.getInventedListDataBridgeInit = !0) && 0;
+        return y.take(r);
       } else
-        return new Array(t.modelValue.length).fill(0).map((l, a) => L.value[a]);
+        return new Array(t.modelValue.length).fill(0).map((r, o) => F.value[o]);
+    }), M = A(() => {
+      let r = F.value.length;
+      const o = Number(t.itemHeight.replace("px", "")), g = r <= t.showCount ? r : t.showCount;
+      return o * g + "px";
     });
     U(() => {
-      n.rotationTimer && (clearInterval(n.rotationTimer), n.rotationTimer = null), n.rotationTimer = L.value.length > t.showCount && setInterval(() => {
+      l.rotationTimer && (clearInterval(l.rotationTimer), l.rotationTimer = null), l.rotationTimer = F.value.length > t.showCount && setInterval(() => {
         q();
       }, t.loopTime);
     });
-    const R = T(() => {
-      let l = L.value.length;
-      const a = Number(t.itemHeight.replace("px", "")), y = l <= t.showCount ? l : t.showCount;
-      return a * y + "px";
-    }), $ = () => {
-      var l;
-      for (let a = 0; a < ((l = i.value) == null ? void 0 : l.children.length); a++) {
-        const y = i.value.children[a], {
-          attractShowCount: C,
-          header: d,
-          tmp_scaleRule: s
+    const q = () => {
+      var S;
+      const r = c == null ? void 0 : c.value, o = t.rollCount <= t.showCount ? t.rollCount : t.showCount, g = r.scrollHeight - r.clientHeight;
+      b = b + g / t.showCount * o;
+      for (let m = 0; m < ((S = i.value) == null ? void 0 : S.children.length); m++) {
+        const u = i.value.children[m], {
+          rollCount: v,
+          attractShowCount: w,
+          scrollTransition: $,
+          header: L
         } = t;
-        C.includes(a) ? (y.style.background = v.value["tr-attract-bg-color"], Array.from(y.children).forEach((h, b) => {
-          h.style.transform = `scale(${s[0]})`, h.style.flexBasis = d[b].basis + "%";
-        })) : (y.style.background = v.value["tr-un-attract-bg-color"], Array.from(y.children).forEach((h, b) => {
-          h.style.transform = `scale(${s[1]})`, h.style.flexBasis = d[b].basis + "%";
+        u.style.transition = `${$ / 1e3}s`, w.map((p) => p + v).includes(m) ? (a.value["tr-attract-bg-color-style"] == "double" ? u.style.background = `linear-gradient(${a.value["tr-attract-bg-color-angle"]}deg,${a.value["tr-attract-bg-color-from"]},${a.value["tr-attract-bg-color-to"]})` : u.style.background = a.value["tr-attract-bg-color-value"], Array.from(u.children).forEach((p, k) => {
+          p.style.transition = `${$ / 1e3}s`, p.style.flexBasis = L[k].basis + "%", p.style.transform = `scale(${t.tmp_scaleRule[0]})`;
+        })) : (u.style.background = a.value["tr-un-attract-bg-color"], Array.from(u.children).forEach((p, k) => {
+          p.style.transition = `${$ / 1e3}s`, p.style.flexBasis = L[k].basis + "%", p.style.transform = `scale(${t.tmp_scaleRule[1]})`;
         }));
       }
-    }, q = () => {
-      var C;
-      const l = c == null ? void 0 : c.value, a = t.rollCount <= t.showCount ? t.rollCount : t.showCount, y = l.scrollHeight - l.clientHeight;
-      u = u + y / t.showCount * a;
-      for (let d = 0; d < ((C = i.value) == null ? void 0 : C.children.length); d++) {
-        const s = i.value.children[d], {
-          rollCount: h,
-          attractShowCount: b,
-          scrollTransition: B,
-          header: F
-        } = t;
-        s.style.transition = `${B / 1e3}s`, b.map((p) => p + h).includes(d) ? (s.style.background = v.value["tr-attract-bg-color"], Array.from(s.children).forEach((p, E) => {
-          p.style.transition = `${B / 1e3}s`, p.style.flexBasis = F[E].basis + "%", p.style.transform = `scale(${t.tmp_scaleRule[0]})`;
-        })) : (s.style.background = v.value["tr-un-attract-bg-color"], Array.from(s.children).forEach((p, E) => {
-          p.style.transition = `${B / 1e3}s`, p.style.flexBasis = F[E].basis + "%", p.style.transform = `scale(${t.tmp_scaleRule[1]})`;
-        }));
-      }
-      et(l, u, t.scrollTransition, () => {
-        var d;
-        for (let s = 0; s < ((d = i.value) == null ? void 0 : d.children.length); s++) {
-          const h = i.value.children[s];
-          h.style.transition = "0s", Array.from(h.children).forEach((b) => {
-            b.style.transition = "0s";
+      et(r, "top", b, t.scrollTransition, () => {
+        var m;
+        for (let u = 0; u < ((m = i.value) == null ? void 0 : m.children.length); u++) {
+          const v = i.value.children[u];
+          v.style.transition = "0s", Array.from(v.children).forEach((w) => {
+            w.style.transition = "0s";
           });
         }
-        n.takeFlag = !n.takeFlag, l.scrollTop = 0, u = 0, $();
+        l.takeFlag = !l.takeFlag, r.scrollTop = 0, b = 0, x();
       });
     };
-    return G(() => {
-      $();
-    }), () => Q(m("div", {
-      class: x()
-    }, [m("div", {
-      class: x("_th")
-    }, [A.value.map((l) => m("div", {
-      class: x("_td"),
+    V(() => {
+    });
+    const O = () => t.showHeader ? d("div", {
+      class: T("_th")
+    }, [h.value.map((r) => d("div", {
+      class: T("_td"),
       style: {
-        flexBasis: l.basis + "%"
+        flexBasis: r.basis + "%"
       }
-    }, [l.label]))]), m("div", {
+    }, [r.label]))]) : "";
+    return () => G(d("div", {
+      class: T()
+    }, [O(), d("div", {
       ref: c,
-      onWheel: w,
-      class: x("_scroll"),
+      onWheel: f,
+      class: T("_scroll"),
       style: {
-        height: R.value
+        height: M.value
       }
-    }, [m("ul", {
+    }, [d("ul", {
       ref: i,
-      class: x("_wrapper")
-    }, [W.value.map((l) => m("li", {
+      class: T("_wrapper")
+    }, [z.value.map((r) => d("li", {
       style: {
         height: t.itemHeight
       }
-    }, [t.header.map((a, y) => {
-      var C, d, s, h;
-      return m("div", {
-        class: [x("_td")]
-      }, [m("div", {
-        class: [f[(C = A.value[y]) == null ? void 0 : C.type]],
+    }, [t.header.map((o, g) => {
+      var S, m, u, v, w, $, L, p;
+      return d("div", {
+        class: [T("_td")]
+      }, [d("div", {
+        class: [C[(S = h.value[g]) == null ? void 0 : S.type]],
         style: {
-          color: l[a.prop] ? (d = a.fo) == null ? void 0 : d.color : "none",
-          fontSize: l[a.prop] ? ((s = a.fo) == null ? void 0 : s.size) + "px" : "auto",
-          fontWeight: l[a.prop] ? (h = a.fo) == null ? void 0 : h.weight : "0"
+          color: r[o.prop] ? (m = o.fo) == null ? void 0 : m.color : "none",
+          fontSize: r[o.prop] ? ((u = o.fo) == null ? void 0 : u.size) + "px" : "auto",
+          fontWeight: r[o.prop] ? (v = o.fo) == null ? void 0 : v.weight : "0",
+          fontFamily: r[o.prop] ? (w = o.fo) == null ? void 0 : w.style : "none"
         }
-      }, [l[a.prop] || "undefined"])]);
-    })]))])])]), [[j("css"), v.value || {}]]);
+      }, [($ = h.value[g]) != null && $.type && ((L = h.value[g]) == null ? void 0 : L.type) == "longText" ? d(Q("scrollText"), {
+        text: r[o.prop] || "undefined",
+        speed: r[o.prop] ? (p = o.longText) == null ? void 0 : p.speed : !1
+      }, null) : r[o.prop] || "undefined"])]);
+    })]))])])]), [[j("css"), a.value || {}]]);
   }
-}), ot = J(rt, "roll-list");
+}), at = J(rt, "roll-list");
 export {
-  ot as RollList,
-  ot as default
+  at as RollList,
+  at as default
 };

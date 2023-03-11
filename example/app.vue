@@ -12,8 +12,6 @@
     </div>
 </template>
 <script lang="ts">
-import { log } from "console";
-import { nextTick } from "process";
 export default {
     name: "demo",
     data() {
@@ -24,30 +22,58 @@ export default {
                     prop: "field1",
                     basis: "16.6",  // 只支持百分比
                     type: "text",
+                    fo: {
+                        color: "white",
+                        size: "12",
+                        weight: "600",
+                    },
                 },
                 {
                     label: "字段2",
                     prop: "field2",
                     basis: "16.6",
                     type: "longText",
+                    fo: {
+                        color: "green",
+                        size: "12",
+                        weight: "900",
+                    },
+                    longText:{
+                        speed:5000
+                    }
                 },
                 {
                     label: "字段3",
                     prop: "field3",
                     basis: "16.6",
                     type: "text",
+                    fo: {
+                        color: "white",
+                        size: "12",
+                        weight: "600",
+                    },
                 },
                 {
                     label: "字段4",
                     prop: "field4",
                     basis: "16.6",
                     type: "text",
+                    fo: {
+                        color: "white",
+                        size: "12",
+                        weight: "600",
+                    },
                 },
                 {
                     label: "字段5",
                     prop: "field5",
                     basis: "16.6",
                     type: "text",
+                    fo: {
+                        color: "white",
+                        size: "12",
+                        weight: "600",
+                    },
                 },
                 {
                     label: "字段6",
@@ -62,102 +88,6 @@ export default {
                 },
             ],
             list: [
-                {
-                    field1: "DP000037",
-                    field2: "工商信息数据服务a4s65d46a5s4df65as4f65ad4s65f",
-                    field3: "深圳市互联网...",
-                    field4: "河南九天遥感科技",
-                    field5: "安全预警",
-                    field6: "157.76",
-                },
-                {
-                    field1: "DP000037",
-                    field2: "工商信息数据服务a4s65d46a5s4df65as4f65ad4s65f",
-                    field3: "深圳市互联网...",
-                    field4: "河南九天遥感科技",
-                    field5: "安全预警",
-                    field6: "157.76",
-                },
-                {
-                    field1: "DP000037",
-                    field2: "工商信息数据服务",
-                    field3: "深圳市互联网...",
-                    field4: "河南九天遥感科技",
-                    field5: "安全预警",
-                    field6: "157.76",
-                },
-                {
-                    field1: "DP000037",
-                    field2: "工商信息数据服务",
-                    field3: "深圳市互联网...",
-                    field4: "河南九天遥感科技",
-                    field5: "安全预警",
-                    field6: "157.76",
-                },
-                {
-                    field1: "DP000037",
-                    field2: "工商信息数据服务",
-                    field3: "深圳市互联网...",
-                    field4: "河南九天遥感科技",
-                    field5: "安全预警",
-                    field6: "157.76",
-                },
-                {
-                    field1: "DP000037",
-                    field2: "工商信息数据服务",
-                    field3: "深圳市互联网...",
-                    field4: "河南九天遥感科技",
-                    field5: "安全预警",
-                    field6: "157.76",
-                },
-                {
-                    field1: "DP000037",
-                    field2: "工商信息数据服务",
-                    field3: "深圳市互联网...",
-                    field4: "河南九天遥感科技",
-                    field5: "安全预警",
-                    field6: "157.76",
-                },
-                {
-                    field1: "DP000037",
-                    field2: "工商信息数据服务",
-                    field3: "深圳市互联网...",
-                    field4: "河南九天遥感科技",
-                    field5: "安全预警",
-                    field6: "157.76",
-                },
-                {
-                    field1: "DP000037",
-                    field2: "工商信息数据服务",
-                    field3: "深圳市互联网...",
-                    field4: "河南九天遥感科技",
-                    field5: "安全预警",
-                    field6: "157.76",
-                },
-                {
-                    field1: "DP000037",
-                    field2: "工商信息数据服务",
-                    field3: "深圳市互联网...",
-                    field4: "河南九天遥感科技",
-                    field5: "安全预警",
-                    field6: "157.76",
-                },
-                {
-                    field1: "DP000037",
-                    field2: "工商信息数据服务",
-                    field3: "深圳市互联网...",
-                    field4: "河南九天遥感科技",
-                    field5: "安全预警",
-                    field6: "157.76",
-                },
-                {
-                    field1: "DP000037",
-                    field2: "工商信息数据服务",
-                    field3: "深圳市互联网...",
-                    field4: "河南九天遥感科技",
-                    field5: "安全预警",
-                    field6: "157.76",
-                },
             ],
         };
     },
@@ -168,7 +98,7 @@ export default {
             this.list = [
                 {
                     field1: "DP000037",
-                    field2: "工商信息数据服务a4s65d46a5s4df65as4f65ad4s65f",
+                    field2: "测试",
                     field3: "深圳市互联网...",
                     field4: "河南九天遥感科技",
                     field5: "安全预警",
@@ -176,7 +106,7 @@ export default {
                 },
                 {
                     field1: "DP000037",
-                    field2: "工商信息数据服务a4s65d46a5s4df65as4f65ad4s65f",
+                    field2: "中国捐款保障乌核设施安全,中方回应",
                     field3: "深圳市互联网...",
                     field4: "河南九天遥感科技",
                     field5: "安全预警",
@@ -184,7 +114,7 @@ export default {
                 },
                 {
                     field1: "DP000037",
-                    field2: "工商信息数据服务",
+                    field2: "中国女性的互联网之路",
                     field3: "深圳市互联网...",
                     field4: "河南九天遥感科技",
                     field5: "安全预警",
@@ -192,7 +122,7 @@ export default {
                 },
                 {
                     field1: "DP000037",
-                    field2: "工商信息数据服务",
+                    field2: "夫妻200万造别墅找陌生人抱团养老",
                     field3: "深圳市互联网...",
                     field4: "河南九天遥感科技",
                     field5: "安全预警",
@@ -200,7 +130,7 @@ export default {
                 },
                 {
                     field1: "DP000037",
-                    field2: "工商信息数据服务",
+                    field2: "90后老师自制班级“热搜榜”",
                     field3: "深圳市互联网...",
                     field4: "河南九天遥感科技",
                     field5: "安全预警",
@@ -208,7 +138,7 @@ export default {
                 },
                 {
                     field1: "DP000037",
-                    field2: "工商信息数据服务",
+                    field2: "白宫：不希望冲突 尊重一个中国政策热",
                     field3: "深圳市互联网...",
                     field4: "河南九天遥感科技",
                     field5: "安全预警",
@@ -216,7 +146,7 @@ export default {
                 },
                 {
                     field1: "DP000037",
-                    field2: "工商信息数据服务",
+                    field2: "中动协：已派专家在美照料丫丫",
                     field3: "深圳市互联网...",
                     field4: "河南九天遥感科技",
                     field5: "安全预警",
@@ -224,7 +154,7 @@ export default {
                 },
                 {
                     field1: "DP000037",
-                    field2: "工商信息数据服务",
+                    field2: "主妇起诉离婚才知丈夫年薪300万",
                     field3: "深圳市互联网...",
                     field4: "河南九天遥感科技",
                     field5: "安全预警",
@@ -232,7 +162,7 @@ export default {
                 },
                 {
                     field1: "DP000037",
-                    field2: "工商信息数据服务",
+                    field2: "云南“健身猪”走红一头最高卖8万",
                     field3: "深圳市互联网...",
                     field4: "河南九天遥感科技",
                     field5: "安全预警",
@@ -240,7 +170,7 @@ export default {
                 },
                 {
                     field1: "DP000037",
-                    field2: "工商信息数据服务",
+                    field2: "男子无儿女8名亲戚争房产",
                     field3: "深圳市互联网...",
                     field4: "河南九天遥感科技",
                     field5: "安全预警",
@@ -248,7 +178,7 @@ export default {
                 },
                 {
                     field1: "DP000037",
-                    field2: "工商信息数据服务",
+                    field2: "街访理想工作：有人想捡垃圾",
                     field3: "深圳市互联网...",
                     field4: "河南九天遥感科技",
                     field5: "安全预警",
