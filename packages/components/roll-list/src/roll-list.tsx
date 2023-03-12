@@ -1,9 +1,10 @@
 import {
-    SetupContext,
     computed,
     defineComponent,
     getCurrentInstance,
     nextTick,
+    onMounted,
+    onUnmounted,
     reactive,
     ref,
     watchEffect,
@@ -14,22 +15,22 @@ import css from "@dw-ui/directives/css";
 import { createUUID } from "@dw-ui/utils";
 import {
     DataCircularConsumption,
+    addUniqueIdToDuplicateData,
     deepClone,
     scrollTo,
 } from "./list-consumption";
-// import { SCROLLBAR_INJECTION_KEY } from "@dw-ui/tokens/scroll-bar";
 const { n } = createNamespace("roll-list");
-import ScrollText from "./long-text";
+import LongText from "./long-text";
 
 export default defineComponent({
     name: "RollList",
-    emits: ["update:modelValue"],
+    emits: ["update:modelValue", "rowClick"],
     directives: { css },
     props: rollListProps,
     components: {
-        scrollText: ScrollText,
+        LongText: LongText,
     },
-    setup(props: rollListProps, ctx: SetupContext<[]>) {
+    setup(props: rollListProps, ctx) {
         const vnodeProps = getCurrentInstance()?.vnode.props || {};
         const hasVModelListener = "onUpdate:modelValue" in vnodeProps;
 
@@ -64,11 +65,19 @@ export default defineComponent({
         const dynamicCssBridge = computed(() =>
             Object.assign(rollListProps.dynamicCss.default(), props.dynamicCss)
         );
-
-        // 控制表头字段显隐
-        const getHeaderBridge: any = computed(() => {
-            return props.header;
+        const longText_dynamicCssBridge = computed(() => {
+            let obj: any = {};
+            for (let key in dynamicCssBridge.value) {
+                if (key.includes("longText")) {
+                    obj[key.replace("longText-", "")] =
+                        dynamicCssBridge.value[key];
+                }
+            }
+            return obj;
         });
+
+        // 控制表头显隐
+        const getHeaderBridge: any = computed(() => props.header);
 
         // 初始化样式 显示
         const initializationStyle = () => {
@@ -110,7 +119,7 @@ export default defineComponent({
             }
         };
 
-        // list数据 
+        // list数据
         const getListDataBridge = computed({
             get() {
                 // 数据消费
@@ -141,7 +150,9 @@ export default defineComponent({
                 const rollCount = data.getInventedListDataBridgeInit
                     ? props.rollCount
                     : (data.getInventedListDataBridgeInit = true) && 0;
-                return dataCircularConsumption.take(rollCount);
+                return addUniqueIdToDuplicateData(
+                    dataCircularConsumption.take(rollCount)
+                );
             } else {
                 // 数字换成虚拟下标
                 return new Array(props.modelValue.length)
@@ -160,20 +171,22 @@ export default defineComponent({
             return itemHeight * count + "px";
         });
 
-        /**
-         * watch
-         */
-        watchEffect(() => {
-             // 计时器
-            if (data.rotationTimer) {
-                clearInterval(data.rotationTimer as number);
-                data.rotationTimer = null;
-            }
-            data.rotationTimer =
-                getListDataBridge.value.length > props.showCount &&
-                setInterval(() => {
-                    loopFn();
-                }, props.loopTime);
+        onMounted(() => {
+            /**
+             * watch
+             */
+            watchEffect(() => {
+                // 计时器
+                if (data.rotationTimer) {
+                    clearInterval(data.rotationTimer as number);
+                    data.rotationTimer = null;
+                }
+                data.rotationTimer =
+                    getListDataBridge.value.length > props.showCount &&
+                    setInterval(() => {
+                        loopFn();
+                    }, props.loopTime);
+            });
         });
 
         // 轮播函数
@@ -280,24 +293,34 @@ export default defineComponent({
                     data.takeFlag = !data.takeFlag; // 虚拟列表更新数据
                     scrollWrapper.scrollTop = 0; // 清空
                     cacheScrollTop = 0; // 清空缓存
-                    initializationStyle(); // 恢复初始状态
                 }
             );
         };
-        nextTick(() => {
-            // 初始化缩放配置
-            // initializationStyle();
+
+        /**
+         * events
+         */
+        const handleMouseenter = () => {
+            if (data.rotationTimer) {
+                clearInterval(data.rotationTimer as number);
+                // data.rotationTimer = null;
+            }
+        };
+
+        const handleMouseLeave = () => {
+            // 触发watch回调
+            data.rotationTimer = null;
+        };
+
+        const handleRowClick = function (data: any) {
+            ctx.emit && ctx.emit("rowClick", data);
+        };
+
+        // 组件卸载 周期
+        onUnmounted(() => {
+            handleMouseenter();
+            data.rotationTimer = null;
         });
-
-        // data.rotationTimer =
-        //     getListDataBridge.value.length > props.showCount &&
-        //     setInterval(() => {
-        //         loopFn();
-        //     }, props.loopTime);
-
-        // const __map = {
-        //     "text":listItem[i.prop] || "undefined",
-        // };
 
         // 表头组件
         const view_th = () => {
@@ -319,14 +342,9 @@ export default defineComponent({
             );
         };
 
-        /**
-         * view
-         */
-        return () => (
-            <div class={n()} v-css={dynamicCssBridge.value || {}}>
-                {/* 表头 */}
-                {view_th()}
-                {/* 滚动容器 */}
+        // 滚动容器
+        const view_scrollWrapper = () => {
+            return (
                 <div
                     ref={scrollRef}
                     onWheel={handleWheel}
@@ -335,90 +353,94 @@ export default defineComponent({
                         height: wrapperHeightBridge.value,
                     }}
                 >
-                    {/* 每项列表容器 */}
                     <ul ref={wrapperRef} class={n("_wrapper")}>
-                        {getInventedListDataBridge.value.map(
-                            (listItem: any) => {
-                                return (
-                                    /* 每项列表 */
-                                    <li
-                                        style={{
-                                            height: props.itemHeight,
-                                        }}
-                                    >
-                                        {props.header.map((i, index) => {
-                                            return (
-                                                <div class={[n("_td")]}>
-                                                    <div
-                                                        class={[
-                                                            EmbeddedComTypeMappingClass[
-                                                                getHeaderBridge
-                                                                    .value[
-                                                                    index
-                                                                ]?.type
-                                                            ],
-                                                        ]}
-                                                        style={{
-                                                            color: listItem[
-                                                                i.prop
-                                                            ]
-                                                                ? i.fo?.color
-                                                                : "none",
-                                                            fontSize: listItem[
-                                                                i.prop
-                                                            ]
-                                                                ? i.fo?.size +
-                                                                  "px"
-                                                                : "auto",
-                                                            fontWeight:
-                                                                listItem[i.prop]
-                                                                    ? i.fo
-                                                                          ?.weight
-                                                                    : "0",
-                                                            fontFamily:
-                                                                listItem[i.prop]
-                                                                    ? i.fo
-                                                                          ?.style
-                                                                    : "none",
-                                                        }}
-                                                    >
-                                                        {/* {listItem[i.prop] ||
-                                                            "undefined"} */}
-                                                        {getHeaderBridge.value[
-                                                            index
-                                                        ]?.type &&
-                                                        getHeaderBridge.value[
-                                                            index
-                                                        ]?.type ==
-                                                            "longText" ? (
-                                                            <scrollText
-                                                                text={
-                                                                    listItem[
-                                                                        i.prop
-                                                                    ] ||
-                                                                    "undefined"
-                                                                }
-                                                                speed={
-                                                                    listItem[i.prop]
-                                                                    ? i.longText
-                                                                          ?.speed
-                                                                    : false
-                                                                }
-                                                            ></scrollText>
-                                                        ) : (
-                                                            listItem[i.prop] ||
-                                                            "undefined"
-                                                        )}
-                                                    </div>
-                                                </div>
-                                            );
-                                        })}
-                                    </li>
-                                );
-                            }
-                        )}
+                        {getInventedListDataBridge.value.map((rowData: any) => {
+                            return view_eachRow(rowData);
+                        })}
                     </ul>
                 </div>
+            );
+        };
+
+        // 列表中的每行（li）
+        const view_eachRow = (rowData: any) => {
+            return (
+                <li
+                    key={rowData.__id}
+                    style={{
+                        height: props.itemHeight,
+                    }}
+                    onClick={handleRowClick.bind(this, rowData)}
+                >
+                    {props.header.map((headerData, index) => {
+                        return view_eachColumn(rowData, headerData, index);
+                    })}
+                </li>
+            );
+        };
+
+        // 列表中的每行的每列
+        const view_eachColumn = (
+            rowData: any,
+            headerData: any,
+            index: Number | any
+        ) => {
+            return (
+                <div class={[n("_td")]}>
+                    <div
+                        class={[
+                            EmbeddedComTypeMappingClass[
+                                getHeaderBridge.value[index]?.type
+                            ],
+                        ]}
+                        style={{
+                            color: rowData[headerData.prop]
+                                ? headerData.fo?.color
+                                : "none",
+                            fontSize: rowData[headerData.prop]
+                                ? headerData.fo?.size + "px"
+                                : "auto",
+                            fontWeight: rowData[headerData.prop]
+                                ? headerData.fo?.weight
+                                : "0",
+                            fontFamily: rowData[headerData.prop]
+                                ? headerData.fo?.style
+                                : "none",
+                        }}
+                    >
+                        {getHeaderBridge.value[index]?.type &&
+                        getHeaderBridge.value[index]?.type == "longText" ? (
+                            <LongText
+                                text={rowData[headerData.prop] || "undefined"}
+                                speed={
+                                    rowData[headerData.prop]
+                                        ? headerData.longText?.speed
+                                        : false
+                                }
+                                dynamicCss={longText_dynamicCssBridge.value}
+                            ></LongText>
+                        ) : (
+                            rowData[headerData.prop] || "undefined"
+                        )}
+                    </div>
+                </div>
+            );
+        };
+
+        /**
+         * view
+         */
+        return () => (
+            <div
+                class={n()}
+                v-css={dynamicCssBridge.value || {}}
+                onMouseenter={handleMouseenter}
+                onMouseleave={handleMouseLeave}
+            >
+                {/* 表头 */}
+                {view_th()}
+                {/* 滚动容器 */}
+                {view_scrollWrapper()}
             </div>
         );
     },

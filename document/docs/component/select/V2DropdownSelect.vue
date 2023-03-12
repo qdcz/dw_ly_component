@@ -5,11 +5,11 @@
       可对想要的结果进行搜索过滤
     </p>
     <p>searchImg 属性为输入框的左icon图标 不传默认使用内置的svg图片</p>
-    <vi-select-v2 v-model="data.currentSelect" :list="data.dropDownList" search clearable :dynamicCss="data.dynamicCss"
+    <dw-select-v2 v-model="data.currentSelect" :list="data.dropDownList" search clearable :dynamicCss="data.dynamicCss"
       placeholder="选择您需要的市区" @handleSelected="handleSelected" @handleClear="handleClear">
-      <vi-select-v2-option v-for="i in data.dropDownList" :key="i.value" :label="i.label" :value="i.value">
-      </vi-select-v2-option>
-    </vi-select-v2>
+      <dw-select-v2-option v-for="i in data.dropDownList" :key="i.value" :label="i.label" :value="i.value">
+      </dw-select-v2-option>
+    </dw-select-v2>
   </div>
 </template>
 <script lang="ts">

@@ -10,12 +10,12 @@
       <span>:disabled="1"</span><br />
       <span>:disabled="true"</span><br />
     </p>
-    <vi-radio-group v-model="data.currentSelect" @change="change">
-      <vi-radio label="低预警" :value="1" disabled="exit"></vi-radio>
-      <vi-radio label="中预警" :value="2" :disabled="1"></vi-radio>
-      <vi-radio label="高预警" :value="3" :disabled="true"></vi-radio>
-      <vi-radio label="正常" :value="4"></vi-radio>
-    </vi-radio-group>
+    <dw-radio-group v-model="data.currentSelect" @change="change">
+      <dw-radio label="低预警" :value="1" disabled="exit"></dw-radio>
+      <dw-radio label="中预警" :value="2" :disabled="1"></dw-radio>
+      <dw-radio label="高预警" :value="3" :disabled="true"></dw-radio>
+      <dw-radio label="正常" :value="4"></dw-radio>
+    </dw-radio-group>
   </div>
 </template>
 <script lang="ts">

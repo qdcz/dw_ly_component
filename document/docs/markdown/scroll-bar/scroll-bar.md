@@ -1,4 +1,4 @@
-# dw-scroll-bar
+# dw-scroll-bar `V0.0.1`
 
 用于替换浏览器原生的高性能自定义滚动条
 
@@ -41,6 +41,9 @@
 | setScrollTop | 设置Y轴的滚动位置 | (scrollTop: number):void=>() |
 | setScrollLeft | 设置X轴的滚动位置 | (scrollLeft: number):void=>() |
 | scrollTo	 | 滚动到指定的X、Y位置 | (scrollTop: number，scrollLeft: number):void=>() |
+
+
+## 更新日志
 
 
 

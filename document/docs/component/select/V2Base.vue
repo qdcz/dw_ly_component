@@ -1,23 +1,23 @@
 <template>
   <div>
     <p>
-      适用广泛的基础单选 v-model 的值为当前被选中的 vi-option 的 value 属性值
+      适用广泛的基础单选 v-model 的值为当前被选中的 dw-option 的 value 属性值
     </p>
-    <vi-select-v2
+    <dw-select-v2
       v-model="data.currentSelect"
       :list="data.dropDownList"
       placeholder="选择您需要的市区"
       @handleSelected="handleSelected"
       @handleClear="handleClear"
     >
-      <vi-select-v2-option
+      <dw-select-v2-option
         v-for="i in data.dropDownList"
         :key="i.value"
         :label="i.label"
         :value="i.value"
       >
-      </vi-select-v2-option>
-    </vi-select-v2>
+      </dw-select-v2-option>
+    </dw-select-v2>
   </div>
 </template>
 <script lang="ts">

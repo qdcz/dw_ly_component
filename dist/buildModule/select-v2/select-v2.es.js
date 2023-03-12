@@ -1,4 +1,4 @@
-import { defineComponent as M, createVNode as a, inject as D, reactive as N, computed as v, resolveComponent as V, ref as B, onMounted as $, watchEffect as K, nextTick as H, watch as Q, onUnmounted as fe, getCurrentInstance as me, provide as be, withDirectives as we, resolveDirective as Se, createTextVNode as ye } from "vue";
+import { defineComponent as M, createVNode as a, inject as D, reactive as N, computed as v, resolveComponent as x, ref as B, onMounted as $, watchEffect as K, nextTick as H, watch as Q, onUnmounted as fe, getCurrentInstance as me, provide as be, withDirectives as we, resolveDirective as Se, createTextVNode as ye } from "vue";
 const q = (e, l) => (e.install = function(s) {
   if (e) {
     const c = e.name || e.__name;
@@ -8,13 +8,13 @@ const q = (e, l) => (e.install = function(s) {
     } else
       console.error(e, l, !l);
   }
-}, e), Ve = (e) => Array.isArray(e);
+}, e), xe = (e) => Array.isArray(e);
 function I(e) {
   const l = `vi-${e}`;
   return {
     n: (r) => r ? r.startsWith("-") ? `${l}${r}` : `${l}_${r}` : l,
     classes: (...r) => r.map((t) => {
-      if (Ve(t)) {
+      if (xe(t)) {
         const [u, d, n = null] = t;
         return u ? d : n;
       }
@@ -185,7 +185,7 @@ const O = Symbol("select-v2"), F = function(e, l) {
     })
   }
 }, {
-  n: xe,
+  n: Ve,
   classes: Le
 } = I("select-v2-svg-icon"), k = /* @__PURE__ */ M({
   name: "VISelectV2SvgIcon",
@@ -215,7 +215,7 @@ const O = Symbol("select-v2"), F = function(e, l) {
       l.emit("click", r);
     }, c = function() {
       return a("svg", {
-        class: [Le(xe()), "icon"],
+        class: [Le(Ve()), "icon"],
         height: e.height,
         width: e.width,
         viewBox: "0 0 1024 1024",
@@ -271,7 +271,7 @@ const O = Symbol("select-v2"), F = function(e, l) {
       l.emit("focus", m);
     }, b = function(m) {
       l.emit("blur", m);
-    }, x = function(m) {
+    }, V = function(m) {
       n.isHover = !0, l.emit("mouseenter");
     }, i = function(m) {
       n.isHover = !1, l.emit("mouseleave");
@@ -279,7 +279,7 @@ const O = Symbol("select-v2"), F = function(e, l) {
     return () => a("div", {
       class: [Ce(A(), e.active ? "active" : "")],
       onClick: f,
-      onMouseenter: x,
+      onMouseenter: V,
       onMouseleave: i
     }, [a("input", {
       class: [A("_inner")],
@@ -288,12 +288,12 @@ const O = Symbol("select-v2"), F = function(e, l) {
       onBlur: b,
       value: L.value,
       readonly: !0
-    }, null), n.isHover && s.value && c.value && t.value == "single" ? a(V("vi-select-v2-svg-icon"), {
+    }, null), n.isHover && s.value && c.value && t.value == "single" ? a(x("vi-select-v2-svg-icon"), {
       height: e.iconHeight,
       width: e.iconWidth,
       path: d,
       onClick: p
-    }, null) : a(V("vi-select-v2-svg-icon"), {
+    }, null) : a(x("vi-select-v2-svg-icon"), {
       height: e.iconHeight,
       width: e.iconWidth,
       path: u,
@@ -405,7 +405,7 @@ const O = Symbol("select-v2"), F = function(e, l) {
       "data-txt": e.label
     }, [a("span", {
       class: W("_span")
-    }, [e.label]), a(V("vi-svg-icon"), {
+    }, [e.label]), a(x("vi-svg-icon"), {
       path: c,
       onClick: r,
       height: e.height + "px",
@@ -463,14 +463,14 @@ const O = Symbol("select-v2"), F = function(e, l) {
     }, p = function(i) {
       t.mouseMoving = !0, t.startY = i.clientY;
     }, h = function(i) {
-      t.moveY = t.startY - i.clientY, x();
+      t.moveY = t.startY - i.clientY, V();
     };
     document.addEventListener("mouseup", () => {
       document.removeEventListener("mousemove", h), document.removeEventListener("mousedown", p), t.startY = 0, t.moveY = 0, t.mouseMoving && (t.translateY = t._move), t.mouseMoving = !1;
     });
     const b = function(i) {
       t.mouseMoving || (t.translateY = t.scrollBarMovePropor * i, r.value.style.transform = `translateY(${t.translateY}px)`);
-    }, x = function() {
+    }, V = function() {
       let i = 0;
       t.moveY < 0 ? i = t.translateY + Math.abs(t.moveY) : t.moveY >= 0 && (i = t.translateY - Math.abs(t.moveY)), i < 0 && (i = 0), i > t.maxScrollBarRange && (i = t.maxScrollBarRange), t._move = i, r.value.style.transform = `translateY(${i}px)`, c.value.scrollTop = Math.abs(t.scrollBoxMovePropor * i);
     };
@@ -518,8 +518,8 @@ const O = Symbol("select-v2"), F = function(e, l) {
         const h = JSON.parse(JSON.stringify(s.value));
         let b = !1;
         try {
-          h.forEach((x, i) => {
-            if (x.value == e.value)
+          h.forEach((V, i) => {
+            if (V.value == e.value)
               throw h.splice(i, 1), b = !0, new Error();
           });
         } catch {
@@ -621,7 +621,7 @@ const O = Symbol("select-v2"), F = function(e, l) {
     document.addEventListener("mousedown", h);
     const b = function() {
       n.dropDownVisible = !1, l.emit && l.emit("blur");
-    }, x = function(o) {
+    }, V = function(o) {
       return new Promise((g, S) => {
         g(H(() => window.getComputedStyle(o.value)));
       });
@@ -668,7 +668,7 @@ const O = Symbol("select-v2"), F = function(e, l) {
         return e.mode == "multiple" && (async () => {
           const {
             height: o
-          } = await x(d);
+          } = await V(d);
           e.dynamicCss["input-line-height"] = o.replace("px", "") * 1, Y.value = e.modelValue.length > 0 ? " " : e.placeholder, e.modelValue.length <= 1 && (e.dynamicCss["input-line-height"] = p.inputLineHeight);
         })(), e.modelValue;
       },
@@ -722,7 +722,7 @@ const O = Symbol("select-v2"), F = function(e, l) {
       deleteOptionItem: L
     });
     const pe = function(o) {
-      return a(V("vi-select-v2-tag"), {
+      return a(x("vi-select-v2-tag"), {
         tooltip: e.tooltip,
         label: o.label,
         value: o.value,
@@ -731,7 +731,7 @@ const O = Symbol("select-v2"), F = function(e, l) {
         onCloseClick: ne
       }, null);
     }, he = function() {
-      return a(V("vi-select-v2-input"), {
+      return a(x("vi-select-v2-input"), {
         iconHeight: w.value["input-icon-width"],
         iconWidth: w.value["input-icon-width"],
         ref: u,
@@ -750,7 +750,7 @@ const O = Symbol("select-v2"), F = function(e, l) {
       }, [de.value ? a("img", {
         class: C("--search"),
         src: e.searchImg
-      }, null) : a(V("vi-select-v2-svg-icon"), {
+      }, null) : a(x("vi-select-v2-svg-icon"), {
         class: C("--search"),
         path: f
       }, null), a("input", {
@@ -760,10 +760,10 @@ const O = Symbol("select-v2"), F = function(e, l) {
         onInput: ae
       }, null)]);
     }, ve = function() {
-      return a(V("vi-select-v2-drop-down"), {
+      return a(x("vi-select-v2-drop-down"), {
         active: n.dropDownVisible
       }, {
-        default: () => [a(V("vi-scroll-bar"), {
+        default: () => [a(x("vi-scroll-bar"), {
           dynamicCss: w.value
         }, {
           default: () => {
@@ -771,7 +771,7 @@ const O = Symbol("select-v2"), F = function(e, l) {
             return [a("ul", null, [e.search ? ge() : "", n.searchValue ? a("div", {
               style: m(e.itemLayout),
               class: e.itemLayout
-            }, [Object.keys(n.searchValue).map((S, y) => a(V("vi-select-v2-option"), {
+            }, [Object.keys(n.searchValue).map((S, y) => a(x("vi-select-v2-option"), {
               key: S,
               value: S,
               label: Object.values(n.searchValue)[y]
@@ -797,7 +797,7 @@ const O = Symbol("select-v2"), F = function(e, l) {
   }
 }), Re = q(Ne, "select-v2"), $e = q(X, "select-v2-option");
 export {
-  Re as VISelectV2,
-  $e as VISelectV2Option,
+  Re as SelectV2,
+  $e as SelectV2Option,
   Re as default
 };

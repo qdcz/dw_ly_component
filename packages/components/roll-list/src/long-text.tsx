@@ -10,10 +10,10 @@ import {
     SetupContext,
 } from "vue";
 import { createNamespace } from "@dw-ui/utils/components";
-const { n } = createNamespace("scroll-text");
+const { n } = createNamespace("long-text");
 import css from "@dw-ui/directives/css";
 
-import { ToolTip } from "@dw-ui/components/tool-tip";
+// import { ToolTip } from "@dw-ui/components/tool-tip";
 
 const longTextProps = {
     // 显示文本
@@ -41,11 +41,11 @@ const longTextProps = {
 type longTextProps = ExtractPropTypes<typeof longTextProps>;
 
 export default defineComponent({
-    name: "ScrollText",
+    name: "LongText",
     emits: ["update:text"],
     props: longTextProps,
     directives: { css },
-    components: { ToolTip: ToolTip },
+    // components: { ToolTip: ToolTip },
     setup(props, ctx: SetupContext<[]>) {
         const vnodeProps = getCurrentInstance()?.vnode.props || {};
         const hasVModelListener = "onUpdate:modelValue" in vnodeProps;
@@ -94,9 +94,9 @@ export default defineComponent({
         });
 
         const marquee = () => {
-            const marqueerWidth = marqueerRef.value.offsetWidth;
-            const marqueer1Width = marqueer1Ref.value.offsetWidth;
-            const scrollWidth = scrollRef.value.scrollLeft;
+            const marqueerWidth = marqueerRef?.value?.offsetWidth;
+            const marqueer1Width = marqueer1Ref?.value?.offsetWidth;
+            const scrollWidth = scrollRef?.value?.scrollLeft;
             const currentTime = performance.now();
             if (!lastFrameTime) {
                 lastFrameTime = currentTime;
@@ -118,7 +118,9 @@ export default defineComponent({
                  * 但是用这种方法会有轻微的抖动，
                  */
                 // scrollRef.value.scrollLeft = distance;
-                scrollRef.value.scrollLeft++;
+                if(scrollRef.value){ // 防止开发的时间 重新保存代码 造成dom节点未拿到 报错（不希望用nexttick调用）
+                    scrollRef.value.scrollLeft++;
+                }
             }
         };
 

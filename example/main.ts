@@ -4,7 +4,7 @@ import App from "./app.vue";
 
 // import { SelectV2, SelectV2Option } from '@dw/components/select-v2';
 import "@dw-ui/themes/src/index.scss";
-// import {VISelectV2,VISelectV2Option} from '../dist/buildFull/component/dw.ui.es';
+// import * as dwUi from '../dist/buildFull/component/dw.ui.es';
 // import {VISelectV2,VISelectV2Option} from '../document/docs/public/componentDist/all/index.full.mjs';
 const app = createApp(App);
 
@@ -18,5 +18,8 @@ import { RollList } from '@dw-ui/components/roll-list';
 app.use(ScrollBar);
 app.use(TimePicker);
 app.use(RollList);
+// app.use(dwUi.RollList)
+
+// console.log(dwUi)
 
 app.mount("#app");

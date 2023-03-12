@@ -4,14 +4,14 @@
       你可以让单选框看起来像一个按钮一样。
     </p>
     <p>
-      只需要把 <span>vi-radio</span> 元素换成 <span>vi-radio-button</span> 元素即可。
+      只需要把 <span>dw-radio</span> 元素换成 <span>dw-radio-button</span> 元素即可。
     </p>
-    <vi-radio-group v-model="data.currentSelect" @change="change">
-      <vi-radio-button label="低预警" :value="1"></vi-radio-button>
-      <vi-radio-button label="中预警" :value="2"></vi-radio-button>
-      <vi-radio-button label="高预警" :value="3"></vi-radio-button>
-      <vi-radio-button label="正常" :value="4"></vi-radio-button>
-    </vi-radio-group>
+    <dw-radio-group v-model="data.currentSelect" @change="change">
+      <dw-radio-button label="低预警" :value="1"></dw-radio-button>
+      <dw-radio-button label="中预警" :value="2"></dw-radio-button>
+      <dw-radio-button label="高预警" :value="3"></dw-radio-button>
+      <dw-radio-button label="正常" :value="4"></dw-radio-button>
+    </dw-radio-group>
   </div>
 </template>
 <script lang="ts">

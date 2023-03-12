@@ -11,12 +11,12 @@
       <span>value</span>可以是<span>String</span>、<span>Number</span> 或
       <span>Boolean</span>，<span>label</span>对应的是显示的文案信息。
     </p>
-    <vi-radio-group v-model="data.currentSelect" @change="change">
-      <vi-radio label="低预警" :value="1"></vi-radio>
-      <vi-radio label="中预警" :value="2"></vi-radio>
-      <vi-radio label="高预警" :value="3"></vi-radio>
-      <vi-radio label="正常" :value="4"></vi-radio>
-    </vi-radio-group>
+    <dw-radio-group v-model="data.currentSelect" @change="change">
+      <dw-radio label="低预警" :value="1"></dw-radio>
+      <dw-radio label="中预警" :value="2"></dw-radio>
+      <dw-radio label="高预警" :value="3"></dw-radio>
+      <dw-radio label="正常" :value="4"></dw-radio>
+    </dw-radio-group>
   </div>
 </template>
 <script lang="ts">

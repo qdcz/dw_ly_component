@@ -8,7 +8,7 @@ import next from './next';
 import pager from './pager';
 import jump from './jump';
 import total from './total';
-import { VISelectV2, VISelectV2Option } from '@dw-ui/components/select-v2';
+import { SelectV2, SelectV2Option } from '@dw-ui/components/select-v2';
 
 import css from '@dw-ui/directives/css';
 import { nextTick } from 'vue';
@@ -26,8 +26,8 @@ export default defineComponent({
 		next,
 		jump,
 		total,
-		"vi-select-v2":VISelectV2,
-		"vi-select-v2-option":VISelectV2Option,
+		"dw-select-v2":SelectV2,
+		"dw-select-v2-option":SelectV2Option,
 	},
 	setup(props, ctx) {
 		const isAbsent = (v) => typeof v !== 'number';
@@ -261,16 +261,16 @@ export default defineComponent({
 			<div class={[classes(n()), props.background ? 'bgbox' : '']} v-css={dynamicCssBridge.value || {}}>
 				{Layout.value.total ? <total></total> : ''}
 				{Layout.value.size && isArray(props.pageSize) ? (
-					<vi-select-v2
+					<dw-select-v2
 						v-model={data.select_curSelect}
 						dynamicCss={selectv2_dynamicCssBridge.value}
 						onHandleSelected={onHandleSelected}
 						class={n('-select')}
 					>
 						{data.select_list.map((i) => (
-							<vi-select-v2-option key={i.value} label={i.label} value={i.value}></vi-select-v2-option>
+							<dw-select-v2-option key={i.value} label={i.label} value={i.value}></dw-select-v2-option>
 						))}
-					</vi-select-v2>
+					</dw-select-v2>
 				) : (
 					''
 				)}

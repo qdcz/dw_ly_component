@@ -1,12 +1,12 @@
 <template>
   <div>
     <p>设置 <span>border</span> 属性为 true 可以渲染为带有边框的单选框。</p>
-    <vi-radio-group v-model="data.currentSelect" @change="change">
-      <vi-radio label="低预警" :value="1" border></vi-radio>
-      <vi-radio label="中预警" :value="2" border></vi-radio>
-      <vi-radio label="高预警" :value="3" disabled="111" border></vi-radio>
-      <vi-radio label="正常" :value="4" border></vi-radio>
-    </vi-radio-group>
+    <dw-radio-group v-model="data.currentSelect" @change="change">
+      <dw-radio label="低预警" :value="1" border></dw-radio>
+      <dw-radio label="中预警" :value="2" border></dw-radio>
+      <dw-radio label="高预警" :value="3" disabled="111" border></dw-radio>
+      <dw-radio label="正常" :value="4" border></dw-radio>
+    </dw-radio-group>
   </div>
 </template>
 <script lang="ts">

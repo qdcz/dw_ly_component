@@ -71,12 +71,6 @@ export const rollListProps = {
         //     });
         // },
     },
-
-    // 滚动长文本---滚动速度
-    longTextSpeed: {
-        type: Number,
-        default: 1000/60,
-    },
     dynamicCss: {
         type: Object,
         default: () => {
@@ -88,8 +82,8 @@ export const rollListProps = {
                  * 表头相关
                  */
                 "th-pad-tb": "10", // 表头的 上下内边距
-                "th-bg-color": "#0f2851",
-                "th-fo-color": "#df9418",
+                "th-bg-color": "rgb(179, 210, 224)",
+                "th-fo-color": "rgb(90, 99, 110)",
                 "th-fo-size": "16",
                 "th-fo-weight": "900",
                 "th-radius-lt": "8",
@@ -100,21 +94,30 @@ export const rollListProps = {
                 /**
                  * 表体相关
                  */
+                // 鼠标悬浮表行背景颜色
+                "tr-hover-bg-color":"rgb(132 176 212 / 80%)",
+                "tr-hover-transition":"0.3",
                 // 激活的背景颜色
                 "tr-attract-bg-color-style": "single", // single 是使用单色 double是使用渐变色
                 "tr-attract-bg-color-to": "#00DEFF",
                 "tr-attract-bg-color-from": "#FFFFFF",
                 "tr-attract-bg-color-angle": "135",
-                "tr-attract-bg-color-value": "#184677",
-                "tr-attract-bg-color": "#184677",
+                "tr-attract-bg-color-value": "rgb(211, 228, 242)",
+                // "tr-attract-bg-color": "rgba(20, 62, 114, 0.1)",
                 // 其余未激活的背景颜色
-                "tr-un-attract-bg-color": "#04172c",
+                "tr-un-attract-bg-color": "rgb(235, 235, 235)",
 
                 /**
                  * 表列相关
                  */
                 "td-pad-lr": "20",
                 "td-pad-tb": "0",
+
+
+                /**
+                 * longText组件
+                 */
+                "longText-txt-gap":"30"
             };
         },
     },

@@ -7,7 +7,7 @@
             ></dw-time-picker> -->
 
             <div style="margin-top: 10px"></div>
-            <dw-roll-list :header="header" v-model="list"> </dw-roll-list>
+            <dw-roll-list :header="header" v-model="list" @rowClick = "rowClick"> </dw-roll-list>
         </div>
     </div>
 </template>
@@ -18,67 +18,56 @@ export default {
         return {
             header: [
                 {
-                    label: "字段1",
-                    prop: "field1",
-                    basis: "16.6",  // 只支持百分比
-                    type: "text",
+                    label: "编号",
+                    prop: "id",
+                    basis: "25", // 只支持百分比
+                    type: "longText",
                     fo: {
-                        color: "white",
+                        color: "rgb(90, 99, 110)",
                         size: "12",
                         weight: "600",
                     },
                 },
                 {
-                    label: "字段2",
-                    prop: "field2",
-                    basis: "16.6",
+                    label: "姓名",
+                    prop: "name",
+                    basis: "25",
                     type: "longText",
                     fo: {
                         color: "green",
                         size: "12",
                         weight: "900",
                     },
-                    longText:{
-                        speed:5000
-                    }
+                    longText: {
+                        speed: 5000,
+                    },
                 },
                 {
-                    label: "字段3",
-                    prop: "field3",
-                    basis: "16.6",
+                    label: "面试岗位",
+                    prop: "facePost",
+                    basis: "25",
                     type: "text",
                     fo: {
-                        color: "white",
+                        color: "rgb(90, 99, 110)",
                         size: "12",
                         weight: "600",
                     },
                 },
                 {
-                    label: "字段4",
-                    prop: "field4",
-                    basis: "16.6",
-                    type: "text",
+                    label: "技能",
+                    prop: "skill",
+                    basis: "25",
+                    type: "longText",
                     fo: {
-                        color: "white",
+                        color: "rgb(90, 99, 110)",
                         size: "12",
                         weight: "600",
                     },
                 },
                 {
-                    label: "字段5",
-                    prop: "field5",
-                    basis: "16.6",
-                    type: "text",
-                    fo: {
-                        color: "white",
-                        size: "12",
-                        weight: "600",
-                    },
-                },
-                {
-                    label: "字段6",
-                    prop: "field6",
-                    basis: "16.6",
+                    label: "年龄",
+                    prop: "age",
+                    basis: "25",
                     type: "number",
                     fo: {
                         color: "green",
@@ -88,114 +77,96 @@ export default {
                 },
             ],
             list: [
+                {   
+                    __id:'必传且不能重复001',
+                    id: "bef2d311-c75d-4064-a627-9bd9ef5a44d8",
+                    name: "刘一",
+                    facePost: "前端",
+                    skill: "html,css,js,ts,vue,uniapp,node[express,koa,egg,nest],mysql,mongodb,docker,nginx,rust",
+                    age: 26,
+                },
+                {
+                    __id:'必传且不能重复002',
+                    id: "6bd5e110-1bd2-a642-7781-7083c09dcf0a",
+                    name: "陈二",
+                    facePost: "后端",
+                    skill: "java,mybatis,springboot,spring,springClould,redis,mq,go,python,",
+                    age: 32,
+                },
+                {
+                    __id:'必传且不能重复003',
+                    id: "6bd5e110-1bd2-a642-7781-7083c09dcf0a",
+                    name: "张三",
+                    facePost: "后端",
+                    skill: "java,mybatis,springboot,spring,springClould,redis,mq,go,python,",
+                    age: 26,
+                },
+                {   
+                    __id:'必传且不能重复004',
+                    id: "bef2d311-c75d-4064-a627-9bd9ef5a44d8",
+                    name: "李四",
+                    facePost: "前端",
+                    skill: "html,css,js,ts,vue,uniapp,node[express,koa,egg,nest],mysql,mongodb,docker,nginx,rust",
+                    age: 27,
+                },
+                {
+                    __id:'必传且不能重复005',
+                    id: "6bd5e110-1bd2-a642-7781-7083c09dcf0a",
+                    name: "王五",
+                    facePost: "后端",
+                    skill: "java,mybatis,springboot,spring,springClould,redis,mq,go,python,",
+                    age: 26,
+                },
+                {
+                    __id:'必传且不能重复006',
+                    id: "6bd5e110-1bd2-a642-7781-7083c09dcf0a",
+                    name: "赵六",
+                    facePost: "后端",
+                    skill: "java,mybatis,springboot,spring,springClould,redis,mq,go,python,",
+                    age: 26,
+                },
+                {
+                    __id:'必传且不能重复007',
+                    id: "6bd5e110-1bd2-a642-7781-7083c09dcf0a",
+                    name: "孙七",
+                    facePost: "后端",
+                    skill: "java,mybatis,springboot,spring,springClould,redis,mq,go,python,",
+                    age: 26,
+                },
+                {   
+                    __id:'必传且不能重复008',
+                    id: "6bd5e110-1bd2-a642-7781-7083c09dcf0a",
+                    name: "周八",
+                    facePost: "后端",
+                    skill: "java,mybatis,springboot,spring,springClould,redis,mq,go,python,",
+                    age: 26,
+                },
+                {   
+                    __id:'必传且不能重复009',
+                    id: "6bd5e110-1bd2-a642-7781-7083c09dcf0a",
+                    name: "吴九",
+                    facePost: "后端",
+                    skill: "java,mybatis,springboot,spring,springClould,redis,mq,go,python,",
+                    age: 26,
+                },
+                {
+                    __id:'必传且不能重复010',
+                    id: "6bd5e110-1bd2-a642-7781-7083c09dcf0a",
+                    name: "郑十",
+                    facePost: "后端",
+                    skill: "java,mybatis,springboot,spring,springClould,redis,mq,go,python,",
+                    age: 26,
+                },
             ],
         };
     },
     mounted() {
-        this.$nextTick(() => {});
-
-        setTimeout(() => {
-            this.list = [
-                {
-                    field1: "DP000037",
-                    field2: "测试",
-                    field3: "深圳市互联网...",
-                    field4: "河南九天遥感科技",
-                    field5: "安全预警",
-                    field6: "157.76",
-                },
-                {
-                    field1: "DP000037",
-                    field2: "中国捐款保障乌核设施安全,中方回应",
-                    field3: "深圳市互联网...",
-                    field4: "河南九天遥感科技",
-                    field5: "安全预警",
-                    field6: "157.76",
-                },
-                {
-                    field1: "DP000037",
-                    field2: "中国女性的互联网之路",
-                    field3: "深圳市互联网...",
-                    field4: "河南九天遥感科技",
-                    field5: "安全预警",
-                    field6: "157.76",
-                },
-                {
-                    field1: "DP000037",
-                    field2: "夫妻200万造别墅找陌生人抱团养老",
-                    field3: "深圳市互联网...",
-                    field4: "河南九天遥感科技",
-                    field5: "安全预警",
-                    field6: "157.76",
-                },
-                {
-                    field1: "DP000037",
-                    field2: "90后老师自制班级“热搜榜”",
-                    field3: "深圳市互联网...",
-                    field4: "河南九天遥感科技",
-                    field5: "安全预警",
-                    field6: "157.76",
-                },
-                {
-                    field1: "DP000037",
-                    field2: "白宫：不希望冲突 尊重一个中国政策热",
-                    field3: "深圳市互联网...",
-                    field4: "河南九天遥感科技",
-                    field5: "安全预警",
-                    field6: "157.76",
-                },
-                {
-                    field1: "DP000037",
-                    field2: "中动协：已派专家在美照料丫丫",
-                    field3: "深圳市互联网...",
-                    field4: "河南九天遥感科技",
-                    field5: "安全预警",
-                    field6: "157.76",
-                },
-                {
-                    field1: "DP000037",
-                    field2: "主妇起诉离婚才知丈夫年薪300万",
-                    field3: "深圳市互联网...",
-                    field4: "河南九天遥感科技",
-                    field5: "安全预警",
-                    field6: "157.76",
-                },
-                {
-                    field1: "DP000037",
-                    field2: "云南“健身猪”走红一头最高卖8万",
-                    field3: "深圳市互联网...",
-                    field4: "河南九天遥感科技",
-                    field5: "安全预警",
-                    field6: "157.76",
-                },
-                {
-                    field1: "DP000037",
-                    field2: "男子无儿女8名亲戚争房产",
-                    field3: "深圳市互联网...",
-                    field4: "河南九天遥感科技",
-                    field5: "安全预警",
-                    field6: "157.76",
-                },
-                {
-                    field1: "DP000037",
-                    field2: "街访理想工作：有人想捡垃圾",
-                    field3: "深圳市互联网...",
-                    field4: "河南九天遥感科技",
-                    field5: "安全预警",
-                    field6: "157.76",
-                },
-                {
-                    field1: "DP000037",
-                    field2: "工商信息数据服务",
-                    field3: "深圳市互联网...",
-                    field4: "河南九天遥感科技",
-                    field5: "安全预警",
-                    field6: "157.76",
-                },
-            ];
-        }, 2000);
     },
-    methods: {},
+    methods: {
+        rowClick(data){
+            console.log("rowClick",data)
+        }
+    },
 };
 </script>
 <style lang="scss">
@@ -203,9 +174,12 @@ html,
 body {
     padding: 0px;
     margin: 0px;
+    background: rgba(13,42,67,0) !important;
 }
 
 .container {
     padding: 10px 6px;
+    background: rgba(13,42,67,0) !important;
+
 }
 </style>

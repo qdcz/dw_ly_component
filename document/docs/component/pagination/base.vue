@@ -12,7 +12,7 @@
     </p>
 
     <p>只配置了 <span class="label">prev、pager、next</span></p>
-    <vi-pagination
+    <dw-pagination
       v-model="data.currentSelect"
       :dynamicCss="data.dynamicCss"
       :page-size="10"
@@ -21,10 +21,10 @@
       @size-change="sizeChange"
       @current-change="currentChange"
       layout="prev, pager, next"
-    ></vi-pagination>
+    ></dw-pagination>
 
     <p>配置了 <span class="label">total, prev, pager, next, jump</span></p>
-    <vi-pagination
+    <dw-pagination
       v-model="data.currentSelect"
       :dynamicCss="data.dynamicCss"
       :pager-count="7"
@@ -33,7 +33,7 @@
       @current-change="currentChange"
       :page-size="10"
       layout="total,prev, pager, next,jump"
-    ></vi-pagination>
+    ></dw-pagination>
 
     <p>
       配置了全部 <span class="label">total, prev, size, pager, next, jump</span>
@@ -42,7 +42,7 @@
       注意：配置了size 之后 page-size 属性应该为数组 如：:page-size="[50, 100,
       200, 500, 1000]"
     </p>
-    <vi-pagination
+    <dw-pagination
       v-model="data.currentSelect1"
       :dynamicCss="data.dynamicCss"
       :pager-count="7"
@@ -51,7 +51,7 @@
       @current-change="currentChange"
       :page-size="[50, 100, 200, 500, 1000]"
       layout="total, size,prev, pager, next,jump"
-    ></vi-pagination>
+    ></dw-pagination>
   </div>
 </template>
 <script lang="ts">

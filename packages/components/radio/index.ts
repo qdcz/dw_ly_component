@@ -1,10 +1,10 @@
-import { withInstall } from '@dw-ui/utils/widthInstall'
-import Radio from './src/radio.vue';
-import RadioButton from './src/radio-button.vue';
-import RadioGroup from './src/radio-group.vue'
+import { withInstall } from "@dw-ui/utils/widthInstall";
+import radio from "./src/radio.vue";
+import radioButton from "./src/radio-button.vue";
+import radioGroup from "./src/radio-group.vue";
 
-const VIRadio = withInstall(Radio, 'radio');
-const VIRadioButton = withInstall(RadioButton, 'radio-button');
-const VIRadioGroup = withInstall(RadioGroup, 'radio-group');
-export { VIRadio, VIRadioGroup, VIRadioButton } // 支持按需导入
-export default VIRadio
+const Radio: any = withInstall(radio, "radio");
+const RadioButton: any = withInstall(radioButton, "radio-button");
+const RadioGroup: any = withInstall(radioGroup, "radio-group");
+export { Radio, RadioButton, RadioGroup }; // 支持按需导入
+export default Radio;

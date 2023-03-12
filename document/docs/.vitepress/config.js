@@ -142,7 +142,12 @@ export default defineConfig({
           text: "图表组件",
           collapsible: true,
           collapsed: true,
-          items: [],
+          items: [
+            {
+              text: "滚动列表",
+              link: "/markdown/roll-list/roll-list.md",
+            },
+          ],
         },
         {
           text: "其他组件",

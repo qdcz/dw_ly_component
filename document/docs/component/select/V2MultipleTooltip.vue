@@ -1,7 +1,7 @@
 <template>
   <div>
     <p>多选模式下 当文字过长被超出隐藏的时候 可开启 tooltip 属性 即可达到悬浮展示全部文本(或者将 tag-max-width 调到很大比如1000px)</p>
-    <vi-select-v2
+    <dw-select-v2
       v-model="data.currentSelect"
       :list="data.dropDownList"
       clearable
@@ -12,14 +12,14 @@
       @handleSelected="handleSelected"
       @handleClear="handleClear"
     >
-      <vi-select-v2-option
+      <dw-select-v2-option
         v-for="i in data.dropDownList"
         :key="i.value"
         :label="i.label"
         :value="i.value"
       >
-      </vi-select-v2-option>
-    </vi-select-v2>
+      </dw-select-v2-option>
+    </dw-select-v2>
   </div>
 </template>
 <script lang="ts">

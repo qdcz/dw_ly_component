@@ -196,19 +196,19 @@ const A = Symbol("pagination"), {
       fill: "currentColor",
       d: t.quickPrevBtnIsHover ? p.quickLeftArrow : p.ellipsis
     }, null)])]) : a("div", null, null), new Array(c.value).fill(m.value ? m.value : 0).map((b, C) => {
-      let V = s.value, D = Math.ceil((i.value - 2) / 2), R = C > 0 && C < i.value - 1, N = h.value;
+      let x = s.value, D = Math.ceil((i.value - 2) / 2), R = C > 0 && C < i.value - 1, N = h.value;
       if (b > 0) {
         if (R)
           return b = C <= D ? b - D + C : b + C - D, a("li", {
-            class: [H("_btn"), V == b ? "active" : ""],
+            class: [H("_btn"), x == b ? "active" : ""],
             onClick: S.bind(this, b)
           }, [b]);
       } else if (R)
-        return V < i.value - 2 ? a("li", {
-          class: [H("_btn"), V == N + C + 1 ? "active" : ""],
+        return x < i.value - 2 ? a("li", {
+          class: [H("_btn"), x == N + C + 1 ? "active" : ""],
           onClick: S.bind(this, N + C + 1)
         }, [N + C + 1]) : a("li", {
-          class: [H("_btn"), V == o.value - i.value + 1 + C ? "active" : ""],
+          class: [H("_btn"), x == o.value - i.value + 1 + C ? "active" : ""],
           onClick: S.bind(this, o.value - i.value + 1 + C)
         }, [o.value - i.value + 1 + C]);
     }), v.value > 0 ? a("li", {
@@ -755,7 +755,7 @@ const A = Symbol("pagination"), {
 }), {
   n: Qe,
   classes: Ge
-} = P("select-v2-option"), Ve = /* @__PURE__ */ B({
+} = P("select-v2-option"), xe = /* @__PURE__ */ B({
   name: "VISelectV2Option",
   emits: ["click"],
   props: ["label", "value"],
@@ -845,12 +845,12 @@ const A = Symbol("pagination"), {
     "vi-scroll-bar": Ke,
     "vi-select-v2-tag": Fe,
     "vi-select-v2-svg-icon": W,
-    "vi-select-v2-option": Ve
+    "vi-select-v2-option": xe
   },
   setup(e, l) {
     var ie;
     const i = "onUpdate:modelValue" in (((ie = ye()) == null ? void 0 : ie.vnode.props) || {}), o = () => "xxxxxxxx".replace(/[xy]/g, function(n) {
-      var x = 0 | 16 * Math.random(), M = n == "x" ? x : 8 | 3 & x;
+      var V = 0 | 16 * Math.random(), M = n == "x" ? V : 8 | 3 & V;
       return M.toString(16);
     }), t = O(), p = O(), h = O(), c = E({
       uuid: o(),
@@ -867,23 +867,23 @@ const A = Symbol("pagination"), {
       popperHeight: "0",
       inputLineHeight: "0"
     }, v = function(n) {
-      let x = !1;
+      let V = !1;
       const M = n.path || n.composedPath && n.composedPath();
       for (let z = 0; z < M.length; z++) {
         const Q = M[z];
         if (Q.classList && Q.classList.value && Q.getAttribute("class").includes("-select-v2") && Q.dataset.id == c.uuid) {
-          x = !0;
+          V = !0;
           break;
         }
       }
-      x || y();
+      V || y();
     };
     document.addEventListener("mousedown", v);
     const y = function() {
       c.dropDownVisible = !1, l.emit && l.emit("blur");
     }, S = function(n) {
-      return new Promise((x, M) => {
-        x($(() => window.getComputedStyle(n.value)));
+      return new Promise((V, M) => {
+        V($(() => window.getComputedStyle(n.value)));
       });
     }, u = function(n) {
       e.mode == "single" ? l.emit && l.emit("handleSelected", n) : $(() => {
@@ -907,13 +907,13 @@ const A = Symbol("pagination"), {
       l.emit && l.emit("handleClear");
     }, C = function() {
       l.emit && l.emit("mouseenter");
-    }, V = function() {
+    }, x = function() {
       l.emit && l.emit("mouseleave");
     }, D = function(n) {
       l.emit && l.emit("handleClear", n);
     }, R = function(n) {
-      let x = n.target.value, M = {};
-      c.list.forEach((z) => z.label.includes(x) ? M[z.value] = z.label : ""), c.searchValue = M, c.searchLabel = x, $(() => {
+      let V = n.target.value, M = {};
+      c.list.forEach((z) => z.label.includes(V) ? M[z.value] = z.label : ""), c.searchValue = M, c.searchLabel = V, $(() => {
         F.value;
       });
     };
@@ -967,7 +967,7 @@ const A = Symbol("pagination"), {
     }), r = d(() => e.clearable), g = d(() => e.mode), L = d(() => {
       let n = Object.assign(he.dynamicCss.default(), e.dynamicCss);
       return w.popperHeight = n["popper-height"], w.inputLineHeight = n["input-line-height"], n;
-    }), ee = d(() => e.mode == "multiple"), xe = d(() => !!e.searchImg);
+    }), ee = d(() => e.mode == "multiple"), Ve = d(() => !!e.searchImg);
     Ce(q, {
       selectRef: t,
       currentSelect: N,
@@ -1002,12 +1002,12 @@ const A = Symbol("pagination"), {
         onBlur: U,
         onClear: b,
         onMouseenter: C,
-        onMouseleave: V
+        onMouseleave: x
       }, null);
     }, Me = function() {
       return a("li", {
         class: j("-search")
-      }, [xe.value ? a("img", {
+      }, [Ve.value ? a("img", {
         class: j("--search"),
         src: e.searchImg
       }, null) : a(I("vi-select-v2-svg-icon"), {
@@ -1027,7 +1027,7 @@ const A = Symbol("pagination"), {
           dynamicCss: L.value
         }, {
           default: () => {
-            var n, x;
+            var n, V;
             return [a("ul", null, [e.search ? Me() : "", c.searchValue ? a("div", {
               style: f(e.itemLayout),
               class: e.itemLayout
@@ -1038,7 +1038,7 @@ const A = Symbol("pagination"), {
             }, null))]) : a("div", {
               style: f(e.itemLayout),
               class: e.itemLayout
-            }, [(x = (n = l.slots).default) == null ? void 0 : x.call(n)]), Object.keys(F.value).length <= 0 ? a("li", {
+            }, [(V = (n = l.slots).default) == null ? void 0 : V.call(n)]), Object.keys(F.value).length <= 0 ? a("li", {
               class: j("-notData")
             }, [ze("暂无数据")]) : ""])];
           }
@@ -1055,7 +1055,7 @@ const A = Symbol("pagination"), {
       onClick: T
     }, [N.value.map((n) => Be(n))]) : "", Pe(), Ie()]), [[Le("css"), L.value || {}]]);
   }
-}), et = ne(Ze, "select-v2"), tt = ne(Ve, "select-v2-option");
+}), et = ne(Ze, "select-v2"), tt = ne(xe, "select-v2-option");
 function lt(e) {
   return typeof e == "function" || Object.prototype.toString.call(e) === "[object Object]" && !Ne(e);
 }
@@ -1075,8 +1075,8 @@ const {
     next: ce,
     jump: pe,
     total: ve,
-    "vi-select-v2": et,
-    "vi-select-v2-option": tt
+    "dw-select-v2": et,
+    "dw-select-v2-option": tt
   },
   setup(e, l) {
     var K, Y;
@@ -1131,7 +1131,7 @@ const {
       for (let g in b.value)
         g.includes("select-v2-") && (r[g.replace("select-v2-", "")] = b.value[g]);
       return r;
-    }), V = d(() => {
+    }), x = d(() => {
       let r = e.layout;
       const g = {
         total: !1,
@@ -1167,33 +1167,33 @@ const {
       let r;
       return ke(a("div", {
         class: [at(we()), e.background ? "bgbox" : ""]
-      }, [V.value.total ? a(ve, null, null) : "", V.value.size && i(e.pageSize) ? a(I("vi-select-v2"), {
+      }, [x.value.total ? a(ve, null, null) : "", x.value.size && i(e.pageSize) ? a(I("dw-select-v2"), {
         modelValue: v.select_curSelect,
         "onUpdate:modelValue": (g) => v.select_curSelect = g,
         dynamicCss: C.value,
         onHandleSelected: F,
         class: we("-select")
-      }, lt(r = v.select_list.map((g) => a(I("vi-select-v2-option"), {
+      }, lt(r = v.select_list.map((g) => a(I("dw-select-v2-option"), {
         key: g.value,
         label: g.label,
         value: g.value
       }, null))) ? r : {
         default: () => [r]
-      }) : "", V.value.prev ? a(re, {
+      }) : "", x.value.prev ? a(re, {
         disabled: !1,
         onClick: D
-      }, null) : "", V.value.pager ? a(ue, {
+      }, null) : "", x.value.pager ? a(ue, {
         onClick: N
-      }, null) : "", V.value.next ? a(ce, {
+      }, null) : "", x.value.next ? a(ce, {
         disabled: !1,
         onClick: R
-      }, null) : "", V.value.jump ? a(pe, {
+      }, null) : "", x.value.jump ? a(pe, {
         onJumpPage: Z
       }, null) : ""]), [[Le("css"), b.value || {}]]);
     };
   }
 }), st = ne(nt, "pagination");
 export {
-  st as VIpagination,
+  st as Pagination,
   st as default
 };

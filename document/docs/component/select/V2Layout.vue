@@ -7,7 +7,7 @@
       <br/>
       dynamicCss属性：popper-option-fo-alight 为文字的对齐方式
     </p>
-    <vi-select-v2
+    <dw-select-v2
       v-model="data.currentSelect"
       :list="data.dropDownList"
       :itemLayout="'co3'"
@@ -16,14 +16,14 @@
       @handleSelected="handleSelected"
       @handleClear="handleClear"
     >
-      <vi-select-v2-option
+      <dw-select-v2-option
         v-for="i in data.dropDownList"
         :key="i.value"
         :label="i.label"
         :value="i.value"
       >
-      </vi-select-v2-option>
-    </vi-select-v2>
+      </dw-select-v2-option>
+    </dw-select-v2>
   </div>
 </template>
 <script lang="ts">

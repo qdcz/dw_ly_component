@@ -88,3 +88,42 @@ export function scrollTo(
 
     requestAnimationFrame(animateScroll);
 }
+
+export function generateUUID(): string {
+    let d = new Date().getTime();
+
+    // Use high-performance timer if available
+    if (
+        typeof performance !== "undefined" &&
+        typeof performance.now === "function"
+    ) {
+        d += performance.now();
+    }
+
+    const uuid = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
+        /[xy]/g,
+        (c) => {
+            const r = (d + Math.random() * 16) % 16 | 0;
+            d = Math.floor(d / 16);
+            return (c === "x" ? r : (r & 0x3) | 0x8).toString(16);
+        }
+    );
+
+    return uuid;
+}
+
+// 给数组中出现相同的数据打上__id 第一个被相同的不变
+export function addUniqueIdToDuplicateData(array: any[]): any[] {
+    const uniqueValues: { [key: string]: any } = {};
+    return array.map((item: any) => {
+      const { __id, ...rest } = item;
+      const value = JSON.stringify(rest);
+      if (!uniqueValues[value]) {
+        uniqueValues[value] = true;
+        return item;
+      }
+      const uniqueId = generateUUID();
+      const updatedItem = { ...item, __id: uniqueId };
+      return updatedItem;
+    });
+  }

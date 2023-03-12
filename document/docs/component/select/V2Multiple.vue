@@ -2,7 +2,7 @@
   <div>
     <p>配置 mode 属性为multiple 即为多选模式</p>
     <p>注意多选模式下 v-model的值需要为数组而不是字符串,dynamicCss需要给出一个默认值（对象）</p>
-    <vi-select-v2
+    <dw-select-v2
       v-model="data.currentSelect"
       :list="data.dropDownList"
       clearable
@@ -12,14 +12,14 @@
       @handleSelected="handleSelected"
       @handleClear="handleClear"
     >
-      <vi-select-v2-option
+      <dw-select-v2-option
         v-for="i in data.dropDownList"
         :key="i.value"
         :label="i.label"
         :value="i.value"
       >
-      </vi-select-v2-option>
-    </vi-select-v2>
+      </dw-select-v2-option>
+    </dw-select-v2>
   </div>
 </template>
 <script lang="ts">

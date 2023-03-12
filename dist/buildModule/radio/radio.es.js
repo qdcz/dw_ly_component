@@ -1,4 +1,4 @@
-import { defineComponent as f, inject as k, computed as d, openBlock as m, createElementBlock as p, normalizeClass as r, createElementVNode as u, withDirectives as v, vModelRadio as C, toDisplayString as I, ref as B, provide as S, nextTick as R, resolveDirective as D, renderSlot as N } from "vue";
+import { defineComponent as f, inject as k, computed as d, openBlock as m, createElementBlock as p, normalizeClass as r, createElementVNode as u, withDirectives as v, vModelRadio as C, toDisplayString as B, ref as I, provide as S, nextTick as D, resolveDirective as R, renderSlot as N } from "vue";
 const g = (e, l) => (e.install = function(s) {
   if (e) {
     const t = e.name || e.__name;
@@ -156,7 +156,7 @@ function O(e, l, s, t, a, n) {
     ], 2),
     u("label", {
       class: r(e.classes(e.n("_label"), e.IsDisable ? "is-disabled" : ""))
-    }, I(e.label), 3)
+    }, B(e.label), 3)
   ], 2);
 }
 const A = /* @__PURE__ */ h(E, [["render", O]]), G = {
@@ -186,7 +186,7 @@ const A = /* @__PURE__ */ h(E, [["render", O]]), G = {
   emits: ["click", "update:modelValue", "change"],
   setup(e, l) {
     let s = k(V);
-    const t = B(null), a = function(c) {
+    const t = I(null), a = function(c) {
       o.value || (s ? s.changeModelValue(e.value) : l.emit("update:modelValue", "on"));
     }, n = d({
       get() {
@@ -238,7 +238,7 @@ function K(e, l, s, t, a, n) {
     ]),
     u("label", {
       class: r(e.classes(e.n("_label"), e.IsDisable ? "is-disabled" : ""))
-    }, I(e.label), 3)
+    }, B(e.label), 3)
   ], 2);
 }
 const L = /* @__PURE__ */ h(U, [["render", K]]), $ = function(e, l) {
@@ -261,7 +261,7 @@ const L = /* @__PURE__ */ h(U, [["render", K]]), $ = function(e, l) {
   directives: { css: W },
   setup(e, l) {
     const s = (n = e.modelValue) => {
-      l.emit("update:modelValue", n), R(() => l.emit("change", n));
+      l.emit("update:modelValue", n), D(() => l.emit("change", n));
     }, t = d({
       get() {
         return e.modelValue;
@@ -281,7 +281,7 @@ const L = /* @__PURE__ */ h(U, [["render", K]]), $ = function(e, l) {
   }
 });
 function H(e, l, s, t, a, n) {
-  const o = D("css");
+  const o = R("css");
   return v((m(), p("div", {
     class: r(e.classes(e.n()))
   }, [
@@ -292,8 +292,8 @@ function H(e, l, s, t, a, n) {
 }
 const Q = /* @__PURE__ */ h(F, [["render", H]]), Z = g(A, "radio"), _ = g(L, "radio-button"), x = g(Q, "radio-group");
 export {
-  Z as VIRadio,
-  _ as VIRadioButton,
-  x as VIRadioGroup,
+  Z as Radio,
+  _ as RadioButton,
+  x as RadioGroup,
   Z as default
 };

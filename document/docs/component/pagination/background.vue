@@ -3,7 +3,7 @@
     <p>
       设置 background 属性可以为分页按钮添加背景色。
     </p>
-    <vi-pagination
+    <dw-pagination
       v-model="data.currentSelect"
       :dynamicCss="data.dynamicCss"
       :pager-count="7"
@@ -13,7 +13,7 @@
       @current-change="currentChange"
       :page-size="[50, 100, 200, 500, 1000]"
       layout="total, size,prev, pager, next,jump"
-    ></vi-pagination>
+    ></dw-pagination>
   </div>
 </template>
 <script lang="ts">
