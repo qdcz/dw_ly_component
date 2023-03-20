@@ -1,3 +1,7 @@
+/**
+ * requestAnimationFrame 模式 性能不高--废弃
+ */
+
 import {
     computed,
     defineComponent,
@@ -111,15 +115,15 @@ export default defineComponent({
                 lastFrameTime = 0;
                 requestAnimationFrame(marquee);
             } else {
-                /**
-                 * 如果要控制requestAnimationFrame的动画时长 需要计算每秒钟滚动多少像素：
-                 * 计算出当前时间和上一帧时间差 来控制控制滚动速度
-                 *
-                 * 但是用这种方法会有轻微的抖动，
-                 */
-                // scrollRef.value.scrollLeft = distance;
                 if(scrollRef.value){ // 防止开发的时间 重新保存代码 造成dom节点未拿到 报错（不希望用nexttick调用）
-                    scrollRef.value.scrollLeft++;
+                    /**
+                     * 如果要控制requestAnimationFrame的动画时长 需要计算每秒钟滚动多少像素：
+                     * 计算出当前时间和上一帧时间差 来控制控制滚动速度
+                     *
+                     * 但是用这种方法会有轻微的抖动
+                     */
+                    scrollRef.value.scrollLeft = distance;
+                    // scrollRef.value.scrollLeft++;
                 }
             }
         };

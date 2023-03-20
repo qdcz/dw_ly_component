@@ -1,28 +1,29 @@
-import { defineComponent as Q, getCurrentInstance as X, ref as I, reactive as Y, computed as S, nextTick as Z, onUnmounted as D, withDirectives as tt, createVNode as m, resolveDirective as et, onMounted as lt, watchEffect as rt } from "vue";
-const st = (t, e) => (t.install = function(r) {
+import { defineComponent as Q, getCurrentInstance as X, ref as L, reactive as Y, computed as w, onMounted as Z, watchEffect as D, withDirectives as tt, createVNode as c, resolveDirective as et, nextTick as gt, onUnmounted as q } from "vue";
+const ft = (t, e) => (t.install = function(r) {
   if (t) {
-    const a = t.name || t.__name;
-    if (a || e) {
-      const o = e ? `dw-${e}` : "dw-" + a.replace(/dw/gi, "").toLowerCase();
-      r.component(o, t);
+    const i = t.name || t.__name;
+    if (i || e) {
+      const n = e ? `dw-${e}` : "dw-" + i.replace(/dw/gi, "").toLowerCase();
+      r.component(n, t);
     } else
       console.error(t, e, !e);
   }
-}, t), at = (t) => Array.isArray(t);
-function R(t) {
+}, t), mt = (t) => Array.isArray(t);
+function $(t) {
   const e = `vi-${t}`;
   return {
-    n: (o) => o ? o.startsWith("-") ? `${e}${o}` : `${e}_${o}` : e,
-    classes: (...o) => o.map((i) => {
-      if (at(i)) {
-        const [c, h, u = null] = i;
-        return c ? h : u;
+    n: (n) => n ? n.startsWith("-") ? `${e}${n}` : `${e}_${n}` : e,
+    classes: (...n) => n.map((a) => {
+      if (mt(a)) {
+        const [u, m, f = null] = a;
+        return u ? m : f;
       }
-      return i;
+      return a;
     })
   };
 }
-const z = {
+var R = /* @__PURE__ */ ((t) => (t.AUTHROLL = "autoRoll", t.HANDMOVE = "handRoll", t))(R || {});
+const G = {
   header: {
     type: Array,
     default: []
@@ -37,7 +38,7 @@ const z = {
   },
   showCount: {
     type: [Number],
-    default: 6
+    default: 8
   },
   rollCount: {
     type: [Number],
@@ -45,15 +46,22 @@ const z = {
   },
   attractShowCount: {
     type: Array,
-    default: [1, 3, 4]
+    default: [3, 4]
+  },
+  rollType: {
+    type: String,
+    default: "autoRoll",
+    validator: function(t) {
+      return Object.values(R).includes(t);
+    }
   },
   loopTime: {
     type: Number,
-    default: 1e3 * 3
+    default: 1e3 * 2
   },
   scrollTransition: {
     type: Number,
-    default: 1e3 * 2
+    default: 1e3 * 1
   },
   tmp_scaleRule: {
     type: Array,
@@ -90,29 +98,31 @@ const z = {
       "tr-un-attract-bg-color": "rgb(235, 235, 235)",
       "td-pad-lr": "20",
       "td-pad-tb": "0",
-      "longText-txt-gap": "30"
+      "longText-txt-gap": "30",
+      "longText-sco-ani-name": "longTextScrollAnimation",
+      "longText-sco-ani-dura": "15"
     })
   }
-}, j = function(t, e) {
-  for (let [r, a] of Object.entries(e.value))
-    t.style.setProperty("--" + r, a);
+}, z = function(t, e) {
+  for (let [r, i] of Object.entries(e.value))
+    t.style.setProperty("--" + r, i);
 }, nt = {
   mounted(t, e) {
-    j(t, e);
+    z(t, e);
   },
   updated(t, e) {
-    j(t, e);
+    z(t, e);
   },
   install(t) {
     t.directive("Css", this);
   }
-}, { n: it } = R(""), ct = (t = it()) => t + "xxxxxxxx".replace(/[xy]/g, function(e) {
-  var r = 0 | 16 * Math.random(), a = e == "x" ? r : 8 | 3 & r;
-  return a.toString(16);
+}, { n: vt } = $(""), pt = (t = vt()) => t + "xxxxxxxx".replace(/[xy]/g, function(e) {
+  var r = 0 | 16 * Math.random(), i = e == "x" ? r : 8 | 3 & r;
+  return i.toString(16);
 });
-class ut {
+class xt {
   constructor(e = [], r = 7) {
-    this.list = e, this.severalGroups = r, this.windowSliding = new Array(this.severalGroups).fill(0).map((a, o) => o);
+    this.list = e, this.severalGroups = r, this.windowSliding = new Array(this.severalGroups).fill(0).map((i, n) => n);
   }
   take(e) {
     return this.Sliding(e), this.show();
@@ -122,56 +132,56 @@ class ut {
   }
   Sliding(e) {
     this.windowSliding = this.windowSliding.map((r) => {
-      const a = this.list.length, o = r + e;
-      return o <= a - 1 ? o : o - a;
+      const i = this.list.length, n = r + e;
+      return n <= i - 1 ? n : n - i;
     });
   }
 }
-const ot = function(t) {
+const F = function(t) {
   const e = t instanceof Array ? [] : {};
   for (let r in t)
-    e[r] = typeof t[r] == "object" ? ot(t[r]) : t[r];
+    e[r] = typeof t[r] == "object" ? F(t[r]) : t[r];
   return e;
 };
-function dt(t, e = "top", r, a, o) {
-  const i = e == "top" ? t.scrollTop : e == "left" ? t.scrollLeft : 0, c = r - i, h = performance.now();
-  function u() {
-    const s = performance.now() - h, w = b(
+function ht(t, e = "top", r, i, n) {
+  const a = e == "top" ? t.scrollTop : e == "left" ? t.scrollLeft : 0, u = r - a, m = performance.now();
+  function f() {
+    const s = performance.now() - m, v = _(
       s,
-      i,
-      c,
-      a
+      a,
+      u,
+      i
     );
-    e == "top" ? t.scrollTop = w : e == "left" && (t.scrollLeft = w), s < a ? requestAnimationFrame(u) : o && o();
+    e == "top" ? t.scrollTop = v : e == "left" && (t.scrollLeft = v), s < i ? requestAnimationFrame(f) : n && n();
   }
-  function b(f, s, w, T) {
-    return f /= T / 2, f < 1 ? w / 2 * f * f + s : (f--, -w / 2 * (f * (f - 2) - 1) + s);
+  function _(g, s, v, C) {
+    return g /= C / 2, g < 1 ? v / 2 * g * g + s : (g--, -v / 2 * (g * (g - 2) - 1) + s);
   }
-  requestAnimationFrame(u);
+  requestAnimationFrame(f);
 }
-function ft() {
+function yt() {
   let t = new Date().getTime();
   return typeof performance < "u" && typeof performance.now == "function" && (t += performance.now()), "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
     /[xy]/g,
     (r) => {
-      const a = (t + Math.random() * 16) % 16 | 0;
-      return t = Math.floor(t / 16), (r === "x" ? a : a & 3 | 8).toString(16);
+      const i = (t + Math.random() * 16) % 16 | 0;
+      return t = Math.floor(t / 16), (r === "x" ? i : i & 3 | 8).toString(16);
     }
   );
 }
-function gt(t) {
+function bt(t) {
   const e = {};
   return t.map((r) => {
-    const { __id: a, ...o } = r, i = JSON.stringify(o);
-    if (!e[i])
-      return e[i] = !0, r;
-    const c = ft();
-    return { ...r, __id: c };
+    const { __id: i, ...n } = r, a = JSON.stringify(n);
+    if (!e[a])
+      return e[a] = !0, r;
+    const u = yt();
+    return { ...r, __id: u };
   });
 }
 const {
-  n: G
-} = R("long-text"), J = {
+  n: j
+} = $("long-text"), J = {
   text: {
     type: String,
     default: "这是一个默认文本"
@@ -183,7 +193,9 @@ const {
   dynamicCss: {
     type: Object,
     default: () => ({
-      "txt-gap": "20"
+      "txt-gap": "22",
+      "sco-ani-name": "longTextScrollAnimation",
+      "sco-ani-dura": "10"
     })
   }
 }, K = /* @__PURE__ */ Q({
@@ -194,226 +206,202 @@ const {
     css: nt
   },
   setup(t, e) {
-    var H;
-    const a = "onUpdate:modelValue" in (((H = X()) == null ? void 0 : H.vnode.props) || {}), o = I(null), i = I(null), c = I(null), h = I(null);
-    let u = null;
-    const b = Y({
+    var s;
+    const i = "onUpdate:modelValue" in (((s = X()) == null ? void 0 : s.vnode.props) || {}), n = L(null), a = L(null), u = L(null), m = L(null), f = Y({
       isScroll: !0,
       toolTip_x: 0,
       toolTip_y: 0,
       toolTip_content: "盎司附近拉萨解放了卡JFK垃圾地方"
-    });
-    let f = 0;
-    const s = S(() => Object.assign(J.dynamicCss.default(), t.dynamicCss)), w = S({
+    }), _ = w(() => Object.assign(J.dynamicCss.default(), t.dynamicCss)), g = w({
       get() {
-        return b.isScroll = !0, q(b), t.text;
+        return f.isScroll = !0, t.text;
       },
-      set(y) {
-        a && e.emit("update:text", y);
+      set(v) {
+        i && e.emit("update:text", v);
       }
-    }), T = () => {
-      var A, N, V;
-      const y = (A = c == null ? void 0 : c.value) == null ? void 0 : A.offsetWidth, B = (N = h == null ? void 0 : h.value) == null ? void 0 : N.offsetWidth, M = (V = i == null ? void 0 : i.value) == null ? void 0 : V.scrollLeft, $ = performance.now();
-      f || (f = $);
-      const W = $ - f;
-      y / t.speed * W, B - M <= 0 ? (i.value.scrollLeft -= c.value.offsetWidth, f = 0, requestAnimationFrame(T)) : i.value && i.value.scrollLeft++;
-    }, q = (y) => {
-      Z(() => {
-        if (o.value && c.value) {
-          const B = o.value.clientWidth, M = c.value.offsetWidth, $ = Number(s.value["txt-gap"]), W = M - $;
-          if (B < W) {
-            L();
-            const A = () => {
-              T(), u = requestAnimationFrame(A);
-            };
-            u = requestAnimationFrame(A);
-          } else
-            y && (y.isScroll = !1);
+    });
+    return Z(() => {
+      D(() => {
+        if (n.value && u.value) {
+          const v = n.value.clientWidth, k = u.value.offsetWidth;
+          v >= k && (f.isScroll = !1);
         }
       });
-    }, L = () => u ? (cancelAnimationFrame(u), u = null, !0) : !1, P = (y) => {
-      b.toolTip_x = y.x, b.toolTip_y = y.y, L();
-    }, U = () => {
-      q();
-    };
-    return D(() => {
-      u && (clearInterval(u), u = null);
-    }), () => tt(m("div", {
-      class: [G(""), "tooltip"],
+    }), () => tt(c("div", {
+      class: [j(""), "tooltip"],
       "data-tooltip": "这是一个 tooltip",
-      ref: o,
-      onMouseenter: P,
-      onMouseleave: U
-    }, [m("div", {
-      class: G("_scroll"),
-      ref: i
-    }, [m("span", {
-      ref: c
-    }, [w.value, b.isScroll ? m("span", {
+      ref: n
+    }, [c("div", {
+      class: j("_scroll"),
+      ref: a
+    }, [c("span", {
+      ref: u,
+      class: f.isScroll ? "startAnimation" : ""
+    }, [g.value]), f.isScroll ? c("span", null, [c("span", {
       class: "seizeASeat"
-    }, null) : ""]), m("span", {
-      ref: h
-    }, [b.isScroll ? w.value : "", b.isScroll ? m("span", {
+    }, null), c("span", {
+      ref: m,
+      class: "startAnimation"
+    }, [g.value]), c("span", {
       class: "seizeASeat"
-    }, null) : ""])])]), [[et("css"), s.value || {}]]);
+    }, null)]) : ""])]), [[et("css"), _.value || {}]]);
   }
 }), {
-  n: _
-} = R("roll-list"), mt = /* @__PURE__ */ Q({
+  n: S
+} = $("roll-list"), Tt = /* @__PURE__ */ Q({
   name: "RollList",
   emits: ["update:modelValue", "rowClick"],
   directives: {
     css: nt
   },
-  props: z,
+  props: G,
   components: {
     LongText: K
   },
   setup(t, e) {
     var V;
-    const a = "onUpdate:modelValue" in (((V = X()) == null ? void 0 : V.vnode.props) || {}), o = Y({
-      uuid: ct(_("-")),
+    const i = "onUpdate:modelValue" in (((V = X()) == null ? void 0 : V.vnode.props) || {}), n = Y({
+      uuid: pt(S("-")),
       takeFlag: !1,
       rotationTimer: null,
       getInventedListDataBridgeInit: !1
-    }), i = I(null), c = I();
-    let h = 0, u = null;
-    const b = {
+    }), a = L(null), u = L();
+    let m = 0, f = null;
+    const _ = {
       longText: "longText"
-    }, f = (n) => {
-      n.preventDefault();
-    }, s = S(() => Object.assign(z.dynamicCss.default(), t.dynamicCss)), w = S(() => {
-      let n = {};
-      for (let l in s.value)
-        l.includes("longText") && (n[l.replace("longText-", "")] = s.value[l]);
-      return n;
-    }), T = S(() => t.header), q = () => {
-      var n;
-      for (let l = 0; l < ((n = c.value) == null ? void 0 : n.children.length); l++) {
-        const g = c.value.children[l], {
-          attractShowCount: F,
-          header: v,
-          tmp_scaleRule: d
+    }, g = (l) => {
+      l.preventDefault();
+    }, s = w(() => Object.assign(G.dynamicCss.default(), t.dynamicCss)), v = w(() => {
+      let l = {};
+      for (let o in s.value)
+        o.includes("longText") && (l[o.replace("longText-", "")] = s.value[o]);
+      return l;
+    }), C = w(() => t.header), k = () => {
+      var l;
+      for (let o = 0; o < ((l = u.value) == null ? void 0 : l.children.length); o++) {
+        const d = u.value.children[o], {
+          attractShowCount: b,
+          header: x,
+          tmp_scaleRule: p
         } = t;
-        F.includes(l) ? (s.value["tr-attract-bg-color-style"] == "double" ? g.style.background = `linear-gradient(${s.value["tr-attract-bg-color-angle"]}deg,${s.value["tr-attract-bg-color-from"]},${s.value["tr-attract-bg-color-to"]})` : g.style.background = s.value["tr-attract-bg-color-value"], Array.from(g.children).forEach((p, C) => {
-          p.style.transform = `scale(${d[0]})`, p.style.flexBasis = v[C].basis + "%";
-        })) : (g.style.background = s.value["tr-un-attract-bg-color"], Array.from(g.children).forEach((p, C) => {
-          p.style.transform = `scale(${d[1]})`, p.style.flexBasis = v[C].basis + "%";
+        b.includes(o) ? (s.value["tr-attract-bg-color-style"] == "double" ? d.style.background = `linear-gradient(${s.value["tr-attract-bg-color-angle"]}deg,${s.value["tr-attract-bg-color-from"]},${s.value["tr-attract-bg-color-to"]})` : d.style.background = s.value["tr-attract-bg-color-value"], Array.from(d.children).forEach((h, T) => {
+          h.style.transform = `scale(${p[0]})`, h.style.flexBasis = x[T].basis + "%";
+        })) : (d.style.background = s.value["tr-un-attract-bg-color"], Array.from(d.children).forEach((h, T) => {
+          h.style.transform = `scale(${p[1]})`, h.style.flexBasis = x[T].basis + "%";
         }));
       }
-    }, L = S({
+    }, B = w({
       get() {
-        return u = new ut(ot(t.modelValue), t.showCount * 2), Z(() => {
-          q();
+        return f = new xt(F(t.modelValue), t.showCount * 2), gt(() => {
+          k();
         }), t.modelValue;
       },
-      set(n) {
-        a && e.emit("update:modelValue", n);
+      set(l) {
+        i && e.emit("update:modelValue", l);
       }
-    }), P = S(() => {
-      if (o.takeFlag = !o.takeFlag, t.modelValue.length > t.showCount) {
-        const n = o.getInventedListDataBridgeInit ? t.rollCount : (o.getInventedListDataBridgeInit = !0) && 0;
-        return gt(u.take(n));
+    }), ot = w(() => {
+      if (n.takeFlag = !n.takeFlag, t.modelValue.length > t.showCount) {
+        const l = n.getInventedListDataBridgeInit ? t.rollCount : (n.getInventedListDataBridgeInit = !0) && 0;
+        return bt(f.take(l));
       } else
-        return new Array(t.modelValue.length).fill(0).map((n, l) => L.value[l]);
-    }), U = S(() => {
-      let n = L.value.length;
-      const l = Number(t.itemHeight.replace("px", "")), g = n <= t.showCount ? n : t.showCount;
-      return l * g + "px";
-    });
-    lt(() => {
-      rt(() => {
-        o.rotationTimer && (clearInterval(o.rotationTimer), o.rotationTimer = null), o.rotationTimer = L.value.length > t.showCount && setInterval(() => {
-          H();
-        }, t.loopTime);
+        return new Array(t.modelValue.length).fill(0).map((l, o) => B.value[o]);
+    }), lt = w(() => {
+      let l = B.value.length;
+      const o = Number(t.itemHeight.replace("px", "")), d = l <= t.showCount ? l : t.showCount;
+      return o * d + "px";
+    }), E = function() {
+      clearInterval(n.rotationTimer);
+    }, H = function() {
+      n.rotationTimer && (clearInterval(n.rotationTimer), n.rotationTimer = null);
+    };
+    window.addEventListener("blur", E), window.addEventListener("focus", H), Z(() => {
+      D(() => {
+        n.rotationTimer && (clearInterval(n.rotationTimer), n.rotationTimer = null), t.rollType == R.AUTHROLL && (n.rotationTimer = B.value.length > t.showCount && setInterval(() => {
+          rt();
+        }, t.loopTime));
       });
+    }), q(() => {
+      document.removeEventListener("blur", E), document.removeEventListener("focus", H);
     });
-    const H = () => {
-      var F;
-      const n = i == null ? void 0 : i.value, l = t.rollCount <= t.showCount ? t.rollCount : t.showCount, g = n.scrollHeight - n.clientHeight;
-      h = h + g / t.showCount * l;
-      for (let v = 0; v < ((F = c.value) == null ? void 0 : F.children.length); v++) {
-        const d = c.value.children[v], {
-          rollCount: p,
-          attractShowCount: C,
-          scrollTransition: k,
-          header: E
+    const rt = () => {
+      var b;
+      const l = a == null ? void 0 : a.value, o = t.rollCount <= t.showCount ? t.rollCount : t.showCount, d = l.scrollHeight - l.clientHeight;
+      m = m + d / t.showCount * o;
+      for (let x = 0; x < ((b = u.value) == null ? void 0 : b.children.length); x++) {
+        const p = u.value.children[x], {
+          rollCount: h,
+          attractShowCount: T,
+          header: I
         } = t;
-        d.style.transition = `${k / 1e3}s`, C.map((x) => x + p).includes(v) ? (s.value["tr-attract-bg-color-style"] == "double" ? d.style.background = `linear-gradient(${s.value["tr-attract-bg-color-angle"]}deg,${s.value["tr-attract-bg-color-from"]},${s.value["tr-attract-bg-color-to"]})` : d.style.background = s.value["tr-attract-bg-color-value"], Array.from(d.children).forEach((x, O) => {
-          x.style.transition = `${k / 1e3}s`, x.style.flexBasis = E[O].basis + "%", x.style.transform = `scale(${t.tmp_scaleRule[0]})`;
-        })) : (d.style.background = s.value["tr-un-attract-bg-color"], Array.from(d.children).forEach((x, O) => {
-          x.style.transition = `${k / 1e3}s`, x.style.flexBasis = E[O].basis + "%", x.style.transform = `scale(${t.tmp_scaleRule[1]})`;
+        T.map((y) => y + h).includes(x) ? (s.value["tr-attract-bg-color-style"] == "double" ? p.style.background = `linear-gradient(${s.value["tr-attract-bg-color-angle"]}deg,${s.value["tr-attract-bg-color-from"]},${s.value["tr-attract-bg-color-to"]})` : p.style.background = s.value["tr-attract-bg-color-value"], Array.from(p.children).forEach((y, A) => {
+          y.style.flexBasis = I[A].basis + "%", y.style.transform = `scale(${t.tmp_scaleRule[0]})`;
+        })) : (p.style.background = s.value["tr-un-attract-bg-color"], Array.from(p.children).forEach((y, A) => {
+          y.style.flexBasis = I[A].basis + "%", y.style.transform = `scale(${t.tmp_scaleRule[1]})`;
         }));
       }
-      dt(n, "top", h, t.scrollTransition, () => {
-        var v;
-        for (let d = 0; d < ((v = c.value) == null ? void 0 : v.children.length); d++) {
-          const p = c.value.children[d];
-          p.style.transition = "0s", Array.from(p.children).forEach((C) => {
-            C.style.transition = "0s";
-          });
-        }
-        o.takeFlag = !o.takeFlag, n.scrollTop = 0, h = 0;
+      ht(l, "top", m, t.scrollTransition, () => {
+        n.takeFlag = !n.takeFlag, l.scrollTop = 0, m = 0;
       });
-    }, y = () => {
-      o.rotationTimer && clearInterval(o.rotationTimer);
-    }, B = () => {
-      o.rotationTimer = null;
-    }, M = function(n) {
-      e.emit && e.emit("rowClick", n);
+    }, M = () => {
+      n.rotationTimer && clearInterval(n.rotationTimer);
+    }, st = () => {
+      n.rotationTimer = null;
+    }, it = function(l) {
+      e.emit && e.emit("rowClick", l);
     };
-    D(() => {
-      y(), o.rotationTimer = null;
+    q(() => {
+      M(), n.rotationTimer = null;
     });
-    const $ = () => t.showHeader ? m("div", {
-      class: _("_th")
-    }, [T.value.map((n) => m("div", {
-      class: _("_td"),
+    const at = () => t.showHeader ? c("div", {
+      class: S("_th")
+    }, [C.value.map((l) => c("div", {
+      class: S("_td"),
       style: {
-        flexBasis: n.basis + "%"
+        flexBasis: l.basis + "%"
       }
-    }, [n.label]))]) : "", W = () => m("div", {
-      ref: i,
-      onWheel: f,
-      class: _("_scroll"),
+    }, [l.label]))]) : "", ct = () => c("div", {
+      ref: a,
+      onWheel: g,
+      class: S("_scroll"),
       style: {
-        height: U.value
+        height: lt.value
       }
-    }, [m("ul", {
-      ref: c,
-      class: _("_wrapper")
-    }, [P.value.map((n) => A(n))])]), A = (n) => m("li", {
-      key: n.__id,
+    }, [c("ul", {
+      ref: u,
+      class: S("_wrapper")
+    }, [ot.value.map((l) => ut(l))])]), ut = (l) => c("li", {
+      key: l.__id,
       style: {
         height: t.itemHeight
       },
-      onClick: M.bind(this, n)
-    }, [t.header.map((l, g) => N(n, l, g))]), N = (n, l, g) => {
-      var F, v, d, p, C, k, E, x;
-      return m("div", {
-        class: [_("_td")]
-      }, [m("div", {
-        class: [b[(F = T.value[g]) == null ? void 0 : F.type]],
+      onClick: it.bind(this, l)
+    }, [t.header.map((o, d) => dt(l, o, d))]), dt = (l, o, d) => {
+      var x, p, h, T, I, y, A, O, U, W, N, P;
+      let b = {};
+      return o.longText && ((x = o == null ? void 0 : o.longText) != null && x.speed && (b["sco-ani-dura"] = o.longText.speed), (p = o.longText) != null && p.GPUSpee && (b["sco-ani-name"] = ((h = o == null ? void 0 : o.longText) == null ? void 0 : h.GPUSpee) == !0 ? "longTextScrollxAnimation3d" : "longTextScrollxAnimation"), ((T = o.longText) != null && T.txtGap || Number(o.longText.txtGap) == 0) && (b["txt-gap"] = o.longText.txtGap)), c("div", {
+        class: [S("_td")]
+      }, [c("div", {
+        class: [_[(I = C.value[d]) == null ? void 0 : I.type]],
         style: {
-          color: n[l.prop] ? (v = l.fo) == null ? void 0 : v.color : "none",
-          fontSize: n[l.prop] ? ((d = l.fo) == null ? void 0 : d.size) + "px" : "auto",
-          fontWeight: n[l.prop] ? (p = l.fo) == null ? void 0 : p.weight : "0",
-          fontFamily: n[l.prop] ? (C = l.fo) == null ? void 0 : C.style : "none"
+          color: l[o.prop] ? (y = o.fo) == null ? void 0 : y.color : "none",
+          fontSize: l[o.prop] ? ((A = o.fo) == null ? void 0 : A.size) + "px" : "auto",
+          fontWeight: l[o.prop] ? (O = o.fo) == null ? void 0 : O.weight : "0",
+          fontFamily: l[o.prop] ? (U = o.fo) == null ? void 0 : U.style : "none"
         }
-      }, [(k = T.value[g]) != null && k.type && ((E = T.value[g]) == null ? void 0 : E.type) == "longText" ? m(K, {
-        text: n[l.prop] || "undefined",
-        speed: n[l.prop] ? (x = l.longText) == null ? void 0 : x.speed : !1,
-        dynamicCss: w.value
-      }, null) : n[l.prop] || "undefined"])]);
+      }, [(W = C.value[d]) != null && W.type && ((N = C.value[d]) == null ? void 0 : N.type) == "longText" ? c(K, {
+        text: l[o.prop] || "undefined",
+        speed: l[o.prop] ? (P = o.longText) == null ? void 0 : P.speed : !1,
+        dynamicCss: Object.assign(F(v.value), b)
+      }, null) : l[o.prop] || "undefined"])]);
     };
-    return () => tt(m("div", {
-      class: _(),
-      onMouseenter: y,
-      onMouseleave: B
-    }, [$(), W()]), [[et("css"), s.value || {}]]);
+    return () => tt(c("div", {
+      class: S(),
+      onMouseenter: M,
+      onMouseleave: st
+    }, [at(), ct()]), [[et("css"), s.value || {}]]);
   }
-}), vt = st(mt, "roll-list");
+}), Ct = ft(Tt, "roll-list");
 export {
-  vt as RollList,
-  vt as default
+  Ct as RollList,
+  Ct as default
 };

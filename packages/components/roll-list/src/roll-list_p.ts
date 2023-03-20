@@ -1,28 +1,33 @@
 // 类型文件
 import type { ExtractPropTypes, PropType } from "vue";
 
+export enum RollType {
+    "AUTHROLL" = "autoRoll",
+    "HANDMOVE" = "handRoll",
+}
+
 export const rollListProps = {
-    // 表头字段
+    // 表头字段-配置   // TODO type类型约束下
     header: {
         type: Array<any>,
         default: [],
     },
-    // 是否显示表头
+    // 表头显隐
     showHeader: {
         type: Boolean,
         default: true,
     },
-    // 每项的固定高度
-    itemHeight: {
+    // 每行固高
+    itemHeight: { 
         type: [String],
         default: "40px",
     },
-    // 展示的条数
+    // 可见条数
     showCount: {
         type: [Number],
-        default: 6,
+        default: 8,
     },
-    // 每次滚动的条数
+    // 滚动条数
     rollCount: {
         type: [Number],
         default: 1,
@@ -30,18 +35,26 @@ export const rollListProps = {
     // 特殊显示的位置
     attractShowCount: {
         type: Array, // 内部会错判断，如果数组内的值超过展示的条数，则清空为[]   // TODO 未做
-        default: [1, 3, 4],
+        default: [3, 4],
         // default:[]
+    },
+    // 滚动类型
+    rollType: {
+        type: String,
+        default: RollType.AUTHROLL,
+        validator: function (value: RollType) {
+            return Object.values(RollType).includes(value);
+        },
     },
     // 自动滚动时长间隔 ( 不能小于或等于 scrollTransition )
     loopTime: {
         type: Number,
-        default: 1000 * 3,
+        default: 1000 * 2,
     },
     // 滚动过渡时长
     scrollTransition: {
         type: Number,
-        default: 1000 * 2,
+        default: 1000 * 1,
     },
     // (临时)固定层级缩放
     tmp_scaleRule: {
@@ -58,18 +71,6 @@ export const rollListProps = {
     modelValue: {
         type: Array as PropType<listItem<ImageContent | TextContent>[]>,
         default: [],
-        // default: () => {
-        //     return new Array(100).fill(0).map((i, index) => {
-        //         return {
-        //             field1: "DP000037",
-        //             field2: "工商信息数据服务",
-        //             field3: "深圳市互联网...",
-        //             field4: "河南九天遥感科技",
-        //             field5: "安全预警",
-        //             field6: "157.76",
-        //         };
-        //     });
-        // },
     },
     dynamicCss: {
         type: Object,
@@ -95,8 +96,8 @@ export const rollListProps = {
                  * 表体相关
                  */
                 // 鼠标悬浮表行背景颜色
-                "tr-hover-bg-color":"rgb(132 176 212 / 80%)",
-                "tr-hover-transition":"0.3",
+                "tr-hover-bg-color": "rgb(132 176 212 / 80%)",
+                "tr-hover-transition": "0.3",
                 // 激活的背景颜色
                 "tr-attract-bg-color-style": "single", // single 是使用单色 double是使用渐变色
                 "tr-attract-bg-color-to": "#00DEFF",
@@ -113,11 +114,13 @@ export const rollListProps = {
                 "td-pad-lr": "20",
                 "td-pad-tb": "0",
 
-
                 /**
                  * longText组件
                  */
-                "longText-txt-gap":"30"
+                "longText-txt-gap": "30", // 滚动文本连接间隙
+                // header传入 权重最高
+                "longText-sco-ani-name": "longTextScrollAnimation", // "longTextScrollAnimation3d"
+                "longText-sco-ani-dura": "15",
             };
         },
     },
@@ -149,8 +152,6 @@ export type ComData = {
     uuid: string;
     // 触发消费开关
     takeFlag: Boolean;
-    // 定时器实例--自动轮播时长
-    // rotationTime: number;
     // 自动轮播时长
     rotationTimer: number | boolean | null;
     // 第一次调用问题

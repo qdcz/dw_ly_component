@@ -10,7 +10,7 @@ import {
     watchEffect,
 } from "vue";
 import { createNamespace } from "@dw-ui/utils/components";
-import { rollListProps, ComData } from "./roll-list_p";
+import { rollListProps, ComData, RollType } from "./roll-list_p";
 import css from "@dw-ui/directives/css";
 import { createUUID } from "@dw-ui/utils";
 import {
@@ -20,7 +20,8 @@ import {
     scrollTo,
 } from "./list-consumption";
 const { n } = createNamespace("roll-list");
-import LongText from "./long-text";
+// import LongText from "./long-text";
+import LongText from "./long-text-css";
 
 export default defineComponent({
     name: "RollList",
@@ -76,7 +77,6 @@ export default defineComponent({
             return obj;
         });
 
-        // 控制表头显隐
         const getHeaderBridge: any = computed(() => props.header);
 
         // 初始化样式 显示
@@ -171,6 +171,33 @@ export default defineComponent({
             return itemHeight * count + "px";
         });
 
+        // const visibilitychange = function () {
+        //     if (document.hidden) {
+        //         console.log("roll-list所在页面被隐藏了");
+        //         clearInterval(data.rotationTimer as number);
+        //     } else {
+        //         if (data.rotationTimer) {
+        //             clearInterval(data.rotationTimer as number);
+        //             data.rotationTimer = null;
+        //         }
+        //     }
+        // };
+        // document.addEventListener("visibilitychange", visibilitychange);
+        const windowBlur = function(){
+            // console.log("roll-list所在页面被隐藏了");
+            clearInterval(data.rotationTimer as number);
+        };
+        const windowFocus = function(){
+            // console.log("roll-list继续播放");
+            if (data.rotationTimer) {
+                clearInterval(data.rotationTimer as number);
+                data.rotationTimer = null;
+            }
+        };
+        window.addEventListener("blur", windowBlur);
+        window.addEventListener("focus", windowFocus);
+
+
         onMounted(() => {
             /**
              * watch
@@ -181,12 +208,21 @@ export default defineComponent({
                     clearInterval(data.rotationTimer as number);
                     data.rotationTimer = null;
                 }
-                data.rotationTimer =
-                    getListDataBridge.value.length > props.showCount &&
-                    setInterval(() => {
-                        loopFn();
-                    }, props.loopTime);
+                if (props.rollType == RollType.AUTHROLL) {
+                    data.rotationTimer =
+                        getListDataBridge.value.length > props.showCount &&
+                        setInterval(() => {
+                            loopFn();
+                        }, props.loopTime); 
+                }
             });
+        });
+
+        onUnmounted(() => {
+            // document.removeEventListener("visibilitychange", visibilitychange);
+            document.removeEventListener("blur", windowBlur);
+            document.removeEventListener("focus", windowFocus);
+
         });
 
         // 轮播函数
@@ -225,11 +261,9 @@ export default defineComponent({
                 const {
                     rollCount,
                     attractShowCount,
-                    scrollTransition,
                     header,
                 } = props;
 
-                item.style.transition = `${scrollTransition / 1000}s`;
                 // 给指定的位置亮起来
                 if (
                     attractShowCount.map((i: any) => i + rollCount).includes(i)
@@ -246,9 +280,6 @@ export default defineComponent({
 
                     Array.from(item.children).forEach(
                         (ele_li: HTMLLIElement | any, index: number) => {
-                            ele_li.style.transition = `${
-                                scrollTransition / 1000
-                            }s`;
                             ele_li.style.flexBasis = header[index].basis + "%";
                             ele_li.style.transform = `scale(${props.tmp_scaleRule[0]})`;
                         }
@@ -258,9 +289,6 @@ export default defineComponent({
                         dynamicCssBridge.value["tr-un-attract-bg-color"];
                     Array.from(item.children).forEach(
                         (ele_li: HTMLLIElement | any, index: number) => {
-                            ele_li.style.transition = `${
-                                scrollTransition / 1000
-                            }s`;
                             ele_li.style.flexBasis = header[index].basis + "%";
                             ele_li.style.transform = `scale(${props.tmp_scaleRule[1]})`;
                         }
@@ -269,27 +297,13 @@ export default defineComponent({
                 // item.style.transform = `scale(${scale})`;
             }
 
-            // 滚动运动框架
+            // 滚动框架
             scrollTo(
                 scrollWrapper,
                 "top",
                 cacheScrollTop,
                 props.scrollTransition,
                 () => {
-                    for (
-                        let i = 0;
-                        i < wrapperRef.value?.children.length;
-                        i++
-                    ) {
-                        const item = wrapperRef.value.children[i];
-                        item.style.transition = `0s`; // 清空动画时长 避免下面重置数据 造成动画混乱
-                        Array.from(item.children).forEach(
-                            (ele_li: HTMLLIElement | any) => {
-                                ele_li.style.transition = `0s`;
-                            }
-                        );
-                    }
-
                     data.takeFlag = !data.takeFlag; // 虚拟列表更新数据
                     scrollWrapper.scrollTop = 0; // 清空
                     cacheScrollTop = 0; // 清空缓存
@@ -322,7 +336,9 @@ export default defineComponent({
             data.rotationTimer = null;
         });
 
-        // 表头组件
+        /**
+         * 表头组件
+         */
         const view_th = () => {
             return props.showHeader ? (
                 <div class={n("_th")}>
@@ -362,7 +378,7 @@ export default defineComponent({
             );
         };
 
-        // 列表中的每行（li）
+        // 列表-每行（li）
         const view_eachRow = (rowData: any) => {
             return (
                 <li
@@ -385,6 +401,27 @@ export default defineComponent({
             headerData: any,
             index: Number | any
         ) => {
+            let longTextColumnStyle: any = {};
+            // 表头中定义的列样式属性
+            if (headerData.longText) {
+                headerData?.longText?.speed
+                    ? (longTextColumnStyle["sco-ani-dura"] =
+                          headerData.longText.speed)
+                    : "";
+                if (headerData.longText?.GPUSpee) {
+                    longTextColumnStyle["sco-ani-name"] =
+                        headerData?.longText?.GPUSpee == true
+                            ? "longTextScrollxAnimation3d"
+                            : "longTextScrollxAnimation";
+                }
+                if (
+                    headerData.longText?.txtGap ||
+                    Number(headerData.longText.txtGap) == 0
+                ) {
+                    longTextColumnStyle["txt-gap"] = headerData.longText.txtGap;
+                }
+            }
+
             return (
                 <div class={[n("_td")]}>
                     <div
@@ -417,7 +454,11 @@ export default defineComponent({
                                         ? headerData.longText?.speed
                                         : false
                                 }
-                                dynamicCss={longText_dynamicCssBridge.value}
+                                // 全局配置权重最低、单列配置权重最高
+                                dynamicCss={Object.assign(
+                                    deepClone(longText_dynamicCssBridge.value),
+                                    longTextColumnStyle
+                                )}
                             ></LongText>
                         ) : (
                             rowData[headerData.prop] || "undefined"

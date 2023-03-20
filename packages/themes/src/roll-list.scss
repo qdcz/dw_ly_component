@@ -1,82 +1,62 @@
 @use './common/config.scss' as *;
 
-@keyframes scroll {
+/*
+ **    longText组件css样式
+ */
+@keyframes longTextScrollAnimation {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(calc(-100% - var(--txt-gap)*1px));
+    }
+}
+
+@keyframes longTextScrollAnimation3d {
     0% {
         transform: translate3d(0, 0, 0);
     }
 
     100% {
-        transform: translate3d(-100%, 0, 0);
+        transform: translate3d(calc(-100% - var(--txt-gap)*1px), 0, 0);
     }
 }
 
-// .#{$namespace}-tool-tip {
-//     position: absolute;
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-//     padding: 5px;
-//     border-radius: 5px;
-//     background-color: #333;
-//     color: #fff;
-//     font-size: 14px;
-//     white-space: nowrap;
-//     z-index: 1000;
-// }
-
 .#{$namespace}-long-text {
-    // width: initial;
     width: 100%;
     overflow: hidden;
     white-space: nowrap;
-    // background-color: aquamarine;
     display: flex;
-
-    // &.tooltip {
-    //     position: relative;
-    //     &::before {
-    //         display: block;
-    //         content: "asdasd";
-    //         // display: none;
-    //         position: absolute;
-    //         top: 0%;
-    //         left: 50%;
-    //         transform: translateX(-50%);
-    //         padding: 0 4px;
-    //         border-radius: 2px;
-    //         background-color: #333;
-    //         color: #fff;
-    //         font-weight: 100;
-    //     }
-
-    //     &::after {
-    //         content: "";
-    //         display: block;
-    //         position: absolute;
-    //         top: 100%;
-    //         left: 50%;
-    //         transform: translateX(-50%);
-    //         border-width: 6px;
-    //         border-style: solid;
-    //         border-color: transparent transparent #333 transparent;
-    //     }
-
-    //     // &:hover::before,
-    //     // &:focus::before {
-    //     //     background-color: #333;
-    //     //     display: block;
-    //     // }
-    // }
 
     &__scroll {
         overflow: auto;
         text-align: center;
         width: 100%;
 
+        // 使用css自带滚动动画
+        & .startAnimation,
+        span {
+            //使用animation必须要变成块元素
+            display: inline-block;
+        }
+
+        & .startAnimation {
+            animation-name: var(--sco-ani-name);
+            animation-duration: calc(var(--sco-ani-dura)*1s);
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+        }
+
+        &:hover .startAnimation {
+            animation-play-state: paused;
+        }
+
         &::-webkit-scrollbar {
             display: none;
         }
 
+        // 空白占位块
         & .seizeASeat {
             display: inline-block;
             width: calc(var(--txt-gap)*1px);
@@ -129,9 +109,11 @@
             white-space: nowrap;
             text-overflow: ellipsis;
 
-            &:nth-child(even) {
-                // background: #2d4b76;
-            }
+            // &:nth-child(even) {
+            //     background: #2d4b76;
+            // }
+            
+            transition: 1s;
 
             &:hover {
                 transition: background calc(var(--tr-hover-transition)*1s);
@@ -141,14 +123,15 @@
         }
     }
 
-
-
-
-
-
     &__td {
         padding: calc(var(--td-pad-tb)*1px) calc(var(--td-pad-lr)*1px);
         overflow: hidden;
         text-align: center;
+        // flex: 1;
+        flex-grow: 1;
+        flex-basis: 0;
+        box-sizing: content-box;
+        transition: 1s;
+
     }
 }
