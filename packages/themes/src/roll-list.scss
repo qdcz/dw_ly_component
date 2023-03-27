@@ -112,7 +112,7 @@
             // &:nth-child(even) {
             //     background: #2d4b76;
             // }
-            
+
             transition: 1s;
 
             &:hover {
@@ -124,14 +124,13 @@
     }
 
     &__td {
-        padding: calc(var(--td-pad-tb)*1px) calc(var(--td-pad-lr)*1px);
+        margin: calc(var(--td-pad-tb)*1px) calc(var(--td-pad-lr)*1px);
         overflow: hidden;
         text-align: center;
         // flex: 1;
         flex-grow: 1;
         flex-basis: 0;
-        box-sizing: content-box;
+        // box-sizing: content-box;
         transition: 1s;
-
     }
 }

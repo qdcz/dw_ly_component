@@ -169,7 +169,91 @@ export default {
         };
     },
     mounted() {
-       
+        return
+        setInterval(()=>{
+            this.list = [
+                {
+                    __id: "必传且不能重复001",
+                    id: "bef2d311-c75d-4064-a627-9bd9ef5a44d8" + Math.random(),
+                    name: "刘一",
+                    facePost: "前端",
+                    skill: "html,css,js,ts,vue,uniapp,node[express,koa,egg,nest],mysql,mongodb,docker,nginx,rust",
+                    age: 26,
+                },
+                {
+                    __id: "必传且不能重复002",
+                    id: "6bd5e110-1bd2-a642-7781-7083c09dcf0a",
+                    name: "陈二",
+                    facePost: "后端",
+                    skill: "java,mybatis,springboot,spring,springClould,redis,mq,go,python,",
+                    age: 32,
+                },
+                {
+                    __id: "必传且不能重复003",
+                    id: "6bd5e110-1bd2-a642-7781-7083c09dcf0a",
+                    name: "张三",
+                    facePost: "后端",
+                    skill: "java,mybatis,springboot,spring,springClould,redis,mq,go,python,",
+                    age: 26,
+                },
+                {
+                    __id: "必传且不能重复004",
+                    id: "bef2d311-c75d-4064-a627-9bd9ef5a44d8",
+                    name: "李四",
+                    facePost: "前端",
+                    skill: "只是一个切图仔",
+                    age: 27,
+                },
+                {
+                    __id: "必传且不能重复005",
+                    id: "6bd5e110-1bd2-a642-7781-7083c09dcf0a",
+                    name: "王五",
+                    facePost: "后端",
+                    skill: "java,mybatis,springboot,spring,springClould,redis,mq,go,python,",
+                    age: 26,
+                },
+                {
+                    __id: "必传且不能重复006",
+                    id: "6bd5e110-1bd2-a642-7781-7083c09dcf0a",
+                    name: "赵六",
+                    facePost: "后端",
+                    skill: "java,mybatis,springboot,spring,springClould,redis,mq,go,python,",
+                    age: 26,
+                },
+                {
+                    __id: "必传且不能重复007",
+                    id: "6bd5e110-1bd2-a642-7781-7083c09dcf0a",
+                    name: "孙七",
+                    facePost: "后端",
+                    skill: "java,mybatis,springboot,spring,springClould,redis,mq,go,python,",
+                    age: 26,
+                },
+                {
+                    __id: "必传且不能重复008",
+                    id: "6bd5e110-1bd2-a642-7781-7083c09dcf0a",
+                    name: "周八",
+                    facePost: "后端",
+                    skill: "java,mybatis,springboot,spring,springClould,redis,mq,go,python,",
+                    age: 26,
+                },
+                {
+                    __id: "必传且不能重复009",
+                    id: "6bd5e110-1bd2-a642-7781-7083c09dcf0a",
+                    name: "吴九",
+                    facePost: "后端",
+                    skill: "java,mybatis,springboot,spring,springClould,redis,mq,go,python,",
+                    age: 26,
+                },
+                {
+                    __id: "必传且不能重复010",
+                    id: "6bd5e110-1bd2-a642-7781-7083c09dcf0a",
+                    name: "郑十",
+                    facePost: "后端",
+                    skill: "java,mybatis,springboot,spring,springClould,redis,mq,go,python,",
+                    age: 26,
+                },
+            ]
+        },10000)
     },
     methods: {
         rowClick(data) {

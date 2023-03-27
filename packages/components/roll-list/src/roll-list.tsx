@@ -7,7 +7,7 @@ import {
     onUnmounted,
     reactive,
     ref,
-    watchEffect,
+    watch,
 } from "vue";
 import { createNamespace } from "@dw-ui/utils/components";
 import { rollListProps, ComData, RollType } from "./roll-list_p";
@@ -48,6 +48,8 @@ export default defineComponent({
         const scrollRef = ref<HTMLDivElement | any>(null);
         const wrapperRef = ref<HTMLDivElement | any>();
         let cacheScrollTop = 0;
+        // 是否在鼠标悬浮状态
+        let isMouseHoving: Boolean = false;
 
         let dataCircularConsumption: any = null;
 
@@ -79,43 +81,66 @@ export default defineComponent({
 
         const getHeaderBridge: any = computed(() => props.header);
 
-        // 初始化样式 显示
+        /**
+         * 初始化样式
+         */
         const initializationStyle = () => {
             for (let i = 0; i < wrapperRef.value?.children.length; i++) {
-                const item = wrapperRef.value.children[i];
+                const item__tr = wrapperRef.value.children[i];
                 const { attractShowCount, header, tmp_scaleRule } = props;
-                // const half = Math.floor(props.showCount / 2);
-                // const scale = half == i ? 1 : (4 - Math.abs(i - half)) / 4;
-                // item.style.transform = `scale(${scale})`;
-
-                // 指定位置 方法、高亮
-                if (attractShowCount.includes(i)) {
-                    if (
-                        dynamicCssBridge.value["tr-attract-bg-color-style"] ==
-                        "double"
-                    ) {
-                        item.style.background = `linear-gradient(${dynamicCssBridge.value["tr-attract-bg-color-angle"]}deg,${dynamicCssBridge.value["tr-attract-bg-color-from"]},${dynamicCssBridge.value["tr-attract-bg-color-to"]})`;
+                // 设置指定聚焦位置的背景颜色
+                const select = attractShowCount.includes(i)
+                if (select) {
+                    const useGradually =
+                        dynamicCssBridge.value[
+                            "tr-attract-bg-color-style"
+                        ] == "double";
+                    // 是否是是背景渐变色
+                    if (useGradually) {
+                        const angle = dynamicCssBridge.value["tr-attract-bg-color-angle"];
+                        const from = dynamicCssBridge.value["tr-attract-bg-color-from"];
+                        const to = dynamicCssBridge.value["tr-attract-bg-color-to"];
+                        item__tr.style.background = `linear-gradient(${angle}deg,${from},${to})`;
                     } else {
-                        item.style.background =
-                            dynamicCssBridge.value["tr-attract-bg-color-value"];
+                        item__tr.style.background = dynamicCssBridge.value["tr-attract-bg-color-value"];
                     }
-                    // item.style.border = "solid 4px red";
-                    Array.from(item.children).forEach(
-                        (ele_li: HTMLLIElement | any, index: number) => {
-                            ele_li.style.transform = `scale(${tmp_scaleRule[0]})`;
-                            ele_li.style.flexBasis = header[index].basis + "%";
-                        }
-                    );
-                } else {
-                    item.style.background =
-                        dynamicCssBridge.value["tr-un-attract-bg-color"];
-                    Array.from(item.children).forEach(
-                        (ele_li: HTMLLIElement | any, index: number) => {
-                            ele_li.style.transform = `scale(${tmp_scaleRule[1]})`;
-                            ele_li.style.flexBasis = header[index].basis + "%";
-                        }
-                    );
+                }else{
+                    item__tr.style.background = dynamicCssBridge.value["tr-un-attract-bg-color"];
                 }
+                Array.from(item__tr.children).forEach(
+                    (ele_td: HTMLLIElement | any, index: number) => {
+                        // 根据header的配置设置列宽占比
+                        ele_td.style.flexBasis = header[index].basis + "%";
+                        
+                        if(attractShowCount.includes(i)){
+                            ele_td.style.transform = `scale(${tmp_scaleRule[0]})`;
+                        }else{
+                            // 根据配置 设置缩放比例
+                            ele_td.style.transform = `scale(${tmp_scaleRule[1]})`;
+                        }
+                    }
+                );
+            }
+        };
+
+        const initStartLoop = () => {
+            if (data.rotationTimer) {
+                clearInterval(data.rotationTimer as number);
+                data.rotationTimer = null;
+            }
+            if (props.rollType == RollType.AUTHROLL) {
+                // 在鼠标悬浮的时候不新生成定时器。
+                if (isMouseHoving) return;
+                data.rotationTimer =
+                    getListDataBridge.value.length > props.showCount &&
+                    setInterval(() => {
+                        // console.log(data.rotationTimer, "触发计时器");
+                        nextTick(()=>{
+                            loopFn();
+                        })
+                    }, props.loopTime);
+                // window.addEventListener("blur", windowBlur);
+                // window.addEventListener("focus", windowFocus);
             }
         };
 
@@ -127,7 +152,7 @@ export default defineComponent({
                     deepClone(props.modelValue),
                     props.showCount * 2
                 );
-
+                // console.log("触发数据更新", dataCircularConsumption);
                 // 每个数据列表更新的时候重置调用下初始状态
                 nextTick(() => {
                     initializationStyle();
@@ -171,58 +196,48 @@ export default defineComponent({
             return itemHeight * count + "px";
         });
 
-        // const visibilitychange = function () {
-        //     if (document.hidden) {
-        //         console.log("roll-list所在页面被隐藏了");
+        // const windowBlur = function(){
+        //     // console.log("roll-list所在页面被隐藏了");
+        //     clearInterval(data.rotationTimer as number);
+        // };
+        // const windowFocus = function(){
+        //     // console.log("roll-list继续播放");
+        //     if (data.rotationTimer) {
         //         clearInterval(data.rotationTimer as number);
-        //     } else {
-        //         if (data.rotationTimer) {
-        //             clearInterval(data.rotationTimer as number);
-        //             data.rotationTimer = null;
-        //         }
+        //         data.rotationTimer = null;
         //     }
         // };
-        // document.addEventListener("visibilitychange", visibilitychange);
-        const windowBlur = function(){
-            // console.log("roll-list所在页面被隐藏了");
-            clearInterval(data.rotationTimer as number);
-        };
-        const windowFocus = function(){
-            // console.log("roll-list继续播放");
-            if (data.rotationTimer) {
-                clearInterval(data.rotationTimer as number);
-                data.rotationTimer = null;
-            }
-        };
-        window.addEventListener("blur", windowBlur);
-        window.addEventListener("focus", windowFocus);
-
+        // window.addEventListener("blur", windowBlur);
+        // window.addEventListener("focus", windowFocus);
 
         onMounted(() => {
             /**
-             * watch
+             * watch--rotationTimer、rollType、getListDataBridge、loopTime
              */
-            watchEffect(() => {
-                // 计时器
-                if (data.rotationTimer) {
-                    clearInterval(data.rotationTimer as number);
-                    data.rotationTimer = null;
+
+            // 初始化
+            initStartLoop();
+            watch(
+                () => props.rollType,
+                () => initStartLoop()
+            );
+
+            watch(
+                () => props.loopTime,
+                () => initStartLoop()
+            );
+
+            watch(
+                () => getListDataBridge.value,
+                () => {
+                    initStartLoop();
                 }
-                if (props.rollType == RollType.AUTHROLL) {
-                    data.rotationTimer =
-                        getListDataBridge.value.length > props.showCount &&
-                        setInterval(() => {
-                            loopFn();
-                        }, props.loopTime); 
-                }
-            });
+            );
         });
 
         onUnmounted(() => {
-            // document.removeEventListener("visibilitychange", visibilitychange);
-            document.removeEventListener("blur", windowBlur);
-            document.removeEventListener("focus", windowFocus);
-
+            // document.removeEventListener("blur", windowBlur);
+            // document.removeEventListener("focus", windowFocus);
         });
 
         // 轮播函数
@@ -254,48 +269,44 @@ export default defineComponent({
             //     item.style.transition = `1s`;
             //     item.style.transform = `scale(${scale})`;
             // }
-
             // 遍历 ---- 指定位置颜色变化策略
             for (let i = 0; i < wrapperRef.value?.children.length; i++) {
-                const item = wrapperRef.value.children[i];
-                const {
-                    rollCount,
-                    attractShowCount,
-                    header,
-                } = props;
-
-                // 给指定的位置亮起来
-                if (
-                    attractShowCount.map((i: any) => i + rollCount).includes(i)
-                ) {
-                    if (
-                        dynamicCssBridge.value["tr-attract-bg-color-style"] ==
-                        "double"
-                    ) {
-                        item.style.background = `linear-gradient(${dynamicCssBridge.value["tr-attract-bg-color-angle"]}deg,${dynamicCssBridge.value["tr-attract-bg-color-from"]},${dynamicCssBridge.value["tr-attract-bg-color-to"]})`;
+                const item__tr = wrapperRef.value.children[i];
+                const { attractShowCount, header, tmp_scaleRule } = props;
+                // 设置指定聚焦位置的背景颜色
+                const select = attractShowCount.map((i: any) => i + rollCount).includes(i)
+                if (select) {
+                    const useGradually =
+                        dynamicCssBridge.value[
+                            "tr-attract-bg-color-style"
+                        ] == "double";
+                    // 是否是是背景渐变色
+                    if (useGradually) {
+                        const angle = dynamicCssBridge.value["tr-attract-bg-color-angle"];
+                        const from = dynamicCssBridge.value["tr-attract-bg-color-from"];
+                        const to = dynamicCssBridge.value["tr-attract-bg-color-to"];
+                        item__tr.style.background = `linear-gradient(${angle}deg,${from},${to})`;
                     } else {
-                        item.style.background =
-                            dynamicCssBridge.value["tr-attract-bg-color-value"];
+                        item__tr.style.background = dynamicCssBridge.value["tr-attract-bg-color-value"];
                     }
-
-                    Array.from(item.children).forEach(
-                        (ele_li: HTMLLIElement | any, index: number) => {
-                            ele_li.style.flexBasis = header[index].basis + "%";
-                            ele_li.style.transform = `scale(${props.tmp_scaleRule[0]})`;
-                        }
-                    );
-                } else {
-                    item.style.background =
-                        dynamicCssBridge.value["tr-un-attract-bg-color"];
-                    Array.from(item.children).forEach(
-                        (ele_li: HTMLLIElement | any, index: number) => {
-                            ele_li.style.flexBasis = header[index].basis + "%";
-                            ele_li.style.transform = `scale(${props.tmp_scaleRule[1]})`;
-                        }
-                    );
+                }else{
+                    item__tr.style.background = dynamicCssBridge.value["tr-un-attract-bg-color"];
                 }
-                // item.style.transform = `scale(${scale})`;
+                Array.from(item__tr.children).forEach(
+                    (ele_td: HTMLLIElement | any, index: number) => {
+                        // 根据header的配置设置列宽占比
+                        ele_td.style.flexBasis = header[index].basis + "%";
+                        if(select){
+                            ele_td.style.transform = `scale(${tmp_scaleRule[0]})`;
+                        }else{
+                            // 根据配置 设置缩放比例
+                            ele_td.style.transform = `scale(${tmp_scaleRule[1]})`;
+                        }
+                    }
+                );
             }
+            
+
 
             // 滚动框架
             scrollTo(
@@ -304,9 +315,13 @@ export default defineComponent({
                 cacheScrollTop,
                 props.scrollTransition,
                 () => {
-                    data.takeFlag = !data.takeFlag; // 虚拟列表更新数据
+                    data.takeFlag = !data.takeFlag; // 滚动完成后重新更新虚拟列表的数据
                     scrollWrapper.scrollTop = 0; // 清空
                     cacheScrollTop = 0; // 清空缓存
+
+                    nextTick(()=>{
+                        initializationStyle()
+                    })
                 }
             );
         };
@@ -315,15 +330,17 @@ export default defineComponent({
          * events
          */
         const handleMouseenter = () => {
+            isMouseHoving = true;
             if (data.rotationTimer) {
                 clearInterval(data.rotationTimer as number);
-                // data.rotationTimer = null;
+                data.rotationTimer = null;
             }
         };
 
         const handleMouseLeave = () => {
-            // 触发watch回调
-            data.rotationTimer = null;
+            isMouseHoving = false;
+            // 需要注意的是在 鼠标悬浮的时候更新数据，会有两个轮播定时器同时存在，所以需要清除
+            initStartLoop();
         };
 
         const handleRowClick = function (data: any) {
@@ -448,6 +465,8 @@ export default defineComponent({
                         {getHeaderBridge.value[index]?.type &&
                         getHeaderBridge.value[index]?.type == "longText" ? (
                             <LongText
+                                // 防止边界抖动
+                                style={{ padding: "0 1px" }}
                                 text={rowData[headerData.prop] || "undefined"}
                                 speed={
                                     rowData[headerData.prop]

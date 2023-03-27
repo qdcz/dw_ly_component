@@ -7,6 +7,7 @@ import {
     defineComponent,
     ExtractPropTypes,
     getCurrentInstance,
+    nextTick,
     onMounted,
     reactive,
     ref,
@@ -94,15 +95,17 @@ export default defineComponent({
 
         onMounted(() => {
             watchEffect(() => {
-                if (containerRef.value && marqueerRef.value) {
+                nextTick(() => {
                     const boxWidth = containerRef.value.clientWidth; // scroll 相当于也是offsetWidth
                     const marqueerWidth = marqueerRef.value.offsetWidth;
+                    // const boxWidth = containerRef.value.getBoundingClientRect().width;
+                    // const marqueerWidth = marqueerRef.value.getBoundingClientRect().width;
                     const textWidth = marqueerWidth;
                     // 判断是否存在 是否需要启动自动滚动
                     if (boxWidth >= textWidth) {
                         data.isScroll = false;
                     }
-                }
+                });
             });
         });
 

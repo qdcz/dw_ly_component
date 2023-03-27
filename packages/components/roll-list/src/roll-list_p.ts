@@ -18,7 +18,7 @@ export const rollListProps = {
         default: true,
     },
     // 每行固高
-    itemHeight: { 
+    itemHeight: {
         type: [String],
         default: "40px",
     },
@@ -49,12 +49,12 @@ export const rollListProps = {
     // 自动滚动时长间隔 ( 不能小于或等于 scrollTransition )
     loopTime: {
         type: Number,
-        default: 1000 * 2,
+        default: 1000 *2,
     },
     // 滚动过渡时长
     scrollTransition: {
         type: Number,
-        default: 1000 * 1,
+        default: 1000 * 0.8,
     },
     // (临时)固定层级缩放
     tmp_scaleRule: {
@@ -111,7 +111,7 @@ export const rollListProps = {
                 /**
                  * 表列相关
                  */
-                "td-pad-lr": "20",
+                "td-pad-lr": "20", // 表列的 左右外边距
                 "td-pad-tb": "0",
 
                 /**
