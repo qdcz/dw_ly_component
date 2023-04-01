@@ -36,6 +36,7 @@ import {
     scrollBar_thumbHW,
     scrollBar_setScrollTL,
     rollList_base,
+    rollList_modelValue
 } from "../../component/index";
 
 import { h } from "vue";
@@ -97,6 +98,8 @@ export default {
         app.component("scrollBar-setScrollTL", scrollBar_setScrollTL.default);
 
         app.component("roll-list-base", rollList_base.default);
+        app.component("roll-list-model-value", rollList_modelValue.default);
+        
     },
     setup() {
         // this function will be executed inside VitePressApp's

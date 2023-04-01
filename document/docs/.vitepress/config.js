@@ -12,7 +12,7 @@ export default defineConfig({
   title: "DW组件库",
   description: "这是一个组件库",
   lang: "zh-CN",
-  appearance: false, // 关闭主题切换
+  appearance: true, // 主题切换
   head: [
     ["link", { rel: "icon", type: "image/svg+xml", href: "/logo.svg" }],
     ["meta", { property: "og:type", content: "website" }],
@@ -25,9 +25,9 @@ export default defineConfig({
     ["meta", { name: "theme-color", content: "#646cff" }],
   ],
 
-  vue: {
-    reactivityTransform: true,
-  },
+  // vue: {
+  //   reactivityTransform: true,
+  // },
 
   themeConfig: {
     logo: "/logo2.png",

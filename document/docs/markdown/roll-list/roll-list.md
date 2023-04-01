@@ -1,11 +1,14 @@
-# dw-roll-list `V0.0.5`
+# dw-roll-list `V0.0.7`
 
 用于展示多条结构类似的数据，目前只支持自动滚动
+
+## 使用modelValue和header渲染数据
+
+<roll-list-model-value></roll-list-model-value>
 
 ## 基础用法
 
 <roll-list-base></roll-list-base>
-
 
 ## 自定义配置css属性
 
@@ -25,7 +28,7 @@
 <script lang="ts" setup>
 const data = reactive({
     dynamicCss: {
-        "box-width": "700", // 或者auto
+        "box-wid": "700", // 或者auto
     },
 });
 return {
@@ -38,8 +41,18 @@ return {
 
 ```js
 {
-   // 容器宽度
-    "box-width": "800", // 或者auto
+    // 容器宽度
+    "box-wid": "800", // 或者auto
+
+    // 钉在表格上的列表
+    "pin-hei":"80",
+    "pin-radius":"4",
+    "pin-dire-b":"120", // 距离底部距离
+    "pin-bg-color-style": "double", // single 是使用单色 double 是使用渐变色
+    "pin-bg-color-to": "#00DEFF",
+    "pin-bg-color-from": "#FFFFFF",
+    "pin-bg-color-angle": "135",
+    "pin-bg-color-value": "#49a3cb",
 
     /**
      * 表头相关
@@ -58,23 +71,32 @@ return {
      * 表体相关
      */
     // 鼠标悬浮表行背景颜色
-    "tr-hover-bg-color":"rgb(132 176 212 / 80%)",
-    "tr-hover-transition":"0.3",
+    "tr-hover-bg-color": "rgb(132 176 212 / 80%)",
+    "tr-hover-transition": "0.3",
     // 激活的背景颜色
-    "tr-attract-bg-color-style": "single", // single 是使用单色 double是使用渐变色
-    "tr-attract-bg-color-to": "#00DEFF",
-    "tr-attract-bg-color-from": "#FFFFFF",
-    "tr-attract-bg-color-angle": "135",
-    "tr-attract-bg-color-value": "rgb(211, 228, 242)",
-    // "tr-attract-bg-color": "rgba(20, 62, 114, 0.1)",
+    "tr-focus-bg-color-style": "single", // single 是使用单色 double 是使用渐变色
+    "tr-focus-bg-color-to": "#00DEFF",
+    "tr-focus-bg-color-from": "#FFFFFF",
+    "tr-focus-bg-color-angle": "135",
+    "tr-focus-bg-color-value": "rgb(211, 228, 242)",
     // 其余未激活的背景颜色
-    "tr-un-attract-bg-color": "rgb(235, 235, 235)",
+    "tr-un-focus-bg-color": "rgb(235, 235, 235)",
 
     /**
      * 表列相关
      */
-    "td-pad-lr": "20",
+    "td-pad-lr": "20", // 表列的 左右外边距
     "td-pad-tb": "0",
+
+
+
+    /**
+     * longText组件
+     */
+    "longText-txt-gap": "30", // 滚动文本连接间隙
+    // header传入 权重最高
+    "longText-sco-ani-name": "longTextScrollAnimation", // "longTextScrollAnimation3d"
+    "longText-sco-ani-dura": "15",
 }
 ```
 
@@ -85,11 +107,12 @@ return {
 | header     | 配置表头字段及每列的属性          | Object                   | —          | ...               |
 | showHeader      | 是否显示表头        | Boolean          | —          | true                  |
 | itemHeight      | 每行的高度              | String          | —          | 40px                  |
-| showCount   | 表格可视化界面展示的条数          | Number | —          | 6               |
+| showCount   | 表格可视界面展示的条数          | Number | —          | 6               |
 | rollCount   | 表格每次自动滚动的条数          | Number | —          | 1               |
 | attractShowCount   | 表格固定显示聚焦行的下标          | Number [] | —          | [1, 3, 4]               |
 | loopTime   | 表格自动滚动的时间间隔          | Number | —          | 1000 * 3               |
 | scrollTransition   | 表格滚动的过渡时长（要注意小于loopTime，否则动画不流畅）          | Number | —          | 1000 * 2               |
+| rollType   | 滚动类型          | string | autoRoll(自动滚动)、handRoll(手动滚动)          | autoRoll               |
 | tmp_scaleRule   | 临时，固定层级缩放          | Number [] | —          | [1.3, 1]               |
 | modelValue   | 表格数据          | Object [] | —          | ...               |
 | dynamicCss   | 覆盖组件内置的css变量          | Object | —          | 见自定义配置属性               |
@@ -104,6 +127,7 @@ return {
 
 - v 0.0.7：
     - 优化：当该组件所在页面隐藏的时候暂停组件的轮播动作。
+    - 新增：添加钉在列表的上固定背景条。支持渐变、边框弧度、位置、高度更改
 
 - v 0.0.6：
     - 对于每个td添加 `flex:1` 使其自适应充满单元格

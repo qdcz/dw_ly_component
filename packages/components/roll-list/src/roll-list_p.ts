@@ -77,7 +77,17 @@ export const rollListProps = {
         default: () => {
             return {
                 // 容器宽度
-                "box-width": "800", // 或者auto
+                "box-wid": "800", // 或者auto
+
+                // 钉在表格上的列表
+                "pin-hei":"80",
+                "pin-radius":"4",
+                "pin-dire-b":"120", // 距离底部距离
+                "pin-bg-color-style": "double", // single 是使用单色 double 是使用渐变色
+                "pin-bg-color-to": "#00DEFF",
+                "pin-bg-color-from": "#FFFFFF",
+                "pin-bg-color-angle": "135",
+                "pin-bg-color-value": "#49a3cb",
 
                 /**
                  * 表头相关
@@ -99,20 +109,24 @@ export const rollListProps = {
                 "tr-hover-bg-color": "rgb(132 176 212 / 80%)",
                 "tr-hover-transition": "0.3",
                 // 激活的背景颜色
-                "tr-attract-bg-color-style": "single", // single 是使用单色 double是使用渐变色
-                "tr-attract-bg-color-to": "#00DEFF",
-                "tr-attract-bg-color-from": "#FFFFFF",
-                "tr-attract-bg-color-angle": "135",
-                "tr-attract-bg-color-value": "rgb(211, 228, 242)",
-                // "tr-attract-bg-color": "rgba(20, 62, 114, 0.1)",
+                "tr-focus-bg-color-style": "single", // single 是使用单色 double 是使用渐变色
+                "tr-focus-bg-color-to": "#00DEFF",
+                "tr-focus-bg-color-from": "#FFFFFF",
+                "tr-focus-bg-color-angle": "135",
+                "tr-focus-bg-color-value": "rgb(211, 228, 242)",
                 // 其余未激活的背景颜色
-                "tr-un-attract-bg-color": "rgb(235, 235, 235)",
+                "tr-un-focus-bg-color": "rgb(235, 235, 235)",
 
                 /**
                  * 表列相关
                  */
                 "td-pad-lr": "20", // 表列的 左右外边距
                 "td-pad-tb": "0",
+
+
+
+
+
 
                 /**
                  * longText组件

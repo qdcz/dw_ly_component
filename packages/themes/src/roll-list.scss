@@ -67,7 +67,16 @@
 
 
 .#{$namespace}-roll-list {
-    width: calc(var(--box-width) * 1px);
+    width: calc(var(--box-wid) * 1px);
+    position: relative;
+
+    &__pinSth {
+        position: absolute;
+        width: calc(var(--box-wid) * 1px);
+        height: calc(var(--pin-hei) * 1px);
+        bottom: calc(var(--pin-dire-b) * 1px);
+        border-radius: calc(var(--pin-radius) * 1px);
+    }
 
     &__th {
         display: flex;
@@ -130,7 +139,6 @@
         // flex: 1;
         flex-grow: 1;
         flex-basis: 0;
-        // box-sizing: content-box;
         transition: 1s;
     }
 }

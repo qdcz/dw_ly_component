@@ -76,5 +76,5 @@ export const moduleBuildCss = () => async () => {
 
 export const buildModuleBundle = parallel(
   withTaskName("buildModuleMinified", moduleBuild()),
-  // withTaskName("buildModuleCss", moduleBuildCss()),
+  withTaskName("buildModuleCss", moduleBuildCss()),
 );

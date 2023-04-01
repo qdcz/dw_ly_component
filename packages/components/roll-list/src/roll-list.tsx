@@ -17,6 +17,7 @@ import {
     DataCircularConsumption,
     addUniqueIdToDuplicateData,
     deepClone,
+    generateUUID,
     scrollTo,
 } from "./list-consumption";
 const { n } = createNamespace("roll-list");
@@ -93,19 +94,19 @@ export default defineComponent({
                 if (select) {
                     const useGradually =
                         dynamicCssBridge.value[
-                            "tr-attract-bg-color-style"
+                            "tr-focus-bg-color-style"
                         ] == "double";
                     // 是否是是背景渐变色
                     if (useGradually) {
-                        const angle = dynamicCssBridge.value["tr-attract-bg-color-angle"];
-                        const from = dynamicCssBridge.value["tr-attract-bg-color-from"];
-                        const to = dynamicCssBridge.value["tr-attract-bg-color-to"];
+                        const angle = dynamicCssBridge.value["tr-focus-bg-color-angle"];
+                        const from = dynamicCssBridge.value["tr-focus-bg-color-from"];
+                        const to = dynamicCssBridge.value["tr-focus-bg-color-to"];
                         item__tr.style.background = `linear-gradient(${angle}deg,${from},${to})`;
                     } else {
-                        item__tr.style.background = dynamicCssBridge.value["tr-attract-bg-color-value"];
+                        item__tr.style.background = dynamicCssBridge.value["tr-focus-bg-color-value"];
                     }
                 }else{
-                    item__tr.style.background = dynamicCssBridge.value["tr-un-attract-bg-color"];
+                    item__tr.style.background = dynamicCssBridge.value["tr-un-focus-bg-color"];
                 }
                 Array.from(item__tr.children).forEach(
                     (ele_td: HTMLLIElement | any, index: number) => {
@@ -147,9 +148,14 @@ export default defineComponent({
         // list数据
         const getListDataBridge = computed({
             get() {
+                const newArr = props.modelValue.map((i: Object | any, index: number) => {
+                    i.__id = generateUUID();
+                    i.__uniqueness = generateUUID();
+                    return i;
+                });
                 // 数据消费
                 dataCircularConsumption = new DataCircularConsumption(
-                    deepClone(props.modelValue),
+                    deepClone(newArr),
                     props.showCount * 2
                 );
                 // console.log("触发数据更新", dataCircularConsumption);
@@ -157,7 +163,7 @@ export default defineComponent({
                 nextTick(() => {
                     initializationStyle();
                 });
-                return props.modelValue;
+                return newArr
             },
             set(val) {
                 if (hasVModelListener) {
@@ -175,9 +181,8 @@ export default defineComponent({
                 const rollCount = data.getInventedListDataBridgeInit
                     ? props.rollCount
                     : (data.getInventedListDataBridgeInit = true) && 0;
-                return addUniqueIdToDuplicateData(
-                    dataCircularConsumption.take(rollCount)
-                );
+                const list = addUniqueIdToDuplicateData(dataCircularConsumption.take(rollCount));
+                return list;
             } else {
                 // 数字换成虚拟下标
                 return new Array(props.modelValue.length)
@@ -269,6 +274,7 @@ export default defineComponent({
             //     item.style.transition = `1s`;
             //     item.style.transform = `scale(${scale})`;
             // }
+
             // 遍历 ---- 指定位置颜色变化策略
             for (let i = 0; i < wrapperRef.value?.children.length; i++) {
                 const item__tr = wrapperRef.value.children[i];
@@ -278,19 +284,19 @@ export default defineComponent({
                 if (select) {
                     const useGradually =
                         dynamicCssBridge.value[
-                            "tr-attract-bg-color-style"
+                            "tr-focus-bg-color-style"
                         ] == "double";
                     // 是否是是背景渐变色
                     if (useGradually) {
-                        const angle = dynamicCssBridge.value["tr-attract-bg-color-angle"];
-                        const from = dynamicCssBridge.value["tr-attract-bg-color-from"];
-                        const to = dynamicCssBridge.value["tr-attract-bg-color-to"];
+                        const angle = dynamicCssBridge.value["tr-focus-bg-color-angle"];
+                        const from = dynamicCssBridge.value["tr-focus-bg-color-from"];
+                        const to = dynamicCssBridge.value["tr-focus-bg-color-to"];
                         item__tr.style.background = `linear-gradient(${angle}deg,${from},${to})`;
                     } else {
-                        item__tr.style.background = dynamicCssBridge.value["tr-attract-bg-color-value"];
+                        item__tr.style.background = dynamicCssBridge.value["tr-focus-bg-color-value"];
                     }
                 }else{
-                    item__tr.style.background = dynamicCssBridge.value["tr-un-attract-bg-color"];
+                    item__tr.style.background = dynamicCssBridge.value["tr-un-focus-bg-color"];
                 }
                 Array.from(item__tr.children).forEach(
                     (ele_td: HTMLLIElement | any, index: number) => {
@@ -354,6 +360,26 @@ export default defineComponent({
         });
 
         /**
+         * 固定栏背景条
+         */
+        const view_pinSth = ()=>{
+            if(!dynamicCssBridge.value[ "pin-bg-color-style" ]) return ("")
+            let background = "none";
+            const useGradually = dynamicCssBridge.value[ "pin-bg-color-style" ] == "double";
+            if (useGradually) {
+                const angle = dynamicCssBridge.value["pin-bg-color-angle"];
+                const from = dynamicCssBridge.value["pin-bg-color-from"];
+                const to = dynamicCssBridge.value["pin-bg-color-to"];
+                background = `linear-gradient(${angle}deg,${from},${to})`;
+            } else {
+                background = dynamicCssBridge.value["pin-bg-color-value"];
+            }
+            return (
+                <div class={n("_pinSth")} style={{background}}></div>
+            )
+        }
+
+        /**
          * 表头组件
          */
         const view_th = () => {
@@ -385,7 +411,7 @@ export default defineComponent({
                     style={{
                         height: wrapperHeightBridge.value,
                     }}
-                >
+                >   
                     <ul ref={wrapperRef} class={n("_wrapper")}>
                         {getInventedListDataBridge.value.map((rowData: any) => {
                             return view_eachRow(rowData);
@@ -496,7 +522,9 @@ export default defineComponent({
                 v-css={dynamicCssBridge.value || {}}
                 onMouseenter={handleMouseenter}
                 onMouseleave={handleMouseLeave}
-            >
+            >   
+                {/* 固定栏背景条 */}
+                {view_pinSth()}
                 {/* 表头 */}
                 {view_th()}
                 {/* 滚动容器 */}
