@@ -1,29 +1,29 @@
-import { defineComponent as Z, getCurrentInstance as D, ref as L, reactive as ee, computed as C, onMounted as te, watchEffect as pe, nextTick as M, withDirectives as ne, createVNode as a, resolveDirective as oe, watch as G, onUnmounted as j } from "vue";
-const ve = (e, o) => (e.install = function(s) {
+import { defineComponent as se, getCurrentInstance as re, ref as L, reactive as ie, computed as C, onMounted as ce, watchEffect as we, nextTick as M, withDirectives as ue, createVNode as u, resolveDirective as ae, watch as G, onUnmounted as D } from "vue";
+const Ce = (e, n) => (e.install = function(r) {
   if (e) {
     const i = e.name || e.__name;
-    if (i || o) {
-      const l = o ? `dw-${o}` : "dw-" + i.replace(/dw/gi, "").toLowerCase();
-      s.component(l, e);
+    if (i || n) {
+      const l = n ? `dw-${n}` : "dw-" + i.replace(/dw/gi, "").toLowerCase();
+      r.component(l, e);
     } else
-      console.error(e, o, !o);
+      console.error(e, n, !n);
   }
-}, e), ye = (e) => Array.isArray(e);
+}, e), Se = (e) => Array.isArray(e);
 function U(e) {
-  const o = `vi-${e}`;
+  const n = `vi-${e}`;
   return {
-    n: (l) => l ? l.startsWith("-") ? `${o}${l}` : `${o}_${l}` : o,
-    classes: (...l) => l.map((u) => {
-      if (ye(u)) {
-        const [d, p, g = null] = u;
-        return d ? p : g;
+    n: (l) => l ? l.startsWith("-") ? `${n}${l}` : `${n}_${l}` : n,
+    classes: (...l) => l.map((a) => {
+      if (Se(a)) {
+        const [f, v, g = null] = a;
+        return f ? v : g;
       }
-      return u;
+      return a;
     })
   };
 }
 var W = /* @__PURE__ */ ((e) => (e.AUTHROLL = "autoRoll", e.HANDMOVE = "handRoll", e))(W || {});
-const J = {
+const ee = {
   header: {
     type: Array,
     default: []
@@ -106,64 +106,65 @@ const J = {
       "tr-un-focus-bg-color": "rgb(235, 235, 235)",
       "td-pad-lr": "20",
       "td-pad-tb": "0",
+      "td-txt-align": "center",
       "longText-txt-gap": "30",
       "longText-sco-ani-name": "longTextScrollAnimation",
       "longText-sco-ani-dura": "15"
     })
   }
-}, K = function(e, o) {
-  for (let [s, i] of Object.entries(o.value))
-    e.style.setProperty("--" + s, i);
-}, le = {
-  mounted(e, o) {
-    K(e, o);
+}, te = function(e, n) {
+  for (let [r, i] of Object.entries(n.value))
+    e.style.setProperty("--" + r, i);
+}, de = {
+  mounted(e, n) {
+    te(e, n);
   },
-  updated(e, o) {
-    K(e, o);
+  updated(e, n) {
+    te(e, n);
   },
   install(e) {
     e.directive("Css", this);
   }
-}, { n: xe } = U(""), he = (e = xe()) => e + "xxxxxxxx".replace(/[xy]/g, function(o) {
-  var s = 0 | 16 * Math.random(), i = o == "x" ? s : 8 | 3 & s;
+}, { n: _e } = U(""), Ae = (e = _e()) => e + "xxxxxxxx".replace(/[xy]/g, function(n) {
+  var r = 0 | 16 * Math.random(), i = n == "x" ? r : 8 | 3 & r;
   return i.toString(16);
 });
-class be {
-  constructor(o = [], s = 7) {
-    this.list = o, this.severalGroups = s, this.windowSliding = new Array(this.severalGroups).fill(0).map((i, l) => l);
+class Fe {
+  constructor(n = [], r = 7) {
+    this.list = n, this.severalGroups = r, this.windowSliding = new Array(this.severalGroups).fill(0).map((i, l) => l);
   }
-  take(o) {
-    return this.Sliding(o), this.show();
+  take(n) {
+    return this.Sliding(n), this.show();
   }
   show() {
-    return this.windowSliding.map((o) => this.list[o]);
+    return this.windowSliding.map((n) => this.list[n]);
   }
-  Sliding(o) {
-    this.windowSliding = this.windowSliding.map((s) => {
-      const i = this.list.length, l = s + o;
+  Sliding(n) {
+    this.windowSliding = this.windowSliding.map((r) => {
+      const i = this.list.length, l = r + n;
       return l <= i - 1 ? l : l - i;
     });
   }
 }
 const V = function(e) {
-  const o = e instanceof Array ? [] : {};
-  for (let s in e)
-    o[s] = typeof e[s] == "object" ? V(e[s]) : e[s];
-  return o;
+  const n = e instanceof Array ? [] : {};
+  for (let r in e)
+    n[r] = typeof e[r] == "object" ? V(e[r]) : e[r];
+  return n;
 };
-function Te(e, o = "top", s, i, l) {
-  const u = o == "top" ? e.scrollTop : o == "left" ? e.scrollLeft : 0, d = s - u, p = performance.now();
+function Le(e, n = "top", r, i, l) {
+  const a = n == "top" ? e.scrollTop : n == "left" ? e.scrollLeft : 0, f = r - a, v = performance.now();
   function g() {
-    const x = performance.now() - p, r = _(
-      x,
-      u,
-      d,
+    const y = performance.now() - v, s = _(
+      y,
+      a,
+      f,
       i
     );
-    o == "top" ? e.scrollTop = r : o == "left" && (e.scrollLeft = r), x < i ? requestAnimationFrame(g) : l && l();
+    n == "top" ? e.scrollTop = s : n == "left" && (e.scrollLeft = s), y < i ? requestAnimationFrame(g) : l && l();
   }
-  function _(f, x, r, I) {
-    return f /= I / 2, f < 1 ? r / 2 * f * f + x : (f--, -r / 2 * (f * (f - 2) - 1) + x);
+  function _(m, y, s, I) {
+    return m /= I / 2, m < 1 ? s / 2 * m * m + y : (m--, -s / 2 * (m * (m - 2) - 1) + y);
   }
   requestAnimationFrame(g);
 }
@@ -171,25 +172,25 @@ function O() {
   let e = new Date().getTime();
   return typeof performance < "u" && typeof performance.now == "function" && (e += performance.now()), "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
     /[xy]/g,
-    (s) => {
+    (r) => {
       const i = (e + Math.random() * 16) % 16 | 0;
-      return e = Math.floor(e / 16), (s === "x" ? i : i & 3 | 8).toString(16);
+      return e = Math.floor(e / 16), (r === "x" ? i : i & 3 | 8).toString(16);
     }
   );
 }
-function we(e) {
-  const o = {};
-  return e.map((s) => {
-    const { __id: i, ...l } = s, u = JSON.stringify(l);
-    if (!o[u])
-      return o[u] = !0, s;
-    const d = O();
-    return { ...s, __id: d };
+function ke(e) {
+  const n = {};
+  return e.map((r) => {
+    const { __id: i, ...l } = r, a = JSON.stringify(l);
+    if (!n[a])
+      return n[a] = !0, r;
+    const f = O();
+    return { ...r, __id: f };
   });
 }
 const {
-  n: Q
-} = U("long-text"), X = {
+  n: ne
+} = U("long-text"), oe = {
   text: {
     type: String,
     default: "这是一个默认文本"
@@ -206,102 +207,102 @@ const {
       "sco-ani-dura": "10"
     })
   }
-}, Y = /* @__PURE__ */ Z({
+}, le = /* @__PURE__ */ se({
   name: "LongText",
   emits: ["update:text"],
-  props: X,
+  props: oe,
   directives: {
-    css: le
+    css: de
   },
-  setup(e, o) {
-    var x;
-    const i = "onUpdate:modelValue" in (((x = D()) == null ? void 0 : x.vnode.props) || {}), l = L(null), u = L(null), d = L(null), p = L(null), g = ee({
+  setup(e, n) {
+    var y;
+    const i = "onUpdate:modelValue" in (((y = re()) == null ? void 0 : y.vnode.props) || {}), l = L(null), a = L(null), f = L(null), v = L(null), g = ie({
       isScroll: !0,
       toolTip_x: 0,
       toolTip_y: 0,
       toolTip_content: "盎司附近拉萨解放了卡JFK垃圾地方"
-    }), _ = C(() => Object.assign(X.dynamicCss.default(), e.dynamicCss)), f = C({
+    }), _ = C(() => Object.assign(oe.dynamicCss.default(), e.dynamicCss)), m = C({
       get() {
         return g.isScroll = !0, e.text;
       },
-      set(r) {
-        i && o.emit("update:text", r);
+      set(s) {
+        i && n.emit("update:text", s);
       }
     });
-    return te(() => {
-      pe(() => {
+    return ce(() => {
+      we(() => {
         M(() => {
-          const r = l.value.clientWidth, A = d.value.offsetWidth;
-          r >= A && (g.isScroll = !1);
+          const s = l.value.clientWidth, A = f.value.offsetWidth;
+          s >= A && (g.isScroll = !1);
         });
       });
-    }), () => ne(a("div", {
-      class: [Q(""), "tooltip"],
+    }), () => ue(u("div", {
+      class: [ne(""), "tooltip"],
       "data-tooltip": "这是一个 tooltip",
       ref: l
-    }, [a("div", {
-      class: Q("_scroll"),
-      ref: u
-    }, [a("span", {
-      ref: d,
+    }, [u("div", {
+      class: ne("_scroll"),
+      ref: a
+    }, [u("span", {
+      ref: f,
       class: g.isScroll ? "startAnimation" : ""
-    }, [f.value]), g.isScroll ? a("span", null, [a("span", {
+    }, [m.value]), g.isScroll ? u("span", null, [u("span", {
       class: "seizeASeat"
-    }, null), a("span", {
-      ref: p,
+    }, null), u("span", {
+      ref: v,
       class: "startAnimation"
-    }, [f.value]), a("span", {
+    }, [m.value]), u("span", {
       class: "seizeASeat"
-    }, null)]) : ""])]), [[oe("css"), _.value || {}]]);
+    }, null)]) : ""])]), [[ae("css"), _.value || {}]]);
   }
 }), {
   n: w
-} = U("roll-list"), Ce = /* @__PURE__ */ Z({
+} = U("roll-list"), $e = /* @__PURE__ */ se({
   name: "RollList",
   emits: ["update:modelValue", "rowClick"],
   directives: {
-    css: le
+    css: de
   },
-  props: J,
+  props: ee,
   components: {
-    LongText: Y
+    LongText: le
   },
-  setup(e, o) {
+  setup(e, n) {
     var E;
-    const i = "onUpdate:modelValue" in (((E = D()) == null ? void 0 : E.vnode.props) || {}), l = ee({
-      uuid: he(w("-")),
+    const i = "onUpdate:modelValue" in (((E = re()) == null ? void 0 : E.vnode.props) || {}), l = ie({
+      uuid: Ae(w("-")),
       takeFlag: !1,
       rotationTimer: null,
       getInventedListDataBridgeInit: !1
-    }), u = L(null), d = L();
-    let p = 0, g = !1, _ = null;
-    const f = {
+    }), a = L(null), f = L();
+    let v = 0, g = !1, _ = null;
+    const m = {
       longText: "longText"
-    }, x = (n) => {
-      n.preventDefault();
-    }, r = C(() => Object.assign(J.dynamicCss.default(), e.dynamicCss)), I = C(() => {
-      let n = {};
-      for (let t in r.value)
-        t.includes("longText") && (n[t.replace("longText-", "")] = r.value[t]);
-      return n;
+    }, y = (o) => {
+      o.preventDefault();
+    }, s = C(() => Object.assign(ee.dynamicCss.default(), e.dynamicCss)), I = C(() => {
+      let o = {};
+      for (let t in s.value)
+        t.includes("longText") && (o[t.replace("longText-", "")] = s.value[t]);
+      return o;
     }), A = C(() => e.header), N = () => {
-      var n;
-      for (let t = 0; t < ((n = d.value) == null ? void 0 : n.children.length); t++) {
-        const c = d.value.children[t], {
-          attractShowCount: m,
-          header: v,
+      var o;
+      for (let t = 0; t < ((o = f.value) == null ? void 0 : o.children.length); t++) {
+        const c = f.value.children[t], {
+          attractShowCount: p,
+          header: d,
           tmp_scaleRule: h
         } = e;
-        if (m.includes(t))
-          if (r.value["tr-focus-bg-color-style"] == "double") {
-            const T = r.value["tr-focus-bg-color-angle"], S = r.value["tr-focus-bg-color-from"], y = r.value["tr-focus-bg-color-to"];
-            c.style.background = `linear-gradient(${T}deg,${S},${y})`;
+        if (p.includes(t))
+          if (s.value["tr-focus-bg-color-style"] == "double") {
+            const T = s.value["tr-focus-bg-color-angle"], S = s.value["tr-focus-bg-color-from"], x = s.value["tr-focus-bg-color-to"];
+            c.style.background = `linear-gradient(${T}deg,${S},${x})`;
           } else
-            c.style.background = r.value["tr-focus-bg-color-value"];
+            c.style.background = s.value["tr-focus-bg-color-value"];
         else
-          c.style.background = r.value["tr-un-focus-bg-color"];
+          c.style.background = s.value["tr-un-focus-bg-color"];
         Array.from(c.children).forEach((b, T) => {
-          b.style.flexBasis = v[T].basis + "%", m.includes(t) ? b.style.transform = `scale(${h[0]})` : b.style.transform = `scale(${h[1]})`;
+          b.style.flexBasis = d[T].basis + "%", p.includes(t) ? b.style.transform = `scale(${h[0]})` : b.style.transform = `scale(${h[1]})`;
         });
       }
     }, k = () => {
@@ -310,142 +311,141 @@ const {
           return;
         l.rotationTimer = B.value.length > e.showCount && setInterval(() => {
           M(() => {
-            ie();
+            me();
           });
         }, e.loopTime);
       }
     }, B = C({
       get() {
-        const n = e.modelValue.map((t, c) => (t.__id = O(), t.__uniqueness = O(), t));
-        return _ = new be(V(n), e.showCount * 2), M(() => {
+        const o = e.modelValue.map((t, c) => (t.__id = O(), t.__uniqueness = O(), t));
+        return _ = new Fe(V(o), e.showCount * 2), M(() => {
           N();
-        }), n;
+        }), o;
       },
-      set(n) {
-        i && o.emit("update:modelValue", n);
+      set(o) {
+        i && n.emit("update:modelValue", o);
       }
-    }), re = C(() => {
+    }), fe = C(() => {
       if (l.takeFlag = !l.takeFlag, e.modelValue.length > e.showCount) {
-        const n = l.getInventedListDataBridgeInit ? e.rollCount : (l.getInventedListDataBridgeInit = !0) && 0;
-        return we(_.take(n));
+        const o = l.getInventedListDataBridgeInit ? e.rollCount : (l.getInventedListDataBridgeInit = !0) && 0;
+        return ke(_.take(o));
       } else
-        return new Array(e.modelValue.length).fill(0).map((n, t) => B.value[t]);
-    }), se = C(() => {
-      let n = B.value.length;
-      const t = Number(e.itemHeight.replace("px", "")), c = n <= e.showCount ? n : e.showCount;
+        return new Array(e.modelValue.length).fill(0).map((o, t) => B.value[t]);
+    }), ge = C(() => {
+      let o = B.value.length;
+      const t = Number(e.itemHeight.replace("px", "")), c = o <= e.showCount ? o : e.showCount;
       return t * c + "px";
     });
-    te(() => {
+    ce(() => {
       k(), G(() => e.rollType, () => k()), G(() => e.loopTime, () => k()), G(() => B.value, () => {
         k();
       });
-    }), j(() => {
+    }), D(() => {
     });
-    const ie = () => {
-      var m;
-      const n = u == null ? void 0 : u.value, t = e.rollCount <= e.showCount ? e.rollCount : e.showCount, c = n.scrollHeight - n.clientHeight;
-      p = p + c / e.showCount * t;
-      for (let v = 0; v < ((m = d.value) == null ? void 0 : m.children.length); v++) {
-        const h = d.value.children[v], {
+    const me = () => {
+      var p;
+      const o = a == null ? void 0 : a.value, t = e.rollCount <= e.showCount ? e.rollCount : e.showCount, c = o.scrollHeight - o.clientHeight;
+      v = v + c / e.showCount * t;
+      for (let d = 0; d < ((p = f.value) == null ? void 0 : p.children.length); d++) {
+        const h = f.value.children[d], {
           attractShowCount: $,
           header: b,
           tmp_scaleRule: T
-        } = e, S = $.map((y) => y + t).includes(v);
+        } = e, S = $.map((x) => x + t).includes(d);
         if (S)
-          if (r.value["tr-focus-bg-color-style"] == "double") {
-            const F = r.value["tr-focus-bg-color-angle"], R = r.value["tr-focus-bg-color-from"], H = r.value["tr-focus-bg-color-to"];
+          if (s.value["tr-focus-bg-color-style"] == "double") {
+            const F = s.value["tr-focus-bg-color-angle"], R = s.value["tr-focus-bg-color-from"], H = s.value["tr-focus-bg-color-to"];
             h.style.background = `linear-gradient(${F}deg,${R},${H})`;
           } else
-            h.style.background = r.value["tr-focus-bg-color-value"];
+            h.style.background = s.value["tr-focus-bg-color-value"];
         else
-          h.style.background = r.value["tr-un-focus-bg-color"];
-        Array.from(h.children).forEach((y, F) => {
-          y.style.flexBasis = b[F].basis + "%", S ? y.style.transform = `scale(${T[0]})` : y.style.transform = `scale(${T[1]})`;
+          h.style.background = s.value["tr-un-focus-bg-color"];
+        Array.from(h.children).forEach((x, F) => {
+          x.style.flexBasis = b[F].basis + "%", S ? x.style.transform = `scale(${T[0]})` : x.style.transform = `scale(${T[1]})`;
         });
       }
-      Te(n, "top", p, e.scrollTransition, () => {
-        l.takeFlag = !l.takeFlag, n.scrollTop = 0, p = 0, M(() => {
+      Le(o, "top", v, e.scrollTransition, () => {
+        l.takeFlag = !l.takeFlag, o.scrollTop = 0, v = 0, M(() => {
           N();
         });
       });
     }, q = () => {
       g = !0, l.rotationTimer && (clearInterval(l.rotationTimer), l.rotationTimer = null);
-    }, ce = () => {
+    }, pe = () => {
       g = !1, k();
-    }, ae = function(n) {
-      o.emit && o.emit("rowClick", n);
+    }, ve = function(o) {
+      n.emit && n.emit("rowClick", o);
     };
-    j(() => {
+    D(() => {
       q(), l.rotationTimer = null;
     });
-    const ue = () => {
-      if (!r.value["pin-bg-color-style"])
+    const xe = () => {
+      if (!s.value["pin-bg-color-style"])
         return "";
-      let n = "none";
-      if (r.value["pin-bg-color-style"] == "double") {
-        const c = r.value["pin-bg-color-angle"], m = r.value["pin-bg-color-from"], v = r.value["pin-bg-color-to"];
-        n = `linear-gradient(${c}deg,${m},${v})`;
+      let o = "none";
+      if (s.value["pin-bg-color-style"] == "double") {
+        const c = s.value["pin-bg-color-angle"], p = s.value["pin-bg-color-from"], d = s.value["pin-bg-color-to"];
+        o = `linear-gradient(${c}deg,${p},${d})`;
       } else
-        n = r.value["pin-bg-color-value"];
-      return a("div", {
+        o = s.value["pin-bg-color-value"];
+      return u("div", {
         class: w("_pinSth"),
         style: {
-          background: n
+          background: o
         }
       }, null);
-    }, de = () => e.showHeader ? a("div", {
+    }, ye = () => e.showHeader ? u("div", {
       class: w("_th")
-    }, [A.value.map((n) => a("div", {
+    }, [A.value.map((o) => u("div", {
       class: w("_td"),
       style: {
-        flexBasis: n.basis + "%"
+        flexBasis: o.basis + "%"
       }
-    }, [n.label]))]) : "", ge = () => a("div", {
-      ref: u,
-      onWheel: x,
+    }, [o.label]))]) : "", he = () => u("div", {
+      ref: a,
+      onWheel: y,
       class: w("_scroll"),
       style: {
-        height: se.value
+        height: ge.value
       }
-    }, [a("ul", {
-      ref: d,
+    }, [u("ul", {
+      ref: f,
       class: w("_wrapper")
-    }, [re.value.map((n) => fe(n))])]), fe = (n) => a("li", {
-      key: n.__id,
+    }, [fe.value.map((o) => be(o))])]), be = (o) => u("li", {
+      key: o.__id,
       style: {
         height: e.itemHeight
       },
-      onClick: ae.bind(this, n)
-    }, [e.header.map((t, c) => me(n, t, c))]), me = (n, t, c) => {
-      var v, h, $, b, T, S, y, F, R, H, P, z;
-      let m = {};
-      return t.longText && ((v = t == null ? void 0 : t.longText) != null && v.speed && (m["sco-ani-dura"] = t.longText.speed), (h = t.longText) != null && h.GPUSpee && (m["sco-ani-name"] = (($ = t == null ? void 0 : t.longText) == null ? void 0 : $.GPUSpee) == !0 ? "longTextScrollxAnimation3d" : "longTextScrollxAnimation"), ((b = t.longText) != null && b.txtGap || Number(t.longText.txtGap) == 0) && (m["txt-gap"] = t.longText.txtGap)), a("div", {
+      onClick: ve.bind(this, o)
+    }, [e.header.map((t, c) => Te(o, t, c))]), Te = (o, t, c) => {
+      var h, $, b, T, S, x, F, R, H, P, z, j, J, K, Q, X, Y, Z;
+      let p = {};
+      t.longText && ((h = t == null ? void 0 : t.longText) != null && h.speed && (p["sco-ani-dura"] = t.longText.speed), ($ = t.longText) != null && $.GPUSpee && (p["sco-ani-name"] = ((b = t == null ? void 0 : t.longText) == null ? void 0 : b.GPUSpee) == !0 ? "longTextScrollxAnimation3d" : "longTextScrollxAnimation"), ((T = t.longText) != null && T.txtGap || Number(t.longText.txtGap) == 0) && (p["txt-gap"] = t.longText.txtGap));
+      const d = {};
+      return o[t.prop] && ((S = t.fo) != null && S.textAlign && (d.textAlign = (x = t.fo) == null ? void 0 : x.textAlign), (F = t.fo) != null && F.style && (d.fontFamily = (R = t.fo) == null ? void 0 : R.style), (H = t.fo) != null && H.weight && (d.fontWeight = (P = t.fo) == null ? void 0 : P.weight), (z = t.fo) != null && z.color && (d.color = (j = t.fo) == null ? void 0 : j.color), (J = t.fo) != null && J.size && (d.fontSize = ((K = t.fo) == null ? void 0 : K.size) + "px")), u("div", {
         class: [w("_td")]
-      }, [a("div", {
-        class: [f[(T = A.value[c]) == null ? void 0 : T.type]],
+      }, [u("div", {
+        class: [m[(Q = A.value[c]) == null ? void 0 : Q.type]],
         style: {
-          color: n[t.prop] ? (S = t.fo) == null ? void 0 : S.color : "none",
-          fontSize: n[t.prop] ? ((y = t.fo) == null ? void 0 : y.size) + "px" : "auto",
-          fontWeight: n[t.prop] ? (F = t.fo) == null ? void 0 : F.weight : "0",
-          fontFamily: n[t.prop] ? (R = t.fo) == null ? void 0 : R.style : "none"
+          ...d
         }
-      }, [(H = A.value[c]) != null && H.type && ((P = A.value[c]) == null ? void 0 : P.type) == "longText" ? a(Y, {
+      }, [(X = A.value[c]) != null && X.type && ((Y = A.value[c]) == null ? void 0 : Y.type) == "longText" ? u(le, {
         style: {
           padding: "0 1px"
         },
-        text: n[t.prop] || "undefined",
-        speed: n[t.prop] ? (z = t.longText) == null ? void 0 : z.speed : !1,
-        dynamicCss: Object.assign(V(I.value), m)
-      }, null) : n[t.prop] || "undefined"])]);
+        text: o[t.prop] || "undefined",
+        speed: o[t.prop] ? (Z = t.longText) == null ? void 0 : Z.speed : !1,
+        dynamicCss: Object.assign(V(I.value), p)
+      }, null) : o[t.prop] || "undefined"])]);
     };
-    return () => ne(a("div", {
+    return () => ue(u("div", {
       class: w(),
       onMouseenter: q,
-      onMouseleave: ce
-    }, [ue(), de(), ge()]), [[oe("css"), r.value || {}]]);
+      onMouseleave: pe
+    }, [xe(), ye(), he()]), [[ae("css"), s.value || {}]]);
   }
-}), _e = ve(Ce, "roll-list");
+}), Be = Ce($e, "roll-list");
 export {
-  _e as RollList,
-  _e as default
+  Be as RollList,
+  Be as default
 };

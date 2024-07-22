@@ -1,0 +1,34 @@
+@use './common/config.scss' as *;
+
+.#{$namespace}-scroll-block {
+    position: relative;
+    &__wrapper {
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: calc(var(--bs-box-height)*1px);
+        width: calc(var(--bs-box-width)*1px);
+        overflow: scroll;
+
+        &__inner {
+            display: flex;
+            flex-direction: row;
+            transition: 0.7s;
+
+            &__image {
+                height: calc(var(--bs-img-height)*1px);
+                width: calc(var(--bs-img-width)*1px);
+
+                &:nth-child(n) {
+                    margin-right: calc(var(--bs-img-interval)*1px)
+                }
+            }
+
+
+        }
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+}

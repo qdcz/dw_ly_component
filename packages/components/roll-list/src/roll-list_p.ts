@@ -49,7 +49,7 @@ export const rollListProps = {
     // 自动滚动时长间隔 ( 不能小于或等于 scrollTransition )
     loopTime: {
         type: Number,
-        default: 1000 *2,
+        default: 1000 * 2,
     },
     // 滚动过渡时长
     scrollTransition: {
@@ -122,7 +122,7 @@ export const rollListProps = {
                  */
                 "td-pad-lr": "20", // 表列的 左右外边距
                 "td-pad-tb": "0",
-
+                "td-txt-align":"center", // 文字对齐方式
 
 
 

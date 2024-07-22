@@ -14,10 +14,13 @@ const app = createApp(App);
 import { ScrollBar } from "@dw-ui/components/scroll-bar";
 import { TimePicker } from "@dw-ui/components/time-picker";
 import { RollList } from '@dw-ui/components/roll-list';
+import { ScrollBlock } from '@dw-ui/components/scroll-block';
+
 
 app.use(ScrollBar);
 app.use(TimePicker);
 app.use(RollList);
+app.use(ScrollBlock);
 // app.use(dwUi.RollList)
 
 // console.log(dwUi)

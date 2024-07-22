@@ -31,7 +31,7 @@
 
     &__scroll {
         overflow: auto;
-        text-align: center;
+        // text-align: center;
         width: 100%;
 
         // 使用css自带滚动动画
@@ -135,7 +135,7 @@
     &__td {
         margin: calc(var(--td-pad-tb)*1px) calc(var(--td-pad-lr)*1px);
         overflow: hidden;
-        text-align: center;
+        text-align: var(--td-txt-align);
         // flex: 1;
         flex-grow: 1;
         flex-basis: 0;

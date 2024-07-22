@@ -465,6 +465,24 @@ export default defineComponent({
                 }
             }
 
+            const td_style: any = {};
+            if (rowData[headerData.prop]) {
+                if(headerData.fo?.textAlign){
+                    td_style['textAlign'] = headerData.fo?.textAlign
+                }
+                if(headerData.fo?.style){
+                    td_style['fontFamily'] = headerData.fo?.style
+                }
+                if(headerData.fo?.weight){
+                    td_style['fontWeight'] = headerData.fo?.weight
+                }
+                if(headerData.fo?.color){
+                    td_style['color'] = headerData.fo?.color
+                }
+                if(headerData.fo?.size){
+                    td_style['fontSize'] = headerData.fo?.size + "px"
+                }
+            }
             return (
                 <div class={[n("_td")]}>
                     <div
@@ -474,18 +492,7 @@ export default defineComponent({
                             ],
                         ]}
                         style={{
-                            color: rowData[headerData.prop]
-                                ? headerData.fo?.color
-                                : "none",
-                            fontSize: rowData[headerData.prop]
-                                ? headerData.fo?.size + "px"
-                                : "auto",
-                            fontWeight: rowData[headerData.prop]
-                                ? headerData.fo?.weight
-                                : "0",
-                            fontFamily: rowData[headerData.prop]
-                                ? headerData.fo?.style
-                                : "none",
+                            ...td_style
                         }}
                     >
                         {getHeaderBridge.value[index]?.type &&
