@@ -1,24 +1,24 @@
-import { defineComponent as H, createVNode as u, reactive as j, computed as c, withDirectives as oe, resolveComponent as T, resolveDirective as re, inject as fe, ref as N, onMounted as ne, nextTick as q, watch as Se, provide as ve, onBeforeMount as xe, watchEffect as ue, createTextVNode as se } from "vue";
-const ge = (t, r) => (t.install = function(v) {
+import { defineComponent as A, createVNode as l, reactive as F, computed as s, withDirectives as te, resolveComponent as T, resolveDirective as oe, inject as fe, ref as V, onMounted as re, nextTick as U, watch as Se, provide as ve, onBeforeMount as xe, watchEffect as ue, createTextVNode as se } from "vue";
+const ge = (t, o) => (t.install = function(d) {
   if (t) {
-    const l = t.name || t.__name;
-    if (l || r) {
-      const d = r ? `dw-${r}` : "dw-" + l.replace(/dw/gi, "").toLowerCase();
-      v.component(d, t);
+    const u = t.name || t.__name;
+    if (u || o) {
+      const c = o ? `dw-${o}` : "dw-" + u.replace(/dw/gi, "").toLowerCase();
+      d.component(c, t);
     } else
-      console.error(t, r, !r);
+      console.error(t, o, !o);
   }
 }, t), ye = (t) => Array.isArray(t);
-function W(t) {
-  const r = `vi-${t}`;
+function E(t) {
+  const o = `vi-${t}`;
   return {
-    n: (d) => d ? d.startsWith("-") ? `${r}${d}` : `${r}_${d}` : r,
-    classes: (...d) => d.map((g) => {
-      if (ye(g)) {
-        const [S, x, o = null] = g;
-        return S ? x : o;
+    n: (c) => c ? c.startsWith("-") ? `${o}${c}` : `${o}_${c}` : o,
+    classes: (...c) => c.map((f) => {
+      if (ye(f)) {
+        const [k, r, m = null] = f;
+        return k ? r : m;
       }
-      return g;
+      return f;
     })
   };
 }
@@ -31,18 +31,22 @@ const ce = {
     type: [String, Boolean],
     default: !1
   },
+  // 限制时间选择范围
   disabledHours: {
     type: Array,
     default: []
   },
+  // 限制时间选择范围
   disabledMinutes: {
     type: Array,
     default: []
   },
+  // 限制时间选择范围
   disabledSeconds: {
     type: Array,
     default: []
   },
+  // 通过界面上的箭头进行选择
   arrowControl: {
     type: [String, Boolean],
     default: ""
@@ -60,6 +64,9 @@ const ce = {
   dynamicCss: {
     type: Object,
     default: () => ({
+      /**
+       * input组件
+       */
       "input-box-shadow-x": "0",
       "input-box-shadow-y": "0",
       "input-box-shadow-blur": "0",
@@ -91,8 +98,12 @@ const ce = {
       "input-icon-color": "#000",
       "input-icon-hover-color": "#008cc8",
       "input-placeholder-fo-color": "gray",
+      /**
+       * popper组件样式
+       */
       "popper-bg-color": "#fff",
       "popper-height": "228",
+      // max-height
       "popper-border-radius": "8",
       "popper-z-index": "999",
       "popper-box-shadow-x": "0",
@@ -101,6 +112,9 @@ const ce = {
       "popper-box-shadow-spread": "0",
       "popper-box-shadow-color": "rgba(0, 0, 0, 0.12)",
       "popper-arrow-height": "5",
+      /**
+       * time-panel样式
+       */
       "popper-panel-padding-t": "8",
       "popper-panel-padding-r": "4",
       "popper-panel-padding-b": "0",
@@ -121,6 +135,9 @@ const ce = {
       "popper-footer-ok-padding-r": "5",
       "popper-footer-ok-padding-b": "0",
       "popper-footer-ok-padding-l": "5",
+      /**
+       * time-panel popper-spinner
+       */
       "popper-spinner-pitch-box-border-top-width": "1",
       "popper-spinner-pitch-box-border-top-style": "solid",
       "popper-spinner-pitch-box-border-top-color": "#e4e7ed",
@@ -136,21 +153,24 @@ const ce = {
       "popper-spinner-number-active-hover-bg-color": "rgba($color: #e0e0e0, $alpha: 0)",
       "popper-spinner-number-disabled-fo-color": "rgb(223, 223, 223)",
       "popper-spinner-number-disabled-hover-bg-color": "rgba($color: #e0e0e0, $alpha: 0)",
+      /**
+       * scroll-bar样式
+       */
       "scroll-bar-thumb-width": "8",
       scrollBarHeight: "60",
       scrollBarBgColor: "rgb(218, 218, 218)",
       scrollBarBgColorHover: "skyblue"
     })
   }
-}, we = Symbol("time-picker"), pe = function(t, r) {
-  for (let [v, l] of Object.entries(r.value))
-    t.style.setProperty("--" + v, l);
-}, ie = {
-  mounted(t, r) {
-    pe(t, r);
+}, we = Symbol("time-picker"), pe = function(t, o) {
+  for (let [d, u] of Object.entries(o.value))
+    t.style.setProperty("--" + d, u);
+}, ne = {
+  mounted(t, o) {
+    pe(t, o);
   },
-  updated(t, r) {
-    pe(t, r);
+  updated(t, o) {
+    pe(t, o);
   },
   install(t) {
     t.directive("Css", this);
@@ -158,7 +178,7 @@ const ce = {
 }, {
   n: ke,
   classes: Ce
-} = W("input-svg-icon"), Ie = /* @__PURE__ */ H({
+} = E("input-svg-icon"), Ie = /* @__PURE__ */ A({
   name: "VIInputSvgIcon",
   emits: ["click"],
   props: {
@@ -181,18 +201,18 @@ const ce = {
       default: ""
     }
   },
-  setup(t, r) {
-    const v = function(l) {
-      r.emit("click", l);
+  setup(t, o) {
+    const d = function(u) {
+      o.emit("click", u);
     };
-    return () => u("svg", {
+    return () => l("svg", {
       class: [Ce(ke()), "icon"],
       height: t.height,
       width: t.width,
       viewBox: "0 0 1024 1024",
       xmlns: "http://www.w3.org/2000/svg",
-      onClick: v
-    }, [u("path", {
+      onClick: d
+    }, [l("path", {
       fill: "currentColor",
       d: t.path
     }, null)]);
@@ -225,6 +245,9 @@ const ce = {
   dynamicCss: {
     type: Object,
     default: () => ({
+      /**
+       * input组件
+       */
       "input-box-shadow-x": "0",
       "input-box-shadow-y": "0",
       "input-box-shadow-blur": "0",
@@ -261,72 +284,72 @@ const ce = {
 }, {
   n: he,
   classes: Be
-} = W("timePickerInput"), Ne = /* @__PURE__ */ H({
+} = E("timePickerInput"), Ne = /* @__PURE__ */ A({
   name: "VITimePickerInput",
   emits: ["focus", "blur", "click", "update:modelValue", "close"],
   directives: {
-    css: ie
+    css: ne
   },
   props: de,
   components: {
     "vi-input-svg-icon": Ie
   },
-  setup(t, r) {
-    const v = "M576 512l277.333333 277.333333-64 64-277.333333-277.333333L234.666667 853.333333 170.666667 789.333333l277.333333-277.333333L170.666667 234.666667 234.666667 170.666667l277.333333 277.333333L789.333333 170.666667 853.333333 234.666667 576 512z", l = j({
+  setup(t, o) {
+    const d = "M576 512l277.333333 277.333333-64 64-277.333333-277.333333L234.666667 853.333333 170.666667 789.333333l277.333333-277.333333L170.666667 234.666667 234.666667 170.666667l277.333333 277.333333L789.333333 170.666667 853.333333 234.666667 576 512z", u = F({
       softFocus: !1,
       isHover: !1
-    }), d = function(b) {
-      m.value || r.emit("click", b);
-    }, g = function(b) {
-      m.value || (r.emit("update:modelValue", b.target.value), r.emit("close"), b.stopPropagation());
-    }, S = function(b) {
-      m.value || (r.emit("focus", b), l.softFocus = !0);
-    }, x = function(b) {
-      m.value || (r.emit("blur", b), l.softFocus = !1);
-    }, o = function(b) {
-      m.value || (l.isHover = !0);
-    }, y = function(b) {
-      m.value || (l.isHover = !1);
+    }), c = function(b) {
+      g.value || o.emit("click", b);
+    }, f = function(b) {
+      g.value || (o.emit("update:modelValue", b.target.value), o.emit("close"), b.stopPropagation());
     }, k = function(b) {
-      m.value || r.emit("update:modelValue", b.target.value);
+      g.value || (o.emit("focus", b), u.softFocus = !0);
+    }, r = function(b) {
+      g.value || (o.emit("blur", b), u.softFocus = !1);
+    }, m = function(b) {
+      g.value || (u.isHover = !0);
+    }, C = function(b) {
+      g.value || (u.isHover = !1);
+    }, M = function(b) {
+      g.value || o.emit("update:modelValue", b.target.value);
     }, n = function(b) {
-      m.value || r.emit("update:modelValue", b.target.value);
-    }, h = c(() => Object.assign(de.dynamicCss.default(), t.dynamicCss)), C = c(() => typeof t.readonly == "string" ? !0 : t.readonly), I = c(() => typeof t.clearable == "string" ? !0 : t.clearable), B = c(() => typeof t.showPassword == "string" ? !0 : t.showPassword), m = c(() => typeof t.disabled == "string" ? !0 : t.disabled), Y = c(() => l.softFocus ? "active" : "");
-    return () => oe(u("div", {
-      class: [Be(he()), Y.value, m.value ? "disabled" : ""],
-      onClick: d,
-      onMouseenter: o,
-      onMouseleave: y
-    }, [u("input", {
+      g.value || o.emit("update:modelValue", b.target.value);
+    }, I = s(() => Object.assign(de.dynamicCss.default(), t.dynamicCss)), B = s(() => typeof t.readonly == "string" ? !0 : t.readonly), y = s(() => typeof t.clearable == "string" ? !0 : t.clearable), N = s(() => typeof t.showPassword == "string" ? !0 : t.showPassword), g = s(() => typeof t.disabled == "string" ? !0 : t.disabled), Y = s(() => u.softFocus ? "active" : "");
+    return () => te(l("div", {
+      class: [Be(he()), Y.value, g.value ? "disabled" : ""],
+      onClick: c,
+      onMouseenter: m,
+      onMouseleave: C
+    }, [l("input", {
       class: [he("_inner")],
       placeholder: t.placeholder,
-      onFocus: S,
-      onBlur: x,
-      readonly: C.value || m.value,
+      onFocus: k,
+      onBlur: r,
+      readonly: B.value || g.value,
       value: t.modelValue,
-      onChange: k,
+      onChange: M,
       onInput: n,
-      type: B.value ? "password" : "text"
-    }, null), t.modelValue && I.value && l.isHover ? u(T("vi-input-svg-icon"), {
+      type: N.value ? "password" : "text"
+    }, null), t.modelValue && y.value && u.isHover ? l(T("vi-input-svg-icon"), {
       class: "icon",
-      height: h.value["input-icon-width"],
-      width: h.value["input-icon-width"],
-      path: v,
-      onClick: g
-    }, null) : ""]), [[re("css"), h.value || {}]]);
+      height: I.value["input-icon-width"],
+      width: I.value["input-icon-width"],
+      path: d,
+      onClick: f
+    }, null) : ""]), [[oe("css"), I.value || {}]]);
   }
 }), {
-  n: Z,
+  n: K,
   classes: me
-} = W("popper"), Pe = /* @__PURE__ */ H({
+} = E("popper"), Pe = /* @__PURE__ */ A({
   name: "VITimePickerPopper",
   emits: ["focus", "blur", "click"],
   props: ["active"],
-  setup(t, r) {
+  setup(t, o) {
     let {
-      timePickerRef: v
+      timePickerRef: d
     } = fe(we);
-    const l = j({
+    const u = F({
       parentRect: {
         x: 0,
         y: 0,
@@ -334,54 +357,64 @@ const ce = {
         width: 0
       },
       dropdownTop: "0"
-    }), d = N(null), g = N(null), S = () => {
-      q(() => {
-        l.parentRect = v.value.getBoundingClientRect(), l.dropdownTop = l.parentRect.height + 10 + "px";
+    }), c = V(null), f = V(null), k = () => {
+      U(() => {
+        u.parentRect = d.value.getBoundingClientRect(), u.dropdownTop = u.parentRect.height + 10 + "px";
       });
     };
-    return ne(() => S()), () => {
-      var x, o;
-      return u("div", {
-        class: [Z(""), t.active ? "active" : ""],
+    return re(() => k()), () => {
+      var r, m;
+      return l("div", {
+        class: [K(""), t.active ? "active" : ""],
         style: {
-          top: l.dropdownTop
+          top: u.dropdownTop
         }
-      }, [u("div", {
-        ref: d,
-        class: [Z("_arrow")]
-      }, [t.active]), u("div", {
-        ref: g,
-        class: [me(Z("_content"))]
-      }, [u("div", {
-        class: [me(Z("_inner"))]
-      }, [(o = (x = r.slots).default) == null ? void 0 : o.call(x)])])]);
+      }, [l("div", {
+        ref: c,
+        class: [K("_arrow")]
+      }, [t.active]), l("div", {
+        ref: f,
+        class: [me(K("_content"))]
+      }, [l("div", {
+        class: [me(K("_inner"))]
+      }, [(m = (r = o.slots).default) == null ? void 0 : m.call(r)])])]);
     };
   }
 }), be = {
+  // 超过最大高度启动滚动条
   height: {
     type: [String, Boolean],
+    // Boolean 为false 时 关闭宽度滚动条限制
     default: "300px"
   },
+  // 超过最大宽度启动滚动条
   width: {
     type: [String, Boolean],
+    // Boolean 为false 时 关闭宽度滚动条限制
     default: "auto"
   },
+  // 拇指宽度
   thumbWidth: {
     type: String,
     default: "6px"
   },
   noResize: Boolean,
+  // 如果 container 尺寸不会发生变化，最好设置它可以优化性能（针对高度，宽度默认就是开着）
   dynamicCss: {
     type: Object,
     default: () => ({
+      /**
+       * 拇指样式
+       */
       "thumb-bg-color": "#d9dfe3"
     })
   }
 };
-var F = /* @__PURE__ */ ((t) => (t.HORIZONTAL = "horizontal", t.VERTICAL = "vertical", t))(F || {});
+var z = /* @__PURE__ */ ((t) => (t.HORIZONTAL = "horizontal", t.VERTICAL = "vertical", t))(z || {});
 const Ve = {
+  // 横向还是竖向
   type: {
-    type: [String || F],
+    type: [String || z],
     default: "vertical"
   },
   height: {
@@ -392,96 +425,99 @@ const Ve = {
     type: String,
     default: "6px"
   },
+  // transform 偏移量
   ratioX: {
     type: String,
     default: "0px"
   },
+  // transform 偏移量
   ratioY: {
     type: String,
     default: "0px"
   }
 }, Re = Symbol("scroll-bar"), {
   n: _e
-} = W("scroll-bar__thumb"), Te = /* @__PURE__ */ H({
+} = E("scroll-bar__thumb"), Te = /* @__PURE__ */ A({
   name: "ScrollBar",
   emits: ["update:height", "update:width"],
   props: Ve,
-  setup(t, r) {
+  setup(t, o) {
     const {
-      thumbRatioY: v,
-      thumbRatioX: l,
-      thumbRatioYMaxRange: d,
-      thumbRatioXMaxRange: g,
-      wrapperInnerMaxiMoveProportionY: S,
-      wrapperInnerMaxiMoveProportionX: x,
-      scrollBarRef: o
-    } = fe(Re), y = N(), k = j({
+      thumbRatioY: d,
+      thumbRatioX: u,
+      thumbRatioYMaxRange: c,
+      thumbRatioXMaxRange: f,
+      wrapperInnerMaxiMoveProportionY: k,
+      wrapperInnerMaxiMoveProportionX: r,
+      scrollBarRef: m
+    } = fe(Re), C = V(), M = F({
       mouseMoving: !1
     });
-    let n = 0, h = 0, C = 0, I = 0, B = 0, m = 0;
-    const Y = c({
+    let n = 0, I = 0, B = 0, y = 0, N = 0, g = 0;
+    const Y = s({
       get() {
         return t.height;
       },
       set(w) {
-        r.emit && r.emit("update:height", w);
+        o.emit && o.emit("update:height", w);
       }
-    }), b = c({
+    }), b = s({
       get() {
         return t.width;
       },
       set(w) {
-        r.emit && r.emit("update:width", w);
+        o.emit && o.emit("update:width", w);
       }
-    }), A = function(w) {
+    }), $ = function(w) {
       if (w == "vertical") {
-        let f = 0;
-        const P = B;
-        f = C < 0 ? P + Math.abs(C) : P - Math.abs(C), f < 0 && (f = 0), f > d.value && (f = d.value), o.value.scrollTop = Math.abs(S.value * f);
+        let v = 0;
+        const P = N;
+        v = B < 0 ? P + Math.abs(B) : P - Math.abs(B), v < 0 && (v = 0), v > c.value && (v = c.value), m.value.scrollTop = Math.abs(k.value * v);
       } else if (w == "horizontal") {
-        let f = 0;
-        const P = m;
-        f = I < 0 ? P + Math.abs(I) : P - Math.abs(I), f < 0 && (f = 0), f > g.value && (f = g.value), o.value.scrollLeft = Math.abs(x.value * f);
+        let v = 0;
+        const P = g;
+        v = y < 0 ? P + Math.abs(y) : P - Math.abs(y), v < 0 && (v = 0), v > f.value && (v = f.value), m.value.scrollLeft = Math.abs(r.value * v);
       }
     }, _ = function(w) {
-      k.mouseMoving = !0, B = Number(v.value.slice(11, -3)), m = Number(l.value.slice(11, -3)), n = Number(w.clientY), h = Number(w.clientX);
+      M.mouseMoving = !0, N = Number(d.value.slice(11, -3)), g = Number(u.value.slice(11, -3)), n = Number(w.clientY), I = Number(w.clientX);
     }, L = function(w) {
-      C = n - w.clientY, I = h - w.clientX, A(t.type);
+      B = n - w.clientY, y = I - w.clientX, $(t.type);
     };
     document.addEventListener("mouseup", () => {
-      document.removeEventListener("mousemove", L), document.removeEventListener("mousedown", _), n = 0, h = 0, C = 0, I = 0, B = 0, m = 0, k.mouseMoving = !1;
+      document.removeEventListener("mousemove", L), document.removeEventListener("mousedown", _), n = 0, I = 0, B = 0, y = 0, N = 0, g = 0, M.mouseMoving = !1;
     });
-    const E = (w) => {
+    const X = (w) => {
       document.addEventListener("mousedown", _), document.addEventListener("mousemove", L);
     };
-    return () => u("div", {
+    return () => l("div", {
       class: _e(),
-      ref: y,
+      ref: C,
       style: {
         height: Y.value,
         width: b.value,
         transform: t.type == "vertical" ? t.ratioY : t.ratioX
       },
-      onMousedown: E
+      onMousedown: X
     }, null);
   }
 }), {
-  n: z
-} = W("scroll-bar"), Ye = /* @__PURE__ */ H({
+  n: O
+} = E("scroll-bar"), Ye = /* @__PURE__ */ A({
   name: "ScrollBar",
   emits: ["update:width", "scroll"],
   directives: {
-    css: ie
+    css: ne
   },
   props: be,
+  // expose:['setScrollTop','setScrollLeft','setScrollTop'],
   components: {
     "scroll-bar-thumb": Te
   },
-  setup(t, r) {
-    let l = null;
-    const d = (a) => {
-      $();
-    }, g = N(), S = N(), x = N(), o = j({
+  setup(t, o) {
+    let d = null;
+    const u = (a) => {
+      P();
+    }, c = V(), f = V(), k = V(), r = F({
       wrapperInnerRealHeight: 0,
       wrapperInnerRealWidth: 0,
       wrapperInnerMaxiMoveRangeY: 0,
@@ -500,10 +536,10 @@ const Ve = {
       thumbRatioXProportion: 0,
       cacheContainerWidth: ""
     });
-    let y = N(!1);
+    let m = V(!1);
     Se(() => t.noResize, (a) => {
-      a ? l == null || l.disconnect() : (l = new MutationObserver(d), q(() => {
-        l.observe(S.value, {
+      a ? d == null || d.disconnect() : (d = new MutationObserver(u), U(() => {
+        d.observe(f.value, {
           attributes: !0,
           childList: !0,
           subtree: !0
@@ -512,151 +548,151 @@ const Ve = {
     }, {
       immediate: !0
     });
-    const k = c(() => Object.assign(be.dynamicCss.default(), t.dynamicCss)), n = c(() => t.height), h = c({
+    const C = s(() => Object.assign(be.dynamicCss.default(), t.dynamicCss)), M = s(() => t.height), n = s({
       get() {
-        return o.cacheContainerWidth;
+        return r.cacheContainerWidth;
       },
       set(a) {
-        o.cacheContainerWidth = a;
+        r.cacheContainerWidth = a;
       }
-    }), C = c({
+    }), I = s({
       get() {
-        return o.thumbHeight;
+        return r.thumbHeight;
       },
       set(a) {
-        o.thumbHeight = a;
+        r.thumbHeight = a;
       }
-    }), I = c({
+    }), B = s({
       get() {
-        return o.thumbWidth;
+        return r.thumbWidth;
       },
       set(a) {
-        o.thumbWidth = a;
+        r.thumbWidth = a;
       }
-    }), B = c({
+    }), y = s({
       get() {
-        return o.thumbRatioX;
+        return r.thumbRatioX;
       },
       set(a) {
-        o.thumbRatioX = a;
+        r.thumbRatioX = a;
       }
-    }), m = c({
+    }), N = s({
       get() {
-        return o.thumbRatioY;
+        return r.thumbRatioY;
       },
       set(a) {
-        o.thumbRatioY = a;
+        r.thumbRatioY = a;
       }
-    }), Y = c(() => o.thumbRatioYMaxRange), b = c(() => o.thumbRatioXMaxRange), A = c(() => o.wrapperInnerMaxiMoveProportionY), _ = c(() => o.wrapperInnerMaxiMoveProportionX), L = (a) => {
-      o.thumbRatioY = `translateY(${String(o.thumbRatioYProportion * a) + "px"})`;
-    }, E = (a) => {
-      o.thumbRatioX = `translateX(${String(o.thumbRatioXProportion * a) + "px"})`;
+    }), g = s(() => r.thumbRatioYMaxRange), Y = s(() => r.thumbRatioXMaxRange), b = s(() => r.wrapperInnerMaxiMoveProportionY), $ = s(() => r.wrapperInnerMaxiMoveProportionX), _ = (a) => {
+      r.thumbRatioY = `translateY(${String(r.thumbRatioYProportion * a) + "px"})`;
+    }, L = (a) => {
+      r.thumbRatioX = `translateX(${String(r.thumbRatioXProportion * a) + "px"})`;
+    }, X = (a) => {
+      c.value.scrollTop = a;
     }, w = (a) => {
-      g.value.scrollTop = a;
-    }, f = (a) => {
-      g.value.scrollLeft = a;
-    }, P = (a, s) => {
-      w(a), f(s);
-    }, $ = (a) => {
-      var s, V;
-      o.wrapperInnerRealHeight = Number((s = S.value) == null ? void 0 : s.scrollHeight), o.wrapperInnerRealWidth = Number((V = S.value) == null ? void 0 : V.scrollWidth), o.wrapperInnerMaxiMoveRangeY = o.wrapperInnerRealHeight - Number(n.value.replace("px", "")), o.wrapperInnerMaxiMoveRangeX = o.wrapperInnerRealWidth - Number(h.value.replace("px", "")), o.thumbHeightProportion = Number(n.value.replace("px", "")) / o.wrapperInnerRealHeight, o.thumbWidthProportion = Number(h.value.replace("px", "")) / o.wrapperInnerRealWidth, o.thumbHeight = String(o.thumbHeightProportion * Number(n.value.replace("px", ""))) + "px", o.thumbWidth = String(o.thumbWidthProportion * Number(h.value.replace("px", ""))) + "px", o.thumbRatioYMaxRange = Number(n.value.replace("px", "")) - Number(o.thumbHeight.replace("px", "")), o.thumbRatioXMaxRange = Number(h.value.replace("px", "")) - Number(o.thumbWidth.replace("px", "")), o.thumbRatioYProportion = o.thumbRatioYMaxRange / o.wrapperInnerMaxiMoveRangeY, o.thumbRatioXProportion = o.thumbRatioXMaxRange / o.wrapperInnerMaxiMoveRangeX, o.wrapperInnerMaxiMoveProportionY = o.wrapperInnerMaxiMoveRangeY / o.thumbRatioYMaxRange, o.wrapperInnerMaxiMoveProportionX = o.wrapperInnerMaxiMoveRangeX / o.thumbRatioXMaxRange;
+      c.value.scrollLeft = a;
+    }, v = (a, x) => {
+      X(a), w(x);
+    }, P = (a) => {
+      var x, h;
+      r.wrapperInnerRealHeight = Number((x = f.value) == null ? void 0 : x.scrollHeight), r.wrapperInnerRealWidth = Number((h = f.value) == null ? void 0 : h.scrollWidth), r.wrapperInnerMaxiMoveRangeY = r.wrapperInnerRealHeight - Number(M.value.replace("px", "")), r.wrapperInnerMaxiMoveRangeX = r.wrapperInnerRealWidth - Number(n.value.replace("px", "")), r.thumbHeightProportion = Number(M.value.replace("px", "")) / r.wrapperInnerRealHeight, r.thumbWidthProportion = Number(n.value.replace("px", "")) / r.wrapperInnerRealWidth, r.thumbHeight = String(r.thumbHeightProportion * Number(M.value.replace("px", ""))) + "px", r.thumbWidth = String(r.thumbWidthProportion * Number(n.value.replace("px", ""))) + "px", r.thumbRatioYMaxRange = Number(M.value.replace("px", "")) - Number(r.thumbHeight.replace("px", "")), r.thumbRatioXMaxRange = Number(n.value.replace("px", "")) - Number(r.thumbWidth.replace("px", "")), r.thumbRatioYProportion = r.thumbRatioYMaxRange / r.wrapperInnerMaxiMoveRangeY, r.thumbRatioXProportion = r.thumbRatioXMaxRange / r.wrapperInnerMaxiMoveRangeX, r.wrapperInnerMaxiMoveProportionY = r.wrapperInnerMaxiMoveRangeY / r.thumbRatioYMaxRange, r.wrapperInnerMaxiMoveProportionX = r.wrapperInnerMaxiMoveRangeX / r.thumbRatioXMaxRange;
     };
-    ne(() => {
-      o.cacheContainerWidth = t.width, $();
+    re(() => {
+      r.cacheContainerWidth = t.width, P();
     });
-    const G = (a) => {
-      const s = a.target.scrollTop, V = a.target.scrollLeft;
-      L(s), E(V), r.emit && r.emit("scroll", V, s);
-    }, Q = () => {
-      y.value = !0;
-    }, K = () => {
-      y.value = !1;
+    const J = (a) => {
+      const x = a.target.scrollTop, h = a.target.scrollLeft;
+      _(x), L(h), o.emit && o.emit("scroll", h, x);
+    }, Z = () => {
+      m.value = !0;
+    }, q = () => {
+      m.value = !1;
     };
     ve(Re, {
-      height: n,
-      thumbRatioY: m,
-      thumbRatioX: B,
-      thumbRatioYMaxRange: Y,
-      thumbRatioXMaxRange: b,
-      wrapperInnerMaxiMoveProportionY: A,
-      wrapperInnerMaxiMoveProportionX: _,
-      scrollBarRef: g
-    }), r.expose({
-      setScrollTop: w,
-      setScrollLeft: f,
-      setScrollTo: P
+      height: M,
+      thumbRatioY: N,
+      thumbRatioX: y,
+      thumbRatioYMaxRange: g,
+      thumbRatioXMaxRange: Y,
+      wrapperInnerMaxiMoveProportionY: b,
+      wrapperInnerMaxiMoveProportionX: $,
+      scrollBarRef: c
+    }), o.expose({
+      setScrollTop: X,
+      setScrollLeft: w,
+      setScrollTo: v
     });
-    const U = (a = F.VERTICAL) => {
+    const D = (a = z.VERTICAL) => {
       if (t.width === !1 || t.height === !1)
         return "";
-      const s = o.wrapperInnerRealHeight, V = Number(t.height.replace("px", "")), J = o.wrapperInnerRealWidth;
+      const x = r.wrapperInnerRealHeight, h = Number(t.height.replace("px", "")), G = r.wrapperInnerRealWidth;
       if (a == "vertical")
-        return V < s ? u(T("scroll-bar-thumb"), {
-          ref: x,
+        return h < x ? l(T("scroll-bar-thumb"), {
+          ref: k,
           type: a,
-          height: C.value,
+          height: I.value,
           width: t.thumbWidth,
-          ratioX: B.value,
-          ratioY: m.value,
-          class: y.value ? "show" : "hide"
+          ratioX: y.value,
+          ratioY: N.value,
+          class: m.value ? "show" : "hide"
         }, null) : "";
       if (a == "horizontal") {
-        let O = Number(h.value.replace("px", ""));
-        if (h.value == "auto") {
-          const X = () => {
-            h.value = "auto", q(() => {
-              var D;
-              O = Number((D = S.value) == null ? void 0 : D.clientWidth), h.value = O + "px", $();
+        let H = Number(n.value.replace("px", ""));
+        if (n.value == "auto") {
+          const j = () => {
+            n.value = "auto", U(() => {
+              var W;
+              H = Number((W = f.value) == null ? void 0 : W.clientWidth), n.value = H + "px", P();
             });
           };
-          X(), window.onresize = () => X();
-        } else if (h.value)
-          return O < J ? u(T("scroll-bar-thumb"), {
-            ref: x,
+          j(), window.onresize = () => j();
+        } else if (n.value)
+          return H < G ? l(T("scroll-bar-thumb"), {
+            ref: k,
             type: a,
             height: t.thumbWidth,
-            width: I.value,
-            ratioX: B.value,
-            ratioY: m.value,
-            class: y.value ? "show" : "hide"
+            width: B.value,
+            ratioX: y.value,
+            ratioY: N.value,
+            class: m.value ? "show" : "hide"
           }, null) : "";
       }
     };
     return () => {
-      var a, s;
-      return oe(u("div", {
-        class: z(),
+      var a, x;
+      return te(l("div", {
+        class: O(),
         style: {
-          width: h.value
+          width: n.value
         },
-        onMouseenter: Q,
-        onMouseleave: K
-      }, [u("div", {
-        class: z("_wrapper"),
-        ref: g,
+        onMouseenter: Z,
+        onMouseleave: q
+      }, [l("div", {
+        class: O("_wrapper"),
+        ref: c,
         style: {
-          height: n.value,
-          width: h.value
+          height: M.value,
+          width: n.value
         },
-        onScroll: G
-      }, [u("div", {
-        class: z("_view"),
-        ref: S
-      }, [(s = (a = r.slots).default) == null ? void 0 : s.call(a)])]), u("div", {
-        class: [z("_bar"), "horizontal"]
-      }, [U(F.HORIZONTAL)]), u("div", {
-        class: [z("_bar"), "vertical"]
-      }, [U(F.VERTICAL)])]), [[re("css"), k.value || {}]]);
+        onScroll: J
+      }, [l("div", {
+        class: O("_view"),
+        ref: f
+      }, [(x = (a = o.slots).default) == null ? void 0 : x.call(a)])]), l("div", {
+        class: [O("_bar"), "horizontal"]
+      }, [D(z.HORIZONTAL)]), l("div", {
+        class: [O("_bar"), "vertical"]
+      }, [D(z.VERTICAL)])]), [[oe("css"), C.value || {}]]);
     };
   }
 }), Le = ge(Ye, "scroll-bar"), {
   n: Xe,
   classes: He
-} = W("time-picker"), We = /* @__PURE__ */ H({
+} = E("time-picker"), We = /* @__PURE__ */ A({
   name: "VITimePicker",
   emits: ["click", "inputClick", "closeClick", "cancelClick", "okClick", "update:modelValue", "focus", "blur"],
   directives: {
-    css: ie
+    css: ne
   },
   props: ce,
   components: {
@@ -664,56 +700,57 @@ const Ve = {
     "vi-time-picker-popper": Pe,
     "vi-scroll-bar": Le
   },
-  setup(t, r) {
-    const v = [null, null, null];
-    let l = "";
-    const d = (e) => e < 10 ? "0" + e : e + "", g = (e) => {
+  setup(t, o) {
+    const d = [null, null, null];
+    let u = "";
+    const c = (e) => e < 10 ? "0" + e : e + "", f = (e) => {
       const i = e.match(/^(\d{1,2}):(\d{1,2}):(\d{1,2})$/);
       return i || console.warn("初始化数据格式不符合规范,已被清空！"), i;
-    }, S = () => "xxxxxxxx".replace(/[xy]/g, function(e) {
+    }, k = () => "xxxxxxxx".replace(/[xy]/g, function(e) {
       var i = 0 | 16 * Math.random(), p = e == "x" ? i : 8 | 3 & i;
       return p.toString(16);
-    }), x = N();
-    let o = N(), y = N(), k = N();
-    const n = j({
-      uuid: S(),
+    }), r = V();
+    let m = V(), C = V(), M = V();
+    const n = F({
+      uuid: k(),
       popperVisible: !1,
       softFocus: !1,
       isSubmit: !1,
+      // 是否确定
       hourList: [],
       minuteList: [],
       secondList: [],
       currentSelect: ["", "", ""]
-    }), h = function() {
+    }), I = function() {
       n.popperVisible = !1, n.softFocus = !1;
-    }, C = function(e) {
+    }, B = function(e) {
       let i = !1;
       const p = e.path || e.composedPath && e.composedPath();
-      for (let M = 0; M < p.length; M++) {
-        const R = p[M];
+      for (let S = 0; S < p.length; S++) {
+        const R = p[S];
         if (R.classList && R.classList.value && R.getAttribute("class").includes("-time-picker") && R.dataset.id == n.uuid) {
           i = !0;
           break;
         }
       }
-      i || (h(), n.isSubmit = !0);
+      i || (I(), n.isSubmit = !0);
     };
-    document.addEventListener("mousedown", C);
-    const I = function(e) {
-      r.emit && r.emit("focus");
-    }, B = function(e) {
-      r.emit && r.emit("blur");
-    }, m = function() {
-      r.emit && r.emit("click");
+    document.addEventListener("mousedown", B);
+    const y = function(e) {
+      o.emit && o.emit("focus");
+    }, N = function(e) {
+      o.emit && o.emit("blur");
+    }, g = function() {
+      o.emit && o.emit("click");
     }, Y = function(e) {
-      n.popperVisible = !n.popperVisible, n.isSubmit = !1, t.modelValue || U(), r.emit && r.emit("inputClick");
+      n.popperVisible = !n.popperVisible, n.isSubmit = !1, t.modelValue || a(), o.emit && o.emit("inputClick");
     }, b = function() {
-      n.popperVisible = !1, r.emit && r.emit("closeClick");
-    }, A = function(e) {
+      n.popperVisible = !1, o.emit && o.emit("closeClick");
+    }, $ = function(e) {
       const {
         type: i
       } = e.target.dataset;
-      n.popperVisible = !1, i == "cancel" ? (n.isSubmit = !1, r.emit && r.emit("update:modelValue", l), r.emit && r.emit("cancelClick"), K()) : i == "ok" && (n.isSubmit = !0, r.emit && r.emit("okClick", n.currentSelect));
+      n.popperVisible = !1, i == "cancel" ? (n.isSubmit = !1, o.emit && o.emit("update:modelValue", u), o.emit && o.emit("cancelClick"), D()) : i == "ok" && (n.isSubmit = !0, o.emit && o.emit("okClick", n.currentSelect));
     }, _ = function(e, i) {
       const p = {
         index: {
@@ -722,28 +759,28 @@ const Ve = {
           second: "2"
         },
         ref: {
-          hour: o,
-          minute: y,
-          second: k
+          hour: m,
+          minute: C,
+          second: M
         }
       }, {
-        num: M,
+        num: S,
         disabled: R
       } = i.dataset;
-      if (M) {
+      if (S) {
         if (R == "true")
           return;
-        n.currentSelect[p.index[e]] = M;
-        const ee = Number(n.currentSelect[p.index[e]]) * Number(s.value["popper-spinner-number-height"]);
-        p.ref[e].value.setScrollTop(ee);
+        n.currentSelect[p.index[e]] = S;
+        const Q = Number(n.currentSelect[p.index[e]]) * Number(h.value["popper-spinner-number-height"]);
+        p.ref[e].value.setScrollTop(Q);
       }
     }, L = function(e) {
       _("hour", e.target);
-    }, E = function(e) {
+    }, X = function(e) {
       _("minute", e.target);
     }, w = function(e) {
       _("second", e.target);
-    }, f = function(e, i) {
+    }, v = function(e, i) {
       const p = {
         timers: {
           hour: 0,
@@ -756,157 +793,157 @@ const Ve = {
           second: "disabledSeconds"
         }
       };
-      let R = Math.round(e / Number(s.value["popper-spinner-number-height"]));
+      let R = Math.round(e / Number(h.value["popper-spinner-number-height"]));
       if (t[p.ableRange[i]].filter((Me) => Me == R).length > 0)
         return;
-      n.currentSelect[p.timers[i]] = d(R);
-      let te = R * Number(s.value["popper-spinner-number-height"]);
-      v[p.timers[i]] && (clearTimeout(v[p.timers[i]]), v[p.timers[i]] = null), v[p.timers[i]] = setTimeout(() => {
-        i == "hour" && o.value.setScrollTop(te), i == "minute" && y.value.setScrollTop(te), i == "second" && k.value.setScrollTop(te);
+      n.currentSelect[p.timers[i]] = c(R);
+      let ee = R * Number(h.value["popper-spinner-number-height"]);
+      d[p.timers[i]] && (clearTimeout(d[p.timers[i]]), d[p.timers[i]] = null), d[p.timers[i]] = setTimeout(() => {
+        i == "hour" && m.value.setScrollTop(ee), i == "minute" && C.value.setScrollTop(ee), i == "second" && M.value.setScrollTop(ee);
       }, 200);
     }, P = function(e, i) {
-      f(i, "hour");
-    }, $ = function(e, i) {
-      f(i, "minute");
-    }, G = function(e, i) {
-      f(i, "second");
-    }, Q = () => {
+      v(i, "hour");
+    }, J = function(e, i) {
+      v(i, "minute");
+    }, Z = function(e, i) {
+      v(i, "second");
+    }, q = () => {
       n.hourList = new Array(24).fill(0).map((e, i) => i < 10 ? "0" + i : i + ""), n.minuteList = new Array(60).fill(0).map((e, i) => i < 10 ? "0" + i : i + ""), n.secondList = new Array(60).fill(0).map((e, i) => i < 10 ? "0" + i : i + "");
-    }, K = function() {
-      l && (o.value.setScrollTop(Number(l.slice(0, 2)) * Number(s.value["popper-spinner-number-height"])), y.value.setScrollTop(Number(l.slice(3, 5)) * Number(s.value["popper-spinner-number-height"])), k.value.setScrollTop(Number(l.slice(6, 8)) * Number(s.value["popper-spinner-number-height"])));
-    }, U = () => {
-      const e = new Date(), i = e.getHours(), p = e.getMinutes(), M = e.getSeconds();
-      n.currentSelect[0] = d(i), n.currentSelect[1] = d(p), n.currentSelect[2] = d(M), o.value.setScrollTop(Number(n.currentSelect[0]) * Number(s.value["popper-spinner-number-height"])), y.value.setScrollTop(Number(n.currentSelect[1]) * Number(s.value["popper-spinner-number-height"])), k.value.setScrollTop(Number(n.currentSelect[2]) * Number(s.value["popper-spinner-number-height"])), r.emit && r.emit("update:modelValue", n.currentSelect[0] + ":" + n.currentSelect[1] + ":" + n.currentSelect[2]);
-    }, a = function() {
-      if (t.modelValue && g(t.modelValue)) {
-        const e = t.modelValue.split(":"), i = t.disabledHours.findIndex((R) => R == e[0]) != -1, p = t.disabledMinutes.findIndex((R) => R == e[1]) != -1, M = t.disabledSeconds.findIndex((R) => R == e[2]) != -1;
-        if (i || p || M)
-          return console.warn("输入的值包含禁用项,已被清空"), r.emit && r.emit("update:modelValue", ""), !0;
+    }, D = function() {
+      u && (m.value.setScrollTop(Number(u.slice(0, 2)) * Number(h.value["popper-spinner-number-height"])), C.value.setScrollTop(Number(u.slice(3, 5)) * Number(h.value["popper-spinner-number-height"])), M.value.setScrollTop(Number(u.slice(6, 8)) * Number(h.value["popper-spinner-number-height"])));
+    }, a = () => {
+      const e = new Date(), i = e.getHours(), p = e.getMinutes(), S = e.getSeconds();
+      n.currentSelect[0] = c(i), n.currentSelect[1] = c(p), n.currentSelect[2] = c(S), m.value.setScrollTop(Number(n.currentSelect[0]) * Number(h.value["popper-spinner-number-height"])), C.value.setScrollTop(Number(n.currentSelect[1]) * Number(h.value["popper-spinner-number-height"])), M.value.setScrollTop(Number(n.currentSelect[2]) * Number(h.value["popper-spinner-number-height"])), o.emit && o.emit("update:modelValue", n.currentSelect[0] + ":" + n.currentSelect[1] + ":" + n.currentSelect[2]);
+    }, x = function() {
+      if (t.modelValue && f(t.modelValue)) {
+        const e = t.modelValue.split(":"), i = t.disabledHours.findIndex((R) => R == e[0]) != -1, p = t.disabledMinutes.findIndex((R) => R == e[1]) != -1, S = t.disabledSeconds.findIndex((R) => R == e[2]) != -1;
+        if (i || p || S)
+          return console.warn("输入的值包含禁用项,已被清空"), o.emit && o.emit("update:modelValue", ""), !0;
       }
       return !1;
     };
     xe(() => {
-      if (t.modelValue && g(t.modelValue) && !a()) {
+      if (t.modelValue && f(t.modelValue) && !x()) {
         const e = t.modelValue.split(":");
-        n.currentSelect[0] = e[0], n.currentSelect[1] = e[1], n.currentSelect[2] = e[2], l = t.modelValue;
+        n.currentSelect[0] = e[0], n.currentSelect[1] = e[1], n.currentSelect[2] = e[2], u = t.modelValue;
       }
-    }), ne(() => {
-      Q(), q(() => {
-        K();
+    }), re(() => {
+      q(), U(() => {
+        D();
       });
     });
-    const s = c(() => Object.assign(ce.dynamicCss.default(), t.dynamicCss)), V = c(() => {
+    const h = s(() => Object.assign(ce.dynamicCss.default(), t.dynamicCss)), G = s(() => {
       const e = {};
-      for (const i in s.value)
-        i.includes("input") && (e[i] = s.value[i]);
+      for (const i in h.value)
+        i.includes("input") && (e[i] = h.value[i]);
       return e;
-    }), J = c({
+    }), H = s({
       get() {
-        return a(), t.modelValue;
+        return x(), t.modelValue;
       },
       set(e) {
-        r.emit && r.emit("update:modelValue", e);
+        o.emit && o.emit("update:modelValue", e);
       }
-    }), O = c(() => t.clearable), X = function(e, i) {
+    }), j = s(() => t.clearable), W = function(e, i) {
       const p = {
         hour: "disabledHours",
         minute: "disabledMinutes",
         second: "disabledSeconds"
       };
-      let M = !1;
-      return t[p[e]].forEach((R) => R == i ? M = !0 : ""), M;
-    }, D = c(() => function(e) {
-      return X("hour", e);
-    }), ae = c(() => function(e) {
-      return X("minute", e);
-    }), le = c(() => function(e) {
-      return X("second", e);
+      let S = !1;
+      return t[p[e]].forEach((R) => R == i ? S = !0 : ""), S;
+    }, ie = s(() => function(e) {
+      return W("hour", e);
+    }), ae = s(() => function(e) {
+      return W("minute", e);
+    }), le = s(() => function(e) {
+      return W("second", e);
     });
     return ue(() => {
       const e = n.currentSelect[0], i = n.currentSelect[1], p = n.currentSelect[2];
       if (!e && !i && !p) {
-        r.emit && r.emit("update:modelValue", "");
+        o.emit && o.emit("update:modelValue", "");
         return;
       }
-      const M = e + ":" + i + ":" + p;
-      r.emit && r.emit("update:modelValue", M);
+      const S = e + ":" + i + ":" + p;
+      o.emit && o.emit("update:modelValue", S);
     }), ue(() => {
-      n.isSubmit && (l = t.modelValue, r.emit && r.emit("update:modelValue", l));
+      n.isSubmit && (u = t.modelValue, o.emit && o.emit("update:modelValue", u));
     }), ve(we, {
-      timePickerRef: x
-    }), () => oe(u("div", {
-      ref: x,
+      timePickerRef: r
+    }), () => te(l("div", {
+      ref: r,
       "data-id": n.uuid,
       class: [He(Xe())],
-      onClick: m
-    }, [u(T("vi-time-picker-input"), {
+      onClick: g
+    }, [l(T("vi-time-picker-input"), {
       placeholder: t.placeholder,
-      modelValue: J.value,
-      "onUpdate:modelValue": (e) => J.value = e,
-      onFocus: I,
-      onBlur: B,
+      modelValue: H.value,
+      "onUpdate:modelValue": (e) => H.value = e,
+      onFocus: y,
+      onBlur: N,
       onClose: b,
-      dynamicCss: V.value || {},
-      clearable: O.value,
+      dynamicCss: G.value || {},
+      clearable: j.value,
       readonly: !0,
       onClick: Y
-    }, null), u(T("vi-time-picker-popper"), {
+    }, null), l(T("vi-time-picker-popper"), {
       active: n.popperVisible
     }, {
-      default: () => [u("div", {
+      default: () => [l("div", {
         class: "time-panel"
-      }, [u("div", {
+      }, [l("div", {
         class: "time-panel__content"
-      }, [u(T("vi-scroll-bar"), {
-        ref: o,
+      }, [l(T("vi-scroll-bar"), {
+        ref: m,
         class: "time-panel__spinner time-panel__popper-spinner--hour",
         onScroll: P,
-        height: Number(s.value["popper-spinner-number-height"]) * 6 + "px"
+        height: Number(h.value["popper-spinner-number-height"]) * 6 + "px"
       }, {
-        default: () => [u("ul", {
+        default: () => [l("ul", {
           onClick: L
-        }, [n.hourList.map((e) => u("li", {
+        }, [n.hourList.map((e) => l("li", {
           "data-num": e,
-          "data-disabled": D.value(Number(e)),
-          class: [n.currentSelect[0] == e ? "active" : "", D.value(Number(e)) ? "disabled" : ""]
+          "data-disabled": ie.value(Number(e)),
+          class: [n.currentSelect[0] == e ? "active" : "", ie.value(Number(e)) ? "disabled" : ""]
         }, [e]))])]
-      }), u(T("vi-scroll-bar"), {
-        ref: y,
+      }), l(T("vi-scroll-bar"), {
+        ref: C,
         class: "time-panel__spinner time-panel__popper-spinner--minutes",
-        onScroll: $,
-        height: Number(s.value["popper-spinner-number-height"]) * 6 + "px"
+        onScroll: J,
+        height: Number(h.value["popper-spinner-number-height"]) * 6 + "px"
       }, {
-        default: () => [u("ul", {
-          onClick: E
-        }, [n.minuteList.map((e) => u("li", {
+        default: () => [l("ul", {
+          onClick: X
+        }, [n.minuteList.map((e) => l("li", {
           "data-num": e,
           "data-disabled": ae.value(Number(e)),
           class: [n.currentSelect[1] == e ? "active" : "", ae.value(Number(e)) ? "disabled" : ""]
         }, [e]))])]
-      }), u(T("vi-scroll-bar"), {
-        ref: k,
+      }), l(T("vi-scroll-bar"), {
+        ref: M,
         class: "time-panel__spinner time-panel__popper-spinner--second",
-        onScroll: G,
-        height: Number(s.value["popper-spinner-number-height"]) * 6 + "px"
+        onScroll: Z,
+        height: Number(h.value["popper-spinner-number-height"]) * 6 + "px"
       }, {
-        default: () => [u("ul", {
+        default: () => [l("ul", {
           onClick: w
-        }, [n.secondList.map((e) => u("li", {
+        }, [n.secondList.map((e) => l("li", {
           "data-num": e,
           "data-disabled": le.value(Number(e)),
           class: [n.currentSelect[2] == e ? "active" : "", le.value(Number(e)) ? "disabled" : ""]
         }, [e]))])]
-      })]), u("div", {
+      })]), l("div", {
         class: "time-panel__footer",
-        onClick: A
-      }, [u("div", {
+        onClick: $
+      }, [l("div", {
         "data-type": "cancel",
         class: "time-panel__footer_cancel"
-      }, [se("取消")]), u("div", {
+      }, [se("取消")]), l("div", {
         "data-type": "ok",
         class: "time-panel__footer_ok"
       }, [se("确认")])])])]
-    })]), [[re("css"), s.value || {}]]);
+    })]), [[oe("css"), h.value || {}]]);
   }
 }), Ee = ge(We, "time-picker");
 export {

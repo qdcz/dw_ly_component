@@ -4,7 +4,6 @@
 			<input
 				:class="[classes(n('_input'))]"
 				type="radio"
-				ref="radioRef"
 				:value="value"
 				:checked="IsChecked"
 				:disabled="IsDisable"

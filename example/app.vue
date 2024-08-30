@@ -5,16 +5,15 @@
                 v-model="currentSelect"
                 :dynamicCss="dynamicCss"
             ></dw-time-picker> -->
+            <!-- <div style="margin-top: 100px"></div> -->
+            <!-- <dw-scroll-block v-model="scrollBlock">
+            </dw-scroll-block> -->
 
-            <div style="margin-top: 10px"></div>
+            <!-- <dw-roll-list :header="header" v-model="list" @rowClick="rowClick" rollType="autoRoll">
+            </dw-roll-list> -->
 
-            <dw-scroll-block v-model="scrollBlock">
-            </dw-scroll-block>
-            <!-- 
-          <dw-roll-list :header="header" v-model="list" @rowClick="rowClick" rollType="autoRoll">
-            </dw-roll-list>  -->
-
-
+            <!-- <div style="margin-top: 100px"></div> -->
+            <dw-sankey-diagram></dw-sankey-diagram>
         </div>
     </div>
 </template>

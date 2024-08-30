@@ -24,3 +24,6 @@ npm run doc     # 运行组件文档库
 npm run dev     # 运行组件使用示例库
 npm run build   # 打包组件库      提前全局安装下sass  npm i -g sass
 ```
+
+有个单独的模块是webComponent 在packages内
+

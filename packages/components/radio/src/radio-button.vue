@@ -1,7 +1,7 @@
 <template>
 	<div ref="refRadioButton" :class="[classes(n()), IsChecked ? n('active') : '',border ? n('border'):'']"
 		@click="handleClick">
-		<input :class="[classes(n('_input'))]" type="radio" ref="radioRef" :value="value" :checked="IsChecked"
+		<input :class="[classes(n('_input'))]" type="radio"  :value="value" :checked="IsChecked"
 			:disabled="IsDisable" v-model="modelValue" />
 		<label :class="classes(n('_label'), IsDisable ? 'is-disabled' : '')">{{ label }}</label>
 	</div>

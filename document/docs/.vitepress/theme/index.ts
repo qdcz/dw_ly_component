@@ -11,6 +11,7 @@ import {
     TimePicker,
     ScrollBar,
     RollList,
+    SankeyDiagram,
 } from "../../../../dist/buildFull/component/dw.ui.es";
 
 import {
@@ -36,7 +37,9 @@ import {
     scrollBar_thumbHW,
     scrollBar_setScrollTL,
     rollList_base,
-    rollList_modelValue
+    rollList_modelValue,
+    sankeyDiagram_base,
+    sankeyDiagram_overScroll,
 } from "../../component/index";
 
 import { h } from "vue";
@@ -60,6 +63,8 @@ export default {
         app.use(TimePicker);
         app.use(ScrollBar);
         app.use(RollList);
+        app.use(SankeyDiagram);
+        
 
         // 全局注册-注册编写文档的组件
         app.component("radio-base", radio_base.default);
@@ -99,6 +104,11 @@ export default {
 
         app.component("roll-list-base", rollList_base.default);
         app.component("roll-list-model-value", rollList_modelValue.default);
+
+
+        app.component("sankey-diagram-base", sankeyDiagram_base.default);
+        app.component("sankey-diagram-over-scroll", sankeyDiagram_overScroll.default);
+        
         
     },
     setup() {

@@ -1,0 +1,143 @@
+@use './common/config.scss' as *;
+
+@keyframes lineMove {
+    0% {
+        stroke-dashoffset: 0;
+    }
+
+    100% {
+        stroke-dashoffset: -300;
+    }
+}
+
+.#{$namespace}-sankey-diagram {
+    height: 300px;
+    width: 800px;
+    // background-color: #9ba3ab84;
+
+    &_scroll-wrapper {
+        overflow-y: scroll;
+        overflow-x: auto;
+        height: inherit;
+        width: inherit;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+
+    &_scroll {
+        height: inherit;
+        width: inherit;
+        display: flex;
+        justify-content: space-between;
+    }
+
+
+    // .#{$namespace}-sankey-diagram 加权
+    .#{$namespace}-sankey-diagram &_left,
+    .#{$namespace}-sankey-diagram &_right {
+        // 防止被外部css覆盖
+        margin: 0;
+        padding: 0;
+
+
+        height: inherit;
+        display: flex;
+        flex-direction: column;
+
+        &__item {
+
+            background-size: 100% 100%;
+            text-align: center;
+            background-image: var(--left-bg-image);
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            transition: .3s;
+            cursor: pointer;
+            color: var(--left-color);
+            font-size: calc(var(--left-fo-size)*1px);
+            font-family: var(--left-fo-fam);
+            font-weight: var(--left-fo-wei);
+            padding: calc(var(--item-pad-tb)*1px) calc(var(--left-pad-r)*1px) calc(var(--item-pad-tb)*1px) calc(var(--left-pad-l)*1px);
+
+
+            // 不超出滚动
+            &.fullParent {
+                // 要加自适应高度，需要加下面两项
+                flex: 1; // 高度不满，拉升自动撑满父容器
+                overflow: hidden; // 超过高度，自动压缩撑满父容器
+            }
+
+
+            // 第一项不能加margin-top
+            &:not(:first-child) {
+                margin-top: calc(var(--item-mar-t)*1px);
+            }
+
+            &:hover {
+                color: var(--left-color_hov);
+            }
+
+            &.active {
+                color: var(--item-color_act);
+                background-image: var(--left-bg-image_active);
+            }
+        }
+    }
+
+    .#{$namespace}-sankey-diagram &_right {
+        &__item {
+            background-image: var(--right-bg-image);
+            color: var(--right-color);
+            font-size: calc(var(--right-fo-size)*1px);
+            font-family: var(--right-fo-fam);
+            font-weight: var(--right-fo-wei);
+            padding: calc(var(--item-pad-tb)*1px) calc(var(--right-pad-r)*1px) calc(var(--item-pad-tb)*1px) calc(var(--right-pad-l)*1px);
+
+
+            &:hover {
+                color: var(--right-color_hov);
+            }
+
+            &.active {
+                background-image: var(--right-bg-image_active);
+            }
+        }
+
+
+    }
+
+    .#{$namespace}-sankey-diagram &_center {
+        height: inherit;
+        flex: 1;
+
+
+        &__line {
+            cursor: pointer;
+            fill: transparent;
+            stroke-width: var(--line-wid);
+            stroke: var(--line-color);
+            stroke-dashoffset: -50;
+            transition: .3s;
+
+            &:hover {
+                stroke: var(--line-color_hov);
+                stroke-width: var(--line-wid_hov);
+            }
+
+            &.active {
+                stroke-width: var(--line-wid_act);
+                stroke: var(--line-color_act);
+                stroke-dasharray: 30, 6;
+                animation: lineMove calc(var(--ani-time)*1s) infinite linear;
+            }
+        }
+
+
+    }
+
+}

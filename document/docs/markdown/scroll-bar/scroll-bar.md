@@ -1,4 +1,4 @@
-# dw-scroll-bar `V0.0.1`
+# dw-scroll-bar `V-0.0.1`
 
 用于替换浏览器原生的高性能自定义滚动条
 

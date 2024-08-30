@@ -9,7 +9,7 @@ const Ce = (e, n) => (e.install = function(r) {
       console.error(e, n, !n);
   }
 }, e), Se = (e) => Array.isArray(e);
-function U(e) {
+function O(e) {
   const n = `vi-${e}`;
   return {
     n: (l) => l ? l.startsWith("-") ? `${n}${l}` : `${n}_${l}` : n,
@@ -22,55 +22,70 @@ function U(e) {
     })
   };
 }
-var W = /* @__PURE__ */ ((e) => (e.AUTHROLL = "autoRoll", e.HANDMOVE = "handRoll", e))(W || {});
+var U = /* @__PURE__ */ ((e) => (e.AUTHROLL = "autoRoll", e.HANDMOVE = "handRoll", e))(U || {});
 const ee = {
+  // 表头字段-配置   // TODO type类型约束下
   header: {
     type: Array,
     default: []
   },
+  // 表头显隐
   showHeader: {
     type: Boolean,
     default: !0
   },
+  // 每行固高
   itemHeight: {
     type: [String],
     default: "40px"
   },
+  // 可见条数
   showCount: {
     type: [Number],
     default: 8
   },
+  // 滚动条数
   rollCount: {
     type: [Number],
     default: 1
   },
+  // 特殊显示的位置
   attractShowCount: {
     type: Array,
+    // 内部会错判断，如果数组内的值超过展示的条数，则清空为[]   // TODO 未做
     default: [3, 4]
+    // default:[]
   },
+  // 滚动类型
   rollType: {
     type: String,
     default: "autoRoll",
     validator: function(e) {
-      return Object.values(W).includes(e);
+      return Object.values(U).includes(e);
     }
   },
+  // 自动滚动时长间隔 ( 不能小于或等于 scrollTransition )
   loopTime: {
     type: Number,
     default: 1e3 * 2
   },
+  // 滚动过渡时长
   scrollTransition: {
     type: Number,
     default: 1e3 * 0.8
   },
+  // (临时)固定层级缩放
   tmp_scaleRule: {
     type: Array,
     default: [1.3, 1]
   },
+  // 缩放规则  ----- 支持对每一列进行配置缩放规则
   scaleRule: {
     type: [Number, Array],
+    // 特殊显示位置为1.5，往下根据数量进行递减（如果数据只有三条，那么只有1.5和1.0会生效）
     default: [1.5, 1, 0.8]
   },
+  // 数据列表
   modelValue: {
     type: Array,
     default: []
@@ -78,16 +93,25 @@ const ee = {
   dynamicCss: {
     type: Object,
     default: () => ({
+      // 容器宽度
       "box-wid": "800",
+      // 或者auto
+      // 钉在表格上的列表
       "pin-hei": "80",
       "pin-radius": "4",
       "pin-dire-b": "120",
+      // 距离底部距离
       "pin-bg-color-style": "double",
+      // single 是使用单色 double 是使用渐变色
       "pin-bg-color-to": "#00DEFF",
       "pin-bg-color-from": "#FFFFFF",
       "pin-bg-color-angle": "135",
       "pin-bg-color-value": "#49a3cb",
+      /**
+       * 表头相关
+       */
       "th-pad-tb": "10",
+      // 表头的 上下内边距
       "th-bg-color": "rgb(179, 210, 224)",
       "th-fo-color": "rgb(90, 99, 110)",
       "th-fo-size": "16",
@@ -96,19 +120,37 @@ const ee = {
       "th-radius-rt": "8",
       "th-radius-lb": "0",
       "th-radius-rb": "0",
+      /**
+       * 表体相关
+       */
+      // 鼠标悬浮表行背景颜色
       "tr-hover-bg-color": "rgb(132 176 212 / 80%)",
       "tr-hover-transition": "0.3",
+      // 激活的背景颜色
       "tr-focus-bg-color-style": "single",
+      // single 是使用单色 double 是使用渐变色
       "tr-focus-bg-color-to": "#00DEFF",
       "tr-focus-bg-color-from": "#FFFFFF",
       "tr-focus-bg-color-angle": "135",
       "tr-focus-bg-color-value": "rgb(211, 228, 242)",
+      // 其余未激活的背景颜色
       "tr-un-focus-bg-color": "rgb(235, 235, 235)",
+      /**
+       * 表列相关
+       */
       "td-pad-lr": "20",
+      // 表列的 左右外边距
       "td-pad-tb": "0",
       "td-txt-align": "center",
+      // 文字对齐方式
+      /**
+       * longText组件
+       */
       "longText-txt-gap": "30",
+      // 滚动文本连接间隙
+      // header传入 权重最高
       "longText-sco-ani-name": "longTextScrollAnimation",
+      // "longTextScrollAnimation3d"
       "longText-sco-ani-dura": "15"
     })
   }
@@ -125,7 +167,7 @@ const ee = {
   install(e) {
     e.directive("Css", this);
   }
-}, { n: _e } = U(""), Ae = (e = _e()) => e + "xxxxxxxx".replace(/[xy]/g, function(n) {
+}, { n: _e } = O(""), Ae = (e = _e()) => e + "xxxxxxxx".replace(/[xy]/g, function(n) {
   var r = 0 | 16 * Math.random(), i = n == "x" ? r : 8 | 3 & r;
   return i.toString(16);
 });
@@ -133,6 +175,7 @@ class Fe {
   constructor(n = [], r = 7) {
     this.list = n, this.severalGroups = r, this.windowSliding = new Array(this.severalGroups).fill(0).map((i, l) => l);
   }
+  // 每次消费的条数
   take(n) {
     return this.Sliding(n), this.show();
   }
@@ -168,7 +211,7 @@ function Le(e, n = "top", r, i, l) {
   }
   requestAnimationFrame(g);
 }
-function O() {
+function E() {
   let e = new Date().getTime();
   return typeof performance < "u" && typeof performance.now == "function" && (e += performance.now()), "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
     /[xy]/g,
@@ -184,26 +227,33 @@ function ke(e) {
     const { __id: i, ...l } = r, a = JSON.stringify(l);
     if (!n[a])
       return n[a] = !0, r;
-    const f = O();
+    const f = E();
     return { ...r, __id: f };
   });
 }
 const {
   n: ne
-} = U("long-text"), oe = {
+} = O("long-text"), oe = {
+  // 显示文本
   text: {
     type: String,
     default: "这是一个默认文本"
   },
+  // 滚动速度
   speed: {
     type: Number,
     default: 1e3
+    // 默认速度为：文字的宽度像素/1s
   },
+  // 动态css样式
   dynamicCss: {
     type: Object,
     default: () => ({
+      // 空白衔接块的宽度
       "txt-gap": "22",
+      // 是否启动滚动的gpu加速
       "sco-ani-name": "longTextScrollAnimation",
+      // "longTextScrollAnimation3d"
       "sco-ani-dura": "10"
     })
   }
@@ -214,10 +264,12 @@ const {
   directives: {
     css: de
   },
+  // components: { ToolTip: ToolTip },
   setup(e, n) {
     var y;
     const i = "onUpdate:modelValue" in (((y = re()) == null ? void 0 : y.vnode.props) || {}), l = L(null), a = L(null), f = L(null), v = L(null), g = ie({
       isScroll: !0,
+      // 是否达到滚动条件
       toolTip_x: 0,
       toolTip_y: 0,
       toolTip_content: "盎司附近拉萨解放了卡JFK垃圾地方"
@@ -257,7 +309,7 @@ const {
   }
 }), {
   n: w
-} = U("roll-list"), $e = /* @__PURE__ */ se({
+} = O("roll-list"), $e = /* @__PURE__ */ se({
   name: "RollList",
   emits: ["update:modelValue", "rowClick"],
   directives: {
@@ -268,8 +320,8 @@ const {
     LongText: le
   },
   setup(e, n) {
-    var E;
-    const i = "onUpdate:modelValue" in (((E = re()) == null ? void 0 : E.vnode.props) || {}), l = ie({
+    var q;
+    const i = "onUpdate:modelValue" in (((q = re()) == null ? void 0 : q.vnode.props) || {}), l = ie({
       uuid: Ae(w("-")),
       takeFlag: !1,
       rotationTimer: null,
@@ -285,7 +337,7 @@ const {
       for (let t in s.value)
         t.includes("longText") && (o[t.replace("longText-", "")] = s.value[t]);
       return o;
-    }), A = C(() => e.header), N = () => {
+    }), A = C(() => e.header), W = () => {
       var o;
       for (let t = 0; t < ((o = f.value) == null ? void 0 : o.children.length); t++) {
         const c = f.value.children[t], {
@@ -306,7 +358,7 @@ const {
         });
       }
     }, k = () => {
-      if (l.rotationTimer && (clearInterval(l.rotationTimer), l.rotationTimer = null), e.rollType == W.AUTHROLL) {
+      if (l.rotationTimer && (clearInterval(l.rotationTimer), l.rotationTimer = null), e.rollType == U.AUTHROLL) {
         if (g)
           return;
         l.rotationTimer = B.value.length > e.showCount && setInterval(() => {
@@ -317,9 +369,9 @@ const {
       }
     }, B = C({
       get() {
-        const o = e.modelValue.map((t, c) => (t.__id = O(), t.__uniqueness = O(), t));
+        const o = e.modelValue.map((t, c) => (t.__id = E(), t.__uniqueness = E(), t));
         return _ = new Fe(V(o), e.showCount * 2), M(() => {
-          N();
+          W();
         }), o;
       },
       set(o) {
@@ -366,10 +418,10 @@ const {
       }
       Le(o, "top", v, e.scrollTransition, () => {
         l.takeFlag = !l.takeFlag, o.scrollTop = 0, v = 0, M(() => {
-          N();
+          W();
         });
       });
-    }, q = () => {
+    }, N = () => {
       g = !0, l.rotationTimer && (clearInterval(l.rotationTimer), l.rotationTimer = null);
     }, pe = () => {
       g = !1, k();
@@ -377,7 +429,7 @@ const {
       n.emit && n.emit("rowClick", o);
     };
     D(() => {
-      q(), l.rotationTimer = null;
+      N(), l.rotationTimer = null;
     });
     const xe = () => {
       if (!s.value["pin-bg-color-style"])
@@ -440,7 +492,7 @@ const {
     };
     return () => ue(u("div", {
       class: w(),
-      onMouseenter: q,
+      onMouseenter: N,
       onMouseleave: pe
     }, [xe(), ye(), he()]), [[ae("css"), s.value || {}]]);
   }

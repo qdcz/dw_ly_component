@@ -1,4 +1,4 @@
-import { defineComponent as f, inject as k, computed as d, openBlock as m, createElementBlock as p, normalizeClass as r, createElementVNode as u, withDirectives as v, vModelRadio as C, toDisplayString as B, ref as I, provide as S, nextTick as D, resolveDirective as R, renderSlot as N } from "vue";
+import { defineComponent as f, inject as k, computed as d, openBlock as m, createElementBlock as p, normalizeClass as r, createElementVNode as u, withDirectives as v, vModelRadio as C, toDisplayString as B, ref as I, provide as S, nextTick as D, resolveDirective as N, renderSlot as w } from "vue";
 const g = (e, l) => (e.install = function(s) {
   if (e) {
     const t = e.name || e.__name;
@@ -32,6 +32,9 @@ const g = (e, l) => (e.install = function(s) {
   dynamicCss: {
     type: Object,
     default: () => ({
+      /**
+       * 基础
+       */
       "bs-mar-t": 0,
       "bs-mar-r": 10,
       "bs-mar-b": 10,
@@ -46,19 +49,35 @@ const g = (e, l) => (e.install = function(s) {
       "bs-border-width": "1",
       "bs-border-type": "solid",
       "bs-border-color": "#00b7ff",
+      /**
+       * circle
+       */
       "circle-size": "12",
       "circle-out-bg-color": "#989898",
+      // 外圈颜色
       "circle-out-hover-bg-color": "#00b7ff",
+      // 外圈悬浮颜色
       "circle-out-active-bg-color": "#01b3f9",
+      // 外圈激活颜色
       "circle-inner-bg-color": "#fff",
+      // 内圈颜色
       "circle-inner-size": "10",
+      // 内圈size
       "circle-inner-active-bg-color": "#fff",
+      // 内圈激活颜色
       "circle-inner-active-size": "4",
+      // 内圈激活size
+      /**
+       * label
+       */
       "txt-fo-size": "14",
       "txt-fo-color": "#000",
       "txt-fo-active-color": "#00b7ff",
       "txt-fo-active-weight": "500",
       "txt-pad-l": "8",
+      /**
+       * button mode
+       */
       "btn-fo-size": "12",
       "btn-fo-color": "#000",
       "btn-fo-active-color": "#fff",
@@ -71,16 +90,19 @@ const g = (e, l) => (e.install = function(s) {
       "btn-border-width": "1",
       "btn-border-type": "solid",
       "btn-border-color": "#dcdfe6",
+      /**
+       * animation
+       */
       "ani-transition": "0.5"
     })
   }
-}, V = Symbol("radio"), w = (e) => Array.isArray(e);
+}, V = Symbol("radio"), R = (e) => Array.isArray(e);
 function y(e) {
   const l = `vi-${e}`;
   return {
     n: (a) => a ? a.startsWith("-") ? `${l}${a}` : `${l}_${a}` : l,
     classes: (...a) => a.map((n) => {
-      if (w(n)) {
+      if (R(n)) {
         const [o, i, c = null] = n;
         return o ? i : c;
       }
@@ -132,32 +154,55 @@ const { n: j, classes: z } = y("radio"), E = f({
   return s;
 }, M = ["value", "checked", "disabled"];
 function O(e, l, s, t, a, n) {
-  return m(), p("div", {
-    class: r([e.classes(e.n()), e.IsChecked ? e.n("active") : "", e.border ? e.n("border") : ""]),
-    onClick: l[1] || (l[1] = (o) => e.handleClick(e.value))
-  }, [
-    u("div", {
-      class: r([e.classes(e.n("_input__wrapper")), e.IsDisable ? "is-disabled" : ""])
-    }, [
-      v(u("input", {
-        class: r([e.classes(e.n("_input"))]),
-        type: "radio",
-        ref: "radioRef",
-        value: e.value,
-        checked: e.IsChecked,
-        disabled: e.IsDisable,
-        "onUpdate:modelValue": l[0] || (l[0] = (o) => e.modelValueBridge = o)
-      }, null, 10, M), [
-        [C, e.modelValueBridge]
-      ]),
-      u("div", {
-        class: r([e.classes(e.n("_circle"))])
-      }, null, 2)
-    ], 2),
-    u("label", {
-      class: r(e.classes(e.n("_label"), e.IsDisable ? "is-disabled" : ""))
-    }, B(e.label), 3)
-  ], 2);
+  return m(), p(
+    "div",
+    {
+      class: r([e.classes(e.n()), e.IsChecked ? e.n("active") : "", e.border ? e.n("border") : ""]),
+      onClick: l[1] || (l[1] = (o) => e.handleClick(e.value))
+    },
+    [
+      u(
+        "div",
+        {
+          class: r([e.classes(e.n("_input__wrapper")), e.IsDisable ? "is-disabled" : ""])
+        },
+        [
+          v(u("input", {
+            class: r([e.classes(e.n("_input"))]),
+            type: "radio",
+            value: e.value,
+            checked: e.IsChecked,
+            disabled: e.IsDisable,
+            "onUpdate:modelValue": l[0] || (l[0] = (o) => e.modelValueBridge = o)
+          }, null, 10, M), [
+            [C, e.modelValueBridge]
+          ]),
+          u(
+            "div",
+            {
+              class: r([e.classes(e.n("_circle"))])
+            },
+            null,
+            2
+            /* CLASS */
+          )
+        ],
+        2
+        /* CLASS */
+      ),
+      u(
+        "label",
+        {
+          class: r(e.classes(e.n("_label"), e.IsDisable ? "is-disabled" : ""))
+        },
+        B(e.label),
+        3
+        /* TEXT, CLASS */
+      )
+    ],
+    2
+    /* CLASS */
+  );
 }
 const A = /* @__PURE__ */ h(E, [["render", O]]), G = {
   border: {
@@ -184,6 +229,7 @@ const A = /* @__PURE__ */ h(E, [["render", O]]), G = {
   name: "VIRadioButton",
   props: G,
   emits: ["click", "update:modelValue", "change"],
+  // directives: { ripple },
   setup(e, l) {
     let s = k(V);
     const t = I(null), a = function(c) {
@@ -220,26 +266,37 @@ const A = /* @__PURE__ */ h(E, [["render", O]]), G = {
   }
 }), J = ["value", "checked", "disabled"];
 function K(e, l, s, t, a, n) {
-  return m(), p("div", {
-    ref: "refRadioButton",
-    class: r([e.classes(e.n()), e.IsChecked ? e.n("active") : "", e.border ? e.n("border") : ""]),
-    onClick: l[1] || (l[1] = (...o) => e.handleClick && e.handleClick(...o))
-  }, [
-    v(u("input", {
-      class: r([e.classes(e.n("_input"))]),
-      type: "radio",
-      ref: "radioRef",
-      value: e.value,
-      checked: e.IsChecked,
-      disabled: e.IsDisable,
-      "onUpdate:modelValue": l[0] || (l[0] = (o) => e.modelValue = o)
-    }, null, 10, J), [
-      [C, e.modelValue]
-    ]),
-    u("label", {
-      class: r(e.classes(e.n("_label"), e.IsDisable ? "is-disabled" : ""))
-    }, B(e.label), 3)
-  ], 2);
+  return m(), p(
+    "div",
+    {
+      ref: "refRadioButton",
+      class: r([e.classes(e.n()), e.IsChecked ? e.n("active") : "", e.border ? e.n("border") : ""]),
+      onClick: l[1] || (l[1] = (...o) => e.handleClick && e.handleClick(...o))
+    },
+    [
+      v(u("input", {
+        class: r([e.classes(e.n("_input"))]),
+        type: "radio",
+        value: e.value,
+        checked: e.IsChecked,
+        disabled: e.IsDisable,
+        "onUpdate:modelValue": l[0] || (l[0] = (o) => e.modelValue = o)
+      }, null, 10, J), [
+        [C, e.modelValue]
+      ]),
+      u(
+        "label",
+        {
+          class: r(e.classes(e.n("_label"), e.IsDisable ? "is-disabled" : ""))
+        },
+        B(e.label),
+        3
+        /* TEXT, CLASS */
+      )
+    ],
+    2
+    /* CLASS */
+  );
 }
 const L = /* @__PURE__ */ h(U, [["render", K]]), $ = function(e, l) {
   for (let [s, t] of Object.entries(l.value))
@@ -281,12 +338,18 @@ const L = /* @__PURE__ */ h(U, [["render", K]]), $ = function(e, l) {
   }
 });
 function H(e, l, s, t, a, n) {
-  const o = R("css");
-  return v((m(), p("div", {
-    class: r(e.classes(e.n()))
-  }, [
-    N(e.$slots, "default")
-  ], 2)), [
+  const o = N("css");
+  return v((m(), p(
+    "div",
+    {
+      class: r(e.classes(e.n()))
+    },
+    [
+      w(e.$slots, "default")
+    ],
+    2
+    /* CLASS */
+  )), [
     [o, e.dynamicCssBridge || {}]
   ]);
 }

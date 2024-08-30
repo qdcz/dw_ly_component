@@ -48,6 +48,7 @@ const c = function(t, e) {
     type: String,
     default: "这是一个默认tooltip text"
   },
+  // 动态css样式
   dynamicCss: {
     type: Object,
     default: () => ({})

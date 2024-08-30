@@ -1,4 +1,4 @@
-import { defineComponent as M, createVNode as a, inject as D, reactive as N, computed as v, resolveComponent as x, ref as B, onMounted as $, watchEffect as K, nextTick as H, watch as Q, onUnmounted as fe, getCurrentInstance as me, provide as be, withDirectives as we, resolveDirective as Se, createTextVNode as ye } from "vue";
+import { defineComponent as M, createVNode as a, inject as H, reactive as N, computed as v, resolveComponent as x, ref as B, onMounted as $, watchEffect as K, nextTick as D, watch as Q, onUnmounted as fe, getCurrentInstance as me, provide as be, withDirectives as we, resolveDirective as Se, createTextVNode as ye } from "vue";
 const q = (e, l) => (e.install = function(s) {
   if (e) {
     const c = e.name || e.__name;
@@ -22,15 +22,15 @@ function I(e) {
     })
   };
 }
-const O = Symbol("select-v2"), F = function(e, l) {
+const O = Symbol("select-v2"), J = function(e, l) {
   for (let [s, c] of Object.entries(l.value))
     e.style.setProperty("--" + s, c);
 }, G = {
   mounted(e, l) {
-    F(e, l);
+    J(e, l);
   },
   updated(e, l) {
-    F(e, l);
+    J(e, l);
   },
   install(e) {
     e.directive("Css", this);
@@ -57,6 +57,7 @@ const O = Symbol("select-v2"), F = function(e, l) {
   showMore: Boolean,
   search: Boolean,
   searchImg: {
+    // 是否使用图片icon 未给值的话默认使用svg
     type: String,
     default: "https://cdn-upload.datav.aliyun.com/upload/download/1666233796787-Qfh6D-SR.svg"
   },
@@ -67,6 +68,9 @@ const O = Symbol("select-v2"), F = function(e, l) {
   dynamicCss: {
     type: Object,
     default: () => ({
+      /**
+       * input
+       */
       "input-box-shadow-x": "0",
       "input-box-shadow-y": "0",
       "input-box-shadow-blur": "0",
@@ -97,7 +101,11 @@ const O = Symbol("select-v2"), F = function(e, l) {
       "input-text-alight": "start",
       "input-icon-width": "12",
       "input-icon-color": "#000",
+      /**
+       * tag
+       */
       "tag-height": "30",
+      // 为不影响美观，请将高度小于input高度
       "tag-max-width": "80",
       "tag-margin-t": "2",
       "tag-margin-r": "0",
@@ -115,13 +123,21 @@ const O = Symbol("select-v2"), F = function(e, l) {
       "tag-close-size": "12",
       "tag-close-hover-bg-color": "gray",
       "tag-close-hover-fo-color": "#fff",
+      /**
+       * tooltip
+       */
       "tag-tooltip-bg-color": "#3a81d2",
       "tag-tooltip-fo-color": "#fff",
       "tag-tooltip-fo-size": "12",
       "tag-tooltip-fo-weight": "500",
+      /**
+       * popper
+       */
       "popper-bg-color": "#fff",
       "popper-height": "250",
+      // max-height
       "popper-padding": "4",
+      // dropdownHeight 包含了 dropdownPadding
       "popper-border-radius": "8",
       "popper-z-index": "999",
       "popper-box-shadow-x": "0",
@@ -130,16 +146,25 @@ const O = Symbol("select-v2"), F = function(e, l) {
       "popper-box-shadow-spread": "0",
       "popper-box-shadow-color": "rgba(0, 0, 0, 0.12)",
       "popper-arrow-height": "6",
+      /**
+       * popper-option
+       */
       "popper-option-fo-size": "12",
       "popper-option-fo-weight": "500",
       "popper-option-fo-color": "#64666a",
       "popper-option-height": "40",
+      // 等高列表后期可以做成虚拟列表版本
       "popper-option-padding-lr": "8",
+      // 只暴露左右边距
       "popper-option-hover-bg-color": "#f5f7fa",
       "popper-option-active-fo-color": "#409eff",
       "popper-option-active-fo-weight": "600",
       "popper-option-txt-margin-lr": "6",
+      // 只暴露左右边距
       "popper-option-fo-alight": "start",
+      /**
+       * popper-search
+       */
       "popper-search-line-height": "20",
       "popper-search-fo-size": "12",
       "popper-search-fo-color": "gray",
@@ -157,12 +182,21 @@ const O = Symbol("select-v2"), F = function(e, l) {
       "popper-search-bg-color": "initial",
       "popper-search-inp-bg-color": "initial",
       "popper-search-icon-size": "14",
+      /**
+       * 展开层
+       */
       "unfold-icon-height": "14",
+      //  关闭按钮大小
       "unfold-icon-width": "14",
+      // 关闭按钮大小
       "unfold-icon-hover-fo-color": "#00b7ff",
+      // 关闭按钮悬浮颜色
       "unfold-height": "300",
+      // 展开弹窗大小
       "unfold-width": "600",
+      // 展开弹窗大小
       "unfold-padding-t": "10",
+      // 内边距
       "unfold-padding-r": "10",
       "unfold-padding-b": "10",
       "unfold-padding-l": "10",
@@ -178,9 +212,15 @@ const O = Symbol("select-v2"), F = function(e, l) {
       "unfold-tag-margin-r": "8",
       "unfold-tag-margin-b": "8",
       "unfold-tag-margin-l": "0",
+      /**
+       * scrollBar
+       */
       "scroll-bar-width": "4",
       "scroll-bar-bg-color": "rgb(218, 218, 218)",
       "scroll-bar-hover-bg-color": "#87ceeb",
+      /**
+       * animation
+       */
       "ani-transition": ".3"
     })
   }
@@ -261,7 +301,7 @@ const O = Symbol("select-v2"), F = function(e, l) {
       clearable: c,
       cacheOptionList: r,
       mode: t
-    } = D(O), u = "m488.832 344.32-339.84 356.672a32 32 0 0 0 0 44.16l.384.384a29.44 29.44 0 0 0 42.688 0l320-335.872 319.872 335.872a29.44 29.44 0 0 0 42.688 0l.384-.384a32 32 0 0 0 0-44.16L535.168 344.32a32 32 0 0 0-46.336 0z", d = "M576 512l277.333333 277.333333-64 64-277.333333-277.333333L234.666667 853.333333 170.666667 789.333333l277.333333-277.333333L170.666667 234.666667 234.666667 170.666667l277.333333 277.333333L789.333333 170.666667 853.333333 234.666667 576 512z", n = N({
+    } = H(O), u = "m488.832 344.32-339.84 356.672a32 32 0 0 0 0 44.16l.384.384a29.44 29.44 0 0 0 42.688 0l320-335.872 319.872 335.872a29.44 29.44 0 0 0 42.688 0l.384-.384a32 32 0 0 0 0-44.16L535.168 344.32a32 32 0 0 0-46.336 0z", d = "M576 512l277.333333 277.333333-64 64-277.333333-277.333333L234.666667 853.333333 170.666667 789.333333l277.333333-277.333333L170.666667 234.666667 234.666667 170.666667l277.333333 277.333333L789.333333 170.666667 853.333333 234.666667 576 512z", n = N({
       isHover: !1
     }), f = function(m) {
       l.emit("click", m);
@@ -315,14 +355,14 @@ const O = Symbol("select-v2"), F = function(e, l) {
       selectRef: s,
       mode: c,
       currentSelect: r
-    } = D(O), t = N({
+    } = H(O), t = N({
       parentRect: {
         x: 0,
         y: 0
       },
       dropdownTop: "0"
     }), u = B(), d = B(), n = () => {
-      H(() => {
+      D(() => {
         t.dropdownTop = s.value.clientHeight + 10 + "px";
       });
     };
@@ -364,6 +404,7 @@ const O = Symbol("select-v2"), F = function(e, l) {
       type: [Number, String],
       default: ""
     },
+    // 是否显示tooltip
     tooltip: {
       type: [Boolean, String],
       default: !1
@@ -383,7 +424,7 @@ const O = Symbol("select-v2"), F = function(e, l) {
   setup(e, l) {
     const {
       currentSelect: s
-    } = D(O), c = "M576 512l277.333333 277.333333-64 64-277.333333-277.333333L234.666667 853.333333 170.666667 789.333333l277.333333-277.333333L170.666667 234.666667 234.666667 170.666667l277.333333 277.333333L789.333333 170.666667 853.333333 234.666667 576 512z", r = function(t) {
+    } = H(O), c = "M576 512l277.333333 277.333333-64 64-277.333333-277.333333L234.666667 853.333333 170.666667 789.333333l277.333333-277.333333L170.666667 234.666667 234.666667 170.666667l277.333333 277.333333L789.333333 170.666667 853.333333 234.666667 576 512z", r = function(t) {
       const u = JSON.parse(JSON.stringify(s.value));
       try {
         u.forEach((d, n) => {
@@ -414,8 +455,8 @@ const O = Symbol("select-v2"), F = function(e, l) {
   }
 }), {
   n: R,
-  classes: He
-} = I("scroll-bar"), De = /* @__PURE__ */ M({
+  classes: De
+} = I("scroll-bar"), He = /* @__PURE__ */ M({
   name: "VIScrollBar",
   emits: ["focus", "blur", "click"],
   props: ["dynamicCss"],
@@ -425,7 +466,7 @@ const O = Symbol("select-v2"), F = function(e, l) {
   setup(e, l) {
     const {
       cacheOptionList: s
-    } = D(O), c = B(), r = B(), t = N({
+    } = H(O), c = B(), r = B(), t = N({
       realMargin: 0,
       realPadding: 0,
       viewHeight: 0,
@@ -442,7 +483,7 @@ const O = Symbol("select-v2"), F = function(e, l) {
       _move: 0,
       mouseMoving: !1
     }), u = function() {
-      H(() => {
+      D(() => {
         const i = window.getComputedStyle(c.value.children[0]);
         t.realPadding = e.dynamicCss["popper-padding"] * 2, t.realHeight = i.height.replace("px", "") * 1, t.viewHeight = e.dynamicCss["popper-height"] * 1 - t.realPadding, t.maxScrollBoxRange = t.realHeight - t.viewHeight, t.proportion = Number((t.viewHeight / t.realHeight).toFixed(1)), t.scrollBarHeight = t.viewHeight * t.proportion, t.maxScrollBarRange = t.viewHeight - t.scrollBarHeight, t.scrollBarMovePropor = t.maxScrollBarRange / t.maxScrollBoxRange, t.scrollBoxMovePropor = t.maxScrollBoxRange / t.maxScrollBarRange;
       });
@@ -477,7 +518,7 @@ const O = Symbol("select-v2"), F = function(e, l) {
     return () => {
       var i, L;
       return a("div", {
-        class: [He(R())]
+        class: [De(R())]
       }, [a("div", {
         class: R("left"),
         ref: c,
@@ -511,7 +552,7 @@ const O = Symbol("select-v2"), F = function(e, l) {
       cacheOptionList: u,
       selectedFn: d,
       deleteOptionItem: n
-    } = D(O), f = function() {
+    } = H(O), f = function() {
       if (r.value == "single")
         s.value = e.value, c.value = e.label, t.value = !1;
       else if (r.value == "multiple") {
@@ -582,14 +623,15 @@ const O = Symbol("select-v2"), F = function(e, l) {
   components: {
     "vi-select-v2-input": Be,
     "vi-select-v2-drop-down": Me,
-    "vi-scroll-bar": De,
+    "vi-scroll-bar": He,
     "vi-select-v2-tag": Oe,
     "vi-select-v2-svg-icon": k,
+    // 'vi-select-v2-unfold-dialog': VISelectV2UnfoldDialog,
     "vi-select-v2-option": X
   },
   setup(e, l) {
-    var J;
-    const c = "onUpdate:modelValue" in (((J = me()) == null ? void 0 : J.vnode.props) || {}), r = () => "xxxxxxxx".replace(/[xy]/g, function(o) {
+    var F;
+    const c = "onUpdate:modelValue" in (((F = me()) == null ? void 0 : F.vnode.props) || {}), r = () => "xxxxxxxx".replace(/[xy]/g, function(o) {
       var g = 0 | 16 * Math.random(), S = o == "x" ? g : 8 | 3 & g;
       return S.toString(16);
     }), t = B(), u = B(), d = B(), n = N({
@@ -623,10 +665,10 @@ const O = Symbol("select-v2"), F = function(e, l) {
       n.dropDownVisible = !1, l.emit && l.emit("blur");
     }, V = function(o) {
       return new Promise((g, S) => {
-        g(H(() => window.getComputedStyle(o.value)));
+        g(D(() => window.getComputedStyle(o.value)));
       });
     }, i = function(o) {
-      e.mode == "single" ? l.emit && l.emit("handleSelected", o) : H(() => {
+      e.mode == "single" ? l.emit && l.emit("handleSelected", o) : D(() => {
         l.emit && l.emit("handleSelected", {
           currentSelected: o,
           currentSelects: JSON.parse(JSON.stringify(e.modelValue))
@@ -653,7 +695,7 @@ const O = Symbol("select-v2"), F = function(e, l) {
       l.emit && l.emit("handleClear", o);
     }, ae = function(o) {
       let g = o.target.value, S = {};
-      n.list.forEach((y) => y.label.includes(g) ? S[y.value] = y.label : ""), n.searchValue = S, n.searchLabel = g, H(() => {
+      n.list.forEach((y) => y.label.includes(g) ? S[y.value] = y.label : ""), n.searchValue = S, n.searchLabel = g, D(() => {
         E.value;
       });
     };
