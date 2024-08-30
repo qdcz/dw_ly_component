@@ -19,7 +19,7 @@ export default series(
     // 全量打包
     buildFullBundle,
     // 按模块打包(单个组件使用)
-    buildModuleBundle,
+    // buildModuleBundle,
     // ts语法类型检查 并产生TS的类型声明文件(.d.ts)
   )
 );

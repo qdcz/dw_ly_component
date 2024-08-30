@@ -19,7 +19,7 @@ export default defineComponent({
     const data = reactive({
       dynamicCss: {
 
-      },
+      }
     });
 
     const sankeyDiagramRef = ref(null)
@@ -31,6 +31,7 @@ export default defineComponent({
     const getCurrentSelect = (data) => {
       console.log("event:getCurrentSelect", data);
     };
+
     return {
       data,
       sankeyDiagramRef,

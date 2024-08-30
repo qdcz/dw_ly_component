@@ -68,11 +68,6 @@ export default defineComponent({
         });
 
         /**
-         * watch
-         *
-         */
-
-        /**
          * computed
          */
         const dynamicCssBridge = computed(() => {
@@ -199,7 +194,10 @@ export default defineComponent({
         /**
          * 获取左右盒子元素及子元素的宽高
          */
-        const getDomHW = () => {
+        const render = () => {
+            data.linkData = [];
+            data.svg_path_d = [];
+            data.svg_path_ids = [];
             nextTick(() => {
                 // data.leftItemHeight = leftRef.value.children[0].clientHeight;
                 data.leftItemHeight =
@@ -229,6 +227,7 @@ export default defineComponent({
                 // 将左右两边取最高的高度赋予给中间svg元素，否则会出现只显示视口的高度
                 let llen = getLeftListDataBridge.value.length,
                     rlen = getRightListDataBridge.value.length;
+
                 centerRef.value.style.height =
                     Math.max(
                         data.rightItemHeight * rlen +
@@ -259,10 +258,25 @@ export default defineComponent({
         };
 
         /**
+         * watch
+         */
+        watch(
+            () => props.modelValue,
+            () => {
+                // 数据更新时候重新绘制中间连线
+                setTimeout(() => {
+                    render();
+                    // }, dynamicCssBridge.value["ani-time"] * 1000);
+                }, 0.3 * 1000);
+            },
+            { deep: true, immediate: true }
+        );
+
+        /**
          * life
          */
         onMounted(() => {
-            getDomHW();
+            // render();
         });
 
         /**
@@ -337,7 +351,19 @@ export default defineComponent({
                 }
             }
         };
-        ctx.expose({ clearAllActive });
+        const __getData = () => {
+            return data;
+        };
+        const __clearLinkLines = () => {
+            data.svg_path_d = [];
+            data.svg_path_ids = [];
+        };
+        ctx.expose({
+            clearAllActive,
+            render,
+            __getData,
+            __clearLinkLines,
+        });
 
         /**
          * doms
